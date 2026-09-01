@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Riftcount — Score Tracker &amp; Companion for Riftbound</title>
+<meta name="description" content="Riftcount is a free companion app for the Riftbound trading card game: score tracking, dice, card browsing, deck building, and live tournament pairings and standings.">
+<style>
+  :root {
+    --bg: #000;
+    --card: #161618;
+    --line: rgba(255,255,255,.09);
+    --text: #fff;
+    --dim: rgba(255,255,255,.62);
+    --faint: rgba(255,255,255,.40);
+    --green: #30d158;
+    --gold: #ffd60a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 56px 22px 72px; }
+  header { margin-bottom: 40px; }
+  h1 { font-size: 34px; line-height: 1.15; margin: 0 0 10px; letter-spacing: -0.02em; }
+  h1 span { color: var(--green); }
+  .tag { color: var(--dim); font-size: 17px; margin: 0 0 26px; }
+  h2 { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); margin: 40px 0 14px; }
+  .cta { display: inline-flex; align-items: center; gap: 8px; background: var(--green); color: #06210f;
+         font-weight: 700; text-decoration: none; padding: 13px 22px; border-radius: 999px; }
+  .cta:hover { filter: brightness(1.08); }
+  .soon { color: var(--faint); font-size: 14px; margin-top: 12px; }
+  .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; }
+  .card h3 { margin: 0 0 6px; font-size: 15px; }
+  .card p { margin: 0; color: var(--dim); font-size: 14px; }
+  a { color: var(--green); }
+  footer { margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--line);
+           color: var(--faint); font-size: 13px; }
+  footer p { margin: 0 0 10px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>Rift<span>count</span></h1>
+    <p class="tag">A free companion app for the Riftbound trading card game — on iOS and Android.</p>
+    <a class="cta" href="https://apps.apple.com/app/id6755601459">Download on the App&nbsp;Store</a>
+    <p class="soon">Android release in preparation for Google Play.</p>
+  </header>
+
+  <h2>What it does</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Score tracking</h3>
+      <p>Two- and four-player scoreboard with conquer and hold points, a game timer, undo history, and XP for legends that level up.</p>
+    </div>
+    <div class="card">
+      <h3>Tournaments</h3>
+      <p>Sign in to the Riftbound Locator to see your events, pairings, standings, and to report results from the table.</p>
+    </div>
+    <div class="card">
+      <h3>Cards &amp; decks</h3>
+      <p>Browse and filter the card pool, build decks step by step, import and export lists, and check draw odds.</p>
+    </div>
+    <div class="card">
+      <h3>Event metagame</h3>
+      <p>See what the field played, how each legend performed, and how matchups actually went.</p>
+    </div>
+    <div class="card">
+      <h3>Dice</h3>
+      <p>D6, D8, D12 and D20 for anything the table needs to roll.</p>
+    </div>
+    <div class="card">
+      <h3>Free, no ads</h3>
+      <p>No advertising and no in-app purchases. Your decks and game history stay on your device.</p>
+    </div>
+  </div>
+
+  <h2>Support</h2>
+  <p>
+    Questions, bugs or feature requests:
+    <a href="mailto:contact-okaydev@proton.me">contact-okaydev@proton.me</a><br>
+    <a href="https://lopsided-waxflower-e3a.notion.site/Riftscore-Support-and-Privacy-2b2d4130908a805f8211ce98d9d93a36">Support &amp; privacy policy</a>
+  </p>
+
+  <footer>
+    <p>
+      Riftcount isn't endorsed by Riot Games and doesn't reflect the views or opinions of
+      Riot Games or anyone officially involved in producing or managing Riot Games properties.
+      Riot Games and all associated properties are trademarks or registered trademarks of
+      Riot Games, Inc.
+    </p>
+    <p>© 2026 Riftcount</p>
+  </footer>
+
+</div>
+</body>
+</html>
