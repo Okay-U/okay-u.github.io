@@ -2,9 +2,10 @@
 """Regenerate playriftbound-ops.json from PlayRiftbound's public JavaScript.
 
 The events site resolves GraphQL persisted-query ids from an Apollo manifest that is
-bundled as a JSON string inside one of its Next.js chunks. This script downloads the
-chunks referenced by the events page, finds that manifest and writes the ids of the
-operations Riftcount uses. Run after Riot deploys a new build (ids change with it).
+bundled as a JSON string inside one of its Next.js chunks (lazily imported, on the
+events app's asset host). This script crawls the chunks from the events page, finds that
+manifest and writes the ids of the operations Riftcount uses. Ids change when Riot ships
+a new document for an operation; old ids keep working but return the old field set.
 
 Usage: python3 tools/extract-playriftbound-ops.py [--build TAG]
 """
@@ -22,24 +23,43 @@ def get(url):
     req = urllib.request.Request(url, headers={"User-Agent": UA})
     return urllib.request.urlopen(req, timeout=30).read().decode("utf-8", "ignore")
 
-html = get(PAGE)
-chunks = sorted(set(re.findall(r'https://[a-z.]*playriftbound\.com/_next/static/chunks/[^"\\ ]+\.js', html)))
-manifest = None
-for url in chunks:
-    js = get(url)
+def parse_manifest(js):
     i = js.find("apollo-persisted-query-manifest")
     if i < 0:
-        continue
-    start = js.rfind("JSON.parse('", 0, i) + len("JSON.parse('")
+        return None
+    start = js.rfind("'", 0, i) + 1
     end = js.find("')", start)
     raw = js[start:end]
+    for fix in (lambda r: r, lambda r: r.replace("\\'", "'")):
+        try:
+            return json.loads(fix(raw).encode().decode("unicode_escape"))
+        except Exception:
+            pass
+    return None
+
+# The manifest module is loaded lazily (`loadManifest: () => import(...)`), so it sits in a
+# chunk that only other chunks reference. Crawl from the page's chunks, following the
+# `static/chunks/*.js` paths inside them, on the events app's own asset host.
+html = get(PAGE)
+page_chunks = set(re.findall(r'https://[a-z.]*playriftbound\.com/_next/static/chunks/[^"\\ ]+\.js', html))
+if not page_chunks:
+    sys.exit("no chunks referenced by the events page")
+base = next(iter(sorted(page_chunks))).split("/_next/")[0] + "/_next/"
+queue, seen, manifest = sorted(page_chunks), set(), None
+while queue and manifest is None and len(seen) < 200:
+    url = queue.pop(0)
+    if url in seen:
+        continue
+    seen.add(url)
     try:
-        manifest = json.loads(raw.encode().decode("unicode_escape"))
+        js = get(url)
     except Exception:
-        manifest = json.loads(raw.replace("\\'", "'").encode().decode("unicode_escape"))
-    break
+        continue
+    manifest = parse_manifest(js)
+    if manifest is None:
+        queue.extend(base + p for p in re.findall(r'static/chunks/[A-Za-z0-9_.\-]+\.js', js))
 if not manifest:
-    sys.exit("manifest not found in chunks referenced by the events page; it may be lazy-loaded now")
+    sys.exit("manifest not found after crawling %d chunks" % len(seen))
 ops = {o["name"]: o for o in manifest["operations"]}
 build = next((a.split("=", 1)[1] for a in sys.argv[1:] if a.startswith("--build=")), "unknown")
 out = {"version": 1, "updated": datetime.date.today().isoformat(), "build": build,

@@ -1,4 +1,4 @@
-name: Card feed
+name: Data feeds
 
 on:
   schedule:
@@ -17,9 +17,12 @@ jobs:
         with:
           python-version: "3.12"
       - run: python3 tools/build-cards.py --out cards.json
+      - name: PlayRiftbound operation ids
+        continue-on-error: true
+        run: python3 tools/extract-playriftbound-ops.py --build=$(date -u +%Y-%m-%d)
       - name: Commit if changed
         run: |
-          git add cards.json
+          git add cards.json playriftbound-ops.json
           if git diff --cached --quiet; then echo "no change"; exit 0; fi
           git -c user.name=card-feed -c user.email=actions@users.noreply.github.com \
             commit -m "data: card feed $(date -u +%Y-%m-%d)"
