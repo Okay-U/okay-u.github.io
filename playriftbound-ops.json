@@ -1,0 +1,60 @@
+{
+ "version": 1,
+ "updated": "2026-09-15",
+ "build": "230eb7a",
+ "endpoint": "https://playriftbound.com/api/gql",
+ "operations": {
+  "GetCompeteTournamentForRiftboundPlayer": {
+   "id": "e384f3569a74c3090177e04205d38c126f4c61a72853ed7fa04cbe9eba8f19ec",
+   "kind": "query"
+  },
+  "SubmitGameResults": {
+   "id": "4f304b3a523f27d1abde2291d1b9e836e7b524f9e455d70b548680170e91c430",
+   "kind": "mutation"
+  },
+  "PlayerTournaments": {
+   "id": "b210fdb2100186e794cb96a3cd72b294dcc7ca9ae5733ad540141ac6a390be4d",
+   "kind": "query"
+  },
+  "PlayerRegisteredTournamentIds": {
+   "id": "b224261bf00cb424c12a30d914d6216f898e665fefc4550d89cf02679b629b29",
+   "kind": "query"
+  },
+  "GetCompeteRbRefreshPoller": {
+   "id": "459dbd58b231ad1767b999a1bf987836123ac86a0b5110e166de15b69723ba0d",
+   "kind": "query"
+  },
+  "CompeteTournamentSearch": {
+   "id": "acbcbba681a9c9a8063f792f7d665ba1eda81b19528b6af19e523f0c2061bec2",
+   "kind": "query"
+  },
+  "RegisterCompetePlayer": {
+   "id": "7372d50ddebea493bd6aefdfce20666c7030d272252c0714fdcb2f63a92f9089",
+   "kind": "mutation"
+  },
+  "DeregisterCompetePlayer": {
+   "id": "c2c3984c2c050f1f9ab54e5fb373e99e645e91cf010ee4a681b80089826b63d2",
+   "kind": "mutation"
+  },
+  "DropCompetePlayerFromTournament": {
+   "id": "de49d7c455017093075e79b537558ee398b84aceab36bb0e1e648a665967d95d",
+   "kind": "mutation"
+  },
+  "GetCompetePlayer": {
+   "id": "f4c63fee8a5d82b71bab638d61779f8b3567ebf8499e1e6105b0d9556915d6f9",
+   "kind": "query"
+  },
+  "FavoritedOrganizers": {
+   "id": "8186f58c21e12fb11f76e413ba2795d62baf8d21bc422575f3ea34d894edda2f",
+   "kind": "query"
+  },
+  "GetCompeteRbRegistrant": {
+   "id": "fd0a61aea2032ccd38e38b78500edcdc2a7b2cb44cb68606db40244e00c7e61d",
+   "kind": "query"
+  },
+  "UpdateTournamentRegistrantCheckIn": {
+   "id": "6ed6aaed15d52b2752e011274de0a6a9b32c70de812a794254f830fb7524a8c2",
+   "kind": "mutation"
+  }
+ }
+}
