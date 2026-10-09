@@ -2,9 +2,9 @@
 "version":1,
 "source":"https://playriftbound.com/en-us/card-gallery/",
 "disclaimer":"Card data and images (c) Riot Games, used under the Riftbound Digital Tools Policy. Not affiliated with Riot Games.",
-"total":1380,
+"total":1381,
 "page":1,
-"size":1380,
+"size":1381,
 "sets":[
 {
 "set_id":"OGN",
@@ -32520,6 +32520,54 @@
 "metadata":{
 "clean_name":"Grim Apothecary",
 "updated_on":"2026-10-09T09:50:59Z",
+"alternate_art":false,
+"overnumbered":false,
+"signature":false
+},
+"new":false
+},
+{
+"id":"unl-022-219",
+"name":"Jhin - Murderous Artist",
+"riftbound_id":"unl-022-219",
+"public_code":"UNL-022/219",
+"collector_number":22,
+"attributes":{
+"energy":4,
+"might":4,
+"power":1,
+"might_bonus":null
+},
+"classification":{
+"type":"Unit",
+"supertype":"Champion",
+"rarity":"Rare",
+"domain":[
+"Fury"
+]
+},
+"text":{
+"rich":"<p>[Deflect] (Opponents must pay :rb_rune_rainbow: to choose me with a spell or ability.)<br />[Ganking] (I can move from battlefield to battlefield.)<br />When I move, [Add] :rb_energy_1::rb_rune_rainbow:. (Abilities that add resources can't be reacted to.)</p>",
+"plain":"[Deflect] (Opponents must pay Any Rune to choose me with a spell or ability.)\n[Ganking] (I can move from battlefield to battlefield.)\nWhen I move, [Add] 1 Energy + Any Rune. (Abilities that add resources can't be reacted to.)",
+"flavour":null
+},
+"set":{
+"set_id":"UNL",
+"label":"Unleashed"
+},
+"media":{
+"image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/8da724a842cf61cb24c3c02dd99adc93a9222e06-744x1039.png?accountingTag=RB",
+"artist":"Alessandro Poli",
+"accessibility_text":"Riftbound Unit: Jhin, Murderous Artist. [Deflect] (Opponents must pay [A] to choose me with a spell or ability.)\n[Ganking] (I can move from battlefield to battlefield.)\nWhen I move, [Add] [1][A]. (Abilities that add resources can't be reacted to.)"
+},
+"tags":[
+"Jhin",
+"Ionia"
+],
+"orientation":"portrait",
+"metadata":{
+"clean_name":"Jhin Murderous Artist",
+"updated_on":"2026-10-09T09:59:16Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
