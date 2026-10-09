@@ -48,6 +48,18 @@
    "id": "8186f58c21e12fb11f76e413ba2795d62baf8d21bc422575f3ea34d894edda2f",
    "kind": "query"
   },
+  "FavoriteOrganizer": {
+   "id": "80740df75cd7148fae22aa75c6070f37a8f16467c992c1eb8fc4711926d0816d",
+   "kind": "mutation"
+  },
+  "UnfavoriteOrganizer": {
+   "id": "8e20642289398a5a26a552089dd25ea5c8d81f3e197d4f0f3bd9d33f845b7fdf",
+   "kind": "mutation"
+  },
+  "OrganizerSummary": {
+   "id": "9142e18241bb86a3b4c2692d899b31aaf61d11065ca8a259191aa9cc0a06ed57",
+   "kind": "query"
+  },
   "GetCompeteRbRegistrant": {
    "id": "fd0a61aea2032ccd38e38b78500edcdc2a7b2cb44cb68606db40244e00c7e61d",
    "kind": "query"

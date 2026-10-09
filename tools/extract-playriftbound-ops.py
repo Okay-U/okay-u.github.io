@@ -15,8 +15,8 @@ PAGE = "https://playriftbound.com/en-US/events/"
 WANT = ["GetCompeteTournamentForRiftboundPlayer", "SubmitGameResults", "PlayerTournaments",
         "PlayerRegisteredTournamentIds", "GetCompeteRbRefreshPoller", "CompeteTournamentSearch",
         "RegisterCompetePlayer", "DeregisterCompetePlayer", "DropCompetePlayerFromTournament",
-        "GetCompetePlayer", "FavoritedOrganizers", "GetCompeteRbRegistrant",
-        "UpdateTournamentRegistrantCheckIn"]
+        "GetCompetePlayer", "FavoritedOrganizers", "FavoriteOrganizer", "UnfavoriteOrganizer",
+        "OrganizerSummary", "GetCompeteRbRegistrant", "UpdateTournamentRegistrantCheckIn"]
 UA = "Mozilla/5.0"
 
 def get(url):
