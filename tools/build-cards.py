@@ -25,6 +25,10 @@ USER_AGENT = "Riftcount card feed (https://okay-u.github.io)"
 MIN_CARDS = 1000  # fewer than this means the page changed; keep the old file
 
 SET_ORDER = ["OGN", "OGS", "SFD", "UNL", "VEN", "RAD"]
+# Riot previews a set's cards weeks before release; the policy wants them
+# labelled until then. A set missing here counts as unreleased.
+RELEASE_DATES = {"OGN": "2025-10-31", "OGS": "2025-10-31", "SFD": "2026-02-13",
+                 "UNL": "2026-05-08", "VEN": "2026-07-31", "RAD": "2026-10-23"}
 
 TOKENS = {
     "might": "Might", "exhaust": "Exhaust", "rune_rainbow": "Any Rune",
@@ -159,6 +163,7 @@ def convert(card, now):
             "signature": signature,
         },
         "new": any(f.get("id") == "new" for f in card.get("flags", [])),
+        "unreleased": RELEASE_DATES.get(card["set"]["value"]["id"], "9999") > now[:10],
     }
 
 
