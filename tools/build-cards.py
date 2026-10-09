@@ -21,6 +21,9 @@ import urllib.request
 from datetime import datetime, timezone
 
 GALLERY = "https://playriftbound.com/{locale}/card-gallery/"
+# Riot's gallery has no flavour text; DotGG transcribes it. Best effort: a
+# failed fetch keeps whatever flavour the previous cards.json carried.
+FLAVOUR = "https://api.dotgg.gg/cgfw/getcards?game=riftbound&mode=indexed"
 USER_AGENT = "Riftcount card feed (https://okay-u.github.io)"
 MIN_CARDS = 1000  # fewer than this means the page changed; keep the old file
 
@@ -167,6 +170,29 @@ def convert(card, now):
     }
 
 
+def base_code(code):
+    """'OGN-205a/298', 'SFD-235*/221', 'RAD-038-P2' -> 'OGN-205', 'SFD-235', 'RAD-038'."""
+    m = re.match(r"([A-Z]+)-(\d+)", code)
+    return m.group(1) + "-" + m.group(2) if m else None
+
+
+def fetch_flavour():
+    try:
+        doc = json.loads(fetch(FLAVOUR))
+        names = doc["names"]
+        rows = (dict(zip(names, r)) for r in doc["data"])
+    except Exception as e:  # noqa: BLE001 - any failure just keeps the old text
+        print("flavour source unavailable: %s" % e, file=sys.stderr)
+        return None
+    out = {}
+    for r in rows:
+        key = base_code(r.get("id") or "")
+        text = html.unescape(re.sub(r"<[^>]+>", "", r.get("flavor") or "")).strip()
+        if key and text and key not in out:   # first row = base printing, promos follow
+            out[key] = text
+    return out
+
+
 def sort_key(c):
     set_id = c["set"]["set_id"]
     rank = SET_ORDER.index(set_id) if set_id in SET_ORDER else len(SET_ORDER)
@@ -200,8 +226,13 @@ def main():
             previous = {c["id"]: c for c in json.load(f)["items"]}
     except (OSError, ValueError, KeyError):
         previous = {}
+    flavour = fetch_flavour()
     for c in cards:
         old = previous.get(c["id"])
+        if flavour is not None:
+            c["text"]["flavour"] = flavour.get(base_code(c["public_code"]))
+        elif old:
+            c["text"]["flavour"] = old["text"].get("flavour")
         if old:
             probe = dict(c, metadata=dict(c["metadata"], updated_on=old["metadata"]["updated_on"]))
             if probe == old:
