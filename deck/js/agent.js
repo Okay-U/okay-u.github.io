@@ -2,7 +2,7 @@
 import { analyze, marginal, candidatePool, NEED } from './agent/engine.js';
 import { STYLES, styleById } from './agent/styles.js';
 import { makeFlap, fmtRatio } from './flap.js';
-import { counts } from './rules.js';
+import { counts, blockReason, LIMITS } from './rules.js';
 
 const KEY = 'riftcount.deckboard.style';
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -19,7 +19,9 @@ export function createAgent({ root, idx, store, ui }) {
     <h2>Deck agent</h2>
     <p class="lede">Reads your list, prices every card against Riot's ledger and against the partners in this deck, then proposes what to add and what to cut. Pick how it should think.</p>
     <div class="styles" role="group" aria-label="Work style">${STYLES.map((s) => `<button type="button" class="style-key" data-style="${s.id}" aria-pressed="false"><b>${s.name}</b><span>${s.blurb}</span></button>`).join('')}</div>
-    <div class="agent-actions"><button class="key amber" type="button" data-go>Run agent</button><span class="meta-line" data-status></span></div>
+    <div class="agent-actions"><button class="key amber" type="button" data-go>Run agent</button>
+      <button class="key" type="button" data-fill>Fill to 40</button><button class="key" type="button" data-trim>Trim to 40</button>
+      <span class="meta-line" data-status></span></div>
     <ol class="log" data-log></ol>
     <div class="report" data-report></div>`;
   const log = root.querySelector('[data-log]');
@@ -32,6 +34,8 @@ export function createAgent({ root, idx, store, ui }) {
     const s = e.target.closest('[data-style]');
     if (s) { styleId = s.dataset.style; try { localStorage.setItem(KEY, styleId); } catch { /* fine */ } paintStyles(); if (report.childElementCount) run(); return; }
     if (e.target.closest('[data-go]')) { run(); return; }
+    if (e.target.closest('[data-fill]')) { fill(); return; }
+    if (e.target.closest('[data-trim]')) { trim(); return; }
     const add = e.target.closest('[data-add]');
     if (add) { ui.addCard(add.dataset.add, 'main'); add.disabled = true; add.textContent = 'Added'; return; }
     const cut = e.target.closest('[data-cut]');
@@ -142,7 +146,60 @@ export function createAgent({ root, idx, store, ui }) {
     }
   }
 
-  return { run, clear() { log.replaceChildren(); report.replaceChildren(); status.textContent = ''; } };
+  // Let the chosen style finish the list: add its best legal pick one copy at a time, re-pricing after each.
+  async function fill() {
+    const deck = structuredClone(store.getDeck());
+    if (!deck.legend) { status.textContent = 'Pick a legend first.'; return; }
+    const style = styleById(styleId);
+    const added = [];
+    let guard = 60;
+    const need = LIMITS.main - counts(deck).main;
+    while (counts(deck).main < LIMITS.main && guard-- > 0) {
+      if (added.length % 3 === 0) { status.textContent = `${style.name} is filling: ${added.length}/${need}`; await new Promise(requestAnimationFrame); }
+      const a = analyze(deck, idx);
+      const ctx = { metrics: a.metrics };
+      const best = candidatePool(deck, idx)
+        .filter((c) => !blockReason(deck, c, idx))
+        .map((c) => marginal(c, a, deck)).filter(Boolean)
+        .map((m) => ({ m: { ...m, metrics: a.metrics, helps: m.helps.map((h) => ({ ...h, name: idx.byId.get(h.id)?.name || h.id })) } }))
+        .map((x) => ({ ...x, s: style.score(x.m, ctx) }))
+        .sort((x, y) => y.s - x.s)[0];
+      if (!best) break;
+      deck.main[best.m.card.id] = (deck.main[best.m.card.id] || 0) + 1;
+      added.push(best.m.card.name);
+    }
+    if (!added.length) { status.textContent = 'Nothing to add: the main deck is full.'; return; }
+    store.update((d) => { d.main = deck.main; }, 'fill');
+    ui.toast(`${style.name} added ${added.length} card${added.length > 1 ? 's' : ''}.`);
+    await run();
+  }
+
+  async function trim() {
+    const deck = structuredClone(store.getDeck());
+    const style = styleById(styleId);
+    const cut = [];
+    let guard = 60;
+    while (counts(deck).main > LIMITS.main && guard-- > 0) {
+      const a = analyze(deck, idx);
+      const ctx = { metrics: a.metrics };
+      const givenOut = new Map();
+      for (const p of a.pairs) givenOut.set(p.from, (givenOut.get(p.from) || 0) + p.value);
+      const worst = a.rows.filter((r) => !r.champion || (deck.main[r.card.id] || 0) > 0)
+        .filter((r) => deck.main[r.card.id])
+        .map((r) => ({ r, s: style.keep({ ...r, givenOut: givenOut.get(r.card.id) || 0, roleCount: (r.card.model?.r || []).length }, ctx) }))
+        .sort((x, y) => x.s - y.s)[0];
+      if (!worst) break;
+      deck.main[worst.r.card.id] -= 1;
+      if (!deck.main[worst.r.card.id]) delete deck.main[worst.r.card.id];
+      cut.push(worst.r.card.name);
+    }
+    if (!cut.length) { status.textContent = 'Nothing to trim: 40 cards or fewer.'; return; }
+    store.update((d) => { d.main = deck.main; }, 'trim');
+    ui.toast(`${style.name} cut ${cut.length} card${cut.length > 1 ? 's' : ''}.`);
+    await run();
+  }
+
+  return { run, fill, trim, clear() { log.replaceChildren(); report.replaceChildren(); status.textContent = ''; } };
 }
 
 const TAG_LABELS = { spell: 'spells', unit: 'units', gear: 'gear', legion: 'cheap plays (Legion)', show_off: 'big cards to show off',
@@ -150,8 +207,14 @@ const TAG_LABELS = { spell: 'spells', unit: 'units', gear: 'gear', legion: 'chea
   discard: 'discards', recycle: 'recycling', buff: 'buffs', might_up: 'might boosts', move_friendly: 'moving your units',
   conquer: 'conquering', hold: 'holding', exhausted_units: 'exhausted units', exhaust_friendly: 'exhausting units',
   channel_rune: 'rune ramp', rune_count: 'many runes', equipment: 'equipment', hidden: 'Hidden cards', deathknell: 'Deathknell units',
-  gold: 'Gold tokens', mighty: 'Mighty units', big_spell: 'big spells', stun: 'stuns', vision: 'card selection' };
-export const tagLabel = (t) => TAG_LABELS[t] || t.replace(/^tribe:/, '').replace(/^region:/, '').replace(/_/g, ' ');
+  gold: 'Gold tokens', mighty: 'Mighty units', big_spell: 'big spells', stun: 'stuns', vision: 'card selection',
+  onplay: 'on-play units', units_here: 'units at a battlefield', temporary: 'Temporary units', info: 'hand information',
+  wide: 'going wide', protection: 'protection', removal: 'removal', enemy_death: 'enemy units dying', token_gear: 'gear tokens',
+  sacrifice_outlet: 'sacrifice outlets', trash_fill: 'filling the trash', play_from_trash: 'playing from the trash',
+  ready_unit: 'readying units', energy_gain: 'extra energy', cost_reduction: 'cost reductions', spell_extra: 'extra spell casts',
+  score: 'scoring points', counter: 'counters', power2: 'cards with 2+ power cost', move_enemy: 'moving enemy units',
+  gear_removal: 'gear removal', level: 'Level jumps', empower: 'Empower', lone_unit: 'a lone unit', deploy_gear: 'Deploy gear' };
+export const tagLabel = (t) => TAG_LABELS[t] || (t.startsWith('region:') ? `${t.slice(7)} cards` : t.startsWith('tribe:') ? `${t.slice(6)}s` : t.replace(/_/g, ' '));
 
 function explainMove(r, idx) {
   if (r.bonus > 0.05) {

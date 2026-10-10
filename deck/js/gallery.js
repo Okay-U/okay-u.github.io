@@ -1,5 +1,5 @@
 // Build room: filters and the card gallery. Clicking a tile adds it to the zone being built.
-import { DOMAINS, DOMAIN_CLASS, img, isChampionFor, isSignatureFor, norm } from './data.js';
+import { DOMAINS, DOMAIN_CLASS, SETS, img, isChampionFor, isSignatureFor, norm } from './data.js';
 import { blockReason, copiesOf, inDomains, LIMITS, counts } from './rules.js';
 import { makeFlap, flap, fmtRatio } from './flap.js';
 import { baseValue, marginal, wantsOf, providesOf } from './agent/engine.js';
@@ -11,7 +11,7 @@ const SORTS = [['num', 'Set order'], ['cost', 'Energy cost'], ['name', 'Name'], 
 const LENS = [['ledger', 'Ledger'], ['practical', 'Practical'], ['deck', 'In deck']];
 
 export function createGallery({ root, filtersEl, idx, store, ui }) {
-  const st = { zone: 'legend', q: '', doms: new Set(), cost: null, type: '', sort: 'num', lens: 'deck', target: 'main', partner: null, legalOnly: true };
+  const st = { zone: 'legend', q: '', doms: new Set(), cost: null, type: '', set: '', rarity: '', mine: false, sort: 'num', lens: 'deck', target: 'main', partner: null, legalOnly: true };
   const tileEls = new Map();
   let analysis = null;
   let marginals = new Map();
@@ -28,6 +28,9 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
       <div class="domains" role="group" aria-label="Domains">${DOMAINS.map((d) => `<button type="button" class="dom ${DOMAIN_CLASS[d]}" data-dom="${d}" aria-pressed="false"><i></i>${d}</button>`).join('')}</div>
       <div class="costs" role="group" aria-label="Energy cost">${[0, 1, 2, 3, 4, 5, 6, 7].map((n) => `<button type="button" data-cost="${n}" aria-pressed="false">${n === 7 ? '7+' : n}</button>`).join('')}</div>
       <select class="sel" data-f="type" aria-label="Type"><option value="">All types</option><option>Unit</option><option>Spell</option><option>Gear</option></select>
+      <select class="sel" data-f="set" aria-label="Set"><option value="">All sets</option>${Object.entries(SETS).map(([k, l]) => `<option value="${k}">${l}</option>`).join('')}</select>
+      <select class="sel" data-f="rarity" aria-label="Rarity"><option value="">Any rarity</option><option>Common</option><option>Uncommon</option><option>Rare</option><option>Epic</option><option>Showcase</option></select>
+      <button class="key" type="button" data-mine aria-pressed="false">In deck</button>
       <select class="sel" data-f="sort" aria-label="Sort">${SORTS.map(([k, l]) => `<option value="${k}">${l}</option>`).join('')}</select>
       <select class="sel" data-f="lens" aria-label="Value shown">${LENS.map(([k, l]) => `<option value="${k}" ${k === 'deck' ? 'selected' : ''}>Show: ${l}</option>`).join('')}</select>
       <select class="sel" data-f="target" aria-label="Add to"><option value="main">Add to main</option><option value="side">Add to sideboard</option></select>
@@ -45,6 +48,8 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     const c = e.target.closest('[data-cost]');
     if (c) { const v = +c.dataset.cost; st.cost = st.cost === v ? null : v; render(); return; }
     if (e.target.closest('[data-clear-partner]')) { st.partner = null; render(); return; }
+    const mine = e.target.closest('[data-mine]');
+    if (mine) { st.mine = !st.mine; mine.setAttribute('aria-pressed', String(st.mine)); render(); return; }
     const tray = e.target.closest('[data-tray]');
     if (tray) { const open = filtersEl.classList.toggle('open'); tray.setAttribute('aria-expanded', String(open)); }
   });
@@ -74,6 +79,9 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     if (st.doms.size && !c.domains.some((d) => st.doms.has(d))) return false;
     if (st.cost !== null && (st.cost === 7 ? c.E < 7 : c.E !== st.cost)) return false;
     if (st.type && c.type !== st.type) return false;
+    if (st.set && c.set !== st.set) return false;
+    if (st.rarity && c.rarity !== st.rarity) return false;
+    if (st.mine && !countIn(store.getDeck(), c)) return false;
     if (st.partner) {
       const p = idx.byId.get(st.partner);
       const want = new Set(wantsOf(p).map((w) => w.tag));
@@ -157,6 +165,7 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     for (const c of list) { const t = tileFor(c); paintTile(t, c, deck, animate); frag.appendChild(t); }
     root.replaceChildren(frag);
     if (!list.length) root.innerHTML = `<p class="empty-note">No cards match. Clear a filter or search for something else.</p>`;
+    if (st.zone === 'legend' && !deck.legend && !st.q) root.prepend(intro());
     paintChrome(deck, list.length);
   }
 
@@ -174,6 +183,22 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     const zoneHelp = { legend: 'Pick the legend that leads the deck.', champion: 'Pick the chosen champion.', main: st.target === 'side' ? 'Click adds to the sideboard.' : 'Click adds a copy, right click or long press removes one.',
       bf: 'Pick three different battlefields.', runes: 'Click adds a rune, right click removes one.' }[st.zone];
     meta.innerHTML = `<span><b>${shown}</b> cards · ${zoneHelp}</span>${partner ? ` <button class="key small quiet" data-clear-partner type="button">Partners of ${partner.name} ✕</button>` : ''}`;
+  }
+
+  function intro() {
+    const el = document.createElement('section');
+    el.className = 'intro';
+    el.innerHTML = `<div class="intro-head"><h2>Build a deck. Watch it re-price.</h2>
+        <p>Every card carries Riot's own price for what it does. Put cards together and the board shows what they are worth in this deck.</p></div>
+      <ol class="intro-steps"><li><b>Pick a legend</b><span>It sets your two domains.</span></li>
+        <li><b>Choose the champion, add cards</b><span>Click adds a copy. Right click or long press removes one.</span></li>
+        <li><b>Run the agent</b><span>Five work styles read the list and propose buys, cuts and combos.</span></li></ol>
+      <dl class="intro-values"><div><dt>Ledger</dt><dd>Riot's price per cost, 1.00 is par.</dd></div>
+        <div><dt>Practical</dt><dd>Adds what the ledger books at a discount or ignores.</dd></div>
+        <div><dt>In deck</dt><dd>After the combos in your list.</dd></div></dl>
+      <p class="intro-cta"><button class="key" type="button" data-intro-import>Import a list</button> <a href="/amber/">How the ledger prices cards</a></p>`;
+    el.querySelector('[data-intro-import]').addEventListener('click', () => ui.importList());
+    return el;
   }
 
   function setZone(z) { st.zone = z; st.partner = null; render(); root.scrollTo?.({ top: 0 }); root.parentElement?.scrollTo({ top: 0 }); }

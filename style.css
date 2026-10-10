@@ -47,3 +47,8 @@ footer p { margin: 0 0 10px; }
 .legal .meta { color: var(--faint); font-size: 14px; }
 .legal .summary { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; }
 .legal ul { padding-left: 20px; }
+
+/* tool links */
+.card.tool { display: block; text-decoration: none; color: inherit; }
+.card.tool:hover { border-color: rgba(255,255,255,.22); }
+.card.tool h3 { color: var(--green); }

@@ -10,6 +10,7 @@ import { createAgent } from './agent.js';
 import { createTest } from './test.js';
 import { createSheet } from './sheet.js';
 import { exportText } from './text.js';
+import { createLoupe } from './loupe.js';
 
 const $ = (s) => document.querySelector(s);
 const mobile = matchMedia('(max-width: 900px)');
@@ -58,7 +59,7 @@ function setMobileView(v) {
   const boardEl = $('#board');
   if (v === 'board') {
     boardEl.classList.remove('away');
-    if (!reduced()) boardEl.animate([{ transform: 'translateY(18px)', opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: 300, easing: 'cubic-bezier(.16,1,.3,1)' });
+    if (!reduced()) boardEl.animate([{ transform: 'translateY(22px)' }, { transform: 'none' }], { duration: 300, easing: 'cubic-bezier(.16,1,.3,1)' });
   } else {
     boardEl.classList.add('away');
     setRoom(v);
@@ -115,6 +116,7 @@ const ui = {
   newDeck(seed) { store.newDeck(seed); gallery.autoZone(store.getDeck()); agent.clear(); },
   copyList() { copy(exportText(store.getDeck(), idx), 'Decklist copied.'); },
   showPartners(id) { gallery.showPartners(id); if (mobile.matches) setMobileView('build'); else setRoom('build'); toast(`Showing cards that feed or are fed by ${idx.byId.get(id)?.name}.`); },
+  importList() { sheet.importSheet(); },
   goBuild(zone) { gallery.setZone(zone); if (mobile.matches) setMobileView('build'); else setRoom('build'); },
 };
 
@@ -134,6 +136,9 @@ async function boot() {
   agent = createAgent({ root: $('#agent'), idx, store, ui });
   test = createTest({ root: $('#test'), idx, store, ui });
   sheet = createSheet({ el: $('#sheet'), idx, store, ui });
+  const loupe = createLoupe(idx);
+  loupe.bind($('#gallery'), '.tile', (t) => t.dataset.id);
+  loupe.bind($('#board'), '.row', (r) => r.dataset.id);
 
   store.subscribe((d, reason) => {
     refresh(true);

@@ -81,21 +81,14 @@ export function createTest({ root, idx, store, ui }) {
   });
 
   function bars(title, groups, keys, colorOf, labelOf) {
-    const max = Math.max(1, ...keys.map((k) => Object.values(groups[k] || {}).reduce((a, b) => a + b, 0)));
-    const w = 100 / keys.length;
-    let svg = '';
-    keys.forEach((k, i) => {
-      let y = 130;
-      const total = Object.values(groups[k] || {}).reduce((a, b) => a + b, 0);
-      for (const [part, n] of Object.entries(groups[k] || {})) {
-        const h = (n / max) * 112;
-        y -= h;
-        svg += `<rect x="${i * w + w * 0.18}%" y="${y}" width="${w * 0.64}%" height="${Math.max(h - 1, 0)}" fill="${colorOf(part)}"><title>${esc(labelOf(k))}: ${n} ${esc(part)}</title></rect>`;
-      }
-      svg += `<text x="${i * w + w / 2}%" y="147" text-anchor="middle" font-size="11" fill="var(--paint-mute)">${esc(labelOf(k))}</text>`;
-      if (total) svg += `<text x="${i * w + w / 2}%" y="${y - 5}" text-anchor="middle" font-size="11" fill="var(--paint)" font-weight="650">${total}</text>`;
-    });
-    return `<div class="chart"><h3><span>${title}</span></h3><svg viewBox="0 0 100 150" preserveAspectRatio="none" role="img" aria-label="${esc(title)}">${svg}</svg></div>`;
+    const total = (k) => Object.values(groups[k] || {}).reduce((a, b) => a + b, 0);
+    const max = Math.max(1, ...keys.map(total));
+    const cols = keys.map((k) => {
+      const parts = Object.entries(groups[k] || {}).map(([part, n]) =>
+        `<i style="height:${(n / max) * 100}%;background:${colorOf(part)}" title="${esc(labelOf(k))}: ${n} ${esc(part)}"></i>`).join('');
+      return `<div class="col"><b>${total(k) || ''}</b><div class="stack">${parts}</div><span>${esc(labelOf(k))}</span></div>`;
+    }).join('');
+    return `<div class="chart"><h3><span>${title}</span></h3><div class="bars" role="img" aria-label="${esc(title)}">${cols}</div></div>`;
   }
 
   function render(analysis) {

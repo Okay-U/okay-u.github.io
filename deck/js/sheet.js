@@ -109,7 +109,8 @@ export function createSheet({ el, idx, store, ui }) {
     const list = store.savedDecks();
     const cur = store.getDeck().id;
     open(`<h2>Your decks</h2><p class="meta-line">Saved in this browser. Use Share to move a deck to another device.</p>
-      <div class="agent-actions"><button class="key amber" type="button" data-new>New deck</button><button class="key" type="button" data-import>Import</button></div>
+      <div class="agent-actions"><button class="key amber" type="button" data-new>New deck</button><button class="key" type="button" data-import>Import</button>
+        <button class="key" type="button" data-export>Export current</button><button class="key" type="button" data-share>Share current</button></div>
       <div class="deck-list">${list.map((d) => {
         const legend = d.legend ? idx.byId.get(d.legend) : null;
         const n = Object.values(d.main).reduce((a, b) => a + b, 0) + (d.champion ? 1 : 0);
@@ -118,6 +119,8 @@ export function createSheet({ el, idx, store, ui }) {
       }).join('') || '<div class="dl"><span class="meta-line">No saved decks yet.</span></div>'}</div>`);
     el.querySelector('[data-new]').addEventListener('click', () => { ui.newDeck(); el.close(); });
     el.querySelector('[data-import]').addEventListener('click', importSheet);
+    el.querySelector('[data-export]').addEventListener('click', exportSheet);
+    el.querySelector('[data-share]').addEventListener('click', () => shareSheet(store.shareURL()));
     el.querySelectorAll('[data-open]').forEach((b) => b.addEventListener('click', () => { store.switchTo(b.dataset.open); el.close(); }));
     el.querySelectorAll('[data-dup]').forEach((b) => b.addEventListener('click', () => { store.duplicateDeck(b.dataset.dup); decksSheet(); }));
     el.querySelectorAll('[data-del]').forEach((b) => b.addEventListener('click', () => {

@@ -165,6 +165,8 @@ function deckEntries(deck, idx) {
 }
 
 const ROLE_TARGETS = { removal: 6, interaction: 3, draw: 4, early_body: 8, finisher: 2, engine: 3 };
+const SATURATE = { ramp: 4, removal: 12, draw: 9, protection: 6, combat_trick: 8 };  // past this, more of the same helps little
+const UNIT_TARGET = 20;   // units (with the champion) a deck needs to conquer and hold battlefields
 const CURVE_TARGET = { 0: 0, 1: 4, 2: 8, 3: 8, 4: 7, 5: 5, 6: 4, 7: 4 };
 const bucket = (c) => Math.min(7, c.E);
 const roleSet = (c) => new Set([...(c.model?.r || []), ...(c.model?.r?.includes('cantrip') ? ['draw'] : [])]);
@@ -216,6 +218,8 @@ export function analyze(deck, idx) {
     count: rows.reduce((a, r) => a + r.n, 0),
     avgEnergy: rows.length ? rows.reduce((a, r) => a + r.card.E * r.n, 0) / Math.max(1, rows.reduce((a, r) => a + r.n, 0)) : 0,
     curve, power, roles,
+    units: rows.filter((r) => r.card.type === 'Unit').reduce((a, r) => a + r.n, 0),
+    roleAll: rows.reduce((acc, r) => { for (const k of roleSet(r.card)) acc[k] = (acc[k] || 0) + r.n; return acc; }, {}),
   };
   return { legend, rows, table, pairs: [...pairs.values()].sort((a, b) => b.value - a.value), misfits, metrics, legendFit };
 }
@@ -243,7 +247,9 @@ export function marginal(card, analysis, deck) {
   }
   const deckV = b.practicalV + own.bonus;
   const gw = card.type === 'Gear' ? GEAR_WEIGHT : 1;
+  const ratioW = (x) => (x === null || x === undefined ? x : card.type === 'Gear' ? 1 + (x - 1) * GEAR_WEIGHT : x);
   return { card, ...b, own: own.bonus, given, helps: helps.filter((h) => h.value > 0.25).sort((a, b2) => b2.value - a.value), deckV, deckAmber: deckV / card.C,
+    rank: { ledger: ratioW(b.ledger), practical: ratioW(b.practical), deck: ratioW(deckV / card.C) },
     surplus: (deckV - card.C) * gw, practicalSurplus: (b.practicalV - card.C) * gw, ledgerSurplus: ((b.ledgerV ?? b.practicalV) - card.C) * gw };
 }
 
@@ -262,7 +268,14 @@ export const NEED = {
     if (card.type === 'Unit' && card.C <= 2) rs.add('early_body');
     let s = 0;
     for (const [k, target] of Object.entries(ROLE_TARGETS)) if (rs.has(k)) s += Math.max(0, target - (metrics.roles[k] || 0)) / target;
+    for (const [k, cap] of Object.entries(SATURATE)) if (rs.has(k) && (metrics.roleAll?.[k] || 0) >= cap) s -= 0.6 * ((metrics.roleAll[k] - cap) / cap + 0.5);
     return s;
+  },
+  /** Units are the body of the deck: reward units while short of the target, discourage everything else then. */
+  structure(card, metrics) {
+    const short = Math.max(0, UNIT_TARGET - (metrics.units || 0)) / UNIT_TARGET;
+    if (card.type === 'Unit') return 1.6 * short;
+    return short > 0.35 ? -0.8 * short : 0;
   },
   curve(card, metrics) {
     const b = bucket(card);
