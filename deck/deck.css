@@ -163,6 +163,19 @@ a { color: var(--amber); text-decoration-thickness: 1px; text-underline-offset: 
   height: calc(100dvh - var(--rail-h));
 }
 .corridor { position: relative; min-width: 0; overflow: hidden; isolation: isolate; }
+.floor { position: relative; }
+.divider {
+  position: absolute; top: 0; bottom: 0; right: var(--board-w); z-index: 8; width: 10px; translate: 5px 0;
+  cursor: col-resize; touch-action: none;
+}
+.divider::after { content: ""; position: absolute; top: 0; bottom: 0; left: 4px; width: 2px; background: transparent; transition: background-color .2s; }
+.divider:hover::after, .divider.on::after, .divider:focus-visible::after { background: var(--amber); }
+.divider:focus-visible { outline: none; }
+.tslot { margin-left: auto; }
+.tsize { display: flex; gap: 2px; }
+.bsec.drop { background: rgba(243,167,42,.06); box-shadow: inset 3px 0 0 var(--amber); }
+.row[draggable="true"] { cursor: grab; }
+.row[draggable="true"] .nm, .row[draggable="true"] button { cursor: pointer; }
 .room { position: absolute; inset: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-color: var(--rule-hi) transparent; }
 .board {
   min-width: 0; overflow-y: auto; overscroll-behavior: contain;
@@ -231,7 +244,7 @@ select.sel {
 /* ---------- gallery ---------- */
 .gallery {
   display: grid; gap: 18px 14px;
-  grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(var(--tile, 148px), 1fr));
   padding: 18px 20px 60px;
 }
 .tile {
@@ -573,6 +586,7 @@ select.sel {
   .deck-title input { font-size: 17px; }
   .floor { display: block; height: calc(100dvh - var(--rail-h) - var(--dock-h)); position: relative; }
   .corridor, .board { position: absolute; inset: 0; }
+  .divider, .tslot { display: none; }
   .board { border-left: 0; box-shadow: none; z-index: 2; }
   .board.away { visibility: hidden; }
   .filters { padding: 10px 12px; gap: 8px; }

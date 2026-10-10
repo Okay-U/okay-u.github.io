@@ -19,6 +19,7 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
   filtersEl.innerHTML = `
     <div class="frow">
       <div class="zones" role="group" aria-label="Zone">${ZONES.map(([k, l]) => `<button type="button" data-zone="${k}" aria-pressed="false">${l}<b></b></button>`).join('')}</div>
+      <span class="tslot"></span>
     </div>
     <div class="frow">
       <input class="search" type="search" placeholder="Search name, text, keyword" aria-label="Search cards" autocomplete="off">
@@ -118,6 +119,7 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     t.type = 'button';
     t.className = `tile${c.landscape ? ' bf' : ''}`;
     t.dataset.id = c.id;
+    if (['Unit', 'Spell', 'Gear'].includes(c.type)) t.draggable = true;
     t.setAttribute('aria-label', `${c.name}. Activate to add a copy; press I for details.`);
     t.innerHTML = `<div class="art"><img loading="lazy" decoding="async" alt="" src="${esc(img(c, c.landscape ? 480 : 300))}">
       ${c.preview ? '<span class="tag-preview">Preview</span>' : ''}${c.banned ? '<span class="tag-preview tag-ban">Banned</span>' : ''}</div>
@@ -272,6 +274,16 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     if (longPressed) { longPressed = false; return; }
     if (e.target.closest('.cap')) { ui.openCard(t.dataset.id); return; }
     act(idx.byId.get(t.dataset.id), e.altKey ? 'remove' : e.shiftKey ? 'playset' : 'add');
+  });
+  // drag a tile onto the deck board (main deck, sideboard or bench); Shift on drop adds three
+  root.addEventListener('dragstart', (e) => {
+    const t = e.target.closest('.tile[draggable="true"]');
+    if (!t) return;
+    clearTimeout(pressTimer);
+    e.dataTransfer.setData('application/x-riftcount-card', t.dataset.id);
+    e.dataTransfer.effectAllowed = 'copy';
+    const im = t.querySelector('img');
+    if (im) e.dataTransfer.setDragImage(im, im.width / 2, im.height / 3);
   });
   root.addEventListener('contextmenu', (e) => {
     const t = e.target.closest('.tile'); if (!t) return;

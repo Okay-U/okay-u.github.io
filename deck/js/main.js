@@ -11,6 +11,7 @@ import { createTest } from './test.js';
 import { createSheet } from './sheet.js';
 import { exportText } from './text.js';
 import { createLoupe } from './loupe.js';
+import { createLayout } from './layout.js';
 
 const $ = (s) => document.querySelector(s);
 const mobile = matchMedia('(max-width: 900px)');
@@ -171,6 +172,7 @@ async function boot() {
   agent = createAgent({ root: $('#agent'), idx, store, ui });
   test = createTest({ root: $('#test'), idx, store, ui });
   sheet = createSheet({ el: $('#sheet'), idx, store, ui });
+  createLayout({ floor: $('#floor'), sizeMount: $('#filters .tslot') });
   const loupe = createLoupe(idx);
   loupe.bind($('#gallery'), '.tile', (t) => t.dataset.id);
   loupe.bind($('#board'), '.row, .sc', (r) => r.dataset.id);

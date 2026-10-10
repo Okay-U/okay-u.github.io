@@ -57,6 +57,37 @@ export function createBoard({ root, idx, store, ui }) {
     const f = e.target.dataset.pref;
     if (f) setPref(f, e.target.value);
   });
+  // drop targets: cards from the gallery, or board rows moved between main deck, sideboard and bench
+  const CARD = 'application/x-riftcount-card';
+  const MOVE = 'application/x-riftcount-move';
+  const dropZone = (e) => e.target.closest('.bsec[data-zone]')?.dataset.zone || 'main';
+  let lit = null;
+  const light = (sec) => { if (lit === sec) return; lit?.classList.remove('drop'); lit = sec; sec?.classList.add('drop'); };
+  root.addEventListener('dragstart', (e) => {
+    const r = e.target.closest('.row[draggable="true"], .sc');
+    if (!r) return;
+    e.dataTransfer.setData(MOVE, `${r.dataset.zone}:${r.dataset.id}`);
+    e.dataTransfer.effectAllowed = 'move';
+  });
+  root.addEventListener('dragover', (e) => {
+    const types = [...e.dataTransfer.types];
+    if (!types.includes(CARD) && !types.includes(MOVE)) return;
+    e.preventDefault();
+    e.dataTransfer.dropEffect = types.includes(MOVE) ? 'move' : 'copy';
+    light(root.querySelector(`.bsec[data-zone="${dropZone(e)}"]`));
+  });
+  root.addEventListener('dragleave', (e) => { if (!root.contains(e.relatedTarget)) light(null); });
+  root.addEventListener('drop', (e) => {
+    const card = e.dataTransfer.getData(CARD);
+    const move = e.dataTransfer.getData(MOVE);
+    if (!card && !move) return;
+    e.preventDefault();
+    const zone = dropZone(e);
+    light(null);
+    if (card) ui.addCard(card, zone, { playset: e.shiftKey });
+    else { const [from, id] = move.split(':'); if (from !== zone) ui.moveCard(id, from, zone); }
+  });
+  addEventListener('dragend', () => light(null));
   root.addEventListener('contextmenu', (e) => {
     const r = e.target.closest('.row, .sc');
     if (!r) return;
@@ -116,6 +147,7 @@ export function createBoard({ root, idx, store, ui }) {
       r = document.createElement('div');
       r.className = 'row';
       r.dataset.id = card.id; r.dataset.zone = zone;
+      if (['main', 'side', 'bench'].includes(zone)) r.draggable = true;
       r.innerHTML = `<span class="q"></span><span class="cost"></span><button class="nm" type="button"></button>
         <span class="v"></span><span class="mv"><span class="tk"></span></span>
         <span class="ctl"><button class="key icon small" type="button" data-dec aria-label="Remove one">−</button><button class="key icon small" type="button" data-inc aria-label="Add one">+</button><button class="key icon small" type="button" data-menu aria-haspopup="menu" aria-label="More actions">⋯</button></span>`;
@@ -176,6 +208,7 @@ export function createBoard({ root, idx, store, ui }) {
       s.type = 'button';
       s.className = 'sc';
       s.dataset.id = card.id; s.dataset.zone = 'main';
+      s.draggable = true;
       s.innerHTML = `<img alt="" decoding="async" src="${esc(img(card, 300))}"><span class="sl"><span class="sq"></span><span class="sn"></span></span>`;
       s.querySelector('.sn').textContent = card.name;
       s.querySelector('.sl').appendChild(makeFlap('', 'amber'));
