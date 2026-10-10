@@ -1,7 +1,7 @@
 // Boot and wiring. The deck (board) is the carried object; rooms change around it.
-import { loadData } from './data.js';
+import { loadData, isMainCard } from './data.js';
 import * as store from './store.js';
-import { validate, blockReason, counts, copiesOf, LIMITS } from './rules.js';
+import { validate, counts, addRoom, LIMITS } from './rules.js';
 import { hydrateFlaps } from './flap.js';
 import { analyze, setPool } from './agent/engine.js';
 import { createGallery } from './gallery.js';
@@ -85,19 +85,12 @@ function refresh(animate = true) {
 }
 
 const ZONE_NAME = { main: 'the main deck', side: 'the sideboard', bench: 'the bench' };
+const CARD_ZONES = ['main', 'side', 'bench'];
 
-/** How many copies of `c` may go into `zone` right now, up to `want`; toasts the reason when none fit. */
-function fits(deck, c, zone, want) {
-  if (zone === 'bench') {
-    const n = Math.min(want, LIMITS.copies - (deck.bench[c.id] || 0));
-    if (n <= 0) toast(`The bench already holds ${LIMITS.copies} ${c.name}.`, true);
-    return n;
-  }
-  const why = blockReason(deck, c, idx);
-  if (why) { toast(why, true); return 0; }
-  let n = Math.min(want, LIMITS.copies - copiesOf(deck, c.id));
-  if (zone === 'side') n = Math.min(n, LIMITS.side - counts(deck).side);
-  if (n <= 0) toast('The sideboard holds ten cards.', true);
+/** addRoom with the reason toasted when nothing fits. */
+function fits(deck, c, zone, want, counted = 0) {
+  const { n, why } = addRoom(deck, c, zone, want, idx, counted);
+  if (why) toast(why, true);
   return n;
 }
 
@@ -108,8 +101,9 @@ function addCard(id, zone = 'main', { playset = false, n: want = playset ? LIMIT
   if (!c) return;
   if (zone === 'champion') { toast('The chosen champion is a single card.'); return; }
   if (zone === 'bf' || zone === 'runes') { gallery.setZone(zone); setRoom('build'); return; }
-  const n = fits(deck, c, zone, want);
-  if (n > 0) store.update((d) => { d[zone][id] = (d[zone][id] || 0) + n; }, 'add');
+  if (!CARD_ZONES.includes(zone) || !isMainCard(c)) return;
+  const n = fits(deck, c, zone, Math.max(1, Math.min(LIMITS.copies, Math.trunc(want) || 1)));
+  if (n > 0) store.update((d) => { d[zone][c.id] = (d[zone][c.id] || 0) + n; }, 'add');
   if (n > 1 && !quiet) toast(`${n} × ${c.name} to ${ZONE_NAME[zone]}.`);
 }
 
@@ -117,12 +111,12 @@ function addCard(id, zone = 'main', { playset = false, n: want = playset ? LIMIT
 function moveCard(id, from, to) {
   const deck = store.getDeck();
   const c = idx.byId.get(id);
-  const have = deck[from]?.[id] || 0;
-  if (!c || !have || from === to) return;
-  // Copies already counted in main or side stay counted when they move between those two.
-  const n = from === 'bench' ? fits(deck, c, to, have) : to === 'side' ? Math.min(have, LIMITS.side - counts(deck).side) : have;
-  if (n <= 0) { if (to === 'side' && from !== 'bench') toast('The sideboard holds ten cards.', true); return; }
-  store.update((d) => { d[from][id] -= n; d[to][id] = (d[to][id] || 0) + n; }, 'move');
+  if (!c || from === to || !CARD_ZONES.includes(from) || !CARD_ZONES.includes(to)) return;
+  const have = deck[from][c.id] || 0;
+  if (!have) return;
+  const n = fits(deck, c, to, have, from === 'bench' ? 0 : have);
+  if (n <= 0) return;
+  store.update((d) => { d[from][c.id] -= n; d[to][c.id] = (d[to][c.id] || 0) + n; }, 'move');
   toast(`${n} × ${c.name} to ${ZONE_NAME[to]}.`);
 }
 

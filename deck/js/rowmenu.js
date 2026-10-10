@@ -20,7 +20,7 @@ export function createRowMenu({ ui, store }) {
     if (el.hidden) return;
     el.hidden = true;
     target = null;
-    if (restore) opener?.focus();
+    if (restore && opener?.isConnected) opener.focus();
   }
 
   function open(id, zone, x, y, { focus = false } = {}) {
@@ -57,7 +57,7 @@ export function createRowMenu({ ui, store }) {
     const i = items.indexOf(document.activeElement);
     if (e.key === 'ArrowDown') { e.preventDefault(); items[(i + 1) % items.length]?.focus(); }
     if (e.key === 'ArrowUp') { e.preventDefault(); items[(i - 1 + items.length) % items.length]?.focus(); }
-    if (e.key === 'Tab') close();
+    if (e.key === 'Tab') close(true);
   });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(true); });
   document.addEventListener('pointerdown', (e) => { if (!el.contains(e.target)) close(); });

@@ -10,6 +10,8 @@ const ZONES = [
 const SORTS = [['num', 'Set order'], ['cost', 'Energy cost'], ['name', 'Name'], ['ledger', 'Ledger value'], ['practical', 'Practical value'], ['deck', 'Value in this deck']];
 const LENS = [['ledger', 'Ledger'], ['practical', 'Practical'], ['deck', 'In deck']];
 
+const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
+
 export function createGallery({ root, filtersEl, idx, store, ui }) {
   const st = { zone: 'legend', q: '', doms: new Set(), cost: null, type: '', set: '', rarity: '', mine: false, sort: 'num', lens: 'deck', target: 'main', partner: null, legalOnly: true };
   const tileEls = new Map();
@@ -114,12 +116,14 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     deck: (a, b) => (marginals.get(b.id)?.deckAmber ?? -1) - (marginals.get(a.id)?.deckAmber ?? -1),
   };
 
+  // A div with button semantics: Firefox will not start a native drag on a <button>.
   function tile(c) {
-    const t = document.createElement('button');
-    t.type = 'button';
+    const t = document.createElement('div');
+    t.setAttribute('role', 'button');
+    t.tabIndex = 0;
     t.className = `tile${c.landscape ? ' bf' : ''}`;
     t.dataset.id = c.id;
-    if (['Unit', 'Spell', 'Gear'].includes(c.type)) t.draggable = true;
+    if (finePointer.matches && ['Unit', 'Spell', 'Gear'].includes(c.type)) t.draggable = true;
     t.setAttribute('aria-label', `${c.name}. Activate to add a copy; press I for details.`);
     t.innerHTML = `<div class="art"><img loading="lazy" decoding="async" alt="" src="${esc(img(c, c.landscape ? 480 : 300))}">
       ${c.preview ? '<span class="tag-preview">Preview</span>' : ''}${c.banned ? '<span class="tag-preview tag-ban">Banned</span>' : ''}</div>
@@ -261,10 +265,10 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     ui.addCard(c.id, zone, { playset: mode === 'playset' });
   }
 
-  // pointer: click adds, right click removes, long press removes, double click opens details
+  // pointer: click adds, right click removes, long press on touch removes; the caption opens details
   let pressTimer = null; let longPressed = false;
   root.addEventListener('pointerdown', (e) => {
-    const t = e.target.closest('.tile'); if (!t || e.button !== 0) return;
+    const t = e.target.closest('.tile'); if (!t || e.button !== 0 || e.pointerType !== 'touch') return;
     longPressed = false;
     pressTimer = setTimeout(() => { longPressed = true; act(idx.byId.get(t.dataset.id), 'remove'); navigator.vibrate?.(12); }, 480);
   });
@@ -277,7 +281,7 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
   });
   // drag a tile onto the deck board (main deck, sideboard or bench); Shift on drop adds three
   root.addEventListener('dragstart', (e) => {
-    const t = e.target.closest('.tile[draggable="true"]');
+    const t = e.target.closest?.('.tile[draggable="true"]');
     if (!t) return;
     clearTimeout(pressTimer);
     e.dataTransfer.setData('application/x-riftcount-card', t.dataset.id);
@@ -294,6 +298,8 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
   });
   root.addEventListener('keydown', (e) => {
     const t = e.target.closest('.tile'); if (!t) return;
+    if (e.target !== t) return;
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); act(idx.byId.get(t.dataset.id), e.altKey ? 'remove' : e.shiftKey ? 'playset' : 'add'); }
     if (e.key === 'Backspace' || e.key === 'Delete' || e.key === '-') { e.preventDefault(); act(idx.byId.get(t.dataset.id), 'remove'); }
     if (e.key === 'i' || e.key === '?') ui.openCard(t.dataset.id);
   });

@@ -173,7 +173,9 @@ a { color: var(--amber); text-decoration-thickness: 1px; text-underline-offset: 
 .divider:focus-visible { outline: none; }
 .tslot { margin-left: auto; }
 .tsize { display: flex; gap: 2px; }
-.bsec.drop { background: rgba(243,167,42,.06); box-shadow: inset 3px 0 0 var(--amber); }
+.bsec.drop { background: rgba(243,167,42,.05); }
+.bsec.drop > h3 { color: var(--amber); }
+.bsec.drop > h3 > span::after { content: "  · drop to add"; color: var(--paint-mute); }
 .row[draggable="true"] { cursor: grab; }
 .row[draggable="true"] .nm, .row[draggable="true"] button { cursor: pointer; }
 .room { position: absolute; inset: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-color: var(--rule-hi) transparent; }
@@ -250,7 +252,7 @@ select.sel {
 .tile {
   position: relative; display: grid; gap: 6px; margin: 0;
   -webkit-touch-callout: none; user-select: none; -webkit-user-select: none;
-  background: none; border: 0; padding: 0; text-align: left;
+  background: none; border: 0; padding: 0; text-align: left; cursor: pointer;
   content-visibility: auto; contain-intrinsic-size: 148px 250px;
 }
 .tile .art {
@@ -342,7 +344,7 @@ select.sel {
 .stk { --peek: 30px; display: flex; flex-direction: column; break-inside: avoid; margin-bottom: 16px; }
 .stk .grp { padding: 4px 0 6px; }
 .sc {
-  position: relative; display: block; width: 100%; aspect-ratio: 744 / 1039; padding: 0; border: 0;
+  position: relative; display: block; width: 100%; aspect-ratio: 744 / 1039; padding: 0; border: 0; cursor: pointer;
   margin-top: calc(var(--peek) - 139.65%);
   background: #0a0a0b; box-shadow: 0 -1px 0 rgba(0,0,0,.7), 0 -8px 14px -8px rgba(0,0,0,.9);
   transition: transform .22s var(--ease), box-shadow .22s var(--ease);
@@ -478,7 +480,8 @@ select.sel {
 .heads .flap { font-size: 26px; }
 .bars .col[data-e] { cursor: pointer; }
 .bars .col[data-e]:hover span, .bars .col.picked span { color: var(--amber); }
-.bars .col.picked .stack { outline: 1px solid var(--amber); outline-offset: 2px; }
+.bars:has(.picked) .col:not(.picked) .stack { opacity: .3; }
+.bars .col .stack { transition: opacity .2s; }
 .curvecards { margin: -12px 0 28px; }
 .curvecards h3 { margin: 0 0 10px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--amber); font-stretch: 80%; }
 .curvecards .cc { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; }

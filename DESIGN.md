@@ -243,7 +243,8 @@ Responsive behaviour:
 - **≤1180px:** rail gap tightens to 12px; rail keys collapse to Decks only.
 - **≤900px (phone):** rail drops to 52px and loses the wordmark and room switch; the status lamp loses its text. A 46px ministrip pins under the rail with main count, in-deck value and its tick, and Run agent. A fixed four-tab dock (58px plus safe-area inset) replaces the room switch: Cards / Deck / Agent / Test. Corridor and board stack in the same box; the board shows only as the Deck tab. The gallery drops to minmax(104px, 1fr), captions lose subtitles, row controls become always visible, and rows drop the cost and ledger columns. Filters fold into a tray toggle. The sheet goes full width and card detail stacks.
 - **≤560px:** agent style keys stack their name over their description.
-- Charts in the Test room run four across, two at ≤1280px and one at ≤640px.
+- Charts in the Test room auto-fit at a 180px minimum, so they reflow with the board width rather than the viewport.
+- **Divider (desktop):** the board edge is a 10px col-resize handle; dragging sets `--board-w` between 340px and 62% of the floor (max 820px), arrow keys step 24px, double click resets. The gallery tile minimum (`--tile`) steps through 112 / 130 / 148 / 172 / 204px. Both persist per browser and are hidden on phones.
 
 ## Elevation & Depth
 
@@ -306,6 +307,21 @@ Tactile and mechanical, like a recessed switch on a trading desk.
 - 34px min height, five-column grid, rgba(255,255,255,.025) top hairline, faint white wash on hover. Name in row-name type, amber on hover; quantity, ledger value and in-deck value in flap cells with a ▲/▼ tick in up/down. Hover or focus swaps the values for − / + controls in place. Flagged rows paint the name vermilion; the champion row carries an amber "Champion" suffix.
 - **Motion:** new rows wipe in from the left (clip-path, 380ms expo-out); removed rows wipe out to the right (170ms ease-in).
 
+### Board header, quick add and view bar
+- The board head scrolls away except its quick-add strip, which pins at the top of the board (`top: calc(-1 * var(--pin))`, measured by a ResizeObserver).
+- **Quick add:** the search well with a listbox drop below it: square rows on flap black, name in row-name type, a muted meta line, the ledger value in amber; the active row fills amber with amber-ink. A one-line muted hint lists Enter / Shift+Enter / Alt+Enter.
+- **View bar:** a two-cell segmented List / Stacks switch (paint fill when pressed) plus 28px Group and Sort selects. Group headers are full-width text buttons with a drawn caret that turns -90deg when folded.
+
+### Visual stacks
+- Each group is a column (CSS columns, 150px minimum); cards overlap so only a 30px strip shows (`margin-top: calc(var(--peek) - 139.65%)`), the last card in full. The strip carries quantity, name in row-name type and the in-deck flap value on a left-to-right black gradient so the art shows at the right.
+- Hover or focus lifts a card 8px out of the stack (z-index raise, black lift shadow). Switching to Stacks deals the cards in from -18px with a 14ms stagger (capped 420ms).
+
+### Row menu
+- A fixed bezel panel of uppercase key-type items divided by rule lines; the hovered or focused item fills amber with amber-ink; move items carry the copy count (×3). Opens with a top-down clip wipe (200ms expo-out); Escape, outside press, scroll or Tab closes it. Arrow keys move focus.
+
+### Drag and drop
+- Gallery tiles and board rows drag natively. The section under the pointer takes a 5% amber wash and its heading turns amber with a muted "drop to add" suffix; no outlines or stripes.
+
 ### Tape (agent buys and cuts)
 - A bezel panel of rows: a 42px side tag (Buy on up, Sell on down, Pair on amber, Hold on #2e3035), the card name in row-name type, flap values, and a muted reason line underneath.
 
@@ -319,6 +335,11 @@ Tactile and mechanical, like a recessed switch on a trading desk.
 - **Rail:** sticky, #202124 to #18191b gradient, black bottom edge with a 4% white highlight.
 - **Dock (≤900px):** fixed four-cell bar, uppercase 11px labels at 78% width, rule dividers, the active cell filled amber with amber-ink, the deck count in tabular numerals.
 - **Room change:** the outgoing room slides 28px and fades in 160ms ease-in; the incoming room slides from 36px with a 30% clip wipe in 380ms expo-out. Opening the board tab on phones lifts it 22px in 300ms.
+
+### Test room additions
+- **Headline gauges:** a bezel strip of flap readouts (cards, average energy and power, units, in-deck value in amber), auto-fit at 120px.
+- **Curve drill-down:** energy bars are buttons; picking one dims the other stacks to 30% and lists the cards at that cost below as small art tiles with quantity and name.
+- **Odds calculator:** a bezel panel of uppercase-labelled wells (card, copies, cards seen, at least) and a large flap percentage, green at 80% or more, vermilion under 50%.
 
 ### Sheet, toast and loupe
 - **Sheet:** a right-edge dialog, up to 560px wide, #111214, black left edge, long black throw, backdrop rgba(5,5,6,.62); slides in 40px over 380ms. Titles in 22px, 760, 80% width, uppercase.

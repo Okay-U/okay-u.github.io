@@ -8,12 +8,11 @@ import { fmtRatio } from './flap.js';
 const MAX = 8;
 
 export function createQuickAdd({ mount, idx, store, ui }) {
-  mount.innerHTML = `<div class="qadd" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-owns="qadd-list">
-      <input class="search" type="text" placeholder="Add a card: 3 jinx" aria-label="Add a card by name" aria-autocomplete="list" aria-controls="qadd-list" autocomplete="off" spellcheck="false">
+  mount.innerHTML = `<div class="qadd">
+      <input class="search" type="text" role="combobox" aria-expanded="false" placeholder="Add a card: 3 jinx" aria-label="Add a card by name" aria-autocomplete="list" aria-controls="qadd-list" autocomplete="off" spellcheck="false">
       <ul class="qlist" id="qadd-list" role="listbox" hidden></ul>
     </div>
     <p class="qhint">Enter adds to main · Shift+Enter sideboard · Alt+Enter bench</p>`;
-  const box = mount.querySelector('.qadd');
   const input = mount.querySelector('input');
   const list = mount.querySelector('.qlist');
   let hits = [];
@@ -45,7 +44,7 @@ export function createQuickAdd({ mount, idx, store, ui }) {
 
   function paint() {
     const deck = store.getDeck();
-    box.setAttribute('aria-expanded', String(hits.length > 0));
+    input.setAttribute('aria-expanded', String(hits.length > 0));
     list.hidden = !hits.length;
     list.innerHTML = hits.map((c, i) => {
       const have = copiesOf(deck, c.id);

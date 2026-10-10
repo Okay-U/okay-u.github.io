@@ -89,7 +89,7 @@ export function createTest({ root, idx, store, ui }) {
   }
 
   function calc() {
-    const v = (k) => Number(root.querySelector(`[data-c="${k}"]`).value);
+    const v = (k) => Math.max(0, Math.trunc(Number(root.querySelector(`[data-c="${k}"]`).value)) || 0);
     const N = cardsInDeck().length;
     const p = atLeast(N, Math.min(v('hits'), N), v('seen'), Math.max(1, v('k')));
     const out = root.querySelector('[data-c="out"]');
@@ -131,7 +131,8 @@ export function createTest({ root, idx, store, ui }) {
       }
       return `<div class="col"${title === 'Energy curve' ? ` data-e="${k}" role="button" tabindex="0" aria-label="Show the ${total(k)} cards at ${esc(labelOf(k))} energy"` : ''}><b>${total(k) || ''}</b><div class="stack" style="--max:${max}">${cells.join('')}</div><span>${esc(labelOf(k))}</span></div>`;
     }).join('');
-    return `<div class="chart"><h3><span>${title}</span></h3><div class="bars" role="img" aria-label="${esc(title)}">${cols}</div></div>`;
+    // the energy curve's bars are buttons, so it is a group rather than an image
+    return `<div class="chart"><h3><span>${title}</span></h3><div class="bars" role="${title === 'Energy curve' ? 'group' : 'img'}" aria-label="${esc(title)}">${cols}</div></div>`;
   }
 
   function render(analysis) {
@@ -188,6 +189,7 @@ export function createTest({ root, idx, store, ui }) {
     const uniq = [...new Map(all.map((c) => [c.id, c])).values()].sort((a, b) => a.name.localeCompare(b.name));
     sel.innerHTML = `<option value="">Pick a card or set copies</option>${uniq.map((c) => `<option value="${esc(c.id)}">${esc(c.name)}</option>`).join('')}`;
     sel.value = uniq.some((c) => c.id === keep) ? keep : '';
+    if (sel.value) root.querySelector('[data-c="hits"]').value = cardsInDeck().filter((c) => c.id === sel.value).length;
     calc();
     $('[data-odds]').innerHTML = '';
     for (const [label, p] of odds) {

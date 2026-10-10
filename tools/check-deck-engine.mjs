@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { buildIndex } from '../deck/js/data.js';
 import { analyze, marginal, candidatePool, setPool } from '../deck/js/agent/engine.js';
 import { STYLES } from '../deck/js/agent/styles.js';
-import { blockReason, counts, validate, LIMITS, autoRunes } from '../deck/js/rules.js';
+import { blockReason, counts, validate, LIMITS, autoRunes, addRoom } from '../deck/js/rules.js';
 import { importText, exportText } from '../deck/js/text.js';
 
 const feed = JSON.parse(readFileSync(new URL('../cards.json', import.meta.url)));
@@ -53,5 +53,15 @@ for (const legend of legends) {
     if (back.legend !== deck.legend || counts(back).main !== counts(deck).main) throw new Error(`${legend.name}/${style.id}: export/import round trip changed the deck`);
     checked++;
   }
+}
+// Signature cap holds for multi-copy adds (playset, quick add "3 x", drop with Shift, bench to main).
+const sigLegend = idx.cards.find((l) => l.type === 'Legend' && idx.cards.filter((c) => c.supertype === 'Signature' && c.tags.includes(l.champ)).length >= 2);
+if (sigLegend) {
+  const [s1, s2] = idx.cards.filter((c) => c.supertype === 'Signature' && c.tags.includes(sigLegend.champ));
+  const deck = { legend: sigLegend.id, champion: null, main: { [s1.id]: 2 }, side: {}, bench: { [s2.id]: 3 }, bf: [], runes: {} };
+  const r = addRoom(deck, s2, 'main', 3, idx);
+  if (r.n !== 1) throw new Error(`Signature cap: ${r.n} copies of ${s2.name} fit next to 2 ${s1.name}`);
+  if (addRoom({ ...deck, bench: { [s1.id]: 2 } }, s1, 'bench', 3, idx).n !== 1) throw new Error('bench cap');
+  if (addRoom(deck, s1, 'side', 2, idx, 2).n !== 2) throw new Error('main to side move must keep counted copies');
 }
 console.log(`ok: ${checked} filled decks across ${legends.length} legends and ${STYLES.length} styles in ${Date.now() - t0} ms`);

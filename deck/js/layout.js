@@ -5,7 +5,10 @@ const SIZES = [112, 130, 148, 172, 204];
 const BOARD_MIN = 340;
 
 function load() {
-  try { return JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch { return {}; }
+  try {
+    const p = JSON.parse(localStorage.getItem(KEY) || '{}');
+    return p && typeof p === 'object' && !Array.isArray(p) ? p : {};
+  } catch { return {}; }
 }
 function save(p) {
   try { localStorage.setItem(KEY, JSON.stringify(p)); } catch { /* private mode: lasts for this visit */ }
@@ -16,12 +19,19 @@ export function createLayout({ floor, sizeMount }) {
   const rootStyle = document.documentElement.style;
   const maxBoard = () => Math.max(BOARD_MIN, Math.min(820, floor.clientWidth * 0.62));
 
+  // prefs.board is the width the visitor chose; the applied width is clamped to the current window.
+  const apply = () => {
+    if (!Number.isFinite(prefs.board)) { rootStyle.removeProperty('--board-w'); return; }
+    rootStyle.setProperty('--board-w', `${Math.round(Math.max(BOARD_MIN, Math.min(maxBoard(), prefs.board)))}px`);
+  };
   const setBoard = (px, persist = true) => {
-    if (px === null) { rootStyle.removeProperty('--board-w'); delete prefs.board; }
-    else { const w = Math.round(Math.max(BOARD_MIN, Math.min(maxBoard(), px))); rootStyle.setProperty('--board-w', `${w}px`); prefs.board = w; }
+    if (px === null) delete prefs.board;
+    else prefs.board = Math.round(Math.max(BOARD_MIN, Math.min(maxBoard(), px)));
+    apply();
     if (persist) save(prefs);
   };
-  if (Number.isFinite(prefs.board)) setBoard(prefs.board, false);
+  apply();
+  addEventListener('resize', apply);
 
   const bar = document.createElement('div');
   bar.className = 'divider';
@@ -38,15 +48,15 @@ export function createLayout({ floor, sizeMount }) {
     bar.setPointerCapture(e.pointerId);
     bar.classList.add('on');
     const right = floor.getBoundingClientRect().right;
-    const move = (ev) => setBoard(right - ev.clientX, false);
+    const drag = new AbortController();
     const up = () => {
       bar.classList.remove('on');
-      bar.removeEventListener('pointermove', move);
+      drag.abort();
       save(prefs);
     };
-    bar.addEventListener('pointermove', move);
-    bar.addEventListener('pointerup', up, { once: true });
-    bar.addEventListener('pointercancel', up, { once: true });
+    bar.addEventListener('pointermove', (ev) => setBoard(right - ev.clientX, false), { signal: drag.signal });
+    bar.addEventListener('pointerup', up, { signal: drag.signal });
+    bar.addEventListener('pointercancel', up, { signal: drag.signal });
   });
   bar.addEventListener('dblclick', () => setBoard(null));
   bar.addEventListener('keydown', (e) => {

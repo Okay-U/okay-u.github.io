@@ -60,11 +60,11 @@ export function createBoard({ root, idx, store, ui }) {
   // drop targets: cards from the gallery, or board rows moved between main deck, sideboard and bench
   const CARD = 'application/x-riftcount-card';
   const MOVE = 'application/x-riftcount-move';
-  const dropZone = (e) => e.target.closest('.bsec[data-zone]')?.dataset.zone || 'main';
+  const dropZone = (e) => e.target.closest?.('.bsec[data-zone]')?.dataset.zone || 'main';
   let lit = null;
   const light = (sec) => { if (lit === sec) return; lit?.classList.remove('drop'); lit = sec; sec?.classList.add('drop'); };
   root.addEventListener('dragstart', (e) => {
-    const r = e.target.closest('.row[draggable="true"], .sc');
+    const r = e.target.closest?.('.row[draggable="true"], .sc');
     if (!r) return;
     e.dataTransfer.setData(MOVE, `${r.dataset.zone}:${r.dataset.id}`);
     e.dataTransfer.effectAllowed = 'move';
@@ -88,11 +88,20 @@ export function createBoard({ root, idx, store, ui }) {
     else { const [from, id] = move.split(':'); if (from !== zone) ui.moveCard(id, from, zone); }
   });
   addEventListener('dragend', () => light(null));
+  /** Open the row menu at the pointer, or under the element when opened from the keyboard (and focus it). */
+  const openMenu = (el, e, keyboard) => {
+    const b = el.getBoundingClientRect();
+    menu.open(el.dataset.id, el.dataset.zone, keyboard ? b.left + 24 : e.clientX, keyboard ? b.top + 26 : e.clientY, { focus: keyboard });
+  };
   root.addEventListener('contextmenu', (e) => {
     const r = e.target.closest('.row, .sc');
     if (!r) return;
     e.preventDefault();
-    menu.open(r.dataset.id, r.dataset.zone, e.clientX, e.clientY);
+    openMenu(r, e, e.button !== 2);
+  });
+  root.addEventListener('keydown', (e) => {
+    const sc = e.target.closest?.('.sc');
+    if (sc && e.target === sc && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); openMenu(sc, e, true); }
   });
 
   root.addEventListener('click', (e) => {
@@ -123,7 +132,7 @@ export function createBoard({ root, idx, store, ui }) {
       return;
     }
     const sc = e.target.closest('.sc');
-    if (sc) { menu.open(sc.dataset.id, 'main', e.clientX, e.clientY, { focus: e.detail === 0 }); return; }
+    if (sc) { openMenu(sc, e, e.detail === 0); return; }
     const row = e.target.closest('.row');
     if (!row) return;
     const id = row.dataset.id;
@@ -209,8 +218,9 @@ export function createBoard({ root, idx, store, ui }) {
   function stackCard(card, n, an) {
     let s = stackEls.get(card.id);
     if (!s) {
-      s = document.createElement('button');
-      s.type = 'button';
+      s = document.createElement('div'); // not a <button>: Firefox will not drag buttons
+      s.setAttribute('role', 'button');
+      s.tabIndex = 0;
       s.className = 'sc';
       s.dataset.id = card.id; s.dataset.zone = 'main';
       s.draggable = true;
@@ -243,9 +253,33 @@ export function createBoard({ root, idx, store, ui }) {
     return wrap;
   }
 
+  /** A key for the focused board control, so a re-render can put focus back on its replacement. */
+  function focusKey() {
+    const a = document.activeElement;
+    if (!a || !body.contains(a)) return null;
+    for (const k of ['pref', 'view', 'gkey']) if (a.dataset[k] !== undefined) return `[data-${k}="${CSS.escape(a.dataset[k])}"]`;
+    const holder = a.closest('.row, .sc');
+    if (!holder) return null;
+    const own = `${holder.classList.contains('sc') ? '.sc' : '.row'}[data-zone="${holder.dataset.zone}"][data-id="${CSS.escape(holder.dataset.id)}"]`;
+    const part = ['data-inc', 'data-dec', 'data-menu'].find((x) => a.hasAttribute(x)) || (a.classList.contains('nm') ? 'nm' : null);
+    return { own, part, zone: holder.dataset.zone };
+  }
+  function restoreFocus(k) {
+    if (!k) return;
+    let el;
+    if (typeof k === 'string') el = body.querySelector(k);
+    else {
+      const holder = body.querySelector(k.own);
+      el = holder && k.part ? holder.querySelector(k.part === 'nm' ? '.nm' : `[${k.part}]`) : holder;
+      el ||= body.querySelector(`.bsec[data-zone="${k.zone}"] .row .nm, .bsec[data-zone="${k.zone}"] .sc`);
+    }
+    el?.focus({ preventScroll: true });
+  }
+
   function render(an) {
     lastAn = an;
     const deck = store.getDeck();
+    const keep = focusKey();
     const n = counts(deck);
     flap(F('main'), `${pad(n.main)}/${LIMITS.main}`, { cls: n.main === LIMITS.main ? 'up' : n.main > LIMITS.main ? 'down' : '' });
     flap(F('runes'), `${pad(n.runes)}/12`, { cls: n.runes === 12 ? 'up' : '' });
@@ -329,6 +363,7 @@ export function createBoard({ root, idx, store, ui }) {
       zoneRows('bench', 'Bench', benched ? pad(benched) : undefined, 'Park cards you are weighing up. Not part of the list, saved with the deck.');
     }
     body.replaceChildren(frag);
+    restoreFocus(keep);
     for (const [key, el] of rowEls) if (!el.isConnected) rowEls.delete(key);
     for (const [key, el] of stackEls) if (!el.isConnected) stackEls.delete(key);
     if (cascade && !matchMedia('(prefers-reduced-motion: reduce)').matches) {

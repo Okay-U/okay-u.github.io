@@ -23,6 +23,12 @@ export function inDomains(card, legend) {
   return card.domains.every((d) => d === 'Colorless' || legend.domains.includes(d));
 }
 
+/** Signature cards in the main deck and sideboard. */
+export function signatureCount(deck, idx) {
+  return [...Object.entries(deck.main), ...Object.entries(deck.side)]
+    .filter(([id]) => idx.byId.get(id)?.supertype === 'Signature').reduce((a, [, n]) => a + n, 0);
+}
+
 /** Why a card cannot be added to the main deck or sideboard right now, or null. */
 export function blockReason(deck, card, idx) {
   const legend = deck.legend ? idx.byId.get(deck.legend) : null;
@@ -32,11 +38,29 @@ export function blockReason(deck, card, idx) {
   if (copiesOf(deck, card.id) >= LIMITS.copies) return `Already ${LIMITS.copies} copies of ${card.name}.`;
   if (card.supertype === 'Signature') {
     if (legend && !isSignatureFor(card, legend)) return `${card.name} is a Signature card of another champion.`;
-    const sig = [...Object.entries(deck.main), ...Object.entries(deck.side)]
-      .filter(([id]) => idx.byId.get(id)?.supertype === 'Signature').reduce((a, [, n]) => a + n, 0);
-    if (sig >= LIMITS.signature) return `A deck holds at most ${LIMITS.signature} Signature cards.`;
+    if (signatureCount(deck, idx) >= LIMITS.signature) return `A deck holds at most ${LIMITS.signature} Signature cards.`;
   }
   return null;
+}
+
+/**
+ * How many copies of `card` may go into `zone` (main, side or bench) right now, up to `want`, and why none fit.
+ * `counted` copies already sit in the main deck or sideboard and only change zone, so only the sideboard size applies.
+ */
+export function addRoom(deck, card, zone, want, idx, counted = 0) {
+  if (zone === 'bench') {
+    const n = Math.min(want, LIMITS.copies - (deck.bench?.[card.id] || 0));
+    return { n, why: n > 0 ? null : `The bench already holds ${LIMITS.copies} ${card.name}.` };
+  }
+  let n = want;
+  if (!counted) {
+    const why = blockReason(deck, card, idx);
+    if (why) return { n: 0, why };
+    n = Math.min(n, LIMITS.copies - copiesOf(deck, card.id));
+    if (card.supertype === 'Signature') n = Math.min(n, LIMITS.signature - signatureCount(deck, idx));
+  }
+  if (zone === 'side') n = Math.min(n, LIMITS.side - counts(deck).side);
+  return { n, why: n > 0 ? null : zone === 'side' ? 'The sideboard holds ten cards.' : `No room for another ${card.name}.` };
 }
 
 export function validate(deck, idx) {
