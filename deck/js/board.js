@@ -2,13 +2,14 @@
 // Rows show quantity, cost, the ledger price and the price in this deck; values flip when the deck changes.
 import { img, DOMAIN_CLASS } from './data.js';
 import { counts, LIMITS } from './rules.js';
-import { flap, makeFlap, fmtRatio, pad } from './flap.js';
+import { flap, makeFlap, fmtRatio, pad, hydrateFlaps } from './flap.js';
 
 const TYPE_ORDER = ['Unit', 'Spell', 'Gear'];
 
 export function createBoard({ root, idx, store, ui }) {
   root.innerHTML = `
     <div class="bhead">
+      <h2 class="boardtitle"><span data-flap="PRICE BOARD"></span></h2>
       <div class="ticker">
         <div class="tick-cell"><small>Main</small><span class="flap" data-k="main"></span></div>
         <div class="tick-cell"><small>Runes</small><span class="flap" data-k="runes"></span></div>
@@ -27,7 +28,11 @@ export function createBoard({ root, idx, store, ui }) {
       <button class="key small quiet" type="button" data-export>Copy list</button>
       <button class="key small quiet" type="button" data-clear>Clear main</button>
     </div>`;
+  hydrateFlaps(root);
   const body = root.querySelector('.bbody');
+  const strip = document.getElementById('ministrip');
+  const S = (k) => strip?.querySelector(`[data-ms="${k}"]`);
+  strip?.addEventListener('click', (e) => { if (e.target.closest('[data-ms-run]')) ui.runAgent(); });
   const F = (k) => root.querySelector(`[data-k="${k}"]`);
   const rowEls = new Map();
 
@@ -111,6 +116,13 @@ export function createBoard({ root, idx, store, ui }) {
     const lg = an?.metrics.ledger ?? null;
     flap(F('indeck'), fmtRatio(ind), { cls: ind !== null && lg !== null ? (ind > lg + 0.02 ? 'up' : ind < lg - 0.02 ? 'down' : '') : '' });
     F('indeck-why').textContent = ind !== null && lg !== null ? `${ind >= lg ? '+' : ''}${Math.round((ind - lg) * 100)}% against the ledger` : 'After combos in this list';
+    if (strip) {
+      const dir = ind !== null && lg !== null ? (ind > lg + 0.02 ? 'up' : ind < lg - 0.02 ? 'down' : '') : '';
+      flap(S('main'), `${pad(n.main)}/${LIMITS.main}`, { cls: n.main === LIMITS.main ? 'up' : n.main > LIMITS.main ? 'down' : '' });
+      flap(S('indeck'), fmtRatio(ind), { cls: dir });
+      S('tk').textContent = dir === 'up' ? '▲' : dir === 'down' ? '▼' : '';
+      S('tk').className = `tk ${dir}`;
+    }
 
     const legend = deck.legend ? idx.byId.get(deck.legend) : null;
     const frag = document.createDocumentFragment();
@@ -127,6 +139,7 @@ export function createBoard({ root, idx, store, ui }) {
     const mainSec = section('Main deck', `${pad(n.main)}/${LIMITS.main}`);
     const entries = Object.entries(deck.main).map(([id, k]) => [idx.byId.get(id), k]).filter(([c]) => c && (!champ || c.id !== champ.id));
     if (!entries.length) mainSec.insertAdjacentHTML('beforeend', `<p class="hint">${legend ? '<button type="button" data-pick="main">Add cards</button> from the gallery. Click adds a copy.' : 'Pick a legend first.'}</p>`);
+    if (entries.length) mainSec.insertAdjacentHTML('beforeend', '<div class="rowhead" aria-hidden="true"><span>Qty</span><span>Cost</span><span>Card</span><span>Ledger</span><span>In deck</span></div>');
     for (const type of TYPE_ORDER) {
       const list = entries.filter(([c]) => c.type === type).sort(([a], [b]) => a.C - b.C || a.name.localeCompare(b.name));
       if (!list.length) continue;
@@ -164,5 +177,13 @@ export function createBoard({ root, idx, store, ui }) {
     for (const [key, el] of rowEls) if (!el.isConnected) rowEls.delete(key);
   }
 
-  return { render };
+  /** Wipe a row out before the deck change removes it. */
+  function exitRow(id, zone) {
+    const r = rowEls.get(`${zone}:${id}`);
+    if (!r || !r.isConnected || matchMedia('(prefers-reduced-motion: reduce)').matches) return Promise.resolve();
+    return r.animate([{ clipPath: 'inset(0 0 0 0)', opacity: 1 }, { clipPath: 'inset(0 0 0 100%)', opacity: 0.3 }],
+      { duration: 170, easing: 'cubic-bezier(.55,0,.75,.2)', fill: 'forwards' }).finished.catch(() => {});
+  }
+
+  return { render, exitRow };
 }

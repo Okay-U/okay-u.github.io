@@ -1,6 +1,6 @@
 // Test room: energy and power curves, domain split, value spread, sample opening hands with mulligan, opening odds.
 import { img, DOMAIN_CLASS } from './data.js';
-import { makeFlap } from './flap.js';
+import { makeFlap, hydrateFlaps } from './flap.js';
 
 const HAND = 4;           // opening hand in Riftbound
 const MULLIGAN_MAX = 2;   // cards you may recycle and redraw once
@@ -16,12 +16,13 @@ export function createTest({ root, idx, store, ui }) {
   let marked = new Set();
   let mulliganed = false;
 
-  root.innerHTML = `<h2>Test</h2><p class="lede">Curves, the shape of the list, and sample opening hands. The chosen champion starts in its own zone, so hands draw from the other 39 cards.</p>
+  root.innerHTML = `<h2><span data-flap="TEST BENCH"></span></h2><p class="lede">Curves, the shape of the list, and sample opening hands. The chosen champion starts in its own zone, so hands draw from the other 39 cards.</p>
     <div class="charts" data-charts></div>
     <section class="rsec"><h3>Sample hand</h3>
       <div class="agent-actions"><button class="key amber" type="button" data-draw>Draw 4</button><button class="key" type="button" data-mull disabled>Mulligan marked</button><button class="key quiet" type="button" data-next>Draw next</button><span class="meta-line" data-hint>Tap up to two cards to mark them for the mulligan.</span></div>
       <div class="hand" data-hand></div></section>
     <section class="rsec"><h3>Opening odds</h3><div class="odds" data-odds></div></section>`;
+  hydrateFlaps(root);
   const $ = (s) => root.querySelector(s);
 
   function cardsInDeck() {
@@ -82,11 +83,15 @@ export function createTest({ root, idx, store, ui }) {
 
   function bars(title, groups, keys, colorOf, labelOf) {
     const total = (k) => Object.values(groups[k] || {}).reduce((a, b) => a + b, 0);
-    const max = Math.max(1, ...keys.map(total));
+    const max = Math.max(4, ...keys.map(total));
+    let delay = 0;
     const cols = keys.map((k) => {
-      const parts = Object.entries(groups[k] || {}).map(([part, n]) =>
-        `<i style="height:${(n / max) * 100}%;background:${colorOf(part)}" title="${esc(labelOf(k))}: ${n} ${esc(part)}"></i>`).join('');
-      return `<div class="col"><b>${total(k) || ''}</b><div class="stack">${parts}</div><span>${esc(labelOf(k))}</span></div>`;
+      const cells = [];
+      for (const [part, n] of Object.entries(groups[k] || {})) for (let i = 0; i < n; i++) {
+        cells.push(`<i style="background:${colorOf(part)};animation-delay:${Math.min(delay, 520)}ms" title="${esc(labelOf(k))}: ${esc(part)}"></i>`);
+        delay += 14;
+      }
+      return `<div class="col"><b>${total(k) || ''}</b><div class="stack" style="--max:${max}">${cells.join('')}</div><span>${esc(labelOf(k))}</span></div>`;
     }).join('');
     return `<div class="chart"><h3><span>${title}</span></h3><div class="bars" role="img" aria-label="${esc(title)}">${cols}</div></div>`;
   }
@@ -108,7 +113,7 @@ export function createTest({ root, idx, store, ui }) {
       const b = r.deckAmber < 0.86 ? 'under' : r.deckAmber <= 1.17 ? 'on' : r.deckAmber < 1.5 ? 'above' : 'far';
       value[b] = value[b] || {}; value[b].cards = (value[b].cards || 0) + r.n;
     }
-    const domColor = (dname) => (DOMAIN_CLASS[dname] ? `var(--${DOMAIN_CLASS[dname]})` : '#8a857b');
+    const domColor = (dname) => (DOMAIN_CLASS[dname] ? `color-mix(in srgb, var(--${DOMAIN_CLASS[dname]}) 74%, #16171a)` : '#6d6a63');
     const bandColor = { cards: 'var(--amber)' };
     $('[data-charts]').innerHTML = [
       bars('Energy curve', energy, [0, 1, 2, 3, 4, 5, 6, 7], domColor, (k) => (k === 7 ? '7+' : String(k))),

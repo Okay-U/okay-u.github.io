@@ -1,7 +1,7 @@
 // Analyze room: pick a work style, run the agent, read a priced report with buys and cuts.
 import { analyze, marginal, candidatePool, NEED } from './agent/engine.js';
 import { STYLES, styleById } from './agent/styles.js';
-import { makeFlap, fmtRatio } from './flap.js';
+import { makeFlap, fmtRatio, hydrateFlaps } from './flap.js';
 import { counts, blockReason, LIMITS } from './rules.js';
 
 const KEY = 'riftcount.deckboard.style';
@@ -16,7 +16,7 @@ export function createAgent({ root, idx, store, ui }) {
   let running = false;
 
   root.innerHTML = `
-    <h2>Deck agent</h2>
+    <h2><span data-flap="DECK AGENT"></span></h2>
     <p class="lede">Reads your list, prices every card against Riot's ledger and against the partners in this deck, then proposes what to add and what to cut. Pick how it should think.</p>
     <div class="styles" role="group" aria-label="Work style">${STYLES.map((s) => `<button type="button" class="style-key" data-style="${s.id}" aria-pressed="false"><b>${s.name}</b><span>${s.blurb}</span></button>`).join('')}</div>
     <div class="agent-actions"><button class="key amber" type="button" data-go>Run agent</button>
@@ -24,6 +24,7 @@ export function createAgent({ root, idx, store, ui }) {
       <span class="meta-line" data-status></span></div>
     <ol class="log" data-log></ol>
     <div class="report" data-report></div>`;
+  hydrateFlaps(root);
   const log = root.querySelector('[data-log]');
   const report = root.querySelector('[data-report]');
   const status = root.querySelector('[data-status]');

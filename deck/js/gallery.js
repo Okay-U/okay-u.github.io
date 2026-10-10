@@ -118,7 +118,7 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     t.type = 'button';
     t.className = `tile${c.landscape ? ' bf' : ''}`;
     t.dataset.id = c.id;
-    t.setAttribute('aria-label', `${c.name}. Click to add, right click or long press to remove, double click for details.`);
+    t.setAttribute('aria-label', `${c.name}. Activate to add a copy; press I for details.`);
     t.innerHTML = `<div class="art"><img loading="lazy" decoding="async" alt="" src="${img(c, c.landscape ? 480 : 300)}">
       ${c.preview ? '<span class="tag-preview">Preview</span>' : ''}${c.banned ? '<span class="tag-preview tag-ban">Banned</span>' : ''}</div>
       <div class="cap"><span class="nm"></span><span class="val"></span><span class="sub"></span></div>`;
@@ -180,7 +180,7 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     filtersEl.querySelectorAll('[data-cost]').forEach((b) => b.setAttribute('aria-pressed', String(st.cost === +b.dataset.cost)));
     const meta = filtersEl.querySelector('#meta-line');
     const partner = st.partner ? idx.byId.get(st.partner) : null;
-    const zoneHelp = { legend: 'Pick the legend that leads the deck.', champion: 'Pick the chosen champion.', main: st.target === 'side' ? 'Click adds to the sideboard.' : 'Click adds a copy, right click or long press removes one.',
+    const zoneHelp = { legend: 'Pick the legend that leads the deck.', champion: 'Pick the chosen champion.', main: st.target === 'side' ? 'Tapping the art adds to the sideboard.' : 'Tap the art to add a copy, the name for details. Right click or long press removes one.',
       bf: 'Pick three different battlefields.', runes: 'Click adds a rune, right click removes one.' }[st.zone];
     meta.innerHTML = `<span><b>${shown}</b> cards · ${zoneHelp}</span>${partner ? ` <button class="key small quiet" data-clear-partner type="button">Partners of ${partner.name} ✕</button>` : ''}`;
   }
@@ -191,7 +191,7 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     el.innerHTML = `<div class="intro-head"><h2>Build a deck. Watch it re-price.</h2>
         <p>Every card carries Riot's own price for what it does. Put cards together and the board shows what they are worth in this deck.</p></div>
       <ol class="intro-steps"><li><b>Pick a legend</b><span>It sets your two domains.</span></li>
-        <li><b>Choose the champion, add cards</b><span>Click adds a copy. Right click or long press removes one.</span></li>
+        <li><b>Choose the champion, add cards</b><span>Tap the art to add a copy, the name for details. Right click or long press removes one.</span></li>
         <li><b>Run the agent</b><span>Five work styles read the list and propose buys, cuts and combos.</span></li></ol>
       <dl class="intro-values"><div><dt>Ledger</dt><dd>Riot's price per cost, 1.00 is par.</dd></div>
         <div><dt>Practical</dt><dd>Adds what the ledger books at a discount or ignores.</dd></div>
@@ -270,10 +270,9 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
   root.addEventListener('click', (e) => {
     const t = e.target.closest('.tile'); if (!t) return;
     if (longPressed) { longPressed = false; return; }
-    if (e.detail === 2) return;
+    if (e.target.closest('.cap')) { ui.openCard(t.dataset.id); return; }
     act(idx.byId.get(t.dataset.id), e.shiftKey || e.altKey);
   });
-  root.addEventListener('dblclick', (e) => { const t = e.target.closest('.tile'); if (t) ui.openCard(t.dataset.id); });
   root.addEventListener('contextmenu', (e) => { const t = e.target.closest('.tile'); if (!t) return; e.preventDefault(); act(idx.byId.get(t.dataset.id), true); });
   root.addEventListener('keydown', (e) => {
     const t = e.target.closest('.tile'); if (!t) return;

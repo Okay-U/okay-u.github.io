@@ -102,8 +102,10 @@ function removeCard(id, zone = 'main') {
     else store.update((d) => { d.champion = null; }, 'remove');
     return;
   }
-  if (zone === 'bf') { store.update((d) => { d.bf = d.bf.filter((x) => x !== id); }, 'remove'); return; }
-  if (deck[zone]?.[id]) store.update((d) => { d[zone][id] -= 1; }, 'remove');
+  if (zone === 'bf') { board.exitRow(id, 'bf').then(() => store.update((d) => { d.bf = d.bf.filter((x) => x !== id); }, 'remove')); return; }
+  if (!deck[zone]?.[id]) return;
+  const last = deck[zone][id] === 1;
+  (last ? board.exitRow(id, zone) : Promise.resolve()).then(() => store.update((d) => { d[zone][id] -= 1; }, 'remove'));
 }
 
 const ui = {
@@ -167,6 +169,7 @@ async function boot() {
   $('#btn-import').addEventListener('click', () => sheet.importSheet());
   $('#btn-export').addEventListener('click', () => sheet.exportSheet());
   $('#btn-share').addEventListener('click', () => sheet.shareSheet(store.shareURL()));
+  addEventListener('hashchange', () => { if (/#d=/.test(location.hash)) location.reload(); });
   document.addEventListener('keydown', (e) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'z' && !e.target.closest('input, textarea')) { e.preventDefault(); if (!store.undo()) toast('Nothing to undo.'); }
     if (e.key === '/' && !e.target.closest('input, textarea')) { e.preventDefault(); document.querySelector('.search')?.focus(); }
