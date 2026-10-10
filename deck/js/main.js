@@ -173,7 +173,7 @@ async function boot() {
   sheet = createSheet({ el: $('#sheet'), idx, store, ui });
   const loupe = createLoupe(idx);
   loupe.bind($('#gallery'), '.tile', (t) => t.dataset.id);
-  loupe.bind($('#board'), '.row', (r) => r.dataset.id);
+  loupe.bind($('#board'), '.row, .sc', (r) => r.dataset.id);
 
   store.subscribe((d, reason) => {
     refresh(true);

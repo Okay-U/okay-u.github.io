@@ -6,8 +6,7 @@ import { flap, makeFlap, fmtRatio, pad, hydrateFlaps } from './flap.js';
 import { baseValue, marginal } from './agent/engine.js';
 import { createRowMenu } from './rowmenu.js';
 import { createQuickAdd } from './quickadd.js';
-
-const TYPE_ORDER = ['Unit', 'Spell', 'Gear'];
+import { GROUPS, SORTS, loadPrefs, savePrefs, groupEntries } from './deckview.js';
 
 export function createBoard({ root, idx, store, ui }) {
   root.innerHTML = `
@@ -35,14 +34,31 @@ export function createBoard({ root, idx, store, ui }) {
   hydrateFlaps(root);
   const body = root.querySelector('.bbody');
   createQuickAdd({ mount: root.querySelector('.qslot'), idx, store, ui });
+  // The header scrolls away except its quick-add strip, which stays pinned at the top of the board.
+  const head = root.querySelector('.bhead');
+  const qslot = root.querySelector('.qslot');
+  new ResizeObserver(() => head.style.setProperty('--pin', `${qslot.offsetTop - 10}px`)).observe(head);
   const strip = document.getElementById('ministrip');
   const S = (k) => strip?.querySelector(`[data-ms="${k}"]`);
   strip?.addEventListener('click', (e) => { if (e.target.closest('[data-ms-run]')) ui.runAgent(); });
   const F = (k) => root.querySelector(`[data-k="${k}"]`);
   const rowEls = new Map();
+  const stackEls = new Map();
+  const prefs = loadPrefs();
+  let lastAn = null;
+  let cascade = false;
+  const setPref = (k, v) => {
+    prefs[k] = v; savePrefs(prefs);
+    cascade = k === 'view' && v === 'stacks';
+    render(lastAn);
+  };
   const menu = createRowMenu({ ui, store });
+  root.addEventListener('change', (e) => {
+    const f = e.target.dataset.pref;
+    if (f) setPref(f, e.target.value);
+  });
   root.addEventListener('contextmenu', (e) => {
-    const r = e.target.closest('.row');
+    const r = e.target.closest('.row, .sc');
     if (!r) return;
     e.preventDefault();
     menu.open(r.dataset.id, r.dataset.zone, e.clientX, e.clientY);
@@ -62,6 +78,16 @@ export function createBoard({ root, idx, store, ui }) {
     }
     const pick = e.target.closest('[data-pick]');
     if (pick) { ui.goBuild(pick.dataset.pick); return; }
+    const view = e.target.closest('[data-view]');
+    if (view) { if (prefs.view !== view.dataset.view) setPref('view', view.dataset.view); return; }
+    const g = e.target.closest('[data-gkey]');
+    if (g) {
+      const k = g.dataset.gkey;
+      setPref('collapsed', prefs.collapsed.includes(k) ? prefs.collapsed.filter((x) => x !== k) : [...prefs.collapsed, k]);
+      return;
+    }
+    const sc = e.target.closest('.sc');
+    if (sc) { menu.open(sc.dataset.id, 'main', e.clientX, e.clientY, { focus: e.detail === 0 }); return; }
     const row = e.target.closest('.row');
     if (!row) return;
     const id = row.dataset.id;
@@ -122,7 +148,65 @@ export function createBoard({ root, idx, store, ui }) {
     return r;
   }
 
+  function groupHead(g, shut) {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'grp';
+    b.dataset.gkey = g.key;
+    b.setAttribute('aria-expanded', String(!shut));
+    b.textContent = `${g.label} · ${g.count}`;
+    return b;
+  }
+
+  function viewBar() {
+    const bar = document.createElement('div');
+    bar.className = 'bview';
+    const opt = (list, cur) => list.map(([k, l]) => `<option value="${k}" ${k === cur ? 'selected' : ''}>${l}</option>`).join('');
+    bar.innerHTML = `<div class="seg" role="group" aria-label="View">${[['list', 'List'], ['stacks', 'Stacks']].map(([k, l]) =>
+      `<button type="button" data-view="${k}" aria-pressed="${prefs.view === k}">${l}</button>`).join('')}</div>
+      <select class="sel" data-pref="group" aria-label="Group by">${opt(GROUPS.map(([k, l]) => [k, k === 'none' ? l : `By ${l}`]), prefs.group)}</select>
+      <select class="sel" data-pref="sort" aria-label="Sort by">${opt(SORTS.map(([k, l]) => [k, `Sort: ${l}`]), prefs.sort)}</select>`;
+    return bar;
+  }
+
+  function stackCard(card, n, an) {
+    let s = stackEls.get(card.id);
+    if (!s) {
+      s = document.createElement('button');
+      s.type = 'button';
+      s.className = 'sc';
+      s.dataset.id = card.id; s.dataset.zone = 'main';
+      s.innerHTML = `<img alt="" decoding="async" src="${esc(img(card, 300))}"><span class="sl"><span class="sq"></span><span class="sn"></span></span>`;
+      s.querySelector('.sn').textContent = card.name;
+      s.querySelector('.sl').appendChild(makeFlap('', 'amber'));
+      stackEls.set(card.id, s);
+    }
+    const a = an?.rows.find((x) => x.card.id === card.id);
+    const ref = a ? a.ledger ?? a.practical : null;
+    const v = a ? a.deckAmber : null;
+    const dir = v === null || ref === null ? '' : v > ref + 0.04 ? 'up' : v < ref - 0.04 ? 'down' : '';
+    s.querySelector('.sq').textContent = `${n}×`;
+    flap(s.querySelector('.sl .flap'), fmtRatio(v), { animate: s.isConnected, cls: dir || (v === null ? 'dim' : 'amber') });
+    s.setAttribute('aria-label', `${n} × ${card.name}, ${card.E} energy. In this deck ${fmtRatio(v).trim()}. Open actions.`);
+    return s;
+  }
+
+  function stacks(groups, an) {
+    const wrap = document.createElement('div');
+    wrap.className = 'stacks';
+    for (const g of groups) {
+      const col = document.createElement('div');
+      col.className = 'stk';
+      const shut = prefs.collapsed.includes(g.key);
+      col.appendChild(groupHead(g, shut));
+      if (!shut) for (const [c, k] of g.list) col.appendChild(stackCard(c, k, an));
+      wrap.appendChild(col);
+    }
+    return wrap;
+  }
+
   function render(an) {
+    lastAn = an;
     const deck = store.getDeck();
     const n = counts(deck);
     flap(F('main'), `${pad(n.main)}/${LIMITS.main}`, { cls: n.main === LIMITS.main ? 'up' : n.main > LIMITS.main ? 'down' : '' });
@@ -154,14 +238,21 @@ export function createBoard({ root, idx, store, ui }) {
     frag.appendChild(champSec);
 
     const mainSec = section('Main deck', `${pad(n.main)}/${LIMITS.main}`);
+    mainSec.dataset.zone = 'main';
     const entries = Object.entries(deck.main).map(([id, k]) => [idx.byId.get(id), k]).filter(([c]) => c && (!champ || c.id !== champ.id));
-    if (!entries.length) mainSec.insertAdjacentHTML('beforeend', `<p class="hint">${legend ? '<button type="button" data-pick="main">Add cards</button> from the gallery. Click adds a copy.' : 'Pick a legend first.'}</p>`);
-    if (entries.length) mainSec.insertAdjacentHTML('beforeend', '<div class="rowhead" aria-hidden="true"><span>Qty</span><span>Cost</span><span>Card</span><span>Ledger</span><span>In deck</span></div>');
-    for (const type of TYPE_ORDER) {
-      const list = entries.filter(([c]) => c.type === type).sort(([a], [b]) => a.C - b.C || a.name.localeCompare(b.name));
-      if (!list.length) continue;
-      mainSec.insertAdjacentHTML('beforeend', `<div class="grp">${type}s · ${list.reduce((s, [, k]) => s + k, 0)}</div>`);
-      for (const [c, k] of list) mainSec.appendChild(row(c, k, 'main', an));
+    if (!entries.length) mainSec.insertAdjacentHTML('beforeend', `<p class="hint">${legend ? '<button type="button" data-pick="main">Add cards</button> from the gallery or type a name above. Click adds a copy.' : 'Pick a legend first.'}</p>`);
+    if (entries.length) {
+      mainSec.appendChild(viewBar());
+      const groups = groupEntries(entries, prefs, (c) => an?.rows.find((r) => r.card.id === c.id)?.deckAmber ?? null);
+      if (prefs.view === 'stacks') mainSec.appendChild(stacks(groups, an));
+      else {
+        mainSec.insertAdjacentHTML('beforeend', '<div class="rowhead" aria-hidden="true"><span>Qty</span><span>Cost</span><span>Card</span><span>Ledger</span><span>In deck</span></div>');
+        for (const g of groups) {
+          const shut = prefs.collapsed.includes(g.key);
+          mainSec.appendChild(groupHead(g, shut));
+          if (!shut) for (const [c, k] of g.list) mainSec.appendChild(row(c, k, 'main', an));
+        }
+      }
     }
     frag.appendChild(mainSec);
 
@@ -201,6 +292,12 @@ export function createBoard({ root, idx, store, ui }) {
     }
     body.replaceChildren(frag);
     for (const [key, el] of rowEls) if (!el.isConnected) rowEls.delete(key);
+    for (const [key, el] of stackEls) if (!el.isConnected) stackEls.delete(key);
+    if (cascade && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      body.querySelectorAll('.sc').forEach((el, i) => el.animate([{ transform: 'translateY(-18px)', opacity: 0 }, { transform: 'none', opacity: 1 }],
+        { duration: 360, delay: Math.min(i * 14, 420), easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' }));
+    }
+    cascade = false;
   }
 
   /** Wipe a row out before the deck change removes it. */
