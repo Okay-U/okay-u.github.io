@@ -3,6 +3,7 @@ import { analyze, marginal, candidatePool, NEED } from './agent/engine.js';
 import { STYLES, styleById } from './agent/styles.js';
 import { makeFlap, fmtRatio, hydrateFlaps } from './flap.js';
 import { counts, blockReason, LIMITS } from './rules.js';
+import { coach, storedKey, storeKey, forgetKey, MODELS } from './claude.js';
 
 const KEY = 'riftcount.deckboard.style';
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -23,11 +24,48 @@ export function createAgent({ root, idx, store, ui }) {
       <button class="key" type="button" data-fill>Fill to 40</button><button class="key" type="button" data-trim>Trim to 40</button>
       <span class="meta-line" data-status></span></div>
     <ol class="log" data-log></ol>
-    <div class="report" data-report></div>`;
+    <div class="report" data-report></div>
+    <details class="claude">
+      <summary>Ask Claude for a written read</summary>
+      <p class="meta-line">Optional. Uses your own Anthropic API key and sends this deck's analysis to Claude, which writes a coaching read in the chosen style. The key stays in this browser and goes only to api.anthropic.com. Usage is billed to your Anthropic account.</p>
+      <div class="frow">
+        <input class="search" type="password" data-ckey placeholder="Anthropic API key" autocomplete="off" spellcheck="false" aria-label="Anthropic API key">
+        <select class="sel" data-cmodel aria-label="Model">${MODELS.map(([id, label]) => `<option value="${id}">${label}</option>`).join('')}</select>
+        <label class="check"><input type="checkbox" data-cremember> Remember on this device</label>
+      </div>
+      <div class="agent-actions"><button class="key amber" type="button" data-cgo>Write the read</button><button class="key quiet" type="button" data-cforget>Forget key</button><span class="meta-line" data-cstatus></span></div>
+      <div class="read" data-cread aria-live="polite"></div>
+    </details>`;
   hydrateFlaps(root);
   const log = root.querySelector('[data-log]');
   const report = root.querySelector('[data-report]');
   const status = root.querySelector('[data-status]');
+  const ckey = root.querySelector('[data-ckey]');
+  const cread = root.querySelector('[data-cread]');
+  const cstatus = root.querySelector('[data-cstatus]');
+  ckey.value = storedKey();
+  let reading = null;
+  async function claudeRead() {
+    const key = ckey.value.trim();
+    if (!store.getDeck().legend) { cstatus.textContent = 'Pick a legend and some cards first.'; return; }
+    if (!/^sk-ant-/.test(key)) { cstatus.textContent = 'Paste an Anthropic API key (it starts with sk-ant-).'; ckey.focus(); return; }
+    storeKey(key, root.querySelector('[data-cremember]').checked);
+    reading?.abort();
+    reading = new AbortController();
+    const style = styleById(styleId);
+    cstatus.textContent = `${style.name} is asking Claude…`;
+    cread.replaceChildren();
+    try {
+      await coach({ key, model: root.querySelector('[data-cmodel]').value, deck: store.getDeck(), idx, styleId, signal: reading.signal,
+        onText: (t) => renderRead(cread, t) });
+      cstatus.textContent = `Written by Claude in the ${style.name} style. Check card names against your list.`;
+    } catch (e) {
+      if (e.name === 'AbortError') return;
+      cstatus.textContent = e.message || 'Claude did not answer.';
+    }
+  }
+  root.querySelector('[data-cgo]').addEventListener('click', claudeRead);
+  root.querySelector('[data-cforget]').addEventListener('click', () => { forgetKey(); ckey.value = ''; cstatus.textContent = 'Key removed from this browser.'; });
   const paintStyles = () => root.querySelectorAll('[data-style]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.style === styleId)));
   paintStyles();
 
@@ -229,4 +267,22 @@ function explainMove(r, idx) {
   }
   const extra = (r.parts || []).filter((p) => p.value > 0.2).map((p) => p.label.split(':')[0]).slice(0, 2);
   return extra.length ? `Ledger misses: ${extra.join('; ')}.` : 'Same as the ledger.';
+}
+
+/** Render Claude's plain-text read: "## Title" lines become headings, "-" lines become list items. Text only, never HTML. */
+function renderRead(el, text) {
+  const frag = document.createDocumentFragment();
+  let list = null;
+  for (const raw of text.split('\n')) {
+    const line = raw.trim();
+    if (!line) { list = null; continue; }
+    if (line.startsWith('## ')) { const h = document.createElement('h4'); h.textContent = line.slice(3); frag.appendChild(h); list = null; continue; }
+    if (/^[-•*]\s/.test(line)) {
+      if (!list) { list = document.createElement('ul'); frag.appendChild(list); }
+      const li = document.createElement('li'); li.textContent = line.replace(/^[-•*]\s+/, ''); list.appendChild(li); continue;
+    }
+    list = null;
+    const p = document.createElement('p'); p.textContent = line.replace(/\*\*/g, ''); frag.appendChild(p);
+  }
+  el.replaceChildren(frag);
 }
