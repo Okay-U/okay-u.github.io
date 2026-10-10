@@ -463,6 +463,23 @@ select.sel {
 .deck-list .dl button.t { background: none; border: 0; padding: 0; text-align: left; color: var(--paint); font-weight: 640; }
 .deck-list .dl small { display: block; color: var(--paint-mute); font-weight: 400; }
 
+/* ---------- quick add ---------- */
+.qslot { margin-top: 12px; }
+.qadd { position: relative; display: flex; }
+.qadd .search { flex: 1; min-width: 0; }
+.qhint { margin: 5px 0 0; font-size: 10.5px; color: var(--paint-mute); font-stretch: 84%; letter-spacing: .04em; }
+.qlist {
+  position: absolute; left: 0; right: 0; top: 100%; z-index: 6; margin: 2px 0 0; padding: 0; list-style: none;
+  background: #0b0b0c; box-shadow: 0 0 0 1px #000, 0 18px 30px -14px #000;
+}
+.qlist li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0 10px; padding: 7px 10px; border-top: 1px solid var(--rule); cursor: pointer; }
+.qlist li:first-child { border-top: 0; }
+.qlist .qn { font-size: 13px; font-weight: 640; font-stretch: 78%; letter-spacing: .05em; text-transform: uppercase; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.qlist .qm { grid-column: 1; font-size: 11px; color: var(--paint-mute); font-stretch: 86%; }
+.qlist .qv { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-size: 13px; font-weight: 680; font-stretch: 75%; color: var(--amber); font-variant-numeric: tabular-nums; }
+.qlist li[aria-selected="true"], .qlist li:hover { background: var(--amber); color: var(--amber-ink); }
+.qlist li[aria-selected="true"] .qm, .qlist li[aria-selected="true"] .qv, .qlist li:hover .qm, .qlist li:hover .qv { color: var(--amber-ink); }
+
 /* ---------- row menu ---------- */
 .rmenu {
   position: fixed; z-index: 80; min-width: 210px; display: grid; padding: 3px 0;

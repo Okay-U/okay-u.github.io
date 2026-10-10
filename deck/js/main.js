@@ -100,16 +100,16 @@ function fits(deck, c, zone, want) {
   return n;
 }
 
-/** Add one copy, or with `playset` as many as fit up to three. */
-function addCard(id, zone = 'main', { playset = false } = {}) {
+/** Add `n` copies (one by default, three with `playset`), as many as the rules allow. */
+function addCard(id, zone = 'main', { playset = false, n: want = playset ? LIMITS.copies : 1, quiet = false } = {}) {
   const c = idx.byId.get(id);
   const deck = store.getDeck();
   if (!c) return;
   if (zone === 'champion') { toast('The chosen champion is a single card.'); return; }
   if (zone === 'bf' || zone === 'runes') { gallery.setZone(zone); setRoom('build'); return; }
-  const n = fits(deck, c, zone, playset ? LIMITS.copies : 1);
+  const n = fits(deck, c, zone, want);
   if (n > 0) store.update((d) => { d[zone][id] = (d[zone][id] || 0) + n; }, 'add');
-  if (n > 1) toast(`${n} × ${c.name} to ${ZONE_NAME[zone]}.`);
+  if (n > 1 && !quiet) toast(`${n} × ${c.name} to ${ZONE_NAME[zone]}.`);
 }
 
 /** Move every copy of a card between main, sideboard and bench, as many as the rules allow. */

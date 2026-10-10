@@ -5,6 +5,7 @@ import { counts, LIMITS } from './rules.js';
 import { flap, makeFlap, fmtRatio, pad, hydrateFlaps } from './flap.js';
 import { baseValue, marginal } from './agent/engine.js';
 import { createRowMenu } from './rowmenu.js';
+import { createQuickAdd } from './quickadd.js';
 
 const TYPE_ORDER = ['Unit', 'Spell', 'Gear'];
 
@@ -22,6 +23,7 @@ export function createBoard({ root, idx, store, ui }) {
         <div><span class="lbl">Ledger value</span><span class="flap amber" data-k="ledger"></span><span class="why">Riot's own price per cost</span></div>
         <div><span class="lbl">In this deck</span><span class="flap" data-k="indeck"></span><span class="why" data-k="indeck-why">After combos in this list</span></div>
       </div>
+      <div class="qslot"></div>
     </div>
     <div class="bbody"></div>
     <div class="board-foot">
@@ -32,6 +34,7 @@ export function createBoard({ root, idx, store, ui }) {
     </div>`;
   hydrateFlaps(root);
   const body = root.querySelector('.bbody');
+  createQuickAdd({ mount: root.querySelector('.qslot'), idx, store, ui });
   const strip = document.getElementById('ministrip');
   const S = (k) => strip?.querySelector(`[data-ms="${k}"]`);
   strip?.addEventListener('click', (e) => { if (e.target.closest('[data-ms-run]')) ui.runAgent(); });
