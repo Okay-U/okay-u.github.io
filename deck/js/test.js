@@ -8,6 +8,14 @@ const MULLIGAN_MAX = 2;   // cards you may recycle and redraw once
 function choose(n, k) { if (k < 0 || k > n) return 0; let r = 1; for (let i = 1; i <= k; i++) r = (r * (n - k + i)) / i; return r; }
 /** P(at least one hit in `draws` cards) from `deck` cards with `hits` successes (hypergeometric). */
 const atLeastOne = (deck, hits, draws) => { const d = Math.min(draws, deck); return deck <= 0 || d <= 0 ? 0 : 1 - choose(deck - hits, d) / choose(deck, d); };
+/** P(at least `k` hits in `draws` cards). */
+function atLeast(deck, hits, draws, k) {
+  const d = Math.min(draws, deck);
+  if (deck <= 0 || d <= 0 || hits <= 0) return k <= 0 ? 1 : 0;
+  let p = 0;
+  for (let x = Math.max(k, 0); x <= Math.min(hits, d); x++) p += (choose(hits, x) * choose(deck - hits, d - x)) / choose(deck, d);
+  return Math.min(1, p);
+}
 
 export function createTest({ root, idx, store, ui }) {
   let hand = [];
@@ -15,12 +23,24 @@ export function createTest({ root, idx, store, ui }) {
   let marked = new Set();
   let mulliganed = false;
 
+  let pickedE = null;
   root.innerHTML = `<h2><span data-flap="TEST BENCH"></span></h2><p class="lede">Curves, the shape of the list, and sample opening hands. The chosen champion starts in its own zone, so hands draw from the other 39 cards.</p>
+    <div class="gauges heads" data-heads></div>
     <div class="charts" data-charts></div>
+    <div class="curvecards" data-curve hidden></div>
     <section class="rsec"><h3>Sample hand</h3>
       <div class="agent-actions"><button class="key amber" type="button" data-draw>Draw 4</button><button class="key" type="button" data-mull disabled>Mulligan marked</button><button class="key quiet" type="button" data-next>Draw next</button><span class="meta-line" data-hint>Tap up to two cards to mark them for the mulligan.</span></div>
       <div class="hand" data-hand></div></section>
-    <section class="rsec"><h3>Opening odds</h3><div class="odds" data-odds></div></section>`;
+    <section class="rsec"><h3>Opening odds</h3><div class="odds" data-odds></div></section>
+    <section class="rsec"><h3>Draw odds calculator</h3>
+      <div class="calc" data-calc>
+        <label>Card <select class="sel" data-c="card"><option value="">Pick a card or set copies</option></select></label>
+        <label>Copies in deck <input type="number" min="0" max="40" value="3" data-c="hits"></label>
+        <label>Cards seen <input type="number" min="1" max="40" value="5" data-c="seen"></label>
+        <label>At least <input type="number" min="1" max="12" value="1" data-c="k"></label>
+        <output data-c="out"></output>
+        <p class="meta-line">Four cards in the opening hand, one more each turn. Two seen on turn 1 going second? Count them in.</p>
+      </div></section>`;
   hydrateFlaps(root);
   const $ = (s) => root.querySelector(s);
 
@@ -68,7 +88,26 @@ export function createTest({ root, idx, store, ui }) {
     $('[data-hint]').textContent = !hand.length ? 'Add cards to the main deck first.' : mulliganed ? `Mulligan done. ${library.length} cards left in the deck.` : 'Tap up to two cards to mark them for the mulligan.';
   }
 
+  function calc() {
+    const v = (k) => Number(root.querySelector(`[data-c="${k}"]`).value);
+    const N = cardsInDeck().length;
+    const p = atLeast(N, Math.min(v('hits'), N), v('seen'), Math.max(1, v('k')));
+    const out = root.querySelector('[data-c="out"]');
+    out.replaceChildren(makeFlap(N ? `${String(Math.round(p * 100)).padStart(3, ' ')}%` : ' -- ', p >= 0.8 ? 'up' : p < 0.5 ? 'down' : ''));
+  }
+  root.addEventListener('input', (e) => {
+    if (e.target.dataset.c === 'card') {
+      const id = e.target.value;
+      if (id) root.querySelector('[data-c="hits"]').value = cardsInDeck().filter((c) => c.id === id).length;
+    }
+    if (e.target.closest('[data-calc]')) calc();
+  });
+
   root.addEventListener('click', (e) => {
+    const col = e.target.closest('[data-e]');
+    if (col) { pickedE = pickedE === col.dataset.e ? null : col.dataset.e; paintCurve(); return; }
+    const open = e.target.closest('[data-open]');
+    if (open) { ui.openCard(open.dataset.open); return; }
     if (e.target.closest('[data-draw]')) { draw(); return; }
     if (e.target.closest('[data-mull]')) { mulligan(); return; }
     if (e.target.closest('[data-next]')) { if (!hand.length) draw(); else next(); return; }
@@ -90,7 +129,7 @@ export function createTest({ root, idx, store, ui }) {
         cells.push(`<i style="background:${colorOf(part)};animation-delay:${Math.min(delay, 520)}ms" title="${esc(labelOf(k))}: ${esc(part)}"></i>`);
         delay += 14;
       }
-      return `<div class="col"><b>${total(k) || ''}</b><div class="stack" style="--max:${max}">${cells.join('')}</div><span>${esc(labelOf(k))}</span></div>`;
+      return `<div class="col"${title === 'Energy curve' ? ` data-e="${k}" role="button" tabindex="0" aria-label="Show the ${total(k)} cards at ${esc(labelOf(k))} energy"` : ''}><b>${total(k) || ''}</b><div class="stack" style="--max:${max}">${cells.join('')}</div><span>${esc(labelOf(k))}</span></div>`;
     }).join('');
     return `<div class="chart"><h3><span>${title}</span></h3><div class="bars" role="img" aria-label="${esc(title)}">${cols}</div></div>`;
   }
@@ -132,6 +171,24 @@ export function createTest({ root, idx, store, ui }) {
       [`Removal by your turn 3 (${removal} in deck, ${HAND + 3} cards seen)`, atLeastOne(N, removal, HAND + 3)],
       [`Card draw by turn 3 (${draw} in deck)`, atLeastOne(N, draw, HAND + 3)],
     ];
+    const units = all.filter((c) => c.type === 'Unit').length;
+    const heads = [['Cards', String(all.length)], ['Avg energy', all.length ? (all.reduce((a, c) => a + c.E, 0) / all.length).toFixed(1) : ' -- '],
+      ['Avg power', all.length ? (all.reduce((a, c) => a + c.P, 0) / all.length).toFixed(1) : ' -- '], ['Units', String(units)],
+      ['In this deck', analysis?.metrics.inDeck ? analysis.metrics.inDeck.toFixed(2) : ' -- ']];
+    $('[data-heads]').replaceChildren(...heads.map(([l, v]) => {
+      const g = document.createElement('div');
+      g.className = 'gauge';
+      g.innerHTML = `<span class="lbl">${l}</span>`;
+      g.appendChild(makeFlap(v, l === 'In this deck' ? 'amber' : ''));
+      return g;
+    }));
+    paintCurve();
+    const sel = root.querySelector('[data-c="card"]');
+    const keep = sel.value;
+    const uniq = [...new Map(all.map((c) => [c.id, c])).values()].sort((a, b) => a.name.localeCompare(b.name));
+    sel.innerHTML = `<option value="">Pick a card or set copies</option>${uniq.map((c) => `<option value="${esc(c.id)}">${esc(c.name)}</option>`).join('')}`;
+    sel.value = uniq.some((c) => c.id === keep) ? keep : '';
+    calc();
     $('[data-odds]').innerHTML = '';
     for (const [label, p] of odds) {
       const tr = document.createElement('div');
@@ -142,6 +199,25 @@ export function createTest({ root, idx, store, ui }) {
     }
     if (!hand.length) paintHand(false);
   }
+
+  /** Moxfield-style: click a curve bar to list the cards at that energy. */
+  function paintCurve() {
+    root.querySelectorAll('[data-e]').forEach((c) => c.classList.toggle('picked', c.dataset.e === pickedE));
+    const box = $('[data-curve]');
+    if (pickedE === null) { box.hidden = true; return; }
+    const d = store.getDeck();
+    const e = Number(pickedE);
+    const list = [...(d.champion ? [[d.champion, 1 + (d.main[d.champion] || 0)]] : []), ...Object.entries(d.main).filter(([id]) => id !== d.champion)]
+      .map(([id, n]) => [idx.byId.get(id), n]).filter(([c]) => c && (e === 7 ? c.E >= 7 : c.E === e)).sort(([a], [b]) => a.name.localeCompare(b.name));
+    box.hidden = false;
+    box.innerHTML = `<h3>${e === 7 ? '7+' : e} energy · ${list.reduce((a, [, n]) => a + n, 0)} cards</h3>${list.length ? `<div class="cc">${list.map(([c, n]) =>
+      `<button type="button" data-open="${esc(c.id)}"><img alt="" src="${esc(img(c, 200))}"><span>${n}× ${esc(c.name)}</span></button>`).join('')}</div>` : '<p class="meta-line">No cards at this cost.</p>'}`;
+  }
+
+  root.addEventListener('keydown', (e) => {
+    const col = e.target.closest('[data-e]');
+    if (col && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); col.click(); }
+  });
 
   return { render, draw };
 }

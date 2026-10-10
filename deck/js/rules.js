@@ -88,3 +88,28 @@ export function validate(deck, idx) {
   const warn = issues.some((i) => i.sev === 'warn');
   return { n, issues, status: bad ? 'illegal' : warn ? 'building' : 'legal' };
 }
+
+/**
+ * Split the 12 runes across the legend's domains. Power costs need runes of the card's domain, so each domain is
+ * weighted by the power its cards ask for, plus a little per card; every domain keeps at least three runes.
+ */
+export function autoRunes(deck, idx) {
+  const legend = deck.legend ? idx.byId.get(deck.legend) : null;
+  if (!legend?.domains.length) return null;
+  const doms = legend.domains;
+  const w = Object.fromEntries(doms.map((d) => [d, 0]));
+  const entries = [...Object.entries(deck.main), ...(deck.champion ? [[deck.champion, 1]] : [])];
+  for (const [id, n] of entries) {
+    const c = idx.byId.get(id);
+    const own = c ? c.domains.filter((d) => doms.includes(d)) : [];
+    for (const d of own) w[d] += (n * (c.P + 0.25)) / own.length;
+  }
+  const floor = doms.length > 1 ? 3 : LIMITS.runes;
+  const spare = LIMITS.runes - floor * doms.length;
+  const total = doms.reduce((a, d) => a + w[d], 0);
+  const raw = doms.map((d) => [d, total ? (spare * w[d]) / total : spare / doms.length]);
+  const out = Object.fromEntries(raw.map(([d, x]) => [d, floor + Math.floor(x)]));
+  let left = LIMITS.runes - Object.values(out).reduce((a, b) => a + b, 0);
+  for (const [d] of raw.sort((a, b) => (b[1] % 1) - (a[1] % 1))) { if (left-- <= 0) break; out[d] += 1; }
+  return out;
+}

@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { buildIndex } from '../deck/js/data.js';
 import { analyze, marginal, candidatePool, setPool } from '../deck/js/agent/engine.js';
 import { STYLES } from '../deck/js/agent/styles.js';
-import { blockReason, counts, validate, LIMITS } from '../deck/js/rules.js';
+import { blockReason, counts, validate, LIMITS, autoRunes } from '../deck/js/rules.js';
 import { importText, exportText } from '../deck/js/text.js';
 
 const feed = JSON.parse(readFileSync(new URL('../cards.json', import.meta.url)));
@@ -44,6 +44,10 @@ for (const legend of legends) {
     if (style.id === 'coach' && a.metrics.avgEnergy > 3.8) throw new Error(`${legend.name}/coach: avg energy ${a.metrics.avgEnergy.toFixed(2)}`);
     if (legend.domains.includes('Calm') && ['coach', 'grinder', 'engineer'].includes(style.id) && !deck.main[crab.id]) {
       throw new Error(`${legend.name}/${style.id}: Scuttle Crab missing from a Calm deck`);
+    }
+    const runes = autoRunes(deck, idx);
+    if (Object.values(runes).reduce((a, b) => a + b, 0) !== LIMITS.runes || Object.values(runes).some((n) => n < 3)) {
+      throw new Error(`${legend.name}/${style.id}: auto runes ${JSON.stringify(runes)}`);
     }
     const back = importText(exportText(deck, idx), idx).deck;
     if (back.legend !== deck.legend || counts(back).main !== counts(deck).main) throw new Error(`${legend.name}/${style.id}: export/import round trip changed the deck`);

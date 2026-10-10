@@ -459,9 +459,7 @@ select.sel {
 
 /* ---------- test room ---------- */
 .test { padding: 22px 26px 80px; max-width: 1100px; }
-.charts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; margin-bottom: 28px; }
-@media (max-width: 1280px) { .charts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 640px) { .charts { grid-template-columns: 1fr; } }
+.charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 18px; margin-bottom: 28px; }
 .chart { background: #0d0e0f; border: 1px solid #000; padding: 14px 16px 12px; }
 .chart h3 { margin: 0 0 10px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--paint-dim); font-stretch: 80%; display: flex; justify-content: space-between; }
 .bars { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 6px; height: 160px; align-items: end; }
@@ -476,6 +474,27 @@ select.sel {
 .hand .card img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .hand .card.mull { filter: brightness(.35) grayscale(.6); }
 .odds { border: 1px solid #000; background: #0d0e0f; }
+.heads { margin-bottom: 18px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 120px), 1fr)); }
+.heads .flap { font-size: 26px; }
+.bars .col[data-e] { cursor: pointer; }
+.bars .col[data-e]:hover span, .bars .col.picked span { color: var(--amber); }
+.bars .col.picked .stack { outline: 1px solid var(--amber); outline-offset: 2px; }
+.curvecards { margin: -12px 0 28px; }
+.curvecards h3 { margin: 0 0 10px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--amber); font-stretch: 80%; }
+.curvecards .cc { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; }
+.curvecards button { display: grid; gap: 5px; padding: 0; border: 0; background: none; text-align: left; color: var(--paint); }
+.curvecards img { width: 100%; aspect-ratio: 744 / 1039; object-fit: cover; display: block; box-shadow: 0 8px 16px -10px #000; transition: transform .22s var(--ease); }
+.curvecards button:hover img { transform: translateY(-3px); }
+.curvecards span { font-size: 11.5px; font-weight: 620; font-stretch: 84%; }
+.calc { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) auto; gap: 10px 14px; align-items: end; padding: 14px; }
+.calc label { display: grid; gap: 5px; font-size: 10px; font-weight: 640; letter-spacing: .12em; text-transform: uppercase; color: var(--paint-mute); font-stretch: 80%; }
+.calc input { height: 34px; padding: 0 10px; background: #0b0b0c; border: 1px solid #000; border-radius: 0; color: var(--paint); box-shadow: inset 0 2px 4px rgba(0,0,0,.6); font-variant-numeric: tabular-nums; }
+.calc input:focus { outline: none; box-shadow: inset 0 2px 4px rgba(0,0,0,.6), 0 0 0 1px var(--amber); }
+.calc .sel { width: 100%; }
+.calc output { font-size: 30px; }
+.calc .meta-line { grid-column: 1 / -1; margin: 0; }
+@media (max-width: 760px) { .calc { grid-template-columns: 1fr 1fr; } }
+.rkeys { display: inline-flex; gap: 4px; margin-left: auto; }
 .odds .tr { display: grid; grid-template-columns: minmax(0, 1fr) auto; padding: 8px 12px; border-top: 1px solid var(--rule); font-size: 13px; }
 .odds .tr:first-child { border-top: 0; }
 
@@ -633,7 +652,7 @@ select.sel {
 }
 
 /* ---------- steel bezel: inset black faces in a brushed frame ---------- */
-.chart, .tape, .styles, .verdict, .values, .gauges, .odds, .intro-steps, .intro-values, .ledger, .deck-list {
+.chart, .tape, .styles, .verdict, .values, .gauges, .odds, .calc, .intro-steps, .intro-values, .ledger, .deck-list {
   border: 3px solid transparent;
   background-clip: padding-box;
   background-color: #0b0b0c;

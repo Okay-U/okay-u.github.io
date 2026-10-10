@@ -1,7 +1,7 @@
 // The deck board: the carried object. Pinned on desktop, its own screen on phones.
 // Rows show quantity, cost, the ledger price and the price in this deck; values flip when the deck changes.
 import { img, esc, DOMAIN_CLASS } from './data.js';
-import { counts, LIMITS } from './rules.js';
+import { counts, LIMITS, autoRunes } from './rules.js';
 import { flap, makeFlap, fmtRatio, pad, hydrateFlaps } from './flap.js';
 import { baseValue, marginal } from './agent/engine.js';
 import { createRowMenu } from './rowmenu.js';
@@ -99,6 +99,11 @@ export function createBoard({ root, idx, store, ui }) {
     if (e.target.closest('[data-run]')) { ui.runAgent(); return; }
     if (e.target.closest('[data-undo]')) { if (!store.undo()) ui.toast('Nothing to undo.'); return; }
     if (e.target.closest('[data-new]')) { ui.newDeck(); return; }
+    if (e.target.closest('[data-runes-auto]')) {
+      const r = autoRunes(store.getDeck(), idx);
+      if (r) { store.update((d) => { d.runes = r; }, 'runes'); ui.toast(`Runes split by power costs: ${Object.entries(r).map(([k, v]) => `${v} ${k}`).join(', ')}.`); }
+      return;
+    }
     if (e.target.closest('[data-export]')) { ui.copyList(); return; }
     if (e.target.closest('[data-clear]')) {
       if (!Object.keys(store.getDeck().main).length) return;
@@ -306,7 +311,7 @@ export function createBoard({ root, idx, store, ui }) {
       r.appendChild(makeFlap(pad(deck.runes[d] || 0), ''));
       runes.appendChild(r);
     }
-    if (legend) runes.insertAdjacentHTML('beforeend', `<button class="key small quiet" type="button" data-pick="runes">Adjust</button>`);
+    if (legend) runes.insertAdjacentHTML('beforeend', `<span class="rkeys"><button class="key small quiet" type="button" data-runes-auto title="Split the twelve runes by the power costs in the main deck">Auto</button><button class="key small quiet" type="button" data-pick="runes">Adjust</button></span>`);
     runeSec.appendChild(runes);
     frag.appendChild(runeSec);
 
