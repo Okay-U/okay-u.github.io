@@ -1,5 +1,5 @@
 // Analyze room: pick a work style, run the agent, read a priced report with buys and cuts.
-import { analyze, marginal, candidatePool, NEED } from './agent/engine.js';
+import { analyze, marginal, candidatePool, NEED, synergy, providerTable } from './agent/engine.js';
 import { STYLES, styleById } from './agent/styles.js';
 import { makeFlap, fmtRatio, hydrateFlaps } from './flap.js';
 import { counts, blockReason, LIMITS } from './rules.js';
@@ -217,10 +217,26 @@ export function createAgent({ root, idx, store, ui }) {
       deck.main[best.m.card.id] = (deck.main[best.m.card.id] || 0) + 1;
       added.push(best.m.card.name);
     }
-    if (!added.length) { status.textContent = 'Nothing to add: the main deck is full.'; return; }
-    store.update((d) => { d.main = deck.main; }, 'fill');
-    ui.toast(`${style.name} added ${added.length} card${added.length > 1 ? 's' : ''}.`);
+    const fields = pickBattlefields(deck);
+    if (!added.length && !fields.length) { status.textContent = 'Nothing to add: the main deck and battlefields are full.'; return; }
+    store.update((d) => { d.main = deck.main; d.bf = deck.bf; }, 'fill');
+    ui.toast(`${style.name} added ${added.length} card${added.length === 1 ? '' : 's'}${fields.length ? ` and ${fields.length} battlefield${fields.length > 1 ? 's' : ''}` : ''}.`);
     await run();
+  }
+
+  // Battlefields: per-use value from the model plus how well the deck feeds them. Only fills empty slots.
+  function pickBattlefields(deck) {
+    const a = analyze(deck, idx);
+    const table = providerTable(a.rows.map((r) => ({ card: r.card, n: r.n })), a.legend, []);
+    const picked = [];
+    const ranked = idx.cards.filter((c) => c.type === 'Battlefield' && !c.banned && !c.token && !deck.bf.includes(c.id))
+      .map((c) => ({ c, s: (c.model?.P || []).reduce((t, p) => t + (Number(p[1]) || 0), 0) + synergy(c, 1, table).bonus }))
+      .sort((x, y) => y.s - x.s);
+    for (const { c } of ranked) {
+      if (deck.bf.length >= 3) break;
+      deck.bf.push(c.id); picked.push(c.name);
+    }
+    return picked;
   }
 
   async function trim() {
