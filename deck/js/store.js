@@ -1,5 +1,10 @@
 // Deck state, undo, saved decks (browser storage) and share links (URL hash). One deck is "current".
+// Everything read from storage or a link passes normalizeDeck: known card ids only, canonical ids, whitelisted runes.
+import { DOMAINS } from './data.js';
+
 const KEY = 'riftcount.deckboard.v1';
+const MAX_ENTRIES = 60;
+let IDX = null;
 const listeners = new Set();
 const undoStack = [];
 
@@ -18,12 +23,48 @@ function writeStore() {
   try { localStorage.setItem(KEY, JSON.stringify({ current: deck.id, decks: saved })); } catch { /* private mode: decks live in the URL only */ }
 }
 
-export function initStore() {
+const isObj = (o) => !!o && typeof o === 'object' && !Array.isArray(o);
+const canon = (id, types) => {
+  if (typeof id !== 'string' || !IDX) return null;
+  const c = IDX.byId.get(id);
+  return c && (!types || types.includes(c.type)) ? c.id : null;
+};
+function counts(o, types, max) {
+  const out = {};
+  if (!isObj(o)) return out;
+  for (const [k, v] of Object.entries(o).slice(0, MAX_ENTRIES)) {
+    const id = canon(k, types);
+    const n = Number.isInteger(v) ? v : 0;
+    if (id && n > 0) out[id] = Math.min(max, (out[id] || 0) + n);
+  }
+  return out;
+}
+/** Validate and canonicalize a deck from storage or a share link. Returns null when unusable. */
+export function normalizeDeck(raw) {
+  if (!isObj(raw)) return null;
+  const runes = {};
+  if (isObj(raw.runes)) for (const d of DOMAINS) if (Number.isInteger(raw.runes[d]) && raw.runes[d] > 0) runes[d] = Math.min(12, raw.runes[d]);
+  return {
+    v: 1,
+    id: typeof raw.id === 'string' && /^d[a-z0-9]{4,20}$/.test(raw.id) ? raw.id : blankDeck().id,
+    name: typeof raw.name === 'string' && raw.name.trim() ? raw.name.slice(0, 60) : 'Untitled deck',
+    legend: canon(raw.legend, ['Legend']),
+    champion: canon(raw.champion, ['Unit']),
+    main: counts(raw.main, ['Unit', 'Spell', 'Gear'], 3),
+    side: counts(raw.side, ['Unit', 'Spell', 'Gear'], 3),
+    bf: [...new Set((Array.isArray(raw.bf) ? raw.bf : []).map((x) => canon(x, ['Battlefield'])).filter(Boolean))].slice(0, 3),
+    runes, bench: [],
+    updated: Number.isFinite(raw.updated) ? raw.updated : Date.now(),
+  };
+}
+
+export function initStore(idx) {
+  IDX = idx;
   const s = readStore();
-  saved = Array.isArray(s?.decks) ? s.decks : [];
+  saved = (Array.isArray(s?.decks) ? s.decks : []).map(normalizeDeck).filter(Boolean);
   const fromHash = decodeShare(location.hash);
   if (fromHash) {
-    deck = { ...blankDeck(), ...fromHash, id: blankDeck().id };
+    deck = { ...fromHash, id: blankDeck().id };
     history.replaceState(null, '', location.pathname);
     persist();
     return { fromShare: true };
@@ -50,8 +91,8 @@ export function update(fn, reason = 'edit') {
   if (undoStack.length > 60) undoStack.shift();
   const next = structuredClone(deck);
   fn(next);
-  for (const zone of ['main', 'side']) for (const [k, v] of Object.entries(next[zone])) if (v <= 0) delete next[zone][k];
-  for (const [k, v] of Object.entries(next.runes)) if (v <= 0) delete next.runes[k];
+  for (const zone of ['main', 'side']) for (const [k, v] of Object.entries(next[zone])) if (!(v > 0)) delete next[zone][k];
+  for (const [k, v] of Object.entries(next.runes)) if (!(v > 0)) delete next.runes[k];
   deck = next;
   persist();
   listeners.forEach((l) => l(deck, reason));
@@ -76,13 +117,14 @@ export function switchTo(id) {
 }
 
 export function newDeck(seed) {
-  deck = { ...blankDeck(), ...(seed || {}), id: blankDeck().id };
+  deck = { ...(normalizeDeck({ ...blankDeck(), ...(seed || {}) }) || blankDeck()), id: blankDeck().id };
   undoStack.length = 0;
   persist();
   listeners.forEach((l) => l(deck, 'switch'));
 }
 
 export function removeDeck(id) {
+  undoStack.length = 0;
   saved = saved.filter((d) => d.id !== id);
   if (deck.id === id) deck = saved[0] ? structuredClone(saved[0]) : blankDeck();
   writeStore();
@@ -106,13 +148,10 @@ export function shareURL(d = deck) {
 function decodeShare(hash) {
   const m = /#d=([A-Za-z0-9_-]+)/.exec(hash || '');
   if (!m) return null;
+  if (m[1].length > 8000) return null;
   try {
     const p = JSON.parse(unb64(m[1]));
-    const obj = (o) => (o && typeof o === 'object' && !Array.isArray(o) ? Object.fromEntries(Object.entries(o).filter(([k, v]) => typeof k === 'string' && Number.isInteger(v) && v > 0 && v < 20)) : {});
-    return {
-      name: typeof p.n === 'string' ? p.n.slice(0, 60) : 'Shared deck',
-      legend: typeof p.l === 'string' ? p.l : null, champion: typeof p.c === 'string' ? p.c : null,
-      main: obj(p.m), side: obj(p.s), bf: Array.isArray(p.b) ? p.b.filter((x) => typeof x === 'string').slice(0, 6) : [], runes: obj(p.r),
-    };
+    if (!isObj(p)) return null;
+    return normalizeDeck({ name: typeof p.n === 'string' ? p.n : 'Shared deck', legend: p.l, champion: p.c, main: p.m, side: p.s, bf: p.b, runes: p.r });
   } catch { return null; }
 }

@@ -1,6 +1,6 @@
 // The deck board: the carried object. Pinned on desktop, its own screen on phones.
 // Rows show quantity, cost, the ledger price and the price in this deck; values flip when the deck changes.
-import { img, DOMAIN_CLASS } from './data.js';
+import { img, esc, DOMAIN_CLASS } from './data.js';
 import { counts, LIMITS } from './rules.js';
 import { flap, makeFlap, fmtRatio, pad, hydrateFlaps } from './flap.js';
 
@@ -84,9 +84,11 @@ export function createBoard({ root, idx, store, ui }) {
       r.querySelector('.mv').prepend(makeFlap('', ''));
       rowEls.set(key, r);
     }
+    r.getAnimations().forEach((a) => a.cancel());
     r.className = `row ${extraClass}`.trim();
     r.querySelector('.nm').textContent = card.name;
-    r.querySelector('.cost').innerHTML = `${card.E}${card.domains.map((d) => (card.P ? `<i class="pw" style="background:var(--${DOMAIN_CLASS[d]})"></i>`.repeat(Math.min(card.P, 3)) : '')).join('')}`;
+    const pipClass = DOMAIN_CLASS[card.domains[0]] || 'paint-mute';
+    r.querySelector('.cost').innerHTML = `${Number(card.E) || 0}${`<i class="pw" style="background:var(--${pipClass})"></i>`.repeat(Math.min(Number(card.P) || 0, 3))}`;
     const a = an?.rows.find((x) => x.card.id === card.id);
     const ledger = a ? a.ledger : null;
     const inDeck = a ? a.deckAmber : null;
@@ -127,12 +129,12 @@ export function createBoard({ root, idx, store, ui }) {
     const legend = deck.legend ? idx.byId.get(deck.legend) : null;
     const frag = document.createDocumentFragment();
     frag.appendChild(section('Legend', undefined, legend
-      ? `<div class="legend-plate"><img alt="" src="${img(legend, 200)}"><div><div class="t"></div><div class="d">${legend.domains.join(' / ')} · <button class="key small quiet" type="button" data-pick="legend">Change</button></div></div></div>`
+      ? `<div class="legend-plate"><img alt="" src="${esc(img(legend, 200))}"><div><div class="t"></div><div class="d">${esc(legend.domains.join(' / '))} · <button class="key small quiet" type="button" data-pick="legend">Change</button></div></div></div>`
       : `<p class="hint">No legend yet. <button type="button" data-pick="legend">Pick one</button> to set your domains.</p>`));
     if (legend) frag.lastChild.querySelector('.t').textContent = legend.name;
 
     const champ = deck.champion ? idx.byId.get(deck.champion) : null;
-    const champSec = section('Chosen champion', undefined, champ ? null : `<p class="hint">${legend ? `<button type="button" data-pick="champion">Choose a ${legend.champ} champion</button>.` : 'Comes after the legend.'}</p>`);
+    const champSec = section('Chosen champion', undefined, champ ? null : `<p class="hint">${legend ? `<button type="button" data-pick="champion">Choose a ${esc(legend.champ)} champion</button>.` : 'Comes after the legend.'}</p>`);
     if (champ) champSec.appendChild(row(champ, 1 + (deck.main[champ.id] || 0), 'champion', an, 'champ'));
     frag.appendChild(champSec);
 
@@ -159,7 +161,9 @@ export function createBoard({ root, idx, store, ui }) {
     for (const d of (legend?.domains || Object.keys(deck.runes))) {
       const r = document.createElement('span');
       r.className = 'rune';
-      r.innerHTML = `<i class="dot" style="background:var(--${DOMAIN_CLASS[d]})"></i><span>${d}</span>`;
+      if (!DOMAIN_CLASS[d]) continue;
+      r.innerHTML = `<i class="dot" style="background:var(--${DOMAIN_CLASS[d]})"></i><span></span>`;
+      r.querySelector('span').textContent = d;
       r.appendChild(makeFlap(pad(deck.runes[d] || 0), ''));
       runes.appendChild(r);
     }

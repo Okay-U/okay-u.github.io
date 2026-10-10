@@ -1,0 +1,659 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-10T11:10:12+00:00",
+  "title": "Design System: Riftcount Deck Board",
+  "scope": "/deck/ only. The marketing home and /amber/ are separate surfaces outside this system.",
+  "extensions": {
+    "colorMeta": {
+      "steel": {
+        "role": "neutral",
+        "displayName": "Brushed Steel",
+        "canonical": "#17181a",
+        "tonalRamp": [
+          "oklch(15% 0.004 264.5)",
+          "oklch(26% 0.004 264.5)",
+          "oklch(37% 0.004 264.5)",
+          "oklch(48% 0.004 264.5)",
+          "oklch(59% 0.004 264.5)",
+          "oklch(70% 0.004 264.5)",
+          "oklch(82% 0.004 264.5)",
+          "oklch(95% 0.004 264.5)"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Rule",
+        "canonical": "#2d2f33",
+        "tonalRamp": [
+          "oklch(15% 0.008 264.5)",
+          "oklch(26% 0.008 264.5)",
+          "oklch(37% 0.008 264.5)",
+          "oklch(48% 0.008 264.5)",
+          "oklch(59% 0.008 264.5)",
+          "oklch(70% 0.008 264.5)",
+          "oklch(82% 0.008 264.5)",
+          "oklch(95% 0.008 264.5)"
+        ]
+      },
+      "rule-hi": {
+        "role": "neutral",
+        "displayName": "Rule High",
+        "canonical": "#3d3f45",
+        "tonalRamp": [
+          "oklch(15% 0.011 271.1)",
+          "oklch(26% 0.011 271.1)",
+          "oklch(37% 0.011 271.1)",
+          "oklch(48% 0.011 271.1)",
+          "oklch(59% 0.011 271.1)",
+          "oklch(70% 0.011 271.1)",
+          "oklch(82% 0.011 271.1)",
+          "oklch(95% 0.011 271.1)"
+        ]
+      },
+      "well": {
+        "role": "neutral",
+        "displayName": "Floor Well",
+        "canonical": "#0f1011",
+        "tonalRamp": [
+          "oklch(15% 0.003 248.0)",
+          "oklch(26% 0.003 248.0)",
+          "oklch(37% 0.003 248.0)",
+          "oklch(48% 0.003 248.0)",
+          "oklch(59% 0.003 248.0)",
+          "oklch(70% 0.003 248.0)",
+          "oklch(82% 0.003 248.0)",
+          "oklch(95% 0.003 248.0)"
+        ]
+      },
+      "key-face": {
+        "role": "neutral",
+        "displayName": "Plate Steel",
+        "canonical": "#2a2c30",
+        "tonalRamp": [
+          "oklch(15% 0.008 264.4)",
+          "oklch(26% 0.008 264.4)",
+          "oklch(37% 0.008 264.4)",
+          "oklch(48% 0.008 264.4)",
+          "oklch(59% 0.008 264.4)",
+          "oklch(70% 0.008 264.4)",
+          "oklch(82% 0.008 264.4)",
+          "oklch(95% 0.008 264.4)"
+        ]
+      },
+      "flap": {
+        "role": "neutral",
+        "displayName": "Flap Black",
+        "canonical": "#0b0b0c",
+        "tonalRamp": [
+          "oklch(15% 0.002 286.1)",
+          "oklch(26% 0.002 286.1)",
+          "oklch(37% 0.002 286.1)",
+          "oklch(48% 0.002 286.1)",
+          "oklch(59% 0.002 286.1)",
+          "oklch(70% 0.002 286.1)",
+          "oklch(82% 0.002 286.1)",
+          "oklch(95% 0.002 286.1)"
+        ]
+      },
+      "flap-top": {
+        "role": "neutral",
+        "displayName": "Flap Lip",
+        "canonical": "#161618",
+        "tonalRamp": [
+          "oklch(15% 0.004 286.0)",
+          "oklch(26% 0.004 286.0)",
+          "oklch(37% 0.004 286.0)",
+          "oklch(48% 0.004 286.0)",
+          "oklch(59% 0.004 286.0)",
+          "oklch(70% 0.004 286.0)",
+          "oklch(82% 0.004 286.0)",
+          "oklch(95% 0.004 286.0)"
+        ]
+      },
+      "paint": {
+        "role": "neutral",
+        "displayName": "Paint",
+        "canonical": "#efe9dd",
+        "tonalRamp": [
+          "oklch(15% 0.017 84.6)",
+          "oklch(26% 0.017 84.6)",
+          "oklch(37% 0.017 84.6)",
+          "oklch(48% 0.017 84.6)",
+          "oklch(59% 0.017 84.6)",
+          "oklch(70% 0.017 84.6)",
+          "oklch(82% 0.017 84.6)",
+          "oklch(95% 0.017 84.6)"
+        ]
+      },
+      "paint-dim": {
+        "role": "neutral",
+        "displayName": "Paint Dim",
+        "canonical": "#b3ad9f",
+        "tonalRamp": [
+          "oklch(15% 0.021 87.5)",
+          "oklch(26% 0.021 87.5)",
+          "oklch(37% 0.021 87.5)",
+          "oklch(48% 0.021 87.5)",
+          "oklch(59% 0.021 87.5)",
+          "oklch(70% 0.021 87.5)",
+          "oklch(82% 0.021 87.5)",
+          "oklch(95% 0.021 87.5)"
+        ]
+      },
+      "paint-mute": {
+        "role": "neutral",
+        "displayName": "Paint Mute",
+        "canonical": "#8a857b",
+        "tonalRamp": [
+          "oklch(15% 0.016 84.6)",
+          "oklch(26% 0.016 84.6)",
+          "oklch(37% 0.016 84.6)",
+          "oklch(48% 0.016 84.6)",
+          "oklch(59% 0.016 84.6)",
+          "oklch(70% 0.016 84.6)",
+          "oklch(82% 0.016 84.6)",
+          "oklch(95% 0.016 84.6)"
+        ]
+      },
+      "amber": {
+        "role": "primary",
+        "displayName": "Ledger Amber",
+        "canonical": "#f3a72a",
+        "tonalRamp": [
+          "oklch(15% 0.155 73.6)",
+          "oklch(26% 0.155 73.6)",
+          "oklch(37% 0.155 73.6)",
+          "oklch(48% 0.155 73.6)",
+          "oklch(59% 0.155 73.6)",
+          "oklch(70% 0.155 73.6)",
+          "oklch(82% 0.155 73.6)",
+          "oklch(95% 0.155 73.6)"
+        ]
+      },
+      "amber-ink": {
+        "role": "primary",
+        "displayName": "Amber Ink",
+        "canonical": "#1a1204",
+        "tonalRamp": [
+          "oklch(15% 0.030 81.9)",
+          "oklch(26% 0.030 81.9)",
+          "oklch(37% 0.030 81.9)",
+          "oklch(48% 0.030 81.9)",
+          "oklch(59% 0.030 81.9)",
+          "oklch(70% 0.030 81.9)",
+          "oklch(82% 0.030 81.9)",
+          "oklch(95% 0.030 81.9)"
+        ]
+      },
+      "up": {
+        "role": "secondary",
+        "displayName": "Signal Green",
+        "canonical": "#57bd7c",
+        "tonalRamp": [
+          "oklch(15% 0.135 153.4)",
+          "oklch(26% 0.135 153.4)",
+          "oklch(37% 0.135 153.4)",
+          "oklch(48% 0.135 153.4)",
+          "oklch(59% 0.135 153.4)",
+          "oklch(70% 0.135 153.4)",
+          "oklch(82% 0.135 153.4)",
+          "oklch(95% 0.135 153.4)"
+        ]
+      },
+      "up-ink": {
+        "role": "secondary",
+        "displayName": "Green Ink",
+        "canonical": "#07170d",
+        "tonalRamp": [
+          "oklch(15% 0.030 155.1)",
+          "oklch(26% 0.030 155.1)",
+          "oklch(37% 0.030 155.1)",
+          "oklch(48% 0.030 155.1)",
+          "oklch(59% 0.030 155.1)",
+          "oklch(70% 0.030 155.1)",
+          "oklch(82% 0.030 155.1)",
+          "oklch(95% 0.030 155.1)"
+        ]
+      },
+      "down": {
+        "role": "secondary",
+        "displayName": "Tick Vermilion",
+        "canonical": "#ec6347",
+        "tonalRamp": [
+          "oklch(15% 0.176 33.3)",
+          "oklch(26% 0.176 33.3)",
+          "oklch(37% 0.176 33.3)",
+          "oklch(48% 0.176 33.3)",
+          "oklch(59% 0.176 33.3)",
+          "oklch(70% 0.176 33.3)",
+          "oklch(82% 0.176 33.3)",
+          "oklch(95% 0.176 33.3)"
+        ]
+      },
+      "down-ink": {
+        "role": "secondary",
+        "displayName": "Vermilion Ink",
+        "canonical": "#1d0702",
+        "tonalRamp": [
+          "oklch(15% 0.042 40.1)",
+          "oklch(26% 0.042 40.1)",
+          "oklch(37% 0.042 40.1)",
+          "oklch(48% 0.042 40.1)",
+          "oklch(59% 0.042 40.1)",
+          "oklch(70% 0.042 40.1)",
+          "oklch(82% 0.042 40.1)",
+          "oklch(95% 0.042 40.1)"
+        ]
+      },
+      "fury": {
+        "role": "tertiary",
+        "displayName": "Fury",
+        "canonical": "#dc4a3f",
+        "tonalRamp": [
+          "oklch(15% 0.184 28.1)",
+          "oklch(26% 0.184 28.1)",
+          "oklch(37% 0.184 28.1)",
+          "oklch(48% 0.184 28.1)",
+          "oklch(59% 0.184 28.1)",
+          "oklch(70% 0.184 28.1)",
+          "oklch(82% 0.184 28.1)",
+          "oklch(95% 0.184 28.1)"
+        ]
+      },
+      "calm": {
+        "role": "tertiary",
+        "displayName": "Calm",
+        "canonical": "#43a874",
+        "tonalRamp": [
+          "oklch(15% 0.123 157.8)",
+          "oklch(26% 0.123 157.8)",
+          "oklch(37% 0.123 157.8)",
+          "oklch(48% 0.123 157.8)",
+          "oklch(59% 0.123 157.8)",
+          "oklch(70% 0.123 157.8)",
+          "oklch(82% 0.123 157.8)",
+          "oklch(95% 0.123 157.8)"
+        ]
+      },
+      "mind": {
+        "role": "tertiary",
+        "displayName": "Mind",
+        "canonical": "#4789e0",
+        "tonalRamp": [
+          "oklch(15% 0.148 256.2)",
+          "oklch(26% 0.148 256.2)",
+          "oklch(37% 0.148 256.2)",
+          "oklch(48% 0.148 256.2)",
+          "oklch(59% 0.148 256.2)",
+          "oklch(70% 0.148 256.2)",
+          "oklch(82% 0.148 256.2)",
+          "oklch(95% 0.148 256.2)"
+        ]
+      },
+      "body": {
+        "role": "tertiary",
+        "displayName": "Body",
+        "canonical": "#ec8f30",
+        "tonalRamp": [
+          "oklch(15% 0.152 61.1)",
+          "oklch(26% 0.152 61.1)",
+          "oklch(37% 0.152 61.1)",
+          "oklch(48% 0.152 61.1)",
+          "oklch(59% 0.152 61.1)",
+          "oklch(70% 0.152 61.1)",
+          "oklch(82% 0.152 61.1)",
+          "oklch(95% 0.152 61.1)"
+        ]
+      },
+      "chaos": {
+        "role": "tertiary",
+        "displayName": "Chaos",
+        "canonical": "#9a68e0",
+        "tonalRamp": [
+          "oklch(15% 0.178 300.6)",
+          "oklch(26% 0.178 300.6)",
+          "oklch(37% 0.178 300.6)",
+          "oklch(48% 0.178 300.6)",
+          "oklch(59% 0.178 300.6)",
+          "oklch(70% 0.178 300.6)",
+          "oklch(82% 0.178 300.6)",
+          "oklch(95% 0.178 300.6)"
+        ]
+      },
+      "order": {
+        "role": "tertiary",
+        "displayName": "Order",
+        "canonical": "#dcb63a",
+        "tonalRamp": [
+          "oklch(15% 0.142 91.2)",
+          "oklch(26% 0.142 91.2)",
+          "oklch(37% 0.142 91.2)",
+          "oklch(48% 0.142 91.2)",
+          "oklch(59% 0.142 91.2)",
+          "oklch(70% 0.142 91.2)",
+          "oklch(82% 0.142 91.2)",
+          "oklch(95% 0.142 91.2)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Build room intro headline; uppercase."
+      },
+      "flap": {
+        "displayName": "Flap",
+        "purpose": "Every split-flap readout; size set per context (12px rows to 40px deck values)."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Editable deck name in the rail."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running copy, ledes, reasons."
+      },
+      "row-name": {
+        "displayName": "Row name",
+        "purpose": "Card names on board rows and the tape; uppercase."
+      },
+      "key": {
+        "displayName": "Key",
+        "purpose": "Keys, selects, tabs; uppercase."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Ticker captions, section and column heads; uppercase."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Decklist import/export text and calculation notes only."
+      }
+    },
+    "shadows": [
+      {
+        "name": "bezel",
+        "value": "0 0 0 1px #000, inset 0 0 0 1px #000, 0 12px 22px -16px #000",
+        "purpose": "With a 3px border-image linear-gradient(180deg, #44474e 0%, #24262a 45%, #303238 100%): every data panel."
+      },
+      {
+        "name": "flap-cell",
+        "value": "inset 0 1px 0 rgba(255,255,255,.05), 0 1px 0 rgba(0,0,0,.7)",
+        "purpose": "Flap cell lip and under-edge; hinge line is a separate 1px rgba(0,0,0,.85) rule at 50%."
+      },
+      {
+        "name": "switch-plate",
+        "value": "inset 0 1px 0 rgba(255,255,255,.07), 0 2px 0 -1px rgba(0,0,0,.9), 0 3px 6px -3px rgba(0,0,0,.6)",
+        "purpose": "Raised keys at rest."
+      },
+      {
+        "name": "switch-plate-pressed",
+        "value": "inset 0 1px 2px rgba(0,0,0,.6)",
+        "purpose": "Key :active, with translateY(1px)."
+      },
+      {
+        "name": "lit-plate",
+        "value": "inset 0 1px 0 rgba(255,255,255,.35), 0 2px 0 -1px #5c3a06, 0 6px 14px -8px rgba(243,167,42,.5)",
+        "purpose": "Amber key only."
+      },
+      {
+        "name": "lamp-halo",
+        "value": "0 0 0 2px rgba(87,189,124,.18)",
+        "purpose": "Lit status lamp; same ring at 18% in amber or vermilion."
+      },
+      {
+        "name": "well",
+        "value": "inset 0 2px 4px rgba(0,0,0,.6), 0 1px 0 rgba(255,255,255,.04)",
+        "purpose": "Search field and textareas."
+      },
+      {
+        "name": "tile-lift",
+        "value": "0 14px 22px -12px rgba(0,0,0,.95), 0 1px 0 rgba(255,255,255,.06)",
+        "purpose": "Gallery tile art on hover/focus."
+      },
+      {
+        "name": "loupe",
+        "value": "0 34px 60px -26px #000, 0 2px 0 rgba(0,0,0,.6)",
+        "purpose": "Hover card preview."
+      },
+      {
+        "name": "sheet",
+        "value": "-30px 0 60px -30px rgba(0,0,0,.9)",
+        "purpose": "Right-edge dialog."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-settle",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Everything arriving or settling: room in, row wipe in, flap settle, sheet, toast, tile lift, report and deal."
+      },
+      {
+        "name": "ease-fall",
+        "value": "cubic-bezier(0.55, 0, 0.75, 0.2)",
+        "purpose": "Everything leaving or falling: flap half-turns, room out, row wipe out."
+      },
+      {
+        "name": "flap-flip",
+        "value": "70ms fall, 60ms decoy, 60ms fall, 150ms settle; 34ms stagger per cell, capped at 260ms; brightness dips to .55",
+        "purpose": "Changed flap cells only; ~60 concurrent flips max, beyond that cells snap."
+      },
+      {
+        "name": "room-switch",
+        "value": "out 160ms translateX(-28px) ease-fall; in 380ms from translateX(36px) with 30% clip wipe, ease-settle",
+        "purpose": "Changing rooms in the corridor."
+      },
+      {
+        "name": "row-wipe",
+        "value": "in 380ms clip-path from left, ease-settle; out 170ms clip-path to right, ease-fall",
+        "purpose": "Board rows added or removed."
+      },
+      {
+        "name": "key-press",
+        "value": "120ms",
+        "purpose": "Key translate and shadow swap."
+      },
+      {
+        "name": "tile-lift",
+        "value": "260ms; press 80ms",
+        "purpose": "Gallery tile hover lift (-4px) and press (-1px, scale .985)."
+      },
+      {
+        "name": "report-reveal",
+        "value": "520ms, 90ms stagger capped at 450ms; log lines 220ms from -8px",
+        "purpose": "Agent report sections and work log."
+      },
+      {
+        "name": "hand-deal",
+        "value": "420ms from translateY(24px) rotate(-2deg), 70ms stagger",
+        "purpose": "Test room draw."
+      },
+      {
+        "name": "chart-rise",
+        "value": "320ms scaleY from bottom, staggered up to 520ms",
+        "purpose": "Test room chart stacks."
+      },
+      {
+        "name": "sheet-in",
+        "value": "380ms from translateX(40px)",
+        "purpose": "Dialog sheet."
+      },
+      {
+        "name": "toast",
+        "value": "280ms rise from 16px; visible 2.2s, 3.6s for errors",
+        "purpose": "Status slip."
+      },
+      {
+        "name": "loupe",
+        "value": "260ms hover delay; 240ms top-down clip reveal",
+        "purpose": "Fine-pointer card preview."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "CSS transition/animation durations forced to 1ms; scripted flips snap and wipes, slides, reveals and deals are skipped",
+        "purpose": "prefers-reduced-motion: reduce."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "compact-rail",
+        "value": "1180px",
+        "purpose": "Rail keys collapse to Decks only."
+      },
+      {
+        "name": "phone",
+        "value": "900px",
+        "purpose": "Dock, ministrip, stacked corridor/board, 104px gallery tiles."
+      },
+      {
+        "name": "narrow",
+        "value": "560px",
+        "purpose": "Agent style keys stack."
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Switch-plate Key",
+      "kind": "button",
+      "refersTo": "key",
+      "description": "Default raised key for rail and board actions.",
+      "html": "<button class=\"ds-key\">Export</button>",
+      "css": ".ds-key { font-family: \"Archivo\", \"Helvetica Neue\", Arial, system-ui, sans-serif; display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 34px; padding: 0 14px; border: 1px solid var(--rule-hi, #3d3f45); border-radius: 0; background: linear-gradient(180deg, #2a2c30 0%, #202226 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 2px 0 -1px rgba(0,0,0,.9), 0 3px 6px -3px rgba(0,0,0,.6); color: var(--paint, #efe9dd); font-size: 12px; font-weight: 620; font-stretch: 80%; letter-spacing: .06em; text-transform: uppercase; transition: transform .12s cubic-bezier(0.16, 1, 0.3, 1), background-color .2s, box-shadow .12s; cursor: pointer; } .ds-key:hover { background: linear-gradient(180deg, #31343a 0%, #25272b 100%); } .ds-key:active { transform: translateY(1px); box-shadow: inset 0 1px 2px rgba(0,0,0,.6); } .ds-key:focus-visible { outline: 2px solid var(--paint, #efe9dd); outline-offset: 2px; } "
+    },
+    {
+      "name": "Amber Key",
+      "kind": "button",
+      "refersTo": "key-amber",
+      "description": "The lit primary action (Run agent); one per view.",
+      "html": "<button class=\"ds-key ds-key-amber\">Run agent</button>",
+      "css": ".ds-key { font-family: \"Archivo\", \"Helvetica Neue\", Arial, system-ui, sans-serif; display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 34px; padding: 0 14px; border: 1px solid var(--rule-hi, #3d3f45); border-radius: 0; background: linear-gradient(180deg, #2a2c30 0%, #202226 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 2px 0 -1px rgba(0,0,0,.9), 0 3px 6px -3px rgba(0,0,0,.6); color: var(--paint, #efe9dd); font-size: 12px; font-weight: 620; font-stretch: 80%; letter-spacing: .06em; text-transform: uppercase; transition: transform .12s cubic-bezier(0.16, 1, 0.3, 1), background-color .2s, box-shadow .12s; cursor: pointer; } .ds-key:hover { background: linear-gradient(180deg, #31343a 0%, #25272b 100%); } .ds-key:active { transform: translateY(1px); box-shadow: inset 0 1px 2px rgba(0,0,0,.6); } .ds-key:focus-visible { outline: 2px solid var(--paint, #efe9dd); outline-offset: 2px; } .ds-key-amber { background: linear-gradient(180deg, #f7b444 0%, #e39718 100%); border-color: #a86c10; color: var(--amber-ink, #1a1204); box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 2px 0 -1px #5c3a06, 0 6px 14px -8px rgba(243,167,42,.5); } .ds-key-amber:hover { background: linear-gradient(180deg, #ffc25a 0%, #ec9f1f 100%); }"
+    },
+    {
+      "name": "Quiet Key",
+      "kind": "button",
+      "refersTo": "key-quiet",
+      "description": "Secondary action inside the board.",
+      "html": "<button class=\"ds-key ds-key-quiet\">Change</button>",
+      "css": ".ds-key { font-family: \"Archivo\", \"Helvetica Neue\", Arial, system-ui, sans-serif; display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 34px; padding: 0 14px; border: 1px solid var(--rule-hi, #3d3f45); border-radius: 0; background: linear-gradient(180deg, #2a2c30 0%, #202226 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 2px 0 -1px rgba(0,0,0,.9), 0 3px 6px -3px rgba(0,0,0,.6); color: var(--paint, #efe9dd); font-size: 12px; font-weight: 620; font-stretch: 80%; letter-spacing: .06em; text-transform: uppercase; transition: transform .12s cubic-bezier(0.16, 1, 0.3, 1), background-color .2s, box-shadow .12s; cursor: pointer; } .ds-key:hover { background: linear-gradient(180deg, #31343a 0%, #25272b 100%); } .ds-key:active { transform: translateY(1px); box-shadow: inset 0 1px 2px rgba(0,0,0,.6); } .ds-key:focus-visible { outline: 2px solid var(--paint, #efe9dd); outline-offset: 2px; } .ds-key-quiet { background: transparent; box-shadow: none; border-color: var(--rule, #2d2f33); min-height: 28px; padding: 0 10px; font-size: 11px; } .ds-key-quiet:hover { border-color: var(--rule-hi, #3d3f45); background: rgba(255,255,255,.03); }"
+    },
+    {
+      "name": "Room Switch",
+      "kind": "nav",
+      "refersTo": "room-tab",
+      "description": "Segmented Build / Analyze / Test switch in the rail; the active room is lit amber.",
+      "html": "<nav class=\"ds-rooms\" role=\"tablist\"><button role=\"tab\" aria-selected=\"true\">Build</button><button role=\"tab\" aria-selected=\"false\">Analyze</button><button role=\"tab\" aria-selected=\"false\">Test</button></nav>",
+      "css": ".ds-rooms { display: inline-flex; border: 1px solid #000; background: var(--well, #0f1011); } .ds-rooms button { font-family: \"Archivo\", \"Helvetica Neue\", Arial, system-ui, sans-serif; border: 0; background: transparent; padding: 0 16px; height: 34px; font-size: 12px; font-weight: 640; font-stretch: 78%; letter-spacing: .08em; text-transform: uppercase; color: var(--paint-mute, #8a857b); cursor: pointer; } .ds-rooms button + button { border-left: 1px solid var(--rule, #2d2f33); } .ds-rooms button[aria-selected='true'] { color: var(--amber-ink, #1a1204); background: var(--amber, #f3a72a); } .ds-rooms button:not([aria-selected='true']):hover { color: var(--paint, #efe9dd); } .ds-rooms button:focus-visible { outline: 2px solid var(--paint, #efe9dd); outline-offset: 2px; }"
+    },
+    {
+      "name": "Split-flap Readout",
+      "kind": "custom",
+      "refersTo": "flap-cell",
+      "description": "Signature readout: one hinged cell per character; amber for ledger value, green/vermilion for direction.",
+      "html": "<div style=\"display:flex;gap:24px\"><span class=\"ds-flap amber\" aria-label=\"1.24\"><span class=\"fc\">1</span><span class=\"fc\">.</span><span class=\"fc\">2</span><span class=\"fc\">4</span></span><span class=\"ds-flap up\" aria-label=\"1.38\"><span class=\"fc\">1</span><span class=\"fc\">.</span><span class=\"fc\">3</span><span class=\"fc\">8</span></span><span class=\"ds-flap down\" aria-label=\"0.86\"><span class=\"fc\">0</span><span class=\"fc\">.</span><span class=\"fc\">8</span><span class=\"fc\">6</span></span></div>",
+      "css": ".ds-flap { font-family: \"Archivo\", \"Helvetica Neue\", Arial, system-ui, sans-serif; display: inline-flex; gap: 2px; font-size: 40px; } .ds-flap .fc { position: relative; display: inline-block; min-width: .72em; height: 1.32em; padding: 0 .06em; line-height: 1.32em; text-align: center; font-stretch: 72%; font-weight: 640; font-variant-numeric: tabular-nums; color: var(--paint, #efe9dd); background: linear-gradient(180deg, var(--flap-top, #161618) 0 50%, var(--flap, #0b0b0c) 50% 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 1px 0 rgba(0,0,0,.7); } .ds-flap .fc::after { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 1px; margin-top: -.5px; background: rgba(0,0,0,.85); box-shadow: 0 1px 0 rgba(255,255,255,.035); } .ds-flap.amber .fc { color: var(--amber, #f3a72a); } .ds-flap.up .fc { color: var(--up, #57bd7c); } .ds-flap.down .fc { color: var(--down, #ec6347); }"
+    },
+    {
+      "name": "Search Field",
+      "kind": "input",
+      "refersTo": "search-field",
+      "description": "Recessed well for card search; amber ring on focus.",
+      "html": "<input class=\"ds-search\" type=\"search\" placeholder=\"Search cards\">",
+      "css": ".ds-search { font-family: \"Archivo\", \"Helvetica Neue\", Arial, system-ui, sans-serif; width: 260px; height: 34px; padding: 0 12px; background: #0b0b0c; border: 1px solid #000; border-radius: 0; color: var(--paint, #efe9dd); font-size: 15px; box-shadow: inset 0 2px 4px rgba(0,0,0,.6), 0 1px 0 rgba(255,255,255,.04); } .ds-search::placeholder { color: var(--paint-mute, #8a857b); } .ds-search:focus { outline: none; box-shadow: inset 0 2px 4px rgba(0,0,0,.6), 0 0 0 1px var(--amber, #f3a72a); }"
+    },
+    {
+      "name": "Status Lamp",
+      "kind": "chip",
+      "refersTo": null,
+      "description": "Square deck-legality lamp in the rail; lit green, amber or vermilion with an 18% halo.",
+      "html": "<span class=\"ds-lamp ok\"><i></i>Legal deck</span> <span class=\"ds-lamp warn\"><i></i>Needs runes</span> <span class=\"ds-lamp bad\"><i></i>Over limit</span>",
+      "css": ".ds-lamp { font-family: \"Archivo\", \"Helvetica Neue\", Arial, system-ui, sans-serif; display: inline-flex; align-items: center; gap: 9px; margin-right: 18px; font-size: 12px; font-stretch: 84%; letter-spacing: .05em; text-transform: uppercase; color: var(--paint-dim, #b3ad9f); } .ds-lamp i { width: 9px; height: 9px; display: inline-block; background: #3a3530; box-shadow: inset 0 0 0 1px rgba(0,0,0,.6); } .ds-lamp.ok i { background: var(--up, #57bd7c); box-shadow: 0 0 0 2px rgba(87,189,124,.18); } .ds-lamp.warn i { background: var(--amber, #f3a72a); box-shadow: 0 0 0 2px rgba(243,167,42,.18); } .ds-lamp.bad i { background: var(--down, #ec6347); box-shadow: 0 0 0 2px rgba(236,99,71,.18); }"
+    },
+    {
+      "name": "Board Row",
+      "kind": "custom",
+      "refersTo": "board-row",
+      "description": "A card line on the deck board: quantity, cost, name, ledger value and in-deck value with tick.",
+      "html": "<div class=\"ds-row\"><span><span class=\"ds-flap \" aria-label=\"3\"><span class=\"fc\">3</span></span></span><span class=\"cost\">2</span><span class=\"nm\">Jinx, Rebel</span><span><span class=\"ds-flap amber\" aria-label=\"1.12\"><span class=\"fc\">1</span><span class=\"fc\">.</span><span class=\"fc\">1</span><span class=\"fc\">2</span></span></span><span class=\"mv up\"><b>▲</b><span class=\"ds-flap up\" aria-label=\"1.31\"><span class=\"fc\">1</span><span class=\"fc\">.</span><span class=\"fc\">3</span><span class=\"fc\">1</span></span></span></div>",
+      "css": ".ds-flap { font-family: \"Archivo\", \"Helvetica Neue\", Arial, system-ui, sans-serif; display: inline-flex; gap: 2px; font-size: 12.5px; } .ds-flap .fc { position: relative; display: inline-block; min-width: .72em; height: 1.32em; padding: 0 .06em; line-height: 1.32em; text-align: center; font-stretch: 72%; font-weight: 640; font-variant-numeric: tabular-nums; color: var(--paint, #efe9dd); background: linear-gradient(180deg, var(--flap-top, #161618) 0 50%, var(--flap, #0b0b0c) 50% 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 1px 0 rgba(0,0,0,.7); } .ds-flap .fc::after { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 1px; margin-top: -.5px; background: rgba(0,0,0,.85); box-shadow: 0 1px 0 rgba(255,255,255,.035); } .ds-flap.amber .fc { color: var(--amber, #f3a72a); } .ds-flap.up .fc { color: var(--up, #57bd7c); } .ds-flap.down .fc { color: var(--down, #ec6347); } .ds-row { font-family: \"Archivo\", \"Helvetica Neue\", Arial, system-ui, sans-serif; display: grid; grid-template-columns: 34px 30px minmax(0,1fr) auto auto; align-items: center; gap: 8px; width: 420px; min-height: 34px; padding: 3px 12px 3px 18px; background: #101113; border-top: 1px solid rgba(255,255,255,.025); color: var(--paint, #efe9dd); transition: background-color .2s; } .ds-row:hover { background: #151618; } .ds-row .cost { font-size: 11px; font-weight: 700; font-stretch: 75%; color: var(--paint-dim, #b3ad9f); } .ds-row .nm { font-size: 13px; font-weight: 620; font-stretch: 75%; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; } .ds-row .nm:hover { color: var(--amber, #f3a72a); } .ds-row .mv { display: inline-flex; gap: 4px; align-items: center; } .ds-row .mv b { font-size: 10px; color: var(--up, #57bd7c); }"
+    },
+    {
+      "name": "Bezel Tape",
+      "kind": "card",
+      "refersTo": "tape-buy",
+      "description": "Agent buys and cuts as a ticker tape inside the steel bezel.",
+      "html": "<div class=\"ds-tape\"><div class=\"tr\"><span class=\"side buy\">Buy</span><span class=\"t\">Vi, Destructive</span><span class=\"why\">Fills the 2-cost removal gap; +0.18 with your champion.</span></div><div class=\"tr\"><span class=\"side sell\">Sell</span><span class=\"t\">Stacked Deck</span><span class=\"why\">0.79 of its ledger price in this deck.</span></div><div class=\"tr\"><span class=\"side pair\">Pair</span><span class=\"t\">Annie, Fiery</span><span class=\"why\">Only strong next to two burn spells.</span></div></div>",
+      "css": ".ds-tape { font-family: \"Archivo\", \"Helvetica Neue\", Arial, system-ui, sans-serif; width: 460px; border: 3px solid transparent; background-clip: padding-box; background-color: #0b0b0c; box-shadow: 0 0 0 1px #000, inset 0 0 0 1px #000, 0 12px 22px -16px #000; border-image: linear-gradient(180deg, #44474e 0%, #24262a 45%, #303238 100%) 1; } .ds-tape .tr { display: grid; grid-template-columns: 42px minmax(0,1fr); gap: 4px 12px; align-items: center; padding: 9px 12px; border-top: 1px solid var(--rule, #2d2f33); color: var(--paint, #efe9dd); } .ds-tape .tr:first-child { border-top: 0; } .ds-tape .side { font-size: 10px; font-weight: 760; letter-spacing: .12em; text-transform: uppercase; padding: 3px 0; text-align: center; } .ds-tape .buy { background: var(--up, #57bd7c); color: #07170d; } .ds-tape .sell { background: var(--down, #ec6347); color: #1d0702; } .ds-tape .pair { background: var(--amber, #f3a72a); color: var(--amber-ink, #1a1204); } .ds-tape .t { font-weight: 660; font-size: 13.5px; font-stretch: 75%; letter-spacing: .06em; text-transform: uppercase; } .ds-tape .why { grid-column: 2; font-size: 12.5px; color: var(--paint-mute, #8a857b); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Exchange Floor Board",
+    "overview": "The deck is a live price board on a trading floor. A brushed-steel ground carries matte black flap faces; off-white painted characters sit in individual hinged cells and flip when a value changes. Every card has a price from Riot's cost ledger, shown in amber, and the board re-prices it inside the deck, ticking green when partners lift it and vermilion when the deck drags it down. The card art is the only full colour in the room; everything else is steel, black, paint and three lamp colours.\n\nDensity is a trading terminal's: tight 34px rows, 1px black rules, uppercase narrow labels, numbers in tabular flap cells. The layout is a carried object between rooms. The deck board stays pinned on the right at full height while the left corridor switches between the Build, Analyze and Test rooms; on a phone the board becomes its own dock tab, and a strip of its headline values stays pinned under the rail.\n\nThe world refuses the genre's gold-on-black gallery: no glowing tiles, no soft rounded panels, no neon borders around cards. Depth is mechanical, with recessed faces in steel bezels, raised switch-plate keys and a hinge line through every flap.",
+    "keyCharacteristics": [
+      "Split-flap cells for every headline number, with a hinge line through the middle and a tabular, 72%-width face.",
+      "One grotesque (Archivo) used across its width axis, from 72% condensed flaps to 100% body text.",
+      "Square corners everywhere; 1px black rules and 3px brushed-steel bezels instead of cards.",
+      "Amber means price and the primary action; green and vermilion only mean up and down.",
+      "Motion is mechanical: flips, wipes and slides with a hard ease-in going out and a long expo-out settle coming in."
+    ],
+    "rules": [
+      {
+        "name": "The Art Is the Colour Rule",
+        "body": "Card art is the only full-colour content. Surfaces are steel and black; colour elsewhere is a lamp, a tick or a domain pip, never a fill behind content.",
+        "section": "colors"
+      },
+      {
+        "name": "The Amber Is Price Rule",
+        "body": "Amber marks ledger value and the single primary action in view (Run agent, the active room). Green and vermilion are reserved for direction against a reference or a limit; they never decorate.",
+        "section": "colors"
+      },
+      {
+        "name": "The Dark Ink Rule",
+        "body": "Text on a lamp colour uses that lamp's own near-black ink (amber-ink, up-ink, down-ink), never white.",
+        "section": "colors"
+      },
+      {
+        "name": "The Numbers Live in Flaps Rule",
+        "body": "Headline numbers (counts, ledger value, in-deck value, verdict score, gauge values, odds percentages, rune counts) render as split-flap cells, one cell per character, tabular, never as plain text.",
+        "section": "typography"
+      },
+      {
+        "name": "The One Family, Many Widths Rule",
+        "body": "Hierarchy comes from Archivo's width and weight axes and from case, not from a second typeface. The only other face is system monospace for raw decklist text.",
+        "section": "typography"
+      },
+      {
+        "name": "The Recessed Face Rule",
+        "body": "Content panels are black faces set into a 3px steel bezel with a black outer and inner line. Don't build a panel from a lighter fill with a soft shadow.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Lamps Glow, Tiles Don't Rule",
+        "body": "Light spill belongs to lit hardware: status lamps and the amber key. Card tiles lift with black shadow only and never take a coloured glow or border highlight.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Square Corner Rule",
+        "body": "border-radius is 0 on every element the board draws. Rounding is what the genre does; the exchange board doesn't.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "**Do** render every headline number as split-flap cells, one per character, tabular, at 72% width.",
+      "**Do** set all chrome text in Archivo and move along its width axis for hierarchy (72% flaps to 100% body).",
+      "**Do** seat data panels as black faces in the 3px brushed-steel bezel with black outer and inner lines.",
+      "**Do** use amber for ledger value and the single primary action, green and vermilion only for direction against a reference or a limit.",
+      "**Do** put lamp colours under their own dark ink (amber-ink, up-ink, down-ink).",
+      "**Do** keep motion mechanical: ease-in cubic-bezier(.55,0,.75,.2) for anything leaving or falling, expo-out cubic-bezier(.16,1,.3,1) for anything arriving or settling.",
+      "**Do** honour reduced motion: CSS transitions and animations drop to 1ms and every scripted flip, wipe, slide and deal is skipped."
+    ],
+    "donts": [
+      "**Don't** round any corner; border-radius is 0 throughout.",
+      "**Don't** put a glow, neon border or coloured outline around card tiles or panels; spill light belongs only to status lamps and the lit amber key.",
+      "**Don't** use domain colours as fills behind content; they stay small square pips and chart stacks.",
+      "**Don't** set white text on amber, green or vermilion.",
+      "**Don't** add a second display or body typeface; monospace is reserved for raw decklist text and calculation notes.",
+      "**Don't** build a panel from a lighter fill with a soft, diffuse shadow; depth comes from bezels, plates, wells and hard black under-edges."
+    ]
+  }
+}

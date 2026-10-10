@@ -1,14 +1,13 @@
 // Test room: energy and power curves, domain split, value spread, sample opening hands with mulligan, opening odds.
-import { img, DOMAIN_CLASS } from './data.js';
+import { img, esc, DOMAIN_CLASS } from './data.js';
 import { makeFlap, hydrateFlaps } from './flap.js';
 
 const HAND = 4;           // opening hand in Riftbound
 const MULLIGAN_MAX = 2;   // cards you may recycle and redraw once
-const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
 function choose(n, k) { if (k < 0 || k > n) return 0; let r = 1; for (let i = 1; i <= k; i++) r = (r * (n - k + i)) / i; return r; }
 /** P(at least one hit in `draws` cards) from `deck` cards with `hits` successes (hypergeometric). */
-const atLeastOne = (deck, hits, draws) => (deck <= 0 || draws <= 0 ? 0 : 1 - choose(deck - hits, draws) / choose(deck, draws));
+const atLeastOne = (deck, hits, draws) => { const d = Math.min(draws, deck); return deck <= 0 || d <= 0 ? 0 : 1 - choose(deck - hits, d) / choose(deck, d); };
 
 export function createTest({ root, idx, store, ui }) {
   let hand = [];
@@ -58,7 +57,7 @@ export function createTest({ root, idx, store, ui }) {
       const f = document.createElement('figure');
       f.className = `card${marked.has(i) ? ' mull' : ''}`;
       f.dataset.i = i;
-      f.innerHTML = `<img alt="${esc(c.name)}" src="${img(c, 300)}">`;
+      f.innerHTML = `<img alt="${esc(c.name)}" src="${esc(img(c, 300))}">`;
       if (animate && (only < 0 || only === i) && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
         f.animate([{ transform: 'translateY(24px) rotate(-2deg)', opacity: 0 }, { transform: 'none', opacity: 1 }],
           { duration: 420, delay: only < 0 ? i * 70 : 0, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' });

@@ -33,7 +33,7 @@ export function autoProvides(c) {
   if (/\[Temporary\]/.test(c.text)) out.push(['temporary', 1], ['friendly_death', 0.6]);
   if (/When you play me/i.test(c.text)) out.push(['onplay', 1]);
   if (c.type === 'Gear') out.push(['gear', 1]);
-  if (c.C <= 2) out.push(['legion', 1]);
+  if (c.C > 0 && c.C <= 2) out.push(['legion', 1]);
   if (c.E >= 7) out.push(['show_off', 1]);
   if (c.type === 'Spell' && c.C >= 5) out.push(['big_spell', 1]);
   if (c.P >= 2) out.push(['power2', 1]);

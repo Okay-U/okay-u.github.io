@@ -3,6 +3,7 @@
 // The deterministic agent's numbers are sent along so Claude explains and argues from the same ledger.
 import { analyze, marginal, candidatePool } from './agent/engine.js';
 import { styleById } from './agent/styles.js';
+import { blockReason } from './rules.js';
 
 const KEY = 'riftcount.deckboard.anthropic';
 export const MODELS = [['claude-sonnet-5-5', 'Sonnet 5.5'], ['claude-opus-5-5', 'Opus 5.5'], ['claude-haiku-5-5', 'Haiku 5.5']];
@@ -30,7 +31,7 @@ export function brief(deck, idx, styleId) {
     text: r.card.text.replace(/\s*\([^)]*\)/g, '').slice(0, 260), roles: r.card.model?.r || [],
     ledger: r2(r.ledger), practical: r2(r.practical), inDeck: r2(r.deckAmber), synergy: r2(r.bonus), champion: r.champion || undefined,
   }));
-  const pool = candidatePool(deck, idx).map((c) => marginal(c, a, deck)).filter(Boolean)
+  const pool = candidatePool(deck, idx).filter((c) => !blockReason(deck, c, idx)).map((c) => marginal(c, a, deck)).filter(Boolean)
     .map((m) => ({ ...m, metrics: a.metrics, helps: m.helps.map((h) => ({ ...h, name: idx.byId.get(h.id)?.name || h.id })) }))
     .map((m) => ({ m, s: style.score(m, ctx) })).sort((x, y) => y.s - x.s).slice(0, 18)
     .map(({ m }) => ({ name: m.card.name, cost: `${m.card.E}E${m.card.P ? `+${m.card.P}P` : ''}`, text: m.card.text.replace(/\s*\([^)]*\)/g, '').slice(0, 200), inDeck: r2(m.deckAmber), feeds: m.helps.slice(0, 3).map((h) => h.name) }));
@@ -56,7 +57,7 @@ Weak slots; Swaps (lines like "-2 Card A, +2 Card B: reason"); Mulligan. Keep th
 export async function coach({ key, model, deck, idx, styleId, onText, signal }) {
   const payload = brief(deck, idx, styleId);
   const res = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST', signal,
+    method: 'POST', signal, redirect: 'error', credentials: 'omit', referrerPolicy: 'no-referrer',
     headers: { 'content-type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
     body: JSON.stringify({ model, max_tokens: 1400, stream: true, system: SYSTEM,
       messages: [{ role: 'user', content: `Deck brief (JSON):\n${JSON.stringify(payload)}\n\nWrite the coaching read in the ${payload.style.name} style.` }] }),

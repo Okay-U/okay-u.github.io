@@ -1,11 +1,10 @@
 // Side sheet (native <dialog>): card detail with the three value layers, import, export, share, saved decks.
-import { img } from './data.js';
+import { img, esc } from './data.js';
 import { baseValue, wantsOf, providesOf } from './agent/engine.js';
 import { tagLabel } from './agent.js';
 import { exportText, importText } from './text.js';
 import { copiesOf, blockReason } from './rules.js';
 
-const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const f2 = (x) => (x === null || x === undefined || !isFinite(x) ? '–' : x.toFixed(2));
 let ledgerCalc = null;
 
@@ -15,7 +14,7 @@ async function calcFor(id) {
       const r = await fetch('/amber/amber.json');
       const j = await r.json();
       ledgerCalc = new Map(j.cards.map((c) => [c.id, c]));
-    } catch { ledgerCalc = new Map(); }
+    } catch { return null; } // retry on the next open
   }
   return ledgerCalc.get(id) || null;
 }
@@ -43,7 +42,7 @@ export function createSheet({ el, idx, store, ui }) {
     const status = { f: 'fully priced', p: 'partly priced, lower bound', d: 'deferred by the ledger rules' }[c.model?.S] || '';
     const wants = wantsOf(c), prov = [...providesOf(c).keys()].filter((t) => !['unit', 'spell', 'gear'].includes(t));
     open(`
-      <div class="detail"><img alt="" src="${img(c, c.landscape ? 744 : 520)}">
+      <div class="detail"><img alt="" src="${esc(img(c, c.landscape ? 744 : 520))}">
         <div>
           <h2>${esc(c.name)}</h2>
           <p class="meta-line">${esc(c.id)} · ${esc(c.type)}${c.supertype ? ` · ${esc(c.supertype)}` : ''} · ${esc(c.domains.join(' / ') || 'Colorless')}${costed ? ` · ${c.E} energy${c.P ? ` + ${c.P} power` : ''} = ${c.C} C` : ''}${c.preview ? ' · Preview' : ''}${c.banned ? ' · Banned in Standard' : ''}</p>
@@ -114,8 +113,8 @@ export function createSheet({ el, idx, store, ui }) {
       <div class="deck-list">${list.map((d) => {
         const legend = d.legend ? idx.byId.get(d.legend) : null;
         const n = Object.values(d.main).reduce((a, b) => a + b, 0) + (d.champion ? 1 : 0);
-        return `<div class="dl ${d.id === cur ? 'cur' : ''}"><button class="t" type="button" data-open="${d.id}">${esc(d.name)}<small>${esc(legend?.name || 'No legend')} · ${n} cards · ${new Date(d.updated).toLocaleDateString()}</small></button>
-          <span><button class="key small quiet" type="button" data-dup="${d.id}">Copy</button> <button class="key small quiet" type="button" data-del="${d.id}">Delete</button></span></div>`;
+        return `<div class="dl ${d.id === cur ? 'cur' : ''}"><button class="t" type="button" data-open="${esc(d.id)}">${esc(d.name)}<small>${esc(legend?.name || 'No legend')} · ${n} cards · ${new Date(d.updated).toLocaleDateString()}</small></button>
+          <span><button class="key small quiet" type="button" data-dup="${esc(d.id)}">Copy</button> <button class="key small quiet" type="button" data-del="${esc(d.id)}">Delete</button></span></div>`;
       }).join('') || '<div class="dl"><span class="meta-line">No saved decks yet.</span></div>'}</div>`);
     el.querySelector('[data-new]').addEventListener('click', () => { ui.newDeck(); el.close(); });
     el.querySelector('[data-import]').addEventListener('click', importSheet);

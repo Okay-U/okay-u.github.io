@@ -20,7 +20,7 @@ export function copiesOf(deck, id) {
 
 export function inDomains(card, legend) {
   if (!legend) return true;
-  return card.domains.every((d) => legend.domains.includes(d));
+  return card.domains.every((d) => d === 'Colorless' || legend.domains.includes(d));
 }
 
 /** Why a card cannot be added to the main deck or sideboard right now, or null. */
@@ -49,6 +49,8 @@ export function validate(deck, idx) {
   const champion = deck.champion ? idx.byId.get(deck.champion) : null;
   if (!champion) add('warn', `Choose a chosen champion (a ${legend.champ} champion unit).`);
   else if (!isChampionFor(champion, legend)) add('bad', `${champion.name} is not a ${legend.champ} champion.`);
+  if (champion?.banned) add('bad', `${champion.name} is banned in Standard.`);
+  if (champion && !inDomains(champion, legend)) add('bad', `${champion.name} is outside ${legend.domains.join(' / ')}.`);
 
   const all = [...Object.entries(deck.main), ...Object.entries(deck.side)];
   const seen = new Map();

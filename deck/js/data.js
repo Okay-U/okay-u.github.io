@@ -28,12 +28,13 @@ function rank(i) {
 /** Turn the feed into one entry per distinct card. */
 export function buildIndex(feed, model) {
   const groups = new Map();
-  for (const i of feed.items) {
+  for (const i of feed.items || []) {
+    if (!i?.public_code || !i.name) continue;
     const cls = i.classification || {};
     let type = cls.type;
-    if (!type && i.attributes?.energy === null) continue;
-    if (i.unreleased && i.attributes?.energy !== null && ['Unit', 'Spell', 'Gear', undefined, null].includes(type)) {
-      type = previewType(type || null, i.attributes.might, i.text?.plain || '');
+    if (!type && (i.attributes?.energy ?? null) === null) continue;
+    if (i.unreleased && (i.attributes?.energy ?? null) !== null && ['Unit', 'Spell', 'Gear', undefined, null].includes(type)) {
+      type = previewType(type || null, i.attributes?.might ?? null, i.text?.plain || '');
     }
     if (!type) continue;
     const key = `${baseName(i.name)}|${type}`;
@@ -90,7 +91,9 @@ export async function loadData() {
 }
 
 /** Image URL at a given width (Riot's image CDN resizes and serves WebP). */
-export const img = (c, w = 360) => (c?.image ? `${c.image}&w=${w}&fm=webp` : '');
+export const img = (c, w = 360) => (typeof c?.image === 'string' && c.image.startsWith('https://') ? `${c.image}&w=${w}&fm=webp` : '');
+/** Escape text for HTML text and attribute contexts. */
+export const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
 
 /** Legend's champion name, e.g. "Kai'Sa" for "Kai'Sa - Daughter of the Void". */
 export const legendChampion = (legend) => legend?.champ || null;

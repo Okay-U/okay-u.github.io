@@ -1,5 +1,5 @@
 // Build room: filters and the card gallery. Clicking a tile adds it to the zone being built.
-import { DOMAINS, DOMAIN_CLASS, SETS, img, isChampionFor, isSignatureFor, norm } from './data.js';
+import { DOMAINS, DOMAIN_CLASS, SETS, img, esc, isChampionFor, isSignatureFor, norm } from './data.js';
 import { blockReason, copiesOf, inDomains, LIMITS, counts } from './rules.js';
 import { makeFlap, flap, fmtRatio } from './flap.js';
 import { baseValue, marginal, wantsOf, providesOf } from './agent/engine.js';
@@ -119,7 +119,7 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     t.className = `tile${c.landscape ? ' bf' : ''}`;
     t.dataset.id = c.id;
     t.setAttribute('aria-label', `${c.name}. Activate to add a copy; press I for details.`);
-    t.innerHTML = `<div class="art"><img loading="lazy" decoding="async" alt="" src="${img(c, c.landscape ? 480 : 300)}">
+    t.innerHTML = `<div class="art"><img loading="lazy" decoding="async" alt="" src="${esc(img(c, c.landscape ? 480 : 300))}">
       ${c.preview ? '<span class="tag-preview">Preview</span>' : ''}${c.banned ? '<span class="tag-preview tag-ban">Banned</span>' : ''}</div>
       <div class="cap"><span class="nm"></span><span class="val"></span><span class="sub"></span></div>`;
     t.querySelector('.nm').textContent = c.name;
@@ -182,7 +182,7 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     const partner = st.partner ? idx.byId.get(st.partner) : null;
     const zoneHelp = { legend: 'Pick the legend that leads the deck.', champion: 'Pick the chosen champion.', main: st.target === 'side' ? 'Tapping the art adds to the sideboard.' : 'Tap the art to add a copy, the name for details. Right click or long press removes one.',
       bf: 'Pick three different battlefields.', runes: 'Click adds a rune, right click removes one.' }[st.zone];
-    meta.innerHTML = `<span><b>${shown}</b> cards · ${zoneHelp}</span>${partner ? ` <button class="key small quiet" data-clear-partner type="button">Partners of ${partner.name} ✕</button>` : ''}`;
+    meta.innerHTML = `<span><b>${shown}</b> cards · ${zoneHelp}</span>${partner ? ` <button class="key small quiet" data-clear-partner type="button">Partners of ${esc(partner.name)} ✕</button>` : ''}`;
   }
 
   function intro() {
@@ -224,6 +224,8 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
       if (remove || deck.champion === c.id) { store.update((d) => { d.champion = null; }, 'champion'); return; }
       const legend = legendOf(deck);
       if (legend && !isChampionFor(c, legend)) { ui.toast(`${c.name} is not a ${legend.champ} champion.`, true); return; }
+      if (c.banned) { ui.toast(`${c.name} is banned in Standard.`, true); return; }
+      if (legend && !inDomains(c, legend)) { ui.toast(`${c.name} is outside ${legend.domains.join(' / ')}.`, true); return; }
       if (copiesOf(deck, c.id) >= 3) { ui.toast('Already three copies counting the champion.', true); return; }
       store.update((d) => { d.champion = c.id; }, 'champion');
       ui.toast(`${c.name} is the chosen champion.`);
@@ -273,7 +275,13 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     if (e.target.closest('.cap')) { ui.openCard(t.dataset.id); return; }
     act(idx.byId.get(t.dataset.id), e.shiftKey || e.altKey);
   });
-  root.addEventListener('contextmenu', (e) => { const t = e.target.closest('.tile'); if (!t) return; e.preventDefault(); act(idx.byId.get(t.dataset.id), true); });
+  root.addEventListener('contextmenu', (e) => {
+    const t = e.target.closest('.tile'); if (!t) return;
+    e.preventDefault();
+    if (longPressed) return; // touch long-press already removed a copy
+    clearTimeout(pressTimer); longPressed = e.pointerType === 'touch';
+    act(idx.byId.get(t.dataset.id), true);
+  });
   root.addEventListener('keydown', (e) => {
     const t = e.target.closest('.tile'); if (!t) return;
     if (e.key === 'Backspace' || e.key === 'Delete' || e.key === '-') { e.preventDefault(); act(idx.byId.get(t.dataset.id), true); }

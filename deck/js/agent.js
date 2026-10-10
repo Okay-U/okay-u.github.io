@@ -6,7 +6,7 @@ import { counts, blockReason, LIMITS } from './rules.js';
 import { coach, storedKey, storeKey, forgetKey, MODELS } from './claude.js';
 
 const KEY = 'riftcount.deckboard.style';
-const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+import { esc } from './data.js';
 const f2 = (x) => (x === null || x === undefined ? '–' : x.toFixed(2));
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -44,6 +44,7 @@ export function createAgent({ root, idx, store, ui }) {
   const cread = root.querySelector('[data-cread]');
   const cstatus = root.querySelector('[data-cstatus]');
   ckey.value = storedKey();
+  try { root.querySelector('[data-cremember]').checked = !!localStorage.getItem('riftcount.deckboard.anthropic'); } catch { /* storage blocked */ }
   let reading = null;
   async function claudeRead() {
     const key = ckey.value.trim();
@@ -76,9 +77,14 @@ export function createAgent({ root, idx, store, ui }) {
     if (e.target.closest('[data-fill]')) { fill(); return; }
     if (e.target.closest('[data-trim]')) { trim(); return; }
     const add = e.target.closest('[data-add]');
-    if (add) { ui.addCard(add.dataset.add, 'main'); add.disabled = true; add.textContent = 'Added'; return; }
+    if (add) {
+      const before = store.getDeck().main[add.dataset.add] || 0;
+      ui.addCard(add.dataset.add, 'main');
+      if ((store.getDeck().main[add.dataset.add] || 0) > before) { add.disabled = true; add.textContent = 'Added'; }
+      return;
+    }
     const cut = e.target.closest('[data-cut]');
-    if (cut) { ui.removeCard(cut.dataset.cut, 'main'); cut.disabled = true; cut.textContent = 'Cut'; return; }
+    if (cut) { if (store.getDeck().main[cut.dataset.cut] > 0) { ui.removeCard(cut.dataset.cut, 'main'); cut.disabled = true; cut.textContent = 'Cut'; } return; }
     const open = e.target.closest('[data-open]');
     if (open) ui.openCard(open.dataset.open);
   });
@@ -97,15 +103,20 @@ export function createAgent({ root, idx, store, ui }) {
     const deck = store.getDeck();
     if (!deck.legend) { status.textContent = 'Pick a legend and some cards first.'; return; }
     running = true;
+    try { await runInner(deck); } catch (e) { status.textContent = `The agent stopped: ${e?.message || e}`; } finally { running = false; }
+  }
+
+  async function runInner(deck) {
     const style = styleById(styleId);
     log.replaceChildren(); report.replaceChildren();
     status.textContent = `${style.name} is reading your list.`;
     const n = counts(deck);
     await step(`Reading ${n.main} main-deck cards, the legend and ${n.bf} battlefields.`, 260);
     const a = analyze(deck, idx);
+    if (!a.legend) { status.textContent = 'This deck\'s legend is not in the card data. Pick a legend again.'; return; }
     await step(`Pricing ${a.rows.length} distinct cards against Riot's cost ledger.`, 260);
     await step(`Mapping ${a.table.size} synergy tags; ${a.pairs.length} working links between cards.`, 300);
-    const pool = candidatePool(deck, idx);
+    const pool = candidatePool(deck, idx).filter((c) => !blockReason(deck, c, idx));
     await step(`Testing ${pool.length} legal cards in ${a.legend.domains.join(' and ')} for this list.`, 320);
     const ctx = { metrics: a.metrics };
     const ms = pool.map((c) => marginal(c, a, deck)).filter(Boolean).map((m) => ({ ...m, metrics: a.metrics }));
@@ -120,7 +131,6 @@ export function createAgent({ root, idx, store, ui }) {
     status.textContent = `${style.name} · ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
     render(a, style, buys, cuts, ctx);
     ui.refresh(true);
-    running = false;
   }
 
   function render(a, style, buys, cuts, ctx) {

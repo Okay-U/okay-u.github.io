@@ -35,11 +35,11 @@ export function importText(text, idx) {
   const deck = { legend: null, champion: null, main: {}, side: {}, bf: [], runes: {} };
   const unresolved = [];
   let sec = null;
-  for (const raw of String(text).split(/\r?\n/)) {
+  for (const raw of String(text).split(/\r?\n/).slice(0, 300)) {
     const line = raw.trim();
     if (!line) continue;
     const head = line.replace(/:$/, '').toLowerCase().replace(/\s+/g, '');
-    if (SECTIONS[head] && (line.endsWith(':') || !/^\d/.test(line))) { sec = SECTIONS[head]; continue; }
+    if (Object.hasOwn(SECTIONS, head) && (line.endsWith(':') || !/^\d/.test(line))) { sec = SECTIONS[head]; continue; }
     const m = /^(\d+)\s*x?\s+(.+)$/i.exec(line);
     if (!m || !sec) { unresolved.push(line); continue; }
     const n = Math.min(parseInt(m[1], 10), 12);

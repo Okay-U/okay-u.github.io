@@ -30,15 +30,18 @@ export function flap(el, text, { animate = true, cls } = {}) {
     const ch = next[i];
     const shown = ch === ' ' ? ' ' : ch;
     c.className = ch === ' ' ? 'fc sp' : 'fc';
-    if (c.textContent === shown) return;
+    c._want = shown;
+    if (c.textContent === shown && !c._flipping) return;
     if (instant || budget > 60) { c.textContent = shown; return; }
-    flipCell(c, shown, Math.min(i * STAGGER, MAX_STAGGER));
+    if (c._flipping) return; // the running flip lands on c._want
+    flipCell(c, Math.min(i * STAGGER, MAX_STAGGER));
   });
 }
 
-function flipCell(c, shown, delay) {
+function flipCell(c, delay) {
   budget++;
-  const mid = GLYPHS.includes(shown) ? GLYPHS[(GLYPHS.indexOf(shown) + 7) % 10] : shown;
+  c._flipping = true;
+  const mid = GLYPHS.includes(c._want) ? GLYPHS[(GLYPHS.indexOf(c._want) + 7) % 10] : c._want;
   const half = (from, to, d) => c.animate(
     [{ transform: `rotateX(${from}deg)`, filter: 'brightness(1)' }, { transform: `rotateX(${to}deg)`, filter: 'brightness(.55)' }],
     { duration: d, delay: 0, easing: 'cubic-bezier(.55,0,.75,.2)', fill: 'forwards' });
@@ -48,11 +51,13 @@ function flipCell(c, shown, delay) {
       c.textContent = mid;
       await c.animate([{ transform: 'rotateX(90deg)' }, { transform: 'rotateX(0deg)' }], { duration: 60, easing: 'linear' }).finished;
       await half(0, -90, 60).finished;
-      c.textContent = shown;
+      c.textContent = c._want;
       await c.animate([{ transform: 'rotateX(90deg)', filter: 'brightness(.6)' }, { transform: 'rotateX(0deg)', filter: 'brightness(1)' }],
         { duration: 150, easing: 'cubic-bezier(.16,1,.3,1)' }).finished;
-    } catch { c.textContent = shown; }
+    } catch { c.textContent = c._want; }
     c.getAnimations().forEach((a) => a.cancel());
+    c.textContent = c._want;
+    c._flipping = false;
     budget--;
   }, delay);
 }

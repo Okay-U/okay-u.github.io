@@ -103,9 +103,9 @@ function removeCard(id, zone = 'main') {
     return;
   }
   if (zone === 'bf') { board.exitRow(id, 'bf').then(() => store.update((d) => { d.bf = d.bf.filter((x) => x !== id); }, 'remove')); return; }
-  if (!deck[zone]?.[id]) return;
+  if (!(deck[zone]?.[id] > 0)) return;
   const last = deck[zone][id] === 1;
-  (last ? board.exitRow(id, zone) : Promise.resolve()).then(() => store.update((d) => { d[zone][id] -= 1; }, 'remove'));
+  (last ? board.exitRow(id, zone) : Promise.resolve()).then(() => store.update((d) => { if (d[zone][id] > 0) d[zone][id] -= 1; }, 'remove'));
 }
 
 const ui = {
@@ -128,11 +128,14 @@ async function boot() {
   try {
     idx = await loadData();
   } catch (e) {
-    $('#gallery').innerHTML = `<p class="empty-note">The card data did not load (${String(e.message || e)}). Check the connection and reload.</p>`;
+    const p = document.createElement('p');
+    p.className = 'empty-note';
+    p.textContent = `The card data did not load (${String(e?.message || e)}). Check the connection and reload.`;
+    $('#gallery').replaceChildren(p);
     return;
   }
   setPool(idx.cards);
-  const { fromShare } = store.initStore();
+  const { fromShare } = store.initStore(idx);
   gallery = createGallery({ root: $('#gallery'), filtersEl: $('#filters'), idx, store, ui });
   board = createBoard({ root: $('#board'), idx, store, ui });
   agent = createAgent({ root: $('#agent'), idx, store, ui });
@@ -144,7 +147,8 @@ async function boot() {
 
   store.subscribe((d, reason) => {
     refresh(true);
-    if (reason === 'switch') gallery.autoZone(d);
+    if (reason === 'switch') { gallery.autoZone(d); agent.clear(); }
+    if (reason === 'undo') gallery.render();
   });
   gallery.autoZone(store.getDeck());
   refresh(false);
@@ -158,8 +162,9 @@ async function boot() {
   let tName;
   $('#deck-name').addEventListener('input', (e) => {
     clearTimeout(tName);
-    const v = e.target.value.trim() || 'Untitled deck';
-    tName = setTimeout(() => store.update((d) => { d.name = v; }, 'name'), 300);
+    const v = e.target.value.trim().slice(0, 60) || 'Untitled deck';
+    const id = store.getDeck().id;
+    tName = setTimeout(() => { if (store.getDeck().id === id) store.update((d) => { d.name = v; }, 'name'); }, 300);
   });
   $('#legal-lamp').addEventListener('click', () => {
     const v = validate(store.getDeck(), idx);

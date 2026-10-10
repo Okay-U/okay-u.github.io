@@ -38,8 +38,8 @@ export function createLoupe(idx) {
     root.addEventListener('pointerover', (e) => {
       if (!fine.matches || e.pointerType !== 'mouse') return;
       const t = e.target.closest(selector);
-      if (!t) return;
       clearTimeout(timer);
+      if (!t) return;
       timer = setTimeout(() => show(idOf(t), e.clientX, e.clientY), 260);
     });
     root.addEventListener('pointermove', (e) => {
