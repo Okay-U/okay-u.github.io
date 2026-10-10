@@ -1,0 +1,82 @@
+<!doctype html>
+<!--
+THESIS: The deck is a live price board. Every card carries a price from Riot's own cost ledger, and the board re-prices it the
+moment its partners join the deck. Refuses the category's gold-on-black card gallery with glowing tiles and soft rounded panels.
+OWN-WORLD: Exchange floor split-flap board. Brushed steel ground, matte black flap faces with a hinge line, off-white paint
+letters in one condensed grotesque, amber lamps for value, signal green and vermilion ticks for up and down. Square corners,
+1px rules, recessed switch-plate keys. Card art is the only full colour.
+STORY: Players build by hand, watch each card's value tick as the deck takes shape, run the agent for a written read with
+priced reasons, then take suggested buys and cuts.
+FIRST VIEWPORT: Desktop: card gallery room left, the deck board pinned right at full height, room switch Build / Analyze / Test
+in the top rail, Run agent key on the board. Phone: dock switches Cards / Deck / Agent / Test, board summary pinned on top.
+FORM: Exchange price board (grounded list #5), fused with the split-flap concourse challenger; staging: carried object between
+rooms (the deck stays, rooms change). Seed 0d0cbc26.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Riftcount Deck Board</title>
+<meta name="description" content="Build Riftbound decks and see every card priced against Riot's cost ledger, then re-priced by the combos in your deck. Free, in your browser.">
+<meta name="theme-color" content="#141517">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&display=swap">
+<link rel="stylesheet" href="deck.css">
+</head>
+<body>
+<header class="rail">
+  <a class="mark" href="/" aria-label="Riftcount home"><span class="flapword" data-flap="RIFTCOUNT"></span></a>
+  <label class="deck-title">
+    <span class="sr">Deck name</span>
+    <input id="deck-name" type="text" maxlength="60" spellcheck="false" autocomplete="off" value="Untitled deck">
+  </label>
+  <button class="lamp-status" id="legal-lamp" type="button" aria-live="polite"><i></i><span>Pick a legend</span></button>
+  <nav class="rooms" role="tablist" aria-label="Rooms">
+    <button role="tab" data-room="build" aria-selected="true">Build</button>
+    <button role="tab" data-room="analyze" aria-selected="false">Analyze</button>
+    <button role="tab" data-room="test" aria-selected="false">Test</button>
+  </nav>
+  <div class="rail-keys">
+    <button class="key" id="btn-decks" type="button">Decks</button>
+    <button class="key" id="btn-import" type="button">Import</button>
+    <button class="key" id="btn-export" type="button">Export</button>
+    <button class="key" id="btn-share" type="button">Share</button>
+  </div>
+</header>
+
+<main class="floor" id="floor">
+  <div class="corridor" id="corridor">
+    <section class="room" id="room-build" data-room="build" aria-label="Build">
+      <div class="filters" id="filters"></div>
+      <div class="gallery" id="gallery" aria-live="off"></div>
+    </section>
+    <section class="room" id="room-analyze" data-room="analyze" aria-label="Analyze" hidden>
+      <div class="agent" id="agent"></div>
+    </section>
+    <section class="room" id="room-test" data-room="test" aria-label="Test" hidden>
+      <div class="test" id="test"></div>
+    </section>
+  </div>
+  <aside class="board" id="board" aria-label="Deck board"></aside>
+</main>
+
+<nav class="dock" aria-label="Sections">
+  <button data-dock="build" aria-current="page">Cards</button>
+  <button data-dock="board">Deck <b id="dock-count">0</b></button>
+  <button data-dock="analyze">Agent</button>
+  <button data-dock="test">Test</button>
+</nav>
+
+<dialog class="sheet" id="sheet"></dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<footer class="legal">
+  <p><a href="/">Riftcount</a> · <a href="/amber/">AMBER ledger</a> · Values: <a href="https://doi.org/10.5281/zenodo.22950820">Chen &amp; Lee (2026)</a>, CC BY 4.0, plus Riftcount's practical and synergy model.</p>
+  <p>Riftcount was created under Riot Games' "Legal Jibber Jabber" policy using assets owned by Riot Games. Riot Games does not endorse or sponsor this project. Riot Games and all associated properties are trademarks or registered trademarks of Riot Games, Inc. Card art and text from Riot's card gallery under the Riftbound Digital Tools Policy; preview cards are labelled.</p>
+</footer>
+
+<noscript><p class="noscript">The deck board needs JavaScript.</p></noscript>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
