@@ -71,7 +71,7 @@ export function baseValue(c) {
   if (natural > kd) parts.unshift({ label: `own trigger fires more than the ledger's half activation (${natural.toFixed(2)} vs ${kd.toFixed(2)} C)`, value: natural - kd });
   if (m.st) parts.push({ label: 'staple: structural strength beyond its parts', value: m.st });
   const practicalV = booked + parts.reduce((a, p) => a + p.value, 0);
-  return { ledger: m.S === 'd' ? null : m.L, ledgerV: booked, practicalV, practical: practicalV / c.C, status: m.S, parts };
+  return { ledger: m.S === 'd' ? null : m.L, ledgerV: booked, practicalV, practical: practicalV / c.C, status: m.S, parts, naturalV: Math.max(natural, kd) };
 }
 
 // Typical providers per 40-card deck for each tag, from the whole card pool. The designers book a repeatable
@@ -119,7 +119,9 @@ export function providerTable(entries, legend, battlefields) {
 export function synergy(card, n, table) {
   const own = providesOf(card);
   const wants = wantsOf(card).sort((a, b) => b.value - a.value);
+  const b0 = baseValue(card);
   let booked = (card.model?.D || 0) > 0 ? (card.model.K || 0.5) : 0;
+  let natural = b0.naturalV || 0; // own trigger already priced in practical: the first per-event payoff starts from there
   let bonus = 0;
   const links = [];
   const detail = [];
@@ -132,7 +134,10 @@ export function synergy(card, n, table) {
     const value = Math.min(w.value, POINT_CAP);
     const realised = fn(P, w.cap, value, w.tag);
     let base = 0;
-    if (w.kind === 'per_event' && booked) { base = booked; booked = 0; }
+    if (w.kind === 'per_event' && (booked || natural)) {
+      base = Math.min(MAX_K, Math.max(booked, natural / Math.max(value, 0.01)));
+      booked = 0; natural = 0;
+    }
     const gain = value * (realised - base);
     bonus += gain;
     detail.push({ tag: w.tag, kind: w.kind, have: P, typical: w.kind === 'per_event' ? typical(w.tag) : null, gain, note: w.note });
@@ -145,7 +150,7 @@ export function synergy(card, n, table) {
     if (!t || fromOthers <= 0) links.push({ from: null, to: card.id, tag: w.tag, value: gain, note: w.note, missing: true });
   }
   // keep one card's swing readable: at most +1.5 per cost from partners, at most half its value lost
-  const b = baseValue(card);
+  const b = b0;
   const hi = SYNERGY_CAP * (card.C || 1), lo = -0.5 * Math.max(b.practicalV || 0, 1);
   const capped = Math.max(lo, Math.min(hi, bonus));
   if (capped !== bonus && bonus) { const f = capped / bonus; links.forEach((l) => { l.value *= f; }); detail.forEach((d) => { d.gain *= f; }); }
@@ -167,7 +172,7 @@ function deckEntries(deck, idx) {
 const ROLE_TARGETS = { removal: 6, interaction: 3, draw: 4, early_body: 8, finisher: 2, engine: 3 };
 const SATURATE = { ramp: 4, removal: 12, draw: 9, protection: 6, combat_trick: 8 };  // past this, more of the same helps little
 const UNIT_TARGET = 20;   // units (with the champion) a deck needs to conquer and hold battlefields
-const CURVE_TARGET = { 0: 0, 1: 4, 2: 8, 3: 8, 4: 7, 5: 5, 6: 4, 7: 4 };
+const CURVE_TARGET = { 0: 0, 1: 4, 2: 9, 3: 8, 4: 7, 5: 5, 6: 4, 7: 3 };
 const bucket = (c) => Math.min(7, c.E);
 const roleSet = (c) => new Set([...(c.model?.r || []), ...(c.model?.r?.includes('cantrip') ? ['draw'] : [])]);
 
@@ -281,7 +286,8 @@ export const NEED = {
     const b = bucket(card);
     const have = metrics.curve[b] || 0;
     const want = CURVE_TARGET[b] ?? 3;
-    return Math.max(-1, (want - have) / Math.max(want, 1));
+    const topEnd = card.E > 8 ? 0.25 * (card.E - 8) : 0; // a 12-energy card is not a 7-energy card
+    return Math.max(-1.5, (want - have) / Math.max(want, 1) - topEnd);
   },
   roleNames: Object.keys(ROLE_TARGETS),
   ROLE_TARGETS, CURVE_TARGET,

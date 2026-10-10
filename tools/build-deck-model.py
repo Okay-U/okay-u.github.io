@@ -35,15 +35,33 @@ def tag(t: Any) -> str:
     return str(t or '').strip().lower().replace(' ', '_') if not str(t).startswith(('tribe:', 'region:')) else str(t).strip()
 
 
+def equip_cost(text: str) -> float:
+    """Cost in C of attaching equipment once ([Equip] X), 0 for Quick-Draw (the play cost covers the first attach)."""
+    if '[Quick-Draw]' in text:
+        return 0.0
+    m = re.search(r'\[?Equip\]?\s*(?:—\s*)?([^(\n]*)', text)
+    if not m or 'Equip' not in text:
+        return 0.0
+    cost = m.group(1)
+    energy = sum(int(x) for x in re.findall(r'(\d+)\s*Energy', cost))
+    runes = len(re.findall(r'Rune', cost))
+    xp = sum(int(x) for x in re.findall(r'Spend\s*(\d+)\s*XP', cost))
+    extra = 2.0 if re.search(r'Kill a friendly unit', cost, re.I) else 1.0 if re.search(r'exhaust a friendly unit', cost, re.I) else 0.0
+    return round(energy + 2 * runes + 0.5 * xp + extra, 2)
+
+
 def compact(card: dict[str, Any], tags: dict[str, Any] | None) -> dict[str, Any]:
     m: dict[str, Any] = {}
     if card:
         m.update(L=num(card.get('amber')), V=num(card.get('V0')), D=num(card.get('delta')) or 0, K=num(card.get('k')) or 0,
                  S=STATUS.get(card.get('status'), 'd'), C=card.get('C'))
     if tags:
-        has_trigger = bool(card) and (num(card.get('delta')) or 0) > 0
+        has_trigger = (bool(card) and (num(card.get('delta')) or 0) > 0) or any(w.get('kind') == 'per_event' for w in tags.get('wants') or [])
         m['P'] = [[str(p.get('label', ''))[:140], num(p.get('value'), 2)] + ([1] if has_trigger and NATURAL.search(str(p.get('label', ''))) else [])
                   for p in tags.get('practical') or [] if num(p.get('value'), 2) is not None]
+        equip = equip_cost(card.get('text') or '') if card and card.get('type') == 'Gear' else 0
+        if equip:
+            m['P'].append(['equip cost paid on top of the printed cost', -equip])
         st = num(tags.get('staple'), 2)
         if st:
             m['st'] = max(-1.0, min(2.0, st))
@@ -59,8 +77,10 @@ def compact(card: dict[str, Any], tags: dict[str, Any] | None) -> dict[str, Any]
 def selfcheck(model: dict[str, Any]) -> None:
     crab = model['cards'].get('UNL-053')
     assert crab and crab['L'] is not None and crab.get('P'), 'Scuttle Crab must carry ledger and practical values'
-    practical = (crab['V'] + crab['K'] * crab['D'] + sum(v for _, v in crab['P']) + crab.get('st', 0)) / crab['C']
+    practical = (crab['V'] + crab['K'] * crab['D'] + sum(p[1] for p in crab['P']) + crab.get('st', 0)) / crab['C']
     assert practical > 1.2, f'Scuttle Crab practical value too low: {practical:.2f}'
+    assert equip_cost('[Equip] 1 Energy + Fury Rune (1 Energy + Fury Rune: Attach this to a unit you control.)') == 3
+    assert equip_cost('[Quick-Draw] (This has [Reaction].) / [Equip] Fury Rune') == 0
 
 
 def main() -> None:

@@ -389,12 +389,13 @@
 ],
 "practical": [
 {
-"label": "gear usually survives 3+ turns: one more 2-damage use than the ledger's 2",
-"value": 2.0
+"label": "gear survives: ~0.5 use beyond N-hat 2 (main phase only, 2 damage clears at end of turn)",
+"value": 1.0
 }
 ],
 "staple": 0.0,
-"note": "Repeatable 2-damage turret that picks off small units and finishes damaged ones."
+"note": "Repeatable 2-damage turret that picks off small units and finishes damaged ones.",
+"audit": "Extra uses are plausible, but 2 main-phase damage only kills small or already damaged units, so a full extra use at 2 C is too much."
 },
 {
 "id": "OGN-018",
@@ -1916,12 +1917,13 @@
 ],
 "practical": [
 {
-"label": "survive valued 2 C; it actually saves your best unit (~4 C body)",
-"value": 1.5
+"label": "saves a real unit (~3 C body) vs survive 2; face-up it protects whichever unit dies first",
+"value": 1.0
 }
 ],
 "staple": 0.0,
-"note": "Hidden insurance that rescues a key unit from death."
+"note": "Hidden insurance that rescues a key unit from death.",
+"audit": "Played face up it triggers on the next friendly death, often a chump or token, not your best unit."
 },
 {
 "id": "OGN-078",
@@ -2505,12 +2507,13 @@
 ],
 "practical": [
 {
-"label": "bounces your unit in response to removal (fizzles it) or resets an on-play unit",
-"value": 2.0
+"label": "Reaction save vs targeted removal (restricted counter 2.5 x ~0.5) or on-play reset",
+"value": 1.5
 }
 ],
 "staple": 0.0,
-"note": "1-cost reaction save that also ramps."
+"note": "1-cost reaction save that also ramps.",
+"audit": "Saving a unit depends on the opponent targeting it while you hold Retreat; the bounce -1 is already in V0, so +2 was a bit high."
 },
 {
 "id": "OGN-105",
@@ -4103,8 +4106,9 @@
 "value": 1.0
 }
 ],
-"staple": 0.5,
-"note": "Chaos staple: 1-Energy Reaction tempo that also deletes tokens."
+"staple": 0.0,
+"note": "Chaos staple: 1-Energy Reaction tempo that also deletes tokens.",
+"audit": "The +1.0 entry already books token kills and combat tempo; staple +0.5 counts the same flexibility twice."
 },
 {
 "id": "OGN-170",
@@ -4314,12 +4318,13 @@
 ],
 "practical": [
 {
-"label": "opponent kills a gear (1.4) while you lose a cheap or no gear (symmetric, booked 0)",
-"value": 1.0
+"label": "opponent kills a gear of their choice (1.4) only if they have one (~0.5); you may lose one too",
+"value": 0.5
 }
 ],
 "staple": 0.0,
-"note": "Cheap edict against gear decks; play in decks with few gear."
+"note": "Cheap edict against gear decks; play in decks with few gear.",
+"audit": "Symmetric edict that needs the opponent to have gear and lets them pick their worst one."
 },
 {
 "id": "OGN-180",
@@ -4829,12 +4834,13 @@
 ],
 "practical": [
 {
-"label": "undo x0.30 on the swap (realised from Hidden: pull a unit out of a losing fight or drop a big unit into one)",
-"value": 1.4
+"label": "swap partly realised: optional, needs a useful swap partner (~0.7 x 2 vs 0.6 booked)",
+"value": 0.8
 }
 ],
-"staple": 0,
-"note": "Hidden swap trick on a 2-drop body that reshuffles combats and feeds move triggers."
+"staple": 0.0,
+"note": "Hidden swap trick on a 2-drop body that reshuffles combats and feeds move triggers.",
+"audit": "Undoing the x0.30 in full assumes the swap always matters; it needs a friendly unit at another location and a reason to swap."
 },
 {
 "id": "OGN-200",
@@ -4956,14 +4962,10 @@
 "roles": [
 "ramp"
 ],
-"practical": [
-{
-"label": "stays all game: used well beyond the 3 booked uses",
-"value": 2.0
-}
-],
-"staple": 0,
-"note": "Chaos power seal for fixing and ramp; a reaction-speed rune."
+"practical": [],
+"staple": 0.0,
+"note": "Chaos power seal for fixing and ramp; a reaction-speed rune.",
+"audit": "Same text as the other four Seals (no extra); N-hat 3 already approximates realistic use, since the extra power is idle on turns without a matching power cost."
 },
 {
 "id": "OGN-205",
@@ -6064,14 +6066,10 @@
 "roles": [
 "ramp"
 ],
-"practical": [
-{
-"label": "stays all game: used well beyond the 3 booked uses",
-"value": 2.0
-}
-],
-"staple": 0,
-"note": "Order power seal for fixing and ramp; a reaction-speed rune."
+"practical": [],
+"staple": 0.0,
+"note": "Order power seal for fixing and ramp; a reaction-speed rune.",
+"audit": "Same text as the other four Seals (no extra); N-hat 3 already approximates realistic use, since the extra power is idle on turns without a matching power cost."
 },
 {
 "id": "OGN-246",
@@ -7527,16 +7525,17 @@
 ],
 "practical": [
 {
-"label": "Reaction escape: saves units from a lost combat or fizzles targeted removal (ledger books a plain move)",
-"value": 1.5
+"label": "Reaction escape from a lost combat or battlefield-only removal (survive ~2 vs move 1 booked)",
+"value": 1.0
 },
 {
 "label": "second unit usually available (hit 0.5)",
 "value": 0.5
 }
 ],
-"staple": 0,
-"note": "Cheap reaction-speed rescue that also re-fires move triggers."
+"staple": 0.0,
+"note": "Cheap reaction-speed rescue that also re-fires move triggers.",
+"audit": "Escape should be priced at most at the survive anchor (2 per unit), not 2.5."
 },
 {
 "id": "OGS-012",
@@ -8416,9 +8415,15 @@
 "draw",
 "engine"
 ],
-"practical": [],
-"staple": 0,
-"note": "Cheap Deploy card engine for decks that win combats on one battlefield."
+"practical": [
+{
+"label": "2 combat wins at one battlefield before the opponent holds it is generous (~1.5 draws)",
+"value": -1.0
+}
+],
+"staple": 0.0,
+"note": "Cheap Deploy card engine for decks that win combats on one battlefield.",
+"audit": "Draw needs combat wins at one specific battlefield and the gear dies when the opponent holds there; N-hat 2 at full is optimistic."
 },
 {
 "id": "RAD-025",
@@ -8609,9 +8614,15 @@
 "cantrip",
 "interaction"
 ],
-"practical": [],
-"staple": 0,
-"note": "1 C reaction cantrip that readies a defender or an exhaust ability."
+"practical": [
+{
+"label": "readied unit can't move: pays off only with exhaust abilities/costs (ledger books net 1)",
+"value": -0.5
+}
+],
+"staple": 0.0,
+"note": "1 C reaction cantrip that readies a defender or an exhaust ability.",
+"audit": "Ready + can't move is mostly empty: the unit can't re-attack, so the ledger's net 1 C ready is realised only with exhaust abilities or exhaust costs."
 },
 {
 "id": "RAD-035",
@@ -10053,12 +10064,13 @@
 ],
 "practical": [
 {
-"label": "face-down on your turn: three ready Golds instead of one (+1.75, player-arranged x0.5)",
-"value": 0.9
+"label": "face-down flip on your turn: three ready Golds (+1.75) minus the rune paid to hide (+1 C), ~0.5",
+"value": 0.5
 }
 ],
-"staple": 0,
-"note": "Hidden ramp spell: hide it, flip on your turn for a three-rune burst."
+"staple": 0.0,
+"note": "Hidden ramp spell: hide it, flip on your turn for a three-rune burst.",
+"audit": "The face-down route costs Any Rune (2 C) instead of 1 E, which the entry ignored."
 },
 {
 "id": "RAD-101",
@@ -10185,12 +10197,13 @@
 ],
 "practical": [
 {
-"label": "Hidden flip into a crowded (4+ units) battlefield bounces an enemy, ~0.3 x 6",
-"value": 1.8
+"label": "Hidden flip into a 4+ unit battlefield bounces an enemy (~0.2 x 6)",
+"value": 1.2
 }
 ],
-"staple": 0,
-"note": "Hidden 2-drop that bounces an enemy out of a busy showdown."
+"staple": 0.0,
+"note": "Hidden 2-drop that bounces an enemy out of a busy showdown.",
+"audit": "Four or more units at one battlefield is uncommon and the bounce is optional/board-dependent; 0.2 hit rate, not 0.3."
 },
 {
 "id": "RAD-108",
@@ -15075,8 +15088,9 @@
 "value": 2.5
 }
 ],
-"staple": 0.5,
-"note": "Cheap soft counter with Repeat; staple because instant interaction is scarce in Chaos."
+"staple": 0.0,
+"note": "Cheap soft counter with Repeat; staple because instant interaction is scarce in Chaos.",
+"audit": "Soft tax counter that late-game opponents simply pay; scarcity of instants in Chaos is a deck property, not a staple bonus."
 },
 {
 "id": "SFD-137",
@@ -18369,8 +18383,9 @@
 "value": 1.6
 }
 ],
-"staple": 0.5,
-"note": "Action-speed stun that usually draws a card; flexible Calm interaction every Calm deck wants."
+"staple": 0.0,
+"note": "Action-speed stun that usually draws a card; flexible Calm interaction every Calm deck wants.",
+"audit": "The 0.8 x draw entry already books its flexibility; staple bonus double-counts it."
 },
 {
 "id": "UNL-043",
@@ -18744,8 +18759,9 @@
 "value": 0.75
 }
 ],
-"staple": 0.5,
-"note": "Replaces itself, chumps or grabs an empty battlefield, and reveals the opponent's hand when it dies: a Calm staple."
+"staple": 0.0,
+"note": "Replaces itself, chumps or grabs an empty battlefield, and reveals the opponent's hand when it dies: a Calm staple.",
+"audit": "Practical entries already price draw, info and the 0-might body; the extra staple bonus double-counts that flexibility."
 },
 {
 "id": "UNL-054",
@@ -21819,12 +21835,13 @@
 ],
 "practical": [
 {
-"label": "Reaction: sacrifice a Mighty unit already doomed (cost ~2, ledger anchor books 5)",
-"value": 3.0
+"label": "Reaction sac of a doomed Mighty unit (~0.4 of games); needs a 5+ might unit, else dead or costs that unit",
+"value": 1.0
 }
 ],
-"staple": 0,
-"note": "Reaction card advantage when a Mighty unit is about to die anyway."
+"staple": 0.0,
+"note": "Reaction card advantage when a Mighty unit is about to die anyway.",
+"audit": "Needs a 5+ might unit that is about to die anyway; otherwise the card is dead or costs a Mighty unit, so the -5 anchor is only partly undone."
 },
 {
 "id": "UNL-174",
@@ -24207,9 +24224,15 @@
 "roles": [
 "combat_trick"
 ],
-"practical": [],
+"practical": [
+{
+"label": "only vs Fury units/spells: hit ~0.3, not the 0.5 trait factor",
+"value": -0.8
+}
+],
 "staple": 0.0,
-"note": "1-cost +4 trick only against Fury units/spells; sideboard hate."
+"note": "1-cost +4 trick only against Fury units/spells; sideboard hate.",
+"audit": "Main-deck hate card: does nothing against non-Fury opponents (~2 of 3 matchups)."
 },
 {
 "id": "VEN-041",
@@ -24692,9 +24715,15 @@
 "interaction",
 "combat_trick"
 ],
-"practical": [],
+"practical": [
+{
+"label": "only vs Body opponents in a relevant combat: hit ~0.3, not the 0.5 trait factor",
+"value": -1.0
+}
+],
 "staple": 0.0,
-"note": "1-cost -5 combat blowout, only against Body units; ignores Deflect."
+"note": "1-cost -5 combat blowout, only against Body units; ignores Deflect.",
+"audit": "Main-deck hate card: an opponent plays Body in roughly 1 of 3 matchups, so the 0.5 trait factor over-books it for a generic deck."
 },
 {
 "id": "VEN-062",
@@ -25719,12 +25748,13 @@
 ],
 "practical": [
 {
-"label": "bounces several enemy Order units (total might <=5) ~1.5 targets x 3 (trait hit rate included)",
-"value": 4.0
+"label": "bounce small enemy Order units (total might <=5, ~1.5 x 2.4) only vs Order opponents (~1/3)",
+"value": 1.2
 }
 ],
 "staple": 0.0,
-"note": "Hate card versus Order: mass bounce of small Order units."
+"note": "Hate card versus Order: mass bounce of small Order units.",
+"audit": "Hate card: dead against non-Order decks, and bouncing small units is worth far less than a full 6 C bounce (designer uses x0.20 for might <=3)."
 },
 {
 "id": "VEN-108",
@@ -26334,12 +26364,17 @@
 ],
 "practical": [
 {
-"label": "hot potato: Empower (2 power) and hand it over; it deals 5 to all their units at their end step unless they pass it back (~6 C expected)",
-"value": 6.0
+"label": "hot potato: opponent pays 2 power to pass it back or takes 5 to all their units (~4.5)",
+"value": 4.5
+},
+{
+"label": "Empower cost 2 power (4 C) needed before it can be handed over, not in play cost",
+"value": -4.0
 }
 ],
 "staple": 0.0,
-"note": "Delayed one-sided sweeper: give it to the opponent the turn you play it, or it hits your own board."
+"note": "Delayed one-sided sweeper: give it to the opponent the turn you play it, or it hits your own board.",
+"audit": "The 6 C entry ignored the mandatory 2-power Empower and that the opponent can pay the same 2 power to pass it straight back."
 },
 {
 "id": "VEN-134",
@@ -26368,16 +26403,17 @@
 ],
 "practical": [
 {
-"label": "pay 2 to stun on play/attack (net 2 C per use; Hidden flip at Reaction speed), ~1 extra use",
-"value": 2.0
+"label": "pay-2 stun on attack or via Hidden flip, ~0.5 use beyond the booked half (main-phase on-play stun x0.5 nets 0)",
+"value": 1.0
 },
 {
-"label": "+2 might while a stunned enemy is here (its own stun sets it up, ~0.5)",
+"label": "+2 might while a stunned enemy is here (~0.5)",
 "value": 1.0
 }
 ],
-"staple": 0.5,
-"note": "Hidden stun engine; flipping it mid-combat both stuns and pumps itself."
+"staple": 0.0,
+"note": "Hidden stun engine; flipping it mid-combat both stuns and pumps itself.",
+"audit": "On-play stun from hand in the main phase is a combat trick worth ~2 against a 2 E payment, so only ~1 profitable use total; staple unearned."
 },
 {
 "id": "VEN-136",
@@ -26818,8 +26854,9 @@
 "value": 4.0
 }
 ],
-"staple": 0.5,
-"note": "Cheap flexible counter that can steal the opponent's spell."
+"staple": 0.0,
+"note": "Cheap flexible counter that can steal the opponent's spell.",
+"audit": "4.0 already prices a near-full counter plus the steal mode; staple bonus unearned."
 },
 {
 "id": "VEN-153",
@@ -26922,8 +26959,9 @@
 "tutor/selection"
 ],
 "practical": [],
-"staple": 0.5,
-"note": "1-cost dig-3 that also stocks the trash; flexible and castable twice."
+"staple": 0.0,
+"note": "1-cost dig-3 that also stocks the trash; flexible and castable twice.",
+"audit": "V0 2.83 at 1 C already matches the banned Stacked Deck; the Flow recast costs 4 C at k=0, so no staple bonus is earned."
 },
 {
 "id": "VEN-157",
