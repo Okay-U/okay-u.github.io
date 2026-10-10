@@ -33220,55 +33220,6 @@
 "unreleased":false
 },
 {
-"id":"unl-022-219",
-"name":"Jhin - Murderous Artist",
-"riftbound_id":"unl-022-219",
-"public_code":"UNL-022/219",
-"collector_number":22,
-"attributes":{
-"energy":4,
-"might":4,
-"power":1,
-"might_bonus":null
-},
-"classification":{
-"type":"Unit",
-"supertype":"Champion",
-"rarity":"Rare",
-"domain":[
-"Fury"
-]
-},
-"text":{
-"rich":"<p>[Deflect] (Opponents must pay :rb_rune_rainbow: to choose me with a spell or ability.)<br />[Ganking] (I can move from battlefield to battlefield.)<br />When I move, [Add] :rb_energy_1::rb_rune_rainbow:. (Abilities that add resources can't be reacted to.)</p>",
-"plain":"[Deflect] (Opponents must pay Any Rune to choose me with a spell or ability.)\n[Ganking] (I can move from battlefield to battlefield.)\nWhen I move, [Add] 1 Energy + Any Rune. (Abilities that add resources can't be reacted to.)",
-"flavour":"“And now, the curtain rises.”"
-},
-"set":{
-"set_id":"UNL",
-"label":"Unleashed"
-},
-"media":{
-"image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/8da724a842cf61cb24c3c02dd99adc93a9222e06-744x1039.png?accountingTag=RB",
-"artist":"Alessandro Poli",
-"accessibility_text":"Riftbound Unit: Jhin, Murderous Artist. [Deflect] (Opponents must pay [A] to choose me with a spell or ability.)\n[Ganking] (I can move from battlefield to battlefield.)\nWhen I move, [Add] [1][A]. (Abilities that add resources can't be reacted to.)"
-},
-"tags":[
-"Jhin",
-"Ionia"
-],
-"orientation":"portrait",
-"metadata":{
-"clean_name":"Jhin Murderous Artist",
-"updated_on":"2026-10-09T10:08:11Z",
-"alternate_art":false,
-"overnumbered":false,
-"signature":false
-},
-"new":false,
-"unreleased":false
-},
-{
 "id":"unl-022a-219",
 "name":"Jhin - Murderous Artist (Alternate Art)",
 "riftbound_id":"unl-022a-219",
@@ -37057,6 +37008,55 @@
 "metadata":{
 "clean_name":"Gutter Palace",
 "updated_on":"2026-10-09T10:04:12Z",
+"alternate_art":false,
+"overnumbered":false,
+"signature":false
+},
+"new":false,
+"unreleased":false
+},
+{
+"id":"unl-089-219",
+"name":"Jhin - Meticulous Killer",
+"riftbound_id":"unl-089-219",
+"public_code":"UNL-089/219",
+"collector_number":89,
+"attributes":{
+"energy":4,
+"might":4,
+"power":null,
+"might_bonus":null
+},
+"classification":{
+"type":"Unit",
+"supertype":"Champion",
+"rarity":"Epic",
+"domain":[
+"Mind"
+]
+},
+"text":{
+"rich":"<p>[Vision] (When you play me, look at the top card of your Main Deck. You may recycle it.)<br />If you've spent :rb_energy_4: or more to play a spell this turn, you may play me for :rb_rune_mind:.</p>",
+"plain":"[Vision] (When you play me, look at the top card of your Main Deck. You may recycle it.)\nIf you've spent 4 Energy or more to play a spell this turn, you may play me for Mind Rune.",
+"flavour":"“One, two, three, four. Two, two, three, four …”"
+},
+"set":{
+"set_id":"UNL",
+"label":"Unleashed"
+},
+"media":{
+"image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/88fb6023ee9bd90fef3f36995ca27615dcd669f7-744x1039.png?accountingTag=RB",
+"artist":"League Splash Team",
+"accessibility_text":"Riftbound Unit: Jhin, Meticulous Killer. [Vision] (When you play me, look at the top card of your Main Deck. You may recycle it.)\nIf you've spent [4] or more to play a spell this turn, you may play me for [C]."
+},
+"tags":[
+"Jhin",
+"Ionia"
+],
+"orientation":"portrait",
+"metadata":{
+"clean_name":"Jhin Meticulous Killer",
+"updated_on":"2026-10-10T11:12:44Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -57094,12 +57094,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Fury Rune",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-10T11:12:44Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -57140,12 +57140,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Fury Rune",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-10T11:12:44Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -57189,12 +57189,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ahri Confident",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-10T11:12:44Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -57982,12 +57982,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Scorched Earth",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-10T11:12:44Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -58028,12 +58028,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Order Rune",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-10T11:12:44Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -58074,12 +58074,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Order Rune",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-10T11:12:44Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -58195,7 +58195,7 @@
 "text":{
 "rich":"<p>I enter ready.<br />When you play me, play a ready 3 :rb_might: Mech unit token here.</p>",
 "plain":"I enter ready.\nWhen you play me, play a ready 3 Might Mech unit token here.",
-"flavour":null
+"flavour":"“Uh-oh! Looks like there's a surprise on the track ahead!”"
 },
 "set":{
 "set_id":"RAD",
@@ -58210,7 +58210,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Antagonistic Apparatus",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-10T11:12:44Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -58491,12 +58491,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Detonation Amplifier",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-10T11:12:44Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -59061,12 +59061,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Iridescent Avian",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-10T11:12:44Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -59184,7 +59184,7 @@
 "text":{
 "rich":"<p>When you play a card with Energy cost :rb_energy_7: or more, ready me.</p>",
 "plain":"When you play a card with Energy cost 7 Energy or more, ready me.",
-"flavour":null
+"flavour":"They pledged to serve the dynasty. They should have specified how."
 },
 "set":{
 "set_id":"RAD",
@@ -59199,7 +59199,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Sanctum Conservator",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-10T11:12:44Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -59988,12 +59988,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Industrious Mechsmith",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-10T11:12:44Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -61071,12 +61071,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Raving Witness",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-10T11:12:44Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -61194,7 +61194,7 @@
 "text":{
 "rich":"<p>I enter ready.<br />[Shield 3] (+3 :rb_might: while I'm a defender.)</p>",
 "plain":"I enter ready.\n[Shield 3] (+3 Might while I'm a defender.)",
-"flavour":null
+"flavour":"“The crackle of ice, the thunder of hooves, and then everything was chaos.”  \n—Survivor's tale"
 },
 "set":{
 "set_id":"RAD",
@@ -61209,7 +61209,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Wrath of the Freljord",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-10T11:12:44Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -61634,12 +61634,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Portable Portal",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-10T11:12:44Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -62198,12 +62198,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Suave Negotiator",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-10T11:12:44Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -62507,7 +62507,7 @@
 "text":{
 "rich":"<p>[Deploy] (Play this only to a battlefield. When an opponent holds here, kill this.)<br />While you or an ally control this battlefield, that player may hide an additional card here.</p>",
 "plain":"[Deploy] (Play this only to a battlefield. When an opponent holds here, kill this.)\nWhile you or an ally control this battlefield, that player may hide an additional card here.",
-"flavour":null
+"flavour":"“There, that should be the last of them.”  \n—Common last words"
 },
 "set":{
 "set_id":"RAD",
@@ -62524,7 +62524,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Bushwhack Trap",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-10T11:12:44Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -63144,12 +63144,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Hunting Dog",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-10T11:12:44Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -63560,12 +63560,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Battlefield Armorer",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-10T11:12:44Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -64293,12 +64293,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Realm of Death",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-10T11:12:44Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -64736,12 +64736,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Last Caress",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-10T11:12:44Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -64973,12 +64973,12 @@
 "orientation":"landscape",
 "metadata":{
 "clean_name":"Black Rose Sanctum",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-10T11:12:44Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -66078,12 +66078,12 @@
 "orientation":"landscape",
 "metadata":{
 "clean_name":"Packed Amphitheater Overnumbered",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-10T11:12:44Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 }
 ]
