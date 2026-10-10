@@ -10,7 +10,7 @@ const undoStack = [];
 
 export const blankDeck = () => ({
   v: 1, id: `d${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`,
-  name: 'Untitled deck', legend: null, champion: null, main: {}, side: {}, bf: [], runes: {}, bench: [], updated: Date.now(),
+  name: 'Untitled deck', legend: null, champion: null, main: {}, side: {}, bf: [], runes: {}, bench: {}, updated: Date.now(),
 });
 
 let deck = blankDeck();
@@ -53,7 +53,8 @@ export function normalizeDeck(raw) {
     main: counts(raw.main, ['Unit', 'Spell', 'Gear'], 3),
     side: counts(raw.side, ['Unit', 'Spell', 'Gear'], 3),
     bf: [...new Set((Array.isArray(raw.bf) ? raw.bf : []).map((x) => canon(x, ['Battlefield'])).filter(Boolean))].slice(0, 3),
-    runes, bench: [],
+    runes,
+    bench: counts(raw.bench, ['Unit', 'Spell', 'Gear'], 3),
     updated: Number.isFinite(raw.updated) ? raw.updated : Date.now(),
   };
 }
@@ -80,7 +81,7 @@ export const subscribe = (fn) => { listeners.add(fn); return () => listeners.del
 function persist() {
   deck.updated = Date.now();
   const i = saved.findIndex((d) => d.id === deck.id);
-  const hasContent = deck.legend || Object.keys(deck.main).length || deck.bf.length;
+  const hasContent = deck.legend || Object.keys(deck.main).length || deck.bf.length || Object.keys(deck.bench).length;
   if (i >= 0) saved[i] = deck; else if (hasContent) saved.push(deck);
   writeStore();
 }
@@ -91,7 +92,7 @@ export function update(fn, reason = 'edit') {
   if (undoStack.length > 60) undoStack.shift();
   const next = structuredClone(deck);
   fn(next);
-  for (const zone of ['main', 'side']) for (const [k, v] of Object.entries(next[zone])) if (!(v > 0)) delete next[zone][k];
+  for (const zone of ['main', 'side', 'bench']) for (const [k, v] of Object.entries(next[zone])) if (!(v > 0)) delete next[zone][k];
   for (const [k, v] of Object.entries(next.runes)) if (!(v > 0)) delete next.runes[k];
   deck = next;
   persist();
@@ -141,7 +142,7 @@ const b64 = (s) => btoa(String.fromCharCode(...new TextEncoder().encode(s))).rep
 const unb64 = (s) => new TextDecoder().decode(Uint8Array.from(atob(s.replace(/-/g, '+').replace(/_/g, '/')), (c) => c.charCodeAt(0)));
 
 export function shareURL(d = deck) {
-  const pack = { n: d.name, l: d.legend, c: d.champion, m: d.main, s: d.side, b: d.bf, r: d.runes };
+  const pack = { n: d.name, l: d.legend, c: d.champion, m: d.main, s: d.side, b: d.bf, r: d.runes, ...(Object.keys(d.bench).length ? { h: d.bench } : {}) };
   return `${location.origin}${location.pathname}#d=${b64(JSON.stringify(pack))}`;
 }
 
@@ -152,6 +153,6 @@ function decodeShare(hash) {
   try {
     const p = JSON.parse(unb64(m[1]));
     if (!isObj(p)) return null;
-    return normalizeDeck({ name: typeof p.n === 'string' ? p.n : 'Shared deck', legend: p.l, champion: p.c, main: p.m, side: p.s, bf: p.b, runes: p.r });
+    return normalizeDeck({ name: typeof p.n === 'string' ? p.n : 'Shared deck', legend: p.l, champion: p.c, main: p.m, side: p.s, bf: p.b, runes: p.r, bench: p.h });
   } catch { return null; }
 }

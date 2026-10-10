@@ -33,7 +33,7 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
       <button class="key" type="button" data-mine aria-pressed="false">In deck</button>
       <select class="sel" data-f="sort" aria-label="Sort">${SORTS.map(([k, l]) => `<option value="${k}">${l}</option>`).join('')}</select>
       <select class="sel" data-f="lens" aria-label="Value shown">${LENS.map(([k, l]) => `<option value="${k}" ${k === 'deck' ? 'selected' : ''}>Show: ${l}</option>`).join('')}</select>
-      <select class="sel" data-f="target" aria-label="Add to"><option value="main">Add to main</option><option value="side">Add to sideboard</option></select>
+      <select class="sel" data-f="target" aria-label="Add to"><option value="main">Add to main</option><option value="side">Add to sideboard</option><option value="bench">Add to bench</option></select>
     </div>
     <div class="frow meta-line" id="meta-line"></div>`;
   const $ = (s) => filtersEl.querySelector(s);
@@ -55,7 +55,7 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
   });
   filtersEl.addEventListener('change', (e) => {
     const f = e.target.dataset.f;
-    if (f) { st[f] = e.target.value; if (f === 'target') return; render(); }
+    if (f) { st[f] = e.target.value; render(); }
   });
 
   function legendOf(deck) { return deck.legend ? idx.byId.get(deck.legend) : null; }
@@ -155,7 +155,7 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     t._val.hidden = !costed;
     if (costed) flap(t._val, fmtRatio(v), { animate, cls: v === null ? 'dim' : 'amber' });
     const legend = legendOf(deck);
-    t.classList.toggle('off', !!legend && ['main'].includes(st.zone) && !!blockReason(deck, c, idx) && n === 0);
+    t.classList.toggle('off', !!legend && st.zone === 'main' && st.target !== 'bench' && !!blockReason(deck, c, idx) && n === 0);
   }
 
   function render(animate = false) {
@@ -180,7 +180,7 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     filtersEl.querySelectorAll('[data-cost]').forEach((b) => b.setAttribute('aria-pressed', String(st.cost === +b.dataset.cost)));
     const meta = filtersEl.querySelector('#meta-line');
     const partner = st.partner ? idx.byId.get(st.partner) : null;
-    const zoneHelp = { legend: 'Pick the legend that leads the deck.', champion: 'Pick the chosen champion.', main: st.target === 'side' ? 'Tapping the art adds to the sideboard.' : 'Tap the art to add a copy, the name for details. Right click or long press removes one.',
+    const zoneHelp = { legend: 'Pick the legend that leads the deck.', champion: 'Pick the chosen champion.', main: `Tap the art to add a copy${st.target === 'main' ? '' : ` to the ${st.target === 'side' ? 'sideboard' : 'bench'}`}, Shift adds three, the name opens details. Right click or long press removes one.`,
       bf: 'Pick three different battlefields.', runes: 'Click adds a rune, right click removes one.' }[st.zone];
     meta.innerHTML = `<span><b>${shown}</b> cards · ${zoneHelp}</span>${partner ? ` <button class="key small quiet" data-clear-partner type="button">Partners of ${esc(partner.name)} ✕</button>` : ''}`;
   }
@@ -191,7 +191,7 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     el.innerHTML = `<div class="intro-head"><h2>Build a deck. Watch it re-price.</h2>
         <p>Every card carries Riot's own price for what it does. Put cards together and the board shows what they are worth in this deck.</p></div>
       <ol class="intro-steps"><li><b>Pick a legend</b><span>It sets your two domains.</span></li>
-        <li><b>Choose the champion, add cards</b><span>Tap the art to add a copy, the name for details. Right click or long press removes one.</span></li>
+        <li><b>Choose the champion, add cards</b><span>Tap the art to add a copy, Shift adds three, the name opens details. Right click or long press removes one.</span></li>
         <li><b>Run the agent</b><span>Five work styles read the list and propose buys, cuts and combos.</span></li></ol>
       <dl class="intro-values"><div><dt>Ledger</dt><dd>Riot's price per cost, 1.00 is par.</dd></div>
         <div><dt>Practical</dt><dd>Adds what the ledger books at a discount or ignores.</dd></div>
@@ -203,8 +203,9 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
 
   function setZone(z) { st.zone = z; st.partner = null; render(); root.scrollTo?.({ top: 0 }); root.parentElement?.scrollTo({ top: 0 }); }
 
-  function act(c, remove) {
+  function act(c, mode = 'add') {
     const deck = store.getDeck();
+    const remove = mode === 'remove';
     if (c.type === 'Legend') {
       if (remove) { store.update((d) => { d.legend = null; }, 'legend'); return; }
       store.update((d) => {
@@ -249,16 +250,13 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
       store.update((d) => { d.runes[dm] = (d.runes[dm] || 0) + 1; }, 'runes');
       return;
     }
-    const zone = st.target === 'side' ? 'side' : 'main';
+    const zone = ['side', 'bench'].includes(st.target) ? st.target : 'main';
     if (remove) {
       if (deck[zone][c.id]) store.update((d) => { d[zone][c.id] -= 1; }, 'remove');
-      else if (deck.champion === c.id) store.update((d) => { d.champion = null; }, 'remove');
+      else if (zone === 'main' && deck.champion === c.id) store.update((d) => { d.champion = null; }, 'remove');
       return;
     }
-    const why = blockReason(deck, c, idx);
-    if (why) { ui.toast(why, true); return; }
-    if (zone === 'side' && counts(deck).side >= LIMITS.side) { ui.toast('The sideboard holds ten cards.', true); return; }
-    store.update((d) => { d[zone][c.id] = (d[zone][c.id] || 0) + 1; }, 'add');
+    ui.addCard(c.id, zone, { playset: mode === 'playset' });
   }
 
   // pointer: click adds, right click removes, long press removes, double click opens details
@@ -266,25 +264,25 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
   root.addEventListener('pointerdown', (e) => {
     const t = e.target.closest('.tile'); if (!t || e.button !== 0) return;
     longPressed = false;
-    pressTimer = setTimeout(() => { longPressed = true; act(idx.byId.get(t.dataset.id), true); navigator.vibrate?.(12); }, 480);
+    pressTimer = setTimeout(() => { longPressed = true; act(idx.byId.get(t.dataset.id), 'remove'); navigator.vibrate?.(12); }, 480);
   });
   ['pointerup', 'pointerleave', 'pointercancel'].forEach((ev) => root.addEventListener(ev, () => clearTimeout(pressTimer)));
   root.addEventListener('click', (e) => {
     const t = e.target.closest('.tile'); if (!t) return;
     if (longPressed) { longPressed = false; return; }
     if (e.target.closest('.cap')) { ui.openCard(t.dataset.id); return; }
-    act(idx.byId.get(t.dataset.id), e.shiftKey || e.altKey);
+    act(idx.byId.get(t.dataset.id), e.altKey ? 'remove' : e.shiftKey ? 'playset' : 'add');
   });
   root.addEventListener('contextmenu', (e) => {
     const t = e.target.closest('.tile'); if (!t) return;
     e.preventDefault();
     if (longPressed) return; // touch long-press already removed a copy
     clearTimeout(pressTimer); longPressed = e.pointerType === 'touch';
-    act(idx.byId.get(t.dataset.id), true);
+    act(idx.byId.get(t.dataset.id), 'remove');
   });
   root.addEventListener('keydown', (e) => {
     const t = e.target.closest('.tile'); if (!t) return;
-    if (e.key === 'Backspace' || e.key === 'Delete' || e.key === '-') { e.preventDefault(); act(idx.byId.get(t.dataset.id), true); }
+    if (e.key === 'Backspace' || e.key === 'Delete' || e.key === '-') { e.preventDefault(); act(idx.byId.get(t.dataset.id), 'remove'); }
     if (e.key === 'i' || e.key === '?') ui.openCard(t.dataset.id);
   });
 

@@ -463,6 +463,21 @@ select.sel {
 .deck-list .dl button.t { background: none; border: 0; padding: 0; text-align: left; color: var(--paint); font-weight: 640; }
 .deck-list .dl small { display: block; color: var(--paint-mute); font-weight: 400; }
 
+/* ---------- row menu ---------- */
+.rmenu {
+  position: fixed; z-index: 80; min-width: 210px; display: grid; padding: 3px 0;
+  background: #0b0b0c; border: 3px solid transparent; background-clip: padding-box;
+  border-image: linear-gradient(180deg, #44474e 0%, #24262a 45%, #303238 100%) 1;
+  box-shadow: 0 0 0 1px #000, 0 18px 34px -16px #000;
+}
+.rmenu button {
+  display: flex; justify-content: space-between; gap: 18px; padding: 8px 12px; border: 0; background: none; text-align: left;
+  font-size: 11.5px; font-weight: 640; font-stretch: 80%; letter-spacing: .07em; text-transform: uppercase; color: var(--paint);
+}
+.rmenu button + button { border-top: 1px solid var(--rule); }
+.rmenu button:hover, .rmenu button:focus-visible { background: var(--amber); color: var(--amber-ink); outline: none; }
+.rmenu button b { font-weight: 640; opacity: .7; font-variant-numeric: tabular-nums; }
+
 /* ---------- loupe (hover preview) ---------- */
 .loupe {
   position: fixed; left: 0; top: 0; z-index: 70; width: 300px; pointer-events: none;

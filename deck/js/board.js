@@ -3,6 +3,8 @@
 import { img, esc, DOMAIN_CLASS } from './data.js';
 import { counts, LIMITS } from './rules.js';
 import { flap, makeFlap, fmtRatio, pad, hydrateFlaps } from './flap.js';
+import { baseValue, marginal } from './agent/engine.js';
+import { createRowMenu } from './rowmenu.js';
 
 const TYPE_ORDER = ['Unit', 'Spell', 'Gear'];
 
@@ -35,6 +37,13 @@ export function createBoard({ root, idx, store, ui }) {
   strip?.addEventListener('click', (e) => { if (e.target.closest('[data-ms-run]')) ui.runAgent(); });
   const F = (k) => root.querySelector(`[data-k="${k}"]`);
   const rowEls = new Map();
+  const menu = createRowMenu({ ui, store });
+  root.addEventListener('contextmenu', (e) => {
+    const r = e.target.closest('.row');
+    if (!r) return;
+    e.preventDefault();
+    menu.open(r.dataset.id, r.dataset.zone, e.clientX, e.clientY);
+  });
 
   root.addEventListener('click', (e) => {
     if (e.target.closest('[data-run]')) { ui.runAgent(); return; }
@@ -54,8 +63,10 @@ export function createBoard({ root, idx, store, ui }) {
     if (!row) return;
     const id = row.dataset.id;
     const zone = row.dataset.zone;
-    if (e.target.closest('[data-inc]')) { ui.addCard(id, zone); return; }
+    if (e.target.closest('[data-inc]')) { ui.addCard(id, zone === 'champion' ? 'main' : zone); return; }
     if (e.target.closest('[data-dec]')) { ui.removeCard(id, zone); return; }
+    const more = e.target.closest('[data-menu]');
+    if (more) { const b = more.getBoundingClientRect(); menu.open(id, zone, b.right, b.bottom, { focus: e.detail === 0 }); return; }
     if (e.target.closest('.nm')) ui.openCard(id);
   });
 
@@ -78,7 +89,7 @@ export function createBoard({ root, idx, store, ui }) {
       r.dataset.id = card.id; r.dataset.zone = zone;
       r.innerHTML = `<span class="q"></span><span class="cost"></span><button class="nm" type="button"></button>
         <span class="v"></span><span class="mv"><span class="tk"></span></span>
-        <span class="ctl"><button class="key icon small" type="button" data-dec aria-label="Remove one">−</button><button class="key icon small" type="button" data-inc aria-label="Add one">+</button></span>`;
+        <span class="ctl"><button class="key icon small" type="button" data-dec aria-label="Remove one">−</button><button class="key icon small" type="button" data-inc aria-label="Add one">+</button><button class="key icon small" type="button" data-menu aria-haspopup="menu" aria-label="More actions">⋯</button></span>`;
       r.querySelector('.q').appendChild(makeFlap('', ''));
       r.querySelector('.v').appendChild(makeFlap('', 'amber'));
       r.querySelector('.mv').prepend(makeFlap('', ''));
@@ -89,8 +100,9 @@ export function createBoard({ root, idx, store, ui }) {
     r.querySelector('.nm').textContent = card.name;
     const pipClass = DOMAIN_CLASS[card.domains[0]] || 'paint-mute';
     r.querySelector('.cost').innerHTML = `${Number(card.E) || 0}${`<i class="pw" style="background:var(--${pipClass})"></i>`.repeat(Math.min(Number(card.P) || 0, 3))}`;
-    const a = an?.rows.find((x) => x.card.id === card.id);
-    const ledger = a ? a.ledger : null;
+    // Main-deck rows read the analysis; sideboard and bench rows show what the card would be worth if it joined the main deck.
+    const a = ['main', 'champion'].includes(zone) ? an?.rows.find((x) => x.card.id === card.id) : (an && marginal(card, an, store.getDeck()));
+    const ledger = a ? a.ledger : ['side', 'bench'].includes(zone) ? baseValue(card).ledger : null;
     const inDeck = a ? a.deckAmber : null;
     flap(r.querySelector('.q .flap'), `${n}`, { animate: !fresh });
     flap(r.querySelector('.v .flap'), fmtRatio(ledger), { animate: !fresh, cls: ledger === null ? 'dim' : 'amber' });
@@ -100,7 +112,7 @@ export function createBoard({ root, idx, store, ui }) {
     mv.className = `mv ${dir}`;
     mv.querySelector('.tk').textContent = dir === 'up' ? '▲' : dir === 'down' ? '▼' : '';
     flap(mv.querySelector('.flap'), fmtRatio(inDeck), { animate: !fresh, cls: dir || (inDeck === null ? 'dim' : '') });
-    mv.title = a && a.links?.length ? `In this deck: ${a.bonus >= 0 ? '+' : ''}${a.bonus.toFixed(2)} C from partners` : '';
+    mv.title = ['side', 'bench'].includes(zone) ? 'Value if it joined the main deck' : a && a.links?.length ? `In this deck: ${a.bonus >= 0 ? '+' : ''}${a.bonus.toFixed(2)} C from partners` : '';
     if (fresh && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
       r.animate([{ clipPath: 'inset(0 100% 0 0)', opacity: 0.4 }, { clipPath: 'inset(0 0 0 0)', opacity: 1 }], { duration: 380, easing: 'cubic-bezier(.16,1,.3,1)' });
     }
@@ -171,11 +183,18 @@ export function createBoard({ root, idx, store, ui }) {
     runeSec.appendChild(runes);
     frag.appendChild(runeSec);
 
-    const side = Object.entries(deck.side).map(([id, k]) => [idx.byId.get(id), k]).filter(([c]) => c);
-    if (side.length) {
-      const sideSec = section('Sideboard', `${pad(n.side)}/10`);
-      for (const [c, k] of side.sort(([a], [b]) => a.C - b.C)) sideSec.appendChild(row(c, k, 'side', an));
-      frag.appendChild(sideSec);
+    const zoneRows = (zone, title, count, hint) => {
+      const list = Object.entries(deck[zone]).map(([id, k]) => [idx.byId.get(id), k]).filter(([c]) => c);
+      const sec = section(title, count);
+      sec.dataset.zone = zone;
+      if (!list.length) sec.insertAdjacentHTML('beforeend', `<p class="hint">${hint}</p>`);
+      for (const [c, k] of list.sort(([a], [b]) => a.C - b.C || a.name.localeCompare(b.name))) sec.appendChild(row(c, k, zone, an));
+      frag.appendChild(sec);
+    };
+    if (legend) {
+      zoneRows('side', 'Sideboard', `${pad(n.side)}/10`, 'Optional, up to ten cards. Right click a card in the deck to move it here.');
+      const benched = Object.values(deck.bench).reduce((x, y) => x + y, 0);
+      zoneRows('bench', 'Bench', benched ? pad(benched) : undefined, 'Park cards you are weighing up. Not part of the list, saved with the deck.');
     }
     body.replaceChildren(frag);
     for (const [key, el] of rowEls) if (!el.isConnected) rowEls.delete(key);
