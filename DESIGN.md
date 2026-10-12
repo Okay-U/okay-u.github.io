@@ -257,7 +257,7 @@ Depth is mechanical. Data sits on black faces recessed into the steel; controls 
 - **Lit plate** (`box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 2px 0 -1px #5c3a06, 0 6px 14px -8px rgba(243,167,42,.5)`): The amber key only; a short amber spill under a lit switch.
 - **Lamp halo** (`box-shadow: 0 0 0 2px rgba(<lamp>, .18)`): The 9px square status lamp when lit.
 - **Well** (`box-shadow: inset 0 2px 4px rgba(0,0,0,.6), 0 1px 0 rgba(255,255,255,.04)`): Search field and textareas, sunk into the steel.
-- **Lift** (`0 14px 22px -12px rgba(0,0,0,.95)`): Gallery tile art on hover; the loupe and sheet use longer black throws (`0 34px 60px -26px #000`, `-30px 0 60px -30px rgba(0,0,0,.9)`).
+- **Lift** (`0 14px 22px -12px rgba(0,0,0,.95)`): Gallery tile art on hover; the sheet uses a longer black throw (`0 34px 60px -26px #000`, `-30px 0 60px -30px rgba(0,0,0,.9)`).
 
 ### Named Rules
 **The Recessed Face Rule.** Content panels are black faces set into a 3px steel bezel with a black outer and inner line. Don't build a panel from a lighter fill with a soft shadow.
@@ -349,10 +349,9 @@ Tactile and mechanical, like a recessed switch on a trading desk.
 - **Curve drill-down:** energy bars are buttons; picking one dims the other stacks to 30% and lists the cards at that cost below as small art tiles with quantity and name.
 - **Odds calculator:** a bezel panel of uppercase-labelled wells (card, copies, cards seen, at least) and a large flap percentage, green at 80% or more, vermilion under 50%.
 
-### Sheet, toast and loupe
+### Sheet and toast
 - **Sheet:** a right-edge dialog, up to 560px wide, #111214, black left edge, long black throw, backdrop rgba(5,5,6,.62); slides in 40px over 380ms. Titles in 22px, 760, 80% width, uppercase.
 - **Toast:** a square paint slip with #121212 text, bottom left above the dock; rises 16px in 280ms.
-- **Loupe:** a 300px card preview for fine pointers only, after a 260ms hover; revealed top-down with a clip wipe in 240ms.
 
 ## Do's and Don'ts
 

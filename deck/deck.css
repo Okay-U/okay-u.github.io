@@ -600,15 +600,6 @@ select.sel {
 .rmenu button:hover, .rmenu button:focus-visible { background: var(--amber); color: var(--amber-ink); outline: none; }
 .rmenu button b { font-weight: 640; opacity: .7; font-variant-numeric: tabular-nums; }
 
-/* ---------- loupe (hover preview) ---------- */
-.loupe {
-  position: fixed; left: 0; top: 0; z-index: 70; width: 300px; pointer-events: none;
-  opacity: 0; clip-path: inset(0 0 100% 0);
-  transition: opacity .14s linear, clip-path .24s var(--ease);
-  box-shadow: 0 34px 60px -26px #000, 0 2px 0 rgba(0,0,0,.6);
-}
-.loupe.on { opacity: 1; clip-path: inset(0 0 0 0); }
-.loupe img { width: 100%; display: block; }
 
 /* ---------- toast, dock, footer ---------- */
 .toast {

@@ -10,7 +10,6 @@ import { createAgent } from './agent.js';
 import { createTest } from './test.js';
 import { createSheet } from './sheet.js';
 import { exportText, importCode } from './text.js';
-import { createLoupe } from './loupe.js';
 import { createLayout } from './layout.js';
 
 const $ = (s) => document.querySelector(s);
@@ -188,9 +187,6 @@ async function boot() {
   test = createTest({ root: $('#test'), idx, store, ui });
   sheet = createSheet({ el: $('#sheet'), idx, store, ui });
   createLayout({ floor: $('#floor'), sizeMount: $('#filters .tslot') });
-  const loupe = createLoupe(idx);
-  loupe.bind($('#gallery'), '.tile', (t) => t.dataset.id);
-  loupe.bind($('#board'), '.row, .sc', (r) => r.dataset.id);
 
   store.subscribe((d, reason) => {
     refresh(true);
