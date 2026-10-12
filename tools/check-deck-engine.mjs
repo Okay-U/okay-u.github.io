@@ -5,7 +5,8 @@ import { buildIndex } from '../deck/js/data.js';
 import { analyze, marginal, candidatePool, setPool } from '../deck/js/agent/engine.js';
 import { STYLES } from '../deck/js/agent/styles.js';
 import { blockReason, counts, validate, LIMITS, autoRunes, addRoom } from '../deck/js/rules.js';
-import { importText, exportText } from '../deck/js/text.js';
+import { importText, exportText, exportCode, importCode, findCode } from '../deck/js/text.js';
+import { getDeckFromCode } from '../deck/js/deckcode.js';
 
 const feed = JSON.parse(readFileSync(new URL('../cards.json', import.meta.url)));
 const model = JSON.parse(readFileSync(new URL('../deck/data/model.json', import.meta.url)));
@@ -49,11 +50,21 @@ for (const legend of legends) {
     if (Object.values(runes).reduce((a, b) => a + b, 0) !== LIMITS.runes || Object.values(runes).some((n) => n < 3)) {
       throw new Error(`${legend.name}/${style.id}: auto runes ${JSON.stringify(runes)}`);
     }
+    const coded = importCode(exportCode({ ...deck, runes }, idx), idx);
+    const same = (a, b) => JSON.stringify(Object.entries(a).sort()) === JSON.stringify(Object.entries(b).sort());
+    if (coded.unresolved.length || coded.deck.legend !== deck.legend || coded.deck.champion !== deck.champion || !same(coded.deck.main, deck.main) || !same(coded.deck.runes, runes)) {
+      throw new Error(`${legend.name}/${style.id}: deck code round trip changed the deck`);
+    }
     const back = importText(exportText(deck, idx), idx).deck;
     if (back.legend !== deck.legend || counts(back).main !== counts(deck).main) throw new Error(`${legend.name}/${style.id}: export/import round trip changed the deck`);
     checked++;
   }
 }
+// Deck codes: the reference vector from RiftboundDeckCodes (Apache 2.0) and link detection.
+const ref = getDeckFromCode('CIAAAAAAAAAQCAAAA4AACAIAABMQAAILAAAAICIMDMOVOX3AM5UHIAIDAAACO6XYAEAQKAAABX3QDGACUABKIAQAAEBQAAAWDBOQCAQAABMHE');
+if (ref.mainDeck.length !== 21 || ref.sideboard.reduce((a, c) => a + c.count, 0) !== 8) throw new Error('deck code reference vector');
+if (findCode('https://piltoverarchive.com/deckbuilder?code=CIAAAAAAAAAQ') !== 'CIAAAAAAAAAQ' || findCode('3 Jinx, Rebel') !== null) throw new Error('findCode');
+
 // Signature cap holds for multi-copy adds (playset, quick add "3 x", drop with Shift, bench to main).
 const sigLegend = idx.cards.find((l) => l.type === 'Legend' && idx.cards.filter((c) => c.supertype === 'Signature' && c.tags.includes(l.champ)).length >= 2);
 if (sigLegend) {

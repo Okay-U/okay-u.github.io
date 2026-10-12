@@ -9,7 +9,7 @@ import { createBoard } from './board.js';
 import { createAgent } from './agent.js';
 import { createTest } from './test.js';
 import { createSheet } from './sheet.js';
-import { exportText } from './text.js';
+import { exportText, importCode } from './text.js';
 import { createLoupe } from './loupe.js';
 import { createLayout } from './layout.js';
 
@@ -179,6 +179,16 @@ async function boot() {
   gallery.autoZone(store.getDeck());
   refresh(false);
   if (fromShare) toast('Shared deck loaded and saved to your decks.');
+  // ?code=… opens a deck code (the format Piltover Archive shares) as a new deck
+  const code = new URLSearchParams(location.search).get('code');
+  if (code) {
+    history.replaceState(null, '', location.pathname);
+    try {
+      const { deck, unresolved } = importCode(code, idx);
+      ui.newDeck({ ...deck, name: 'Deck from code' });
+      toast(unresolved.length ? `Deck code opened. ${unresolved.length} card${unresolved.length > 1 ? 's' : ''} not in the card data.` : 'Deck code opened as a new deck.', !!unresolved.length);
+    } catch (e) { toast(`That deck code did not read: ${String(e?.message || e)}`, true); }
+  }
 
   document.querySelectorAll('.rooms [role="tab"]').forEach((b) => b.addEventListener('click', () => setRoom(b.dataset.room)));
   document.querySelectorAll('.dock button').forEach((b) => b.addEventListener('click', () => setMobileView(b.dataset.dock)));

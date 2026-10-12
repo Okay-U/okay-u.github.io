@@ -2,7 +2,7 @@
 import { img, esc } from './data.js';
 import { baseValue, wantsOf, providesOf } from './agent/engine.js';
 import { tagLabel } from './agent.js';
-import { exportText, importText } from './text.js';
+import { exportText, importText, exportCode, importCode, findCode } from './text.js';
 import { copiesOf, blockReason } from './rules.js';
 
 const f2 = (x) => (x === null || x === undefined || !isFinite(x) ? '–' : x.toFixed(2));
@@ -75,11 +75,21 @@ export function createSheet({ el, idx, store, ui }) {
     }
   }
 
+  function deckCode() {
+    try { return { code: exportCode(store.getDeck(), idx) }; } catch (e) { return { error: String(e?.message || e) }; }
+  }
+
   function exportSheet() {
     const text = exportText(store.getDeck(), idx);
-    open(`<h2>Export</h2><p class="meta-line">The same format the Riftcount app and most builders read.</p>
+    const { code, error } = deckCode();
+    open(`<h2>Export</h2>
+      <section class="rsec"><h3>Deck code</h3><p class="meta-line">Opens in Piltover Archive and other Riftbound tools that read deck codes.</p>
+        ${code ? `<textarea readonly class="code" data-code>${esc(code)}</textarea>
+        <div class="agent-actions"><button class="key amber" type="button" data-copy-code>Copy code</button></div>` : `<p class="meta-line">${esc(error)}</p>`}</section>
+      <section class="rsec"><h3>Decklist</h3><p class="meta-line">The text format the Riftcount app and most builders read.</p>
       <textarea readonly data-text>${esc(text)}</textarea>
-      <div class="agent-actions"><button class="key amber" type="button" data-copy>Copy</button><button class="key" type="button" data-dl>Download .txt</button></div>`);
+      <div class="agent-actions"><button class="key" type="button" data-copy>Copy list</button><button class="key" type="button" data-dl>Download .txt</button></div></section>`);
+    el.querySelector('[data-copy-code]')?.addEventListener('click', () => ui.copy(code, 'Deck code copied.'));
     el.querySelector('[data-copy]').addEventListener('click', () => ui.copy(text, 'Decklist copied.'));
     el.querySelector('[data-dl]').addEventListener('click', () => {
       const a = document.createElement('a');
@@ -90,12 +100,18 @@ export function createSheet({ el, idx, store, ui }) {
   }
 
   function importSheet() {
-    open(`<h2>Import</h2><p class="meta-line">Paste a decklist from the Riftcount app, Piltover Archive or any builder that writes "3 Card Name" lines under Legend / Champion / MainDeck / Battlefields / Runes / Sideboard.</p>
+    open(`<h2>Import</h2><p class="meta-line">Paste a deck code or a deck link from Piltover Archive and other Riftbound tools, or a decklist from the Riftcount app or any builder that writes "3 Card Name" lines under Legend / Champion / MainDeck / Battlefields / Runes / Sideboard.</p>
       <textarea data-text placeholder="Legend:&#10;1 Jinx, Loose Cannon&#10;&#10;Champion:&#10;1 Jinx, Rebel&#10;&#10;MainDeck:&#10;3 …"></textarea>
       <div class="agent-actions"><button class="key amber" type="button" data-go>Import as new deck</button><span class="meta-line" data-msg></span></div>`);
     el.querySelector('[data-go]').addEventListener('click', () => {
       const text = el.querySelector('[data-text]').value;
-      const { deck, unresolved } = importText(text, idx);
+      const code = findCode(text);
+      let parsed;
+      try { parsed = code ? importCode(code, idx) : importText(text, idx); } catch (e) {
+        el.querySelector('[data-msg]').textContent = `That deck code did not read: ${String(e?.message || e)}`;
+        return;
+      }
+      const { deck, unresolved } = parsed;
       if (!deck.legend && !Object.keys(deck.main).length) { el.querySelector('[data-msg]').textContent = 'Nothing recognised. Check the section headers.'; return; }
       ui.newDeck({ ...deck, name: 'Imported deck' });
       el.close();
@@ -129,10 +145,12 @@ export function createSheet({ el, idx, store, ui }) {
   }
 
   function shareSheet(url) {
+    const { code } = deckCode();
     open(`<h2>Share</h2><p class="meta-line">The whole deck lives in this link. Nothing is uploaded.</p>
       <textarea readonly style="min-height:120px">${esc(url)}</textarea>
-      <div class="agent-actions"><button class="key amber" type="button" data-copy>Copy link</button>${navigator.share ? '<button class="key" type="button" data-native>Share…</button>' : ''}</div>`);
+      <div class="agent-actions"><button class="key amber" type="button" data-copy>Copy link</button>${navigator.share ? '<button class="key" type="button" data-native>Share…</button>' : ''}${code ? '<button class="key" type="button" data-copy-code>Copy deck code</button>' : ''}</div>`);
     el.querySelector('[data-copy]').addEventListener('click', () => ui.copy(url, 'Link copied.'));
+    el.querySelector('[data-copy-code]')?.addEventListener('click', () => ui.copy(code, 'Deck code copied. It opens in Piltover Archive too.'));
     el.querySelector('[data-native]')?.addEventListener('click', () => navigator.share({ title: store.getDeck().name, url }).catch(() => {}));
   }
 
