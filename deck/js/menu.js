@@ -1,4 +1,5 @@
 // Context menu shared by the deck board rows and the gallery tiles: right click, long press or the ⋯ key.
+import { esc } from './data.js';
 // Items are { label, badge?, run, disabled? } or null for a divider.
 export function createMenu() {
   const el = document.createElement('div');
@@ -25,7 +26,7 @@ export function createMenu() {
     el.innerHTML = list.map((it) => {
       if (!it) return '<hr>';
       actions.push(it.run);
-      return `<button type="button" role="menuitem" data-i="${actions.length - 1}" ${it.disabled ? 'disabled' : ''}>${it.label}${it.badge ? ` <b>${it.badge}</b>` : ''}</button>`;
+      return `<button type="button" role="menuitem" data-i="${actions.length - 1}" ${it.disabled ? 'disabled' : ''}>${esc(it.label)}${it.badge ? ` <b>${esc(it.badge)}</b>` : ''}</button>`;
     }).join('');
     el.hidden = false;
     const w = el.offsetWidth, h = el.offsetHeight;

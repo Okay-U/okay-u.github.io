@@ -132,16 +132,19 @@ function shiftRune(dm, delta) {
 /** Take one copy out of a zone, or every copy with `all`. */
 function removeCard(id, zone = 'main', { all = false } = {}) {
   const deck = store.getDeck();
+  if (![...CARD_ZONES, 'champion', 'bf'].includes(zone) || !idx.byId.has(id)) return;
   if (all && CARD_ZONES.includes(zone)) {
     if (deck[zone]?.[id] > 0) board.exitRow(id, zone).then(() => store.update((d) => { delete d[zone][id]; }, 'remove'));
     return;
   }
   if (zone === 'champion') {
+    if (deck.champion !== id) return;
     if (deck.main[id]) store.update((d) => { d.main[id] -= 1; }, 'remove');
     else store.update((d) => { d.champion = null; }, 'remove');
     return;
   }
-  if (zone === 'bf') { board.exitRow(id, 'bf').then(() => store.update((d) => { d.bf = d.bf.filter((x) => x !== id); }, 'remove')); return; }
+  if (zone === 'bf') {
+    if (!deck.bf.includes(id)) return; board.exitRow(id, 'bf').then(() => store.update((d) => { d.bf = d.bf.filter((x) => x !== id); }, 'remove')); return; }
   if (!(deck[zone]?.[id] > 0)) return;
   const last = deck[zone][id] === 1;
   (last ? board.exitRow(id, zone) : Promise.resolve()).then(() => store.update((d) => { if (d[zone][id] > 0) d[zone][id] -= 1; }, 'remove'));

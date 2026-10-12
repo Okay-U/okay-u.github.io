@@ -282,7 +282,9 @@ export function createBoard({ root, idx, store, ui }) {
   function focusKey() {
     const a = document.activeElement;
     if (!a || !body.contains(a)) return null;
-    for (const k of ['pref', 'view', 'gkey', 'target']) if (a.dataset[k] !== undefined) return `[data-${k}="${CSS.escape(a.dataset[k])}"]`;
+    if (a.dataset.rune !== undefined) return `[data-rune="${CSS.escape(a.dataset.rune)}"][data-d="${CSS.escape(a.dataset.d)}"]`;
+    for (const k of ['pref', 'view', 'gkey', 'target', 'pick']) if (a.dataset[k] !== undefined) return `[data-${k}="${CSS.escape(a.dataset[k])}"]`;
+    if (a.hasAttribute('data-runes-auto')) return '[data-runes-auto]';
     const holder = a.closest('.row, .sc');
     if (!holder) return null;
     const own = `${holder.classList.contains('sc') ? '.sc' : '.row'}[data-zone="${holder.dataset.zone}"][data-id="${CSS.escape(holder.dataset.id)}"]`;

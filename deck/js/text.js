@@ -80,7 +80,8 @@ export function importText(text, idx) {
 /** Deck code for a deck: legend, champion, battlefields, runes and main deck in one list, plus the sideboard. */
 export function exportCode(deck, idx) {
   const main = new Map();
-  const put = (id, n) => { if (id && n > 0) main.set(id, (main.get(id) || 0) + n); };
+  // tokens are not deck cards and have no code in the format; leave them out
+  const put = (id, n) => { if (id && n > 0 && !idx.byId.get(id)?.token) main.set(id, (main.get(id) || 0) + n); };
   put(deck.legend, 1);
   put(deck.champion, 1);
   for (const [id, n] of Object.entries(deck.main)) put(id, n);
@@ -88,7 +89,7 @@ export function exportCode(deck, idx) {
   const runeCard = (d) => idx.cards.find((c) => c.type === 'Rune' && c.domains[0] === d);
   for (const [d, n] of Object.entries(deck.runes)) put(runeCard(d)?.id, n);
   return getCodeFromDeck([...main].map(([cardCode, count]) => ({ cardCode, count })),
-    Object.entries(deck.side).map(([cardCode, count]) => ({ cardCode, count })), deck.champion || undefined);
+    Object.entries(deck.side).filter(([id]) => !idx.byId.get(id)?.token).map(([cardCode, count]) => ({ cardCode, count })), deck.champion || undefined);
 }
 
 /** A pasted deck code, or a link carrying one (?code=), or null when the text is not one. */
@@ -96,12 +97,16 @@ export function findCode(text) {
   const s = String(text).trim();
   const fromLink = /[?&#]code=([A-Za-z2-7]+)/.exec(s);
   if (fromLink) return fromLink[1];
-  return /^[A-Za-z2-7]{16,}$/.test(s) ? s : null;
+  const joined = s.replace(/\s+/g, '');
+  if (/^[A-Za-z2-7]{16,}$/.test(joined)) return joined; // a code wrapped over lines
+  // a code on its own line next to a title; decklist lines always contain spaces or punctuation
+  const line = s.split(/\r?\n/).map((l) => l.trim()).find((l) => /^[A-Z2-7]{16,}$/.test(l));
+  return line || null;
 }
 
 /** Decode a deck code into a deck shape. Returns { deck, unresolved }; throws on a malformed code. */
 export function importCode(code, idx) {
-  const { mainDeck, sideboard, chosenChampion } = getDeckFromCode(code);
+  const { mainDeck, sideboard, chosenChampion, additionalLegends } = getDeckFromCode(code);
   const deck = { legend: null, champion: null, main: {}, side: {}, bf: [], runes: {} };
   const unresolved = [];
   // variant suffixes (a, b, s, *) name printings of the same card
@@ -116,7 +121,13 @@ export function importCode(code, idx) {
   }
   for (const { cardCode, count } of sideboard) {
     const c = card(cardCode);
-    if (c) deck.side[c.id] = (deck.side[c.id] || 0) + count; else unresolved.push(`${count} ${cardCode} (sideboard)`);
+    if (c && ['Unit', 'Spell', 'Gear'].includes(c.type)) deck.side[c.id] = (deck.side[c.id] || 0) + count;
+    else unresolved.push(`${count} ${c?.name || cardCode} (sideboard)`);
+  }
+  if (additionalLegends?.length) unresolved.push(`${additionalLegends.length} additional legend${additionalLegends.length > 1 ? 's' : ''} (not supported here)`);
+  const legendDomains = deck.legend ? idx.byId.get(deck.legend)?.domains || [] : [];
+  for (const d of Object.keys(deck.runes)) {
+    if (legendDomains.length && !legendDomains.includes(d)) { unresolved.push(`${deck.runes[d]} ${d} runes outside the legend's domains`); delete deck.runes[d]; }
   }
   const champ = chosenChampion ? card(chosenChampion) : null;
   if (champ && deck.main[champ.id]) {

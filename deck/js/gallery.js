@@ -274,8 +274,11 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     }
     const zone = ['side', 'bench'].includes(st.target) ? st.target : 'main';
     if (remove) {
-      if (deck[zone][c.id]) store.update((d) => { d[zone][c.id] -= 1; }, 'remove');
-      else if (zone === 'main' && deck.champion === c.id) store.update((d) => { d.champion = null; }, 'remove');
+      // take it from the add target first, then from wherever a copy sits
+      const from = [zone, 'main', 'side', 'bench'].find((z) => deck[z][c.id] > 0);
+      if (from) store.update((d) => { d[from][c.id] -= 1; }, 'remove');
+      else if (deck.champion === c.id) store.update((d) => { d.champion = null; }, 'remove');
+      if (from && from !== zone) ui.toast(`Took one ${c.name} out of the ${from === 'side' ? 'sideboard' : from === 'bench' ? 'bench' : 'main deck'}.`);
       return 0;
     }
     return ui.addCard(c.id, zone, { playset: mode === 'playset' }) || 0;
@@ -317,9 +320,9 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     const zoneName = { main: 'main deck', side: 'sideboard', bench: 'bench' };
     const add = (zone, three) => ({ label: `Add ${three ? 'three' : 'one'} to ${zoneName[zone]}`, run: () => addTo(c, zone, three, t) });
     return [add('main'), add('main', true),
-      legend && isChampionFor(c, legend) && deck.champion !== c.id && { label: 'Set as chosen champion', run: () => chooseChampion(c) },
+      legend && isChampionFor(c, legend) && deck.champion !== c.id ? { label: 'Set as chosen champion', run: () => chooseChampion(c) } : false,
       null, add('side'), add('side', true), null, add('bench'), add('bench', true),
-      n > 0 && null, n > 0 && { label: 'Remove one', run: () => act(c, 'remove') },
+      n > 0 ? null : false, n > 0 ? { label: 'Remove one', run: () => act(c, 'remove') } : false,
       null, info, { label: 'Show partners', run: () => ui.showPartners(c.id) }];
   }
   const menu = createMenu();
@@ -328,8 +331,8 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
   // pointer: click adds (Shift three), the − / + strip adjusts, right click or long press opens the menu, the caption opens details
   let pressTimer = null; let longPressed = false;
   root.addEventListener('pointerdown', (e) => {
-    const t = e.target.closest('.tile'); if (!t || e.button !== 0 || e.pointerType !== 'touch' || e.target.closest('[data-q]')) return;
     longPressed = false;
+    const t = e.target.closest('.tile'); if (!t || e.button !== 0 || e.pointerType !== 'touch' || e.target.closest('[data-q]')) return;
     const { clientX: x, clientY: y } = e;
     pressTimer = setTimeout(() => { longPressed = true; navigator.vibrate?.(12); openMenu(t, x, y, false); }, 480);
   });
@@ -369,6 +372,7 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     if (!move) return;
     e.preventDefault();
     const [zone, id] = move.split(':');
+    if (!['main', 'side', 'bench'].includes(zone) || !idx.byId.has(id)) return;
     ui.removeCard(id, zone, { all: e.shiftKey });
   });
   root.addEventListener('contextmenu', (e) => {
@@ -376,6 +380,7 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     e.preventDefault();
     if (longPressed) return; // the touch long press already opened it
     clearTimeout(pressTimer);
+    if (e.pointerType === 'touch') longPressed = true; // the release click must not add a copy under the menu
     const keyboard = e.button !== 2 && e.pointerType !== 'touch';
     const r = t.getBoundingClientRect();
     openMenu(t, keyboard ? r.left + 20 : e.clientX, keyboard ? r.top + 30 : e.clientY, keyboard);

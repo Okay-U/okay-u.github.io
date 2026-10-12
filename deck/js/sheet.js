@@ -108,7 +108,7 @@ export function createSheet({ el, idx, store, ui }) {
       const code = findCode(text);
       let parsed;
       try { parsed = code ? importCode(code, idx) : importText(text, idx); } catch (e) {
-        el.querySelector('[data-msg]').textContent = `That deck code did not read: ${String(e?.message || e)}`;
+        el.querySelector('[data-msg]').textContent = code ? `That deck code did not read: ${String(e?.message || e)}` : `That list did not read: ${String(e?.message || e)}`;
         return;
       }
       const { deck, unresolved } = parsed;
