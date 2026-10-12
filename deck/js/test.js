@@ -1,6 +1,7 @@
-// Test room: energy and power curves, domain split, value spread, sample opening hands with mulligan, opening odds.
+// Stats and Hand tabs: energy and power curves, domain split, value spread, opening odds and a draw calculator;
+// sample opening hands with mulligan.
 import { img, esc, DOMAIN_CLASS } from './data.js';
-import { makeFlap, hydrateFlaps } from './flap.js';
+import { makeNum } from './num.js';
 
 const HAND = 4;           // opening hand in Riftbound
 const MULLIGAN_MAX = 2;   // cards you may recycle and redraw once
@@ -17,32 +18,33 @@ function atLeast(deck, hits, draws, k) {
   return Math.min(1, p);
 }
 
-export function createTest({ root, idx, store, ui }) {
+export function createTest({ statsRoot, handRoot, idx, store, ui }) {
   let hand = [];
   let library = [];
   let marked = new Set();
   let mulliganed = false;
 
   let pickedE = null;
-  root.innerHTML = `<h2><span data-flap="TEST BENCH"></span></h2><p class="lede">Curves, the shape of the list, and sample opening hands. The chosen champion starts in its own zone, so hands draw from the other 39 cards.</p>
-    <div class="gauges heads" data-heads></div>
-    <div class="charts" data-charts></div>
-    <div class="curvecards" data-curve hidden></div>
-    <section class="rsec"><h3>Sample hand</h3>
-      <div class="agent-actions"><button class="key amber" type="button" data-draw>Draw 4</button><button class="key" type="button" data-mull disabled>Mulligan marked</button><button class="key quiet" type="button" data-next>Draw next</button><span class="meta-line" data-hint>Tap up to two cards to mark them for the mulligan.</span></div>
-      <div class="hand" data-hand></div></section>
-    <section class="rsec"><h3>Opening odds</h3><div class="odds" data-odds></div></section>
-    <section class="rsec"><h3>Draw odds calculator</h3>
+  statsRoot.innerHTML = `<div class="heads" data-heads></div>
+    <section class="tsec"><h3>Curves</h3><p class="note">Click an energy bar to list the cards at that cost.</p><div class="charts" data-charts></div>
+      <div class="curvecards" data-curve hidden></div></section>
+    <section class="tsec"><h3>Opening odds</h3><div class="odds" data-odds></div></section>
+    <section class="tsec"><h3>Draw odds calculator</h3>
       <div class="calc" data-calc>
-        <label>Card <select class="sel" data-c="card"><option value="">Pick a card or set copies</option></select></label>
+        <label class="wide">Card <select class="sel" data-c="card"><option value="">Pick a card or set copies</option></select></label>
         <label>Copies in deck <input type="number" min="0" max="40" value="3" data-c="hits"></label>
         <label>Cards seen <input type="number" min="1" max="40" value="5" data-c="seen"></label>
         <label>At least <input type="number" min="1" max="12" value="1" data-c="k"></label>
         <output data-c="out"></output>
-        <p class="meta-line">Four cards in the opening hand, one more each turn. Two seen on turn 1 going second? Count them in.</p>
+        <p class="note">Four cards in the opening hand, one more each turn. Going second and seeing two on turn 1? Count them in.</p>
       </div></section>`;
-  hydrateFlaps(root);
-  const $ = (s) => root.querySelector(s);
+  handRoot.innerHTML = `<section class="tsec"><h3>Sample hand</h3>
+      <p class="note">The chosen champion starts in its own zone, so hands draw from the other 39 cards. Mark up to two cards, then mulligan them to the bottom.</p>
+      <div class="actions"><button class="btn primary" type="button" data-draw>Draw 4</button><button class="btn" type="button" data-mull disabled>Mulligan marked</button><button class="btn" type="button" data-next>Draw next</button></div>
+      <p class="note" data-hint></p>
+      <div class="hand" data-hand></div></section>`;
+  const $ = (s) => statsRoot.querySelector(s) || handRoot.querySelector(s);
+  const root = { addEventListener: (t, fn) => { statsRoot.addEventListener(t, fn); handRoot.addEventListener(t, fn); }, querySelector: $, querySelectorAll: (q) => [...statsRoot.querySelectorAll(q), ...handRoot.querySelectorAll(q)] };
 
   function cardsInDeck() {
     const d = store.getDeck();
@@ -85,7 +87,7 @@ export function createTest({ root, idx, store, ui }) {
       return f;
     }));
     $('[data-mull]').disabled = !marked.size || mulliganed;
-    $('[data-hint]').textContent = !hand.length ? 'Add cards to the main deck first.' : mulliganed ? `Mulligan done. ${library.length} cards left in the deck.` : 'Tap up to two cards to mark them for the mulligan.';
+    $('[data-hint]').textContent = !cardsInDeck().length ? 'Add cards to the main deck first.' : !hand.length ? '' : mulliganed ? `Mulligan done. ${library.length} cards left in the deck.` : 'Tap up to two cards to mark them for the mulligan.';
   }
 
   function calc() {
@@ -93,7 +95,7 @@ export function createTest({ root, idx, store, ui }) {
     const N = cardsInDeck().length;
     const p = atLeast(N, Math.min(v('hits'), N), v('seen'), Math.max(1, v('k')));
     const out = root.querySelector('[data-c="out"]');
-    out.replaceChildren(makeFlap(N ? `${String(Math.round(p * 100)).padStart(3, ' ')}%` : ' -- ', p >= 0.8 ? 'up' : p < 0.5 ? 'down' : ''));
+    out.replaceChildren(makeNum(N ? `${Math.round(p * 100)}%` : '–', p >= 0.8 ? 'up' : p < 0.5 ? 'down' : ''));
   }
   root.addEventListener('input', (e) => {
     if (e.target.dataset.c === 'card') {
@@ -132,7 +134,7 @@ export function createTest({ root, idx, store, ui }) {
       return `<div class="col"${title === 'Energy curve' ? ` data-e="${k}" role="button" tabindex="0" aria-label="Show the ${total(k)} cards at ${esc(labelOf(k))} energy"` : ''}><b>${total(k) || ''}</b><div class="stack" style="--max:${max}">${cells.join('')}</div><span>${esc(labelOf(k))}</span></div>`;
     }).join('');
     // the energy curve's bars are buttons, so it is a group rather than an image
-    return `<div class="chart"><h3><span>${title}</span></h3><div class="bars" role="${title === 'Energy curve' ? 'group' : 'img'}" aria-label="${esc(title)}">${cols}</div></div>`;
+    return `<div class="chart"><h4>${title}</h4><div class="bars" role="${title === 'Energy curve' ? 'group' : 'img'}" aria-label="${esc(title)}">${cols}</div></div>`;
   }
 
   function render(analysis) {
@@ -152,13 +154,13 @@ export function createTest({ root, idx, store, ui }) {
       const b = r.deckAmber < 0.86 ? 'under' : r.deckAmber <= 1.17 ? 'on' : r.deckAmber < 1.5 ? 'above' : 'far';
       value[b] = value[b] || {}; value[b].cards = (value[b].cards || 0) + r.n;
     }
-    const domColor = (dname) => (DOMAIN_CLASS[dname] ? `color-mix(in srgb, var(--${DOMAIN_CLASS[dname]}) 74%, #16171a)` : '#6d6a63');
-    const bandColor = { cards: 'var(--amber)' };
+    const domColor = (dname) => (DOMAIN_CLASS[dname] ? `var(--${DOMAIN_CLASS[dname]})` : 'var(--text-3)');
+    const bandColor = { under: 'var(--red)', on: 'var(--text-2)', above: 'var(--green)', far: 'var(--green)' };
     $('[data-charts]').innerHTML = [
       bars('Energy curve', energy, [0, 1, 2, 3, 4, 5, 6, 7], domColor, (k) => (k === 7 ? '7+' : String(k))),
       bars('Power', power, [0, 1, 2, 3], domColor, (k) => (k === 3 ? '3+' : String(k))),
       bars('Types', type, ['Unit', 'Spell', 'Gear'], domColor, (k) => k),
-      bars('Value in this deck', value, ['under', 'on', 'above', 'far'], (p) => bandColor[p] || 'var(--amber)', (k) => ({ under: '<0.86', on: 'on curve', above: '>1.17', far: '≥1.5' }[k])),
+      bars('Value in this deck', Object.fromEntries(Object.entries(value).map(([k, v]) => [k, { [k]: v.cards }])), ['under', 'on', 'above', 'far'], (p) => bandColor[p], (k) => ({ under: '<0.86', on: 'par', above: '>1.17', far: '1.5+' }[k])),
     ].join('');
 
     const N = deck.length;
@@ -173,14 +175,15 @@ export function createTest({ root, idx, store, ui }) {
       [`Card draw by turn 3 (${draw} in deck)`, atLeastOne(N, draw, HAND + 3)],
     ];
     const units = all.filter((c) => c.type === 'Unit').length;
-    const heads = [['Cards', String(all.length)], ['Avg energy', all.length ? (all.reduce((a, c) => a + c.E, 0) / all.length).toFixed(1) : ' -- '],
-      ['Avg power', all.length ? (all.reduce((a, c) => a + c.P, 0) / all.length).toFixed(1) : ' -- '], ['Units', String(units)],
-      ['In this deck', analysis?.metrics.inDeck ? analysis.metrics.inDeck.toFixed(2) : ' -- ']];
-    $('[data-heads]').replaceChildren(...heads.map(([l, v]) => {
+    const ind = analysis?.metrics.inDeck ?? null;
+    const heads = [['Cards', String(all.length), ''], ['Avg energy', all.length ? (all.reduce((a, c) => a + c.E, 0) / all.length).toFixed(1) : '–', ''],
+      ['Avg power', all.length ? (all.reduce((a, c) => a + c.P, 0) / all.length).toFixed(1) : '–', ''], ['Units', String(units), ''],
+      ['Value', ind !== null ? ind.toFixed(2) : '–', ind === null ? '' : ind > 1.17 ? 'up' : ind < 0.86 ? 'down' : '']];
+    $('[data-heads]').replaceChildren(...heads.map(([l, v, cls]) => {
       const g = document.createElement('div');
-      g.className = 'gauge';
-      g.innerHTML = `<span class="lbl">${l}</span>`;
-      g.appendChild(makeFlap(v, l === 'In this deck' ? 'amber' : ''));
+      g.className = 'head';
+      g.appendChild(makeNum(v, cls));
+      g.insertAdjacentHTML('beforeend', `<span class="lbl">${l}</span>`);
       return g;
     }));
     paintCurve();
@@ -196,7 +199,7 @@ export function createTest({ root, idx, store, ui }) {
       const tr = document.createElement('div');
       tr.className = 'tr';
       tr.innerHTML = `<span>${esc(label)}</span>`;
-      tr.appendChild(makeFlap(N ? `${String(Math.round(p * 100)).padStart(3, ' ')}%` : ' -- ', p >= 0.8 ? 'up' : p < 0.5 ? 'down' : ''));
+      tr.appendChild(makeNum(N ? `${Math.round(p * 100)}%` : '–', p >= 0.8 ? 'up' : p < 0.5 ? 'down' : ''));
       $('[data-odds]').appendChild(tr);
     }
     if (!hand.length) paintHand(false);
@@ -212,8 +215,8 @@ export function createTest({ root, idx, store, ui }) {
     const list = [...(d.champion ? [[d.champion, 1 + (d.main[d.champion] || 0)]] : []), ...Object.entries(d.main).filter(([id]) => id !== d.champion)]
       .map(([id, n]) => [idx.byId.get(id), n]).filter(([c]) => c && (e === 7 ? c.E >= 7 : c.E === e)).sort(([a], [b]) => a.name.localeCompare(b.name));
     box.hidden = false;
-    box.innerHTML = `<h3>${e === 7 ? '7+' : e} energy · ${list.reduce((a, [, n]) => a + n, 0)} cards</h3>${list.length ? `<div class="cc">${list.map(([c, n]) =>
-      `<button type="button" data-open="${esc(c.id)}"><img alt="" src="${esc(img(c, 200))}"><span>${n}× ${esc(c.name)}</span></button>`).join('')}</div>` : '<p class="meta-line">No cards at this cost.</p>'}`;
+    box.innerHTML = `<h4>${e === 7 ? '7+' : e} energy · ${list.reduce((a, [, n]) => a + n, 0)} cards</h4>${list.length ? `<div class="ccards">${list.map(([c, n]) =>
+      `<button type="button" data-open="${esc(c.id)}"><img alt="" src="${esc(img(c, 200))}"><span>${n}× ${esc(c.name)}</span></button>`).join('')}</div>` : '<p class="note">No cards at this cost.</p>'}`;
   }
 
   root.addEventListener('keydown', (e) => {

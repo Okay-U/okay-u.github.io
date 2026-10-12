@@ -1,8 +1,8 @@
-// Boot and wiring. The deck (board) is the carried object; rooms change around it.
-import { loadData, isMainCard } from './data.js';
+// Boot and wiring. The deck panel (Deck, Stats, Hand, Coach tabs) sits beside the gallery; on phones it is a bottom
+// sheet over the gallery with a peek bar.
+import { loadData, isMainCard, img, esc } from './data.js';
 import * as store from './store.js';
 import { validate, counts, addRoom, shiftRunes, LIMITS } from './rules.js';
-import { hydrateFlaps } from './flap.js';
 import { analyze, setPool } from './agent/engine.js';
 import { createGallery } from './gallery.js';
 import { createBoard } from './board.js';
@@ -11,16 +11,17 @@ import { createTest } from './test.js';
 import { createSheet } from './sheet.js';
 import { exportText, importCode } from './text.js';
 import { createLayout } from './layout.js';
+import { fmtRatio } from './num.js';
+import { createMenu } from './menu.js';
 
 const $ = (s) => document.querySelector(s);
 const mobile = matchMedia('(max-width: 900px)');
 const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
-const ROOM_ORDER = ['build', 'analyze', 'test'];
+const TABS = ['deck', 'stats', 'hand', 'coach'];
 
 let idx, gallery, board, agent, test, sheet;
 let analysis = null;
-let room = 'build';
-let mobileView = 'build';
+let tab = 'deck';
 
 const toastEl = $('#toast');
 let toastTimer;
@@ -36,35 +37,33 @@ async function copy(text, msg) {
   try { await navigator.clipboard.writeText(text); toast(msg); } catch { toast('Copy failed. Select the text and copy it by hand.', true); }
 }
 
-function setRoom(next, { force = false } = {}) {
-  if (next === room && !force) return;
-  const prev = room;
-  room = next;
-  document.querySelectorAll('.rooms [role="tab"]').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.room === next)));
-  const out = $(`#room-${prev}`), inn = $(`#room-${next}`);
-  inn.hidden = false;
-  const dir = ROOM_ORDER.indexOf(next) > ROOM_ORDER.indexOf(prev) ? 1 : -1;
-  if (!reduced() && out !== inn) {
-    out.animate([{ transform: 'none', opacity: 1 }, { transform: `translateX(${-28 * dir}px)`, opacity: 0 }], { duration: 160, easing: 'cubic-bezier(.55,0,.75,.2)' })
-      .finished.then(() => { if (room !== prev) out.hidden = true; });
-    inn.animate([{ transform: `translateX(${36 * dir}px)`, opacity: 0, clipPath: `inset(0 ${dir > 0 ? 0 : 30}% 0 ${dir > 0 ? 30 : 0}%)` },
-      { transform: 'none', opacity: 1, clipPath: 'inset(0 0 0 0)' }], { duration: 380, easing: 'cubic-bezier(.16,1,.3,1)' });
-  } else if (out !== inn) out.hidden = true;
-  if (next === 'test') test.render(analysis);
-}
-
-function setMobileView(v) {
-  mobileView = v;
-  document.querySelectorAll('.dock button').forEach((b) => (b.dataset.dock === v ? b.setAttribute('aria-current', 'page') : b.removeAttribute('aria-current')));
-  const boardEl = $('#board');
-  if (v === 'board') {
-    boardEl.classList.remove('away');
-    if (!reduced()) boardEl.animate([{ transform: 'translateY(22px)' }, { transform: 'none' }], { duration: 300, easing: 'cubic-bezier(.16,1,.3,1)' });
-  } else {
-    boardEl.classList.add('away');
-    setRoom(v);
+/** Show a deck panel tab (ARIA tabs: roving tabindex, panels hidden). */
+function setTab(next, { focus = false } = {}) {
+  if (!TABS.includes(next)) return;
+  const changed = next !== tab;
+  tab = next;
+  for (const t of TABS) {
+    const on = t === next;
+    const b = $(`#tab-${t}`);
+    b.setAttribute('aria-selected', String(on));
+    b.tabIndex = on ? 0 : -1;
+    $(`#pane-${t}`).hidden = !on;
+  }
+  if (focus) $(`#tab-${next}`).focus();
+  if (next === 'stats' || next === 'hand') test.render(analysis);
+  if (changed) {
+    $('#deckpanel').scrollTo({ top: 0 });
+    if (!reduced()) $(`#pane-${next}`).animate([{ opacity: 0, transform: 'translateY(4px)' }, { opacity: 1, transform: 'none' }], { duration: 180, easing: 'ease-out' });
   }
 }
+
+/** Phones: the deck panel is a bottom sheet; the peek bar opens and closes it. */
+function setSheet(open) {
+  document.body.classList.toggle('sheet-open', open);
+  $('#peek').setAttribute('aria-expanded', String(open));
+  if (open) $('#deckpanel').scrollTo({ top: 0 });
+}
+const sheetOpen = () => document.body.classList.contains('sheet-open');
 
 function refresh(animate = true) {
   const deck = store.getDeck();
@@ -72,15 +71,22 @@ function refresh(animate = true) {
   gallery.setAnalysis(analysis, deck);
   board.render(analysis);
   gallery.repaint(animate);
-  if (room === 'test') test.render(analysis);
+  if (tab === 'stats' || tab === 'hand') test.render(analysis);
   const name = $('#deck-name');
   if (document.activeElement !== name) name.value = deck.name;
   const v = validate(deck, idx);
+  const bad = v.issues.filter((i) => i.sev === 'bad').length;
+  const label = v.status === 'legal' ? 'Legal' : v.status === 'illegal' ? `${bad} problem${bad > 1 ? 's' : ''}` : v.status === 'building' ? 'Building' : 'Pick a legend';
   const lamp = $('#legal-lamp');
-  lamp.className = `lamp-status ${v.status === 'legal' ? 'ok' : v.status === 'illegal' ? 'bad' : v.status === 'building' ? 'warn' : ''}`;
-  lamp.querySelector('span').textContent = v.status === 'legal' ? 'Legal' : v.status === 'illegal' ? `${v.issues.filter((i) => i.sev === 'bad').length} problem${v.issues.filter((i) => i.sev === 'bad').length > 1 ? 's' : ''}` : v.status === 'building' ? 'Building' : 'Pick a legend';
+  lamp.className = `status ${v.status === 'legal' ? 'ok' : v.status === 'illegal' ? 'bad' : v.status === 'building' ? 'warn' : ''}`;
+  lamp.querySelector('span').textContent = label;
   lamp.title = v.issues.map((i) => i.text).join('\n');
-  $('#dock-count').textContent = counts(deck).main;
+  // peek bar (phones)
+  const n = counts(deck);
+  const legend = deck.legend ? idx.byId.get(deck.legend) : null;
+  $('#peek-name').textContent = deck.name;
+  $('#peek-line').textContent = legend ? `${n.main}/${LIMITS.main} cards · ${label}${analysis?.metrics.inDeck != null ? ` · value ${fmtRatio(analysis.metrics.inDeck)}` : ''}` : 'Pick a legend to start';
+  $('#peek-thumb').innerHTML = legend ? `<img alt="" src="${esc(img(legend, 100))}">` : '';
 }
 
 const ZONE_NAME = { main: 'the main deck', side: 'the sideboard', bench: 'the bench' };
@@ -99,7 +105,7 @@ function addCard(id, zone = 'main', { playset = false, n: want = playset ? LIMIT
   const deck = store.getDeck();
   if (!c) return;
   if (zone === 'champion') { toast('The chosen champion is a single card.'); return; }
-  if (zone === 'bf' || zone === 'runes') { gallery.setZone(zone); setRoom('build'); return; }
+  if (zone === 'bf' || zone === 'runes') { ui.goBuild(zone); return; }
   if (!CARD_ZONES.includes(zone) || !isMainCard(c)) return;
   const n = fits(deck, c, zone, Math.max(1, Math.min(LIMITS.copies, Math.trunc(want) || 1)));
   if (n > 0) store.update((d) => { d[zone][c.id] = (d[zone][c.id] || 0) + n; }, 'add');
@@ -162,16 +168,15 @@ const ui = {
     toast(`Gallery clicks now add to the ${z === 'main' ? 'main deck' : z === 'side' ? 'sideboard' : 'bench'}.`);
   },
   refresh,
-  runAgent() { if (mobile.matches) setMobileView('analyze'); else setRoom('analyze'); agent.run(); },
+  runAgent() { setTab('coach'); if (mobile.matches) setSheet(true); agent.run(); },
   newDeck(seed) { store.newDeck(seed); gallery.autoZone(store.getDeck()); agent.clear(); },
   copyList() { copy(exportText(store.getDeck(), idx), 'Decklist copied.'); },
-  showPartners(id) { gallery.showPartners(id); if (mobile.matches) setMobileView('build'); else setRoom('build'); toast(`Showing cards that feed or are fed by ${idx.byId.get(id)?.name}.`); },
+  showPartners(id) { gallery.showPartners(id); if (mobile.matches) setSheet(false); toast(`Showing cards that feed or are fed by ${idx.byId.get(id)?.name}.`); },
   importList() { sheet.importSheet(); },
-  goBuild(zone) { gallery.setZone(zone); if (mobile.matches) setMobileView('build'); else setRoom('build'); },
+  goBuild(zone) { gallery.setZone(zone); if (mobile.matches) setSheet(false); },
 };
 
 async function boot() {
-  hydrateFlaps();
   $('#gallery').innerHTML = '<p class="empty-note">Loading the card gallery…</p>';
   try {
     idx = await loadData();
@@ -187,7 +192,7 @@ async function boot() {
   gallery = createGallery({ root: $('#gallery'), filtersEl: $('#filters'), idx, store, ui });
   board = createBoard({ root: $('#board'), idx, store, ui });
   agent = createAgent({ root: $('#agent'), idx, store, ui });
-  test = createTest({ root: $('#test'), idx, store, ui });
+  test = createTest({ statsRoot: $('#stats'), handRoot: $('#hand'), idx, store, ui });
   sheet = createSheet({ el: $('#sheet'), idx, store, ui });
   createLayout({ floor: $('#floor'), sizeMount: $('#filters .tslot') });
 
@@ -210,10 +215,29 @@ async function boot() {
     } catch (e) { toast(`That deck code did not read: ${String(e?.message || e)}`, true); }
   }
 
-  document.querySelectorAll('.rooms [role="tab"]').forEach((b) => b.addEventListener('click', () => setRoom(b.dataset.room)));
-  document.querySelectorAll('.dock button').forEach((b) => b.addEventListener('click', () => setMobileView(b.dataset.dock)));
-  if (mobile.matches) setMobileView('build');
-  mobile.addEventListener('change', () => { $('#board').classList.remove('away'); if (mobile.matches) setMobileView(mobileView); });
+  // deck panel tabs: click, or arrow keys along the tab list
+  const tablist = $('.tabs');
+  tablist.addEventListener('click', (e) => { const b = e.target.closest('[data-tab]'); if (b) setTab(b.dataset.tab); });
+  tablist.addEventListener('keydown', (e) => {
+    const i = TABS.indexOf(tab);
+    const next = { ArrowRight: TABS[(i + 1) % TABS.length], ArrowLeft: TABS[(i - 1 + TABS.length) % TABS.length], Home: TABS[0], End: TABS[TABS.length - 1] }[e.key];
+    if (next) { e.preventDefault(); setTab(next, { focus: true }); }
+  });
+  // phone bottom sheet: tap the peek bar, or drag it up or down
+  const peek = $('#peek');
+  let drag = null;
+  peek.addEventListener('pointerdown', (e) => { if (mobile.matches) drag = { y: e.clientY, moved: false }; });
+  peek.addEventListener('pointermove', (e) => { if (drag && Math.abs(e.clientY - drag.y) > 8) drag.moved = true; });
+  peek.addEventListener('pointerup', (e) => {
+    if (!drag) return;
+    const dy = e.clientY - drag.y;
+    const moved = drag.moved;
+    drag = null;
+    if (moved && Math.abs(dy) > 30) setSheet(dy < 0);
+  });
+  peek.addEventListener('click', () => { if (mobile.matches) setSheet(!sheetOpen()); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && sheetOpen() && !$('#sheet').open) setSheet(false); });
+  mobile.addEventListener('change', () => { if (!mobile.matches) setSheet(false); });
 
   let tName;
   $('#deck-name').addEventListener('input', (e) => {
@@ -230,10 +254,18 @@ async function boot() {
   $('#btn-import').addEventListener('click', () => sheet.importSheet());
   $('#btn-export').addEventListener('click', () => sheet.exportSheet());
   $('#btn-share').addEventListener('click', () => sheet.shareSheet(store.shareURL()));
+  // phones: the top bar keeps only the deck name and status; the rest sits behind ⋯
+  const more = createMenu();
+  $('#btn-more').addEventListener('click', (e) => {
+    const b = e.currentTarget.getBoundingClientRect();
+    more.open([{ label: 'Your decks', run: () => sheet.decksSheet() }, { label: 'New deck', run: () => ui.newDeck() }, null,
+      { label: 'Import', run: () => sheet.importSheet() }, { label: 'Export', run: () => sheet.exportSheet() }, { label: 'Share', run: () => sheet.shareSheet(store.shareURL()) }],
+    b.right - 220, b.bottom + 6, { focus: e.detail === 0 });
+  });
   addEventListener('hashchange', () => { if (/#d=/.test(location.hash)) location.reload(); });
   document.addEventListener('keydown', (e) => {
     if ((e.metaKey || e.ctrlKey) && e.key === 'z' && !e.target.closest('input, textarea')) { e.preventDefault(); if (!store.undo()) toast('Nothing to undo.'); }
-    if (e.key === '/' && !e.target.closest('input, textarea')) { e.preventDefault(); document.querySelector('.search')?.focus(); }
+    if (e.key === '/' && !e.target.closest('input, textarea, select')) { e.preventDefault(); document.querySelector('#filters .search input')?.focus(); }
   });
 }
 

@@ -3,13 +3,13 @@
 import { norm, esc, isSignatureFor } from './data.js';
 import { inDomains, copiesOf } from './rules.js';
 import { baseValue } from './agent/engine.js';
-import { fmtRatio } from './flap.js';
+import { fmtRatio } from './num.js';
 
 const MAX = 8;
 
 export function createQuickAdd({ mount, idx, store, ui }) {
   mount.innerHTML = `<div class="qadd">
-      <input class="search" type="text" role="combobox" aria-expanded="false" placeholder="Add a card: 3 jinx" aria-label="Add a card by name" aria-autocomplete="list" aria-controls="qadd-list" autocomplete="off" spellcheck="false">
+      <input class="field" type="text" role="combobox" aria-expanded="false" placeholder="Add a card: 3 jinx" aria-label="Add a card by name" aria-autocomplete="list" aria-controls="qadd-list" autocomplete="off" spellcheck="false">
       <ul class="qlist" id="qadd-list" role="listbox" hidden></ul>
     </div>
     <p class="qhint">Enter adds to main · Shift+Enter sideboard · Alt+Enter bench</p>`;

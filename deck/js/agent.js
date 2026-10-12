@@ -1,7 +1,7 @@
-// Analyze room: pick a work style, run the agent, read a priced report with buys and cuts.
+// Coach tab: pick a work style, run the coach, read a priced report with buys and cuts.
 import { analyze, marginal, candidatePool, NEED, synergy, providerTable } from './agent/engine.js';
 import { STYLES, styleById } from './agent/styles.js';
-import { makeFlap, fmtRatio, hydrateFlaps } from './flap.js';
+import { makeNum, fmtRatio, band } from './num.js';
 import { counts, blockReason, LIMITS } from './rules.js';
 import { coach, storedKey, storeKey, forgetKey, MODELS } from './claude.js';
 
@@ -17,26 +17,24 @@ export function createAgent({ root, idx, store, ui }) {
   let running = false;
 
   root.innerHTML = `
-    <h2><span data-flap="DECK AGENT"></span></h2>
-    <p class="lede">Reads your list, prices every card against Riot's ledger and against the partners in this deck, then proposes what to add and what to cut. Pick how it should think.</p>
+    <p class="note">The coach reads your list, prices every card against Riot's ledger and against the partners in this deck, then proposes what to add and what to cut. Pick how it should think.</p>
     <div class="styles" role="group" aria-label="Work style">${STYLES.map((s) => `<button type="button" class="style-key" data-style="${s.id}" aria-pressed="false"><b>${s.name}</b><span>${s.blurb}</span></button>`).join('')}</div>
-    <div class="agent-actions"><button class="key amber" type="button" data-go>Run agent</button>
-      <button class="key" type="button" data-fill>Fill to 40</button><button class="key" type="button" data-trim>Trim to 40</button>
-      <span class="meta-line" data-status></span></div>
+    <div class="actions"><button class="btn primary" type="button" data-go>Run the coach</button>
+      <button class="btn" type="button" data-fill>Fill to 40</button><button class="btn" type="button" data-trim>Trim to 40</button>
+      <span class="note" data-status></span></div>
     <ol class="log" data-log></ol>
     <div class="report" data-report></div>
     <details class="claude">
       <summary>Ask Claude for a written read</summary>
-      <p class="meta-line">Optional. Uses your own Anthropic API key and sends this deck's analysis to Claude, which writes a coaching read in the chosen style. The key stays in this browser and goes only to api.anthropic.com. Usage is billed to your Anthropic account.</p>
-      <div class="frow">
-        <input class="search" type="password" data-ckey placeholder="Anthropic API key" autocomplete="off" spellcheck="false" aria-label="Anthropic API key">
+      <p class="note">Optional. Uses your own Anthropic API key and sends this deck's analysis to Claude, which writes a coaching read in the chosen style. The key stays in this browser and goes only to api.anthropic.com. Usage is billed to your Anthropic account.</p>
+      <div class="crow">
+        <input class="field" type="password" data-ckey placeholder="Anthropic API key" autocomplete="off" spellcheck="false" aria-label="Anthropic API key">
         <select class="sel" data-cmodel aria-label="Model">${MODELS.map(([id, label]) => `<option value="${id}">${label}</option>`).join('')}</select>
         <label class="check"><input type="checkbox" data-cremember> Remember on this device</label>
       </div>
-      <div class="agent-actions"><button class="key amber" type="button" data-cgo>Write the read</button><button class="key quiet" type="button" data-cforget>Forget key</button><span class="meta-line" data-cstatus></span></div>
+      <div class="actions"><button class="btn primary" type="button" data-cgo>Write the read</button><button class="btn quiet" type="button" data-cforget>Forget key</button><span class="note" data-cstatus></span></div>
       <div class="read" data-cread aria-live="polite"></div>
     </details>`;
-  hydrateFlaps(root);
   const log = root.querySelector('[data-log]');
   const report = root.querySelector('[data-report]');
   const status = root.querySelector('[data-status]');
@@ -139,7 +137,8 @@ export function createAgent({ root, idx, store, ui }) {
     const verdict = document.createElement('div');
     verdict.className = 'verdict';
     verdict.innerHTML = `<div class="score"></div><div><h3>${esc(title)}</h3><p>${esc(line)}</p></div>`;
-    verdict.querySelector('.score').appendChild(makeFlap(fmtRatio(style.id === 'auditor' ? a.metrics.ledger : a.metrics.inDeck), style.id === 'auditor' ? 'amber' : ''));
+    const score = style.id === 'auditor' ? a.metrics.ledger : a.metrics.inDeck;
+    verdict.querySelector('.score').appendChild(makeNum(fmtRatio(score), band(score)));
 
     const movers = a.rows.filter((r) => r.deckAmber !== null && (r.ledger ?? r.practical) !== null)
       .map((r) => ({ r, d: r.deckAmber - (r.ledger ?? r.practical) })).sort((x, y) => y.d - x.d);
@@ -155,10 +154,10 @@ export function createAgent({ root, idx, store, ui }) {
         <span class="why">${esc([...p.tags].map(tagLabel).join(', '))}${p.notes.size ? ` · ${esc([...p.notes][0])}` : ''}</span></div>`;
     };
     const buyRow = (m) => `<div class="tr"><span class="side buy">Buy</span><button class="t" type="button" data-open="${m.card.id}">${esc(m.card.name)}</button>
-      <span>${f2(m.deckAmber)}</span><button class="key small" type="button" data-add="${m.card.id}">Add</button>
+      <span>${f2(m.deckAmber)}</span><button class="btn small" type="button" data-add="${m.card.id}">Add</button>
       <span class="why">${esc(style.buyWhy(m, ctx))}</span></div>`;
     const cutRow = (r) => `<div class="tr"><span class="side sell">Sell</span><button class="t" type="button" data-open="${r.card.id}">${esc(r.card.name)}</button>
-      <span>${f2(r.deckAmber)}</span><button class="key small quiet" type="button" data-cut="${r.card.id}">Cut 1</button>
+      <span>${f2(r.deckAmber)}</span><button class="btn small quiet" type="button" data-cut="${r.card.id}">Cut 1</button>
       <span class="why">${esc(style.sellWhy(r, ctx))}</span></div>`;
 
     const gaps = a.misfits.slice(0, 4).map((r) => {
@@ -171,7 +170,7 @@ export function createAgent({ root, idx, store, ui }) {
     const roleGauge = (k) => {
       const have = a.metrics.roles[k] || 0, target = NEED.ROLE_TARGETS[k];
       const ok = have >= target;
-      return `<div class="gauge"><span class="lbl">${k.replace('_', ' ')}</span><span class="flap" data-g="${have}/${target}"></span>
+      return `<div class="gauge"><span class="lbl">${k.replace('_', ' ')}</span><span class="num ${ok ? 'up' : ''}">${have}/${target}</span>
         <div class="bar ${ok ? 'good' : have < target / 2 ? 'bad' : ''}"><i style="transform:scaleX(${Math.min(1, have / target)})"></i></div></div>`;
     };
     const legendFit = a.legendFit && a.legendFit.links.length
@@ -187,11 +186,10 @@ export function createAgent({ root, idx, store, ui }) {
       gaps ? sec('Payoffs without fuel', `<div class="tape">${gaps}</div>`) : '',
       sec('Roles', `<div class="gauges">${NEED.roleNames.map(roleGauge).join('')}</div>`),
     ].join(''));
-    report.querySelectorAll('[data-g]').forEach((el) => { el.replaceWith(makeFlap(el.dataset.g)); });
     if (!reduced()) {
       [...report.children].forEach((el, i) => el.animate(
-        [{ clipPath: 'inset(0 0 100% 0)', transform: 'translateY(10px)' }, { clipPath: 'inset(0 0 0 0)', transform: 'none' }],
-        { duration: 520, delay: Math.min(i * 90, 450), easing: 'cubic-bezier(.16,1,.3,1)', fill: 'backwards' }));
+        [{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }],
+        { duration: 280, delay: Math.min(i * 50, 250), easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'backwards' }));
     }
   }
 

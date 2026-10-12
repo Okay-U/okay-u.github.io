@@ -1,15 +1,16 @@
-// Build room: filters and the card gallery. Clicking a tile adds it to the zone being built.
+// The card gallery: toolbar, filters and the card grid. Clicking a card adds it to the zone being built.
 import { DOMAINS, DOMAIN_CLASS, SETS, img, esc, isChampionFor, isSignatureFor, norm } from './data.js';
 import { blockReason, copiesOf, inDomains, LIMITS, counts } from './rules.js';
-import { makeFlap, flap, fmtRatio } from './flap.js';
+import { setNum, makeNum, fmtRatio, band } from './num.js';
 import { baseValue, marginal, wantsOf, providesOf } from './agent/engine.js';
 import { createMenu } from './menu.js';
 
 const ZONES = [
   ['legend', 'Legend'], ['champion', 'Champion'], ['main', 'Main deck'], ['bf', 'Battlefields'], ['runes', 'Runes'],
 ];
-const SORTS = [['num', 'Set order'], ['cost', 'Energy cost'], ['name', 'Name'], ['ledger', 'Ledger value'], ['practical', 'Practical value'], ['deck', 'Value in this deck']];
-const LENS = [['ledger', 'Ledger'], ['practical', 'Practical'], ['deck', 'In deck']];
+const SORTS = [['num', 'Set order'], ['cost', 'Energy'], ['name', 'Name'], ['ledger', 'Ledger value'], ['practical', 'Practical value'], ['deck', 'Value in this deck']];
+const LENS = [['ledger', 'Ledger'], ['practical', 'Practical'], ['deck', 'In this deck']];
+const TARGETS = [['main', 'Main deck'], ['side', 'Sideboard'], ['bench', 'Bench']];
 
 const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
 const phone = matchMedia('(max-width: 900px)');
@@ -22,29 +23,32 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
   let analysis = null;
   let marginals = new Map();
 
+  const opts = (list, cur, fmt = (l) => l) => list.map(([k, l]) => `<option value="${k}" ${k === cur ? 'selected' : ''}>${fmt(l)}</option>`).join('');
   filtersEl.innerHTML = `
-    <div class="frow">
-      <div class="zones" role="group" aria-label="Zone">${ZONES.map(([k, l]) => `<button type="button" data-zone="${k}" aria-pressed="false">${l}<b></b></button>`).join('')}</div>
-      <span class="tslot"></span>
+    <div class="trow">
+      <label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" placeholder="Search name, text, keyword" aria-label="Search cards" autocomplete="off"><kbd aria-hidden="true">/</kbd></label>
+      <div class="segc zones" role="group" aria-label="Card types">${ZONES.map(([k, l]) => `<button type="button" data-zone="${k}" aria-pressed="false">${l}<b></b></button>`).join('')}</div>
+      <button class="btn tray-toggle" type="button" data-tray aria-expanded="false" aria-controls="filters-row">Filters</button>
     </div>
-    <div class="frow">
-      <input class="search" type="search" placeholder="Search name, text, keyword" aria-label="Search cards" autocomplete="off">
-      <button class="key tray-toggle" type="button" data-tray aria-expanded="false">Filters</button>
-    </div>
-    <div class="frow tray">
-      <div class="domains" role="group" aria-label="Domains">${DOMAINS.map((d) => `<button type="button" class="dom ${DOMAIN_CLASS[d]}" data-dom="${d}" aria-pressed="false"><i></i>${d}</button>`).join('')}</div>
+    <div class="trow tray" id="filters-row">
+      <div class="doms" role="group" aria-label="Domains">${DOMAINS.map((d) => `<button type="button" class="dom" data-dom="${d}" aria-pressed="false"><i style="background:var(--${DOMAIN_CLASS[d]})"></i>${d}</button>`).join('')}</div>
       <div class="costs" role="group" aria-label="Energy cost">${[0, 1, 2, 3, 4, 5, 6, 7].map((n) => `<button type="button" data-cost="${n}" aria-pressed="false">${n === 7 ? '7+' : n}</button>`).join('')}</div>
       <select class="sel" data-f="type" aria-label="Type"><option value="">All types</option><option>Unit</option><option>Spell</option><option>Gear</option></select>
+      <select class="sel" data-f="sort" aria-label="Sort">${opts(SORTS, st.sort, (l) => `Sort: ${l}`)}</select>
+      <button class="btn" type="button" data-more aria-expanded="false" aria-controls="filters-more">More</button>
+      <span class="tslot"></span>
+    </div>
+    <div class="trow tray more" id="filters-more" hidden>
       <select class="sel" data-f="set" aria-label="Set"><option value="">All sets</option>${Object.entries(SETS).map(([k, l]) => `<option value="${k}">${l}</option>`).join('')}</select>
       <select class="sel" data-f="rarity" aria-label="Rarity"><option value="">Any rarity</option><option>Common</option><option>Uncommon</option><option>Rare</option><option>Epic</option><option>Showcase</option></select>
-      <button class="key" type="button" data-mine aria-pressed="false">In deck</button>
-      <select class="sel" data-f="sort" aria-label="Sort">${SORTS.map(([k, l]) => `<option value="${k}">${l}</option>`).join('')}</select>
-      <select class="sel" data-f="lens" aria-label="Value shown">${LENS.map(([k, l]) => `<option value="${k}" ${k === 'deck' ? 'selected' : ''}>Show: ${l}</option>`).join('')}</select>
-      <select class="sel" data-f="target" aria-label="Add to"><option value="main">Add to main</option><option value="side">Add to sideboard</option><option value="bench">Add to bench</option></select>
+      <button class="toggle" type="button" data-mine aria-pressed="false">In deck only</button>
+      <select class="sel" data-f="lens" aria-label="Value shown on cards">${opts(LENS, st.lens, (l) => `Value: ${l}`)}</select>
+      <select class="sel" data-f="target" aria-label="Clicks add to">${opts(TARGETS, st.target, (l) => `Add to: ${l}`)}</select>
     </div>
-    <div class="frow meta-line" id="meta-line"></div>`;
+    <div class="trow active" id="active-line"></div>`;
   const $ = (s) => filtersEl.querySelector(s);
-  const search = $('.search');
+  const search = $('.search input');
   let tSearch;
   search.addEventListener('input', () => { clearTimeout(tSearch); tSearch = setTimeout(() => { st.q = search.value.trim(); render(); }, 120); });
   filtersEl.addEventListener('click', (e) => {
@@ -54,9 +58,12 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     if (d) { st.doms.has(d.dataset.dom) ? st.doms.delete(d.dataset.dom) : st.doms.add(d.dataset.dom); render(); return; }
     const c = e.target.closest('[data-cost]');
     if (c) { const v = +c.dataset.cost; st.cost = st.cost === v ? null : v; render(); return; }
-    if (e.target.closest('[data-clear-partner]')) { st.partner = null; render(); return; }
+    const clr = e.target.closest('[data-clear]');
+    if (clr) { clearFilter(clr.dataset.clear); render(); return; }
     const mine = e.target.closest('[data-mine]');
-    if (mine) { st.mine = !st.mine; mine.setAttribute('aria-pressed', String(st.mine)); render(); return; }
+    if (mine) { st.mine = !st.mine; render(); return; }
+    const more = e.target.closest('[data-more]');
+    if (more) { const row = $('#filters-more'); row.hidden = !row.hidden; more.setAttribute('aria-expanded', String(!row.hidden)); return; }
     const tray = e.target.closest('[data-tray]');
     if (tray) { const open = filtersEl.classList.toggle('open'); tray.setAttribute('aria-expanded', String(open)); }
   });
@@ -65,6 +72,18 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     if (f === 'target') { ui.setTarget(e.target.value); return; }
     if (f) { st[f] = e.target.value; render(); }
   });
+
+  function clearFilter(key) {
+    const [k, v] = key.split(':');
+    if (k === 'all') { st.doms.clear(); st.cost = null; st.type = ''; st.set = ''; st.rarity = ''; st.mine = false; st.q = ''; st.partner = null; search.value = ''; }
+    else if (k === 'dom') st.doms.delete(v);
+    else if (k === 'q') { st.q = ''; search.value = ''; }
+    else if (k === 'mine') st.mine = false;
+    else if (k === 'partner') st.partner = null;
+    else if (k === 'cost') st.cost = null;
+    else if (k in st) st[k] = '';
+    for (const f of ['type', 'set', 'rarity']) { const s = filtersEl.querySelector(`[data-f="${f}"]`); if (s) s.value = st[f]; }
+  }
 
   function legendOf(deck) { return deck.legend ? idx.byId.get(deck.legend) : null; }
 
@@ -114,7 +133,7 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
   };
   const sorter = {
     num: (a, b) => a.id.localeCompare(b.id),
-    cost: (a, b) => a.C - b.C || a.E - b.E || a.name.localeCompare(b.name),
+    cost: (a, b) => a.E - b.E || a.P - b.P || a.name.localeCompare(b.name),
     name: (a, b) => a.name.localeCompare(b.name),
     ledger: (a, b) => (baseValue(b).ledger ?? -1) - (baseValue(a).ledger ?? -1),
     practical: (a, b) => (baseValue(b).practical ?? -1) - (baseValue(a).practical ?? -1),
@@ -131,20 +150,20 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     if (finePointer.matches && ['Unit', 'Spell', 'Gear'].includes(c.type)) t.draggable = true;
     t.setAttribute('aria-label', `${c.name}. Activate to add a copy; press I for details.`);
     t.innerHTML = `<div class="art"><img loading="lazy" decoding="async" alt="" src="${esc(img(c, c.landscape ? 480 : 300))}">
-      ${c.preview ? '<span class="tag-preview">Preview</span>' : ''}${c.banned ? '<span class="tag-preview tag-ban">Banned</span>' : ''}</div>
+      ${c.preview || c.banned ? `<span class="tags">${c.preview ? '<span class="tag">Preview</span>' : ''}${c.banned ? '<span class="tag ban">Banned</span>' : ''}</span>` : ''}</div>
       <div class="cap"><span class="nm"></span><span class="val"></span><span class="sub"></span></div>`;
     t.querySelector('.nm').textContent = c.name;
     t.querySelector('.sub').textContent = c.type === 'Legend' || c.type === 'Battlefield' || c.type === 'Rune'
-      ? c.domains.join(' / ') || c.type : `${c.E}E${c.P ? ` ${c.P}P` : ''} · ${c.type}${c.might !== null && c.type === 'Unit' ? ` · ${c.might} might` : ''}`;
+      ? c.domains.join(' · ') || c.type : `${c.E} energy${c.P ? ` · ${c.P} power` : ''} · ${c.type}`;
     // in-deck strip (Piltover-style): − count +, pointer only; keyboard uses Enter, Shift+Enter and Backspace
     const strip = document.createElement('div');
     strip.className = `qty${SINGLE.includes(c.type) ? ' single' : ''}`;
     strip.setAttribute('aria-hidden', 'true');
     strip.innerHTML = '<button type="button" tabindex="-1" data-q="-1">−</button><button type="button" tabindex="-1" data-q="1">+</button>';
-    const count = makeFlap('', '');
+    const count = makeNum('');
     strip.insertBefore(count, strip.lastChild);
     t.querySelector('.art').appendChild(strip);
-    const val = makeFlap(' -- ', 'amber');
+    const val = makeNum('');
     t.querySelector('.val').appendChild(val);
     t._count = count; t._strip = strip; t._val = val;
     return t;
@@ -165,12 +184,13 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
 
   function paintTile(t, c, deck, animate) {
     const n = countIn(deck, c);
-    flap(t._count, n ? String(n) : '', { animate });
+    setNum(t._count, n ? String(n) : '', { animate });
     t._strip.classList.toggle('on', n > 0);
+    t.classList.toggle('in', n > 0);
     const costed = !['Legend', 'Battlefield', 'Rune'].includes(c.type);
     const v = costed ? lensValue(c) : null;
     t._val.hidden = !costed;
-    if (costed) flap(t._val, fmtRatio(v), { animate, cls: v === null ? 'dim' : 'amber' });
+    if (costed) setNum(t._val, fmtRatio(v), { animate, cls: band(v) });
     const legend = legendOf(deck);
     t.classList.toggle('off', !!legend && st.zone === 'main' && st.target !== 'bench' && !!blockReason(deck, c, idx) && n === 0);
   }
@@ -181,39 +201,49 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     const frag = document.createDocumentFragment();
     for (const c of list) { const t = tileFor(c); paintTile(t, c, deck, animate); frag.appendChild(t); }
     root.replaceChildren(frag);
-    if (!list.length) root.innerHTML = `<p class="empty-note">No cards match. Clear a filter or search for something else.</p>`;
+    if (!list.length) root.innerHTML = '<p class="empty-note">No cards match. Clear a filter or search for something else.</p>';
     if (st.zone === 'legend' && !deck.legend && !st.q) root.prepend(intro());
     paintChrome(deck, list.length);
   }
 
   function paintChrome(deck, shown) {
     const n = counts(deck);
-    const zoneCount = { legend: deck.legend ? '1/1' : '0/1', champion: deck.champion ? '1/1' : '0/1', main: `${n.main}/${LIMITS.main}`, bf: `${n.bf}/3`, runes: `${n.runes}/12` };
+    const legend = legendOf(deck);
+    const zoneCount = { legend: deck.legend ? 1 : 0, champion: deck.champion ? 1 : 0, main: n.main, bf: n.bf, runes: n.runes };
     filtersEl.querySelectorAll('[data-zone]').forEach((b) => {
       b.setAttribute('aria-pressed', String(b.dataset.zone === st.zone));
       b.querySelector('b').textContent = zoneCount[b.dataset.zone];
     });
-    filtersEl.querySelectorAll('[data-dom]').forEach((b) => b.setAttribute('aria-pressed', String(st.doms.has(b.dataset.dom))));
+    // with a legend, only its domains are worth filtering by in the main deck, champion and rune views
+    const narrow = legend && ['main', 'champion', 'runes'].includes(st.zone);
+    filtersEl.querySelectorAll('[data-dom]').forEach((b) => {
+      b.setAttribute('aria-pressed', String(st.doms.has(b.dataset.dom)));
+      b.hidden = !!narrow && !legend.domains.includes(b.dataset.dom);
+    });
     filtersEl.querySelectorAll('[data-cost]').forEach((b) => b.setAttribute('aria-pressed', String(st.cost === +b.dataset.cost)));
-    const meta = filtersEl.querySelector('#meta-line');
-    const partner = st.partner ? idx.byId.get(st.partner) : null;
-    const zoneHelp = { legend: 'Pick the legend that leads the deck.', champion: 'Pick the chosen champion.', main: `Tap the art to add a copy${st.target === 'main' ? '' : ` to the ${st.target === 'side' ? 'sideboard' : 'bench'}`}, Shift adds three, − takes one out. Right click or long press for more.`,
-      bf: 'Pick three different battlefields.', runes: 'Click adds a rune; at twelve it swaps one over from the other domain.' }[st.zone];
-    meta.innerHTML = `<span><b>${shown}</b> cards · ${zoneHelp}</span>${partner ? ` <button class="key small quiet" data-clear-partner type="button">Partners of ${esc(partner.name)} ✕</button>` : ''}`;
+    $('[data-mine]').setAttribute('aria-pressed', String(st.mine));
+    const chips = [
+      ...[...st.doms].map((d) => [`dom:${d}`, d]),
+      st.cost !== null ? ['cost', `${st.cost === 7 ? '7+' : st.cost} energy`] : null,
+      st.type ? ['type', st.type] : null, st.set ? ['set', SETS[st.set] || st.set] : null, st.rarity ? ['rarity', st.rarity] : null,
+      st.mine ? ['mine', 'In deck only'] : null, st.q ? ['q', `“${st.q}”`] : null,
+      st.partner ? ['partner', `Partners of ${idx.byId.get(st.partner)?.name || ''}`] : null,
+    ].filter(Boolean);
+    const help = { legend: 'Pick the legend that leads the deck.', champion: 'Pick the chosen champion.',
+      main: `Click adds a copy${st.target === 'main' ? '' : ` to the ${st.target === 'side' ? 'sideboard' : 'bench'}`}, Shift adds three. Right click or long press for more.`,
+      bf: 'Pick three different battlefields.', runes: 'Click adds a rune; at twelve it trades one from the other domain.' }[st.zone];
+    $('#active-line').innerHTML = `${chips.map(([k, l]) => `<button class="fchip" type="button" data-clear="${esc(k)}" aria-label="Remove filter ${esc(l)}">${esc(l)}<span aria-hidden="true">×</span></button>`).join('')}
+      ${chips.length > 1 ? '<button class="link" type="button" data-clear="all">Clear all</button>' : ''}
+      <span class="count"><b>${shown}</b> cards</span><span class="help">${esc(help)}</span>`;
   }
 
   function intro() {
     const el = document.createElement('section');
     el.className = 'intro';
-    el.innerHTML = `<div class="intro-head"><h2>Build a deck. Watch it re-price.</h2>
-        <p>Every card carries Riot's own price for what it does. Put cards together and the board shows what they are worth in this deck.</p></div>
-      <ol class="intro-steps"><li><b>Pick a legend</b><span>It sets your two domains.</span></li>
-        <li><b>Choose the champion, add cards</b><span>Tap the art to add a copy, Shift adds three, − takes one out. Right click or long press for more.</span></li>
-        <li><b>Run the agent</b><span>Five work styles read the list and propose buys, cuts and combos.</span></li></ol>
-      <dl class="intro-values"><div><dt>Ledger</dt><dd>Riot's price per cost, 1.00 is par.</dd></div>
-        <div><dt>Practical</dt><dd>Adds what the ledger books at a discount or ignores.</dd></div>
-        <div><dt>In deck</dt><dd>After the combos in your list.</dd></div></dl>
-      <p class="intro-cta"><button class="key" type="button" data-intro-import>Import a list</button> <a href="/amber/">How the ledger prices cards</a></p>`;
+    el.innerHTML = `<h2>Build a Riftbound deck and see what every card is worth in it.</h2>
+      <p>Each card carries Riot's own price for what it does, 1.00 is par. Put cards together and the deck panel shows what they are worth in this list.</p>
+      <ol><li><b>Pick a legend</b> below; it sets your two domains.</li><li><b>Choose the champion and add cards.</b> Click adds a copy, Shift adds three, or type names in the deck panel.</li><li><b>Run the coach</b> for buys, cuts and combos.</li></ol>
+      <p class="intro-cta"><button class="btn" type="button" data-intro-import>Import a deck code or list</button> <a href="/amber/">How the ledger prices cards</a></p>`;
     el.querySelector('[data-intro-import]').addEventListener('click', () => ui.importList());
     return el;
   }
@@ -284,11 +314,11 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     return ui.addCard(c.id, zone, { playset: mode === 'playset' }) || 0;
   }
 
-  /** On phones, a copy of the art flies to the Deck tab so the add is visible from the gallery. */
+  /** On phones, a copy of the art flies into the deck sheet's peek bar so the add is visible from the gallery. */
   function fly(t) {
     if (!phone.matches || reduced()) return;
     const im = t.querySelector('img');
-    const dock = document.querySelector('.dock [data-dock="board"]');
+    const dock = document.getElementById('peek');
     if (!im || !dock) return;
     const a = im.getBoundingClientRect(), b = dock.getBoundingClientRect();
     const g = im.cloneNode();
@@ -296,10 +326,10 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     Object.assign(g.style, { left: `${a.left}px`, top: `${a.top}px`, width: `${a.width}px`, height: `${a.height}px` });
     document.body.appendChild(g);
     const dx = b.left + b.width / 2 - (a.left + a.width / 2), dy = b.top + b.height / 2 - (a.top + a.height / 2);
-    g.animate([{ transform: 'none', opacity: 1 }, { transform: `translate(${dx}px, ${dy}px) scale(.16) rotate(-8deg)`, opacity: 0.5 }],
-      { duration: 480, easing: 'cubic-bezier(.55,0,.75,.2)' }).finished.finally(() => {
+    g.animate([{ transform: 'none', opacity: 1 }, { transform: `translate(${dx}px, ${dy}px) scale(.14)`, opacity: 0.4 }],
+      { duration: 420, easing: 'cubic-bezier(.5,0,.75,0)' }).finished.finally(() => {
       g.remove();
-      dock.animate([{ transform: 'translateY(-4px)' }, { transform: 'none' }], { duration: 260, easing: 'cubic-bezier(.16,1,.3,1)' });
+      dock.animate([{ transform: 'translateY(-3px)' }, { transform: 'none' }], { duration: 240, easing: 'cubic-bezier(.2,.8,.2,1)' });
     });
   }
 

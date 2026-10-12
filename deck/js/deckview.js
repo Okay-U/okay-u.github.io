@@ -1,18 +1,20 @@
-// How the board lays out the main deck: grouping, sorting and the view (rows or Moxfield-style visual stacks).
-// The choice is a per-browser preference.
+// How the deck panel lays out the main deck: card thumbnails, rows or Moxfield-style stacks, grouping, sorting, and
+// whether value bars show. The choice is a per-browser preference.
 const KEY = 'riftcount.deckboard.view';
 const TYPE_ORDER = ['Unit', 'Spell', 'Gear'];
 
 export const GROUPS = [['type', 'Type'], ['energy', 'Energy'], ['domain', 'Domain'], ['none', 'No groups']];
 export const SORTS = [['cost', 'Energy'], ['power', 'Power'], ['name', 'Name'], ['ledger', 'Ledger'], ['deck', 'In deck']];
 
-const DEFAULTS = { view: 'list', group: 'type', sort: 'cost', collapsed: [] };
+export const VIEWS = [['cards', 'Cards'], ['rows', 'Rows'], ['stacks', 'Stacks']];
+const DEFAULTS = { view: 'cards', group: 'type', sort: 'cost', collapsed: [], values: true };
 
 export function loadPrefs() {
   try {
     const p = JSON.parse(localStorage.getItem(KEY) || '{}');
     return {
-      view: ['list', 'stacks'].includes(p.view) ? p.view : DEFAULTS.view,
+      view: p.view === 'list' ? 'rows' : VIEWS.some(([k]) => k === p.view) ? p.view : DEFAULTS.view,
+      values: typeof p.values === 'boolean' ? p.values : DEFAULTS.values,
       group: GROUPS.some(([k]) => k === p.group) ? p.group : DEFAULTS.group,
       sort: SORTS.some(([k]) => k === p.sort) ? p.sort : DEFAULTS.sort,
       collapsed: Array.isArray(p.collapsed) ? p.collapsed.filter((x) => typeof x === 'string').slice(0, 40) : [],
@@ -25,7 +27,7 @@ export function savePrefs(p) {
 }
 
 const groupOf = {
-  type: (c) => [TYPE_ORDER.indexOf(c.type), `${c.type}s`],
+  type: (c) => [TYPE_ORDER.indexOf(c.type), c.type === 'Gear' ? 'Gear' : `${c.type}s`],
   energy: (c) => [Math.min(c.E, 7), c.E >= 7 ? '7+ energy' : `${c.E} energy`],
   domain: (c) => [c.domains.length > 1 ? 9 : ['Fury', 'Calm', 'Mind', 'Body', 'Chaos', 'Order'].indexOf(c.domains[0]), c.domains.join(' / ') || 'Colorless'],
   none: () => [0, 'All cards'],

@@ -21,8 +21,8 @@ export function createLayout({ floor, sizeMount }) {
 
   // prefs.board is the width the visitor chose; the applied width is clamped to the current window.
   const apply = () => {
-    if (!Number.isFinite(prefs.board)) { rootStyle.removeProperty('--board-w'); return; }
-    rootStyle.setProperty('--board-w', `${Math.round(Math.max(BOARD_MIN, Math.min(maxBoard(), prefs.board)))}px`);
+    if (!Number.isFinite(prefs.board)) { rootStyle.removeProperty('--panel-w'); return; }
+    rootStyle.setProperty('--panel-w', `${Math.round(Math.max(BOARD_MIN, Math.min(maxBoard(), prefs.board)))}px`);
   };
   const setBoard = (px, persist = true) => {
     if (px === null) delete prefs.board;
@@ -65,7 +65,7 @@ export function createLayout({ floor, sizeMount }) {
   });
 
   let size = SIZES.includes(prefs.tile) ? prefs.tile : 148;
-  sizeMount.innerHTML = `<div class="tsize" role="group" aria-label="Card size"><button type="button" class="key icon small" data-size="-1" aria-label="Smaller cards">−</button><button type="button" class="key icon small" data-size="1" aria-label="Larger cards">+</button></div>`;
+  sizeMount.innerHTML = `<div class="tsize" role="group" aria-label="Card size"><button type="button" class="iconbtn" data-size="-1" aria-label="Smaller cards">−</button><button type="button" class="iconbtn" data-size="1" aria-label="Larger cards">+</button></div>`;
   const applySize = () => {
     rootStyle.setProperty('--tile', `${size}px`);
     sizeMount.querySelector('[data-size="-1"]').disabled = size === SIZES[0];

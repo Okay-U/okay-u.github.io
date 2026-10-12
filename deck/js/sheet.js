@@ -21,7 +21,7 @@ async function calcFor(id) {
 
 export function createSheet({ el, idx, store, ui }) {
   const open = (html) => {
-    el.innerHTML = `<button class="key icon close" type="button" data-close aria-label="Close">✕</button><div class="in">${html}</div>`;
+    el.innerHTML = `<button class="iconbtn close" type="button" data-close aria-label="Close">✕</button><div class="in">${html}</div>`;
     if (!el.open) el.showModal();
     el.querySelector('.in').scrollTop = 0;
   };
@@ -45,14 +45,14 @@ export function createSheet({ el, idx, store, ui }) {
       <div class="detail"><img alt="" src="${esc(img(c, c.landscape ? 744 : 520))}">
         <div>
           <h2>${esc(c.name)}</h2>
-          <p class="meta-line">${esc(c.id)} · ${esc(c.type)}${c.supertype ? ` · ${esc(c.supertype)}` : ''} · ${esc(c.domains.join(' / ') || 'Colorless')}${costed ? ` · ${c.E} energy${c.P ? ` + ${c.P} power` : ''} = ${c.C} C` : ''}${c.preview ? ' · Preview' : ''}${c.banned ? ' · Banned in Standard' : ''}</p>
+          <p class="note">${esc(c.id)} · ${esc(c.type)}${c.supertype ? ` · ${esc(c.supertype)}` : ''} · ${esc(c.domains.join(' / ') || 'Colorless')}${costed ? ` · ${c.E} energy${c.P ? ` + ${c.P} power` : ''} = ${c.C} C` : ''}${c.preview ? ' · Preview' : ''}${c.banned ? ' · Banned in Standard' : ''}</p>
           <p class="rules">${esc(c.text)}</p>
-          ${c.model?.n ? `<p class="meta-line">${esc(c.model.n)}</p>` : ''}
-          ${costed ? `<div class="agent-actions">
-            <button class="key amber" type="button" data-add ${why ? 'disabled' : ''}>Add to main</button>
-            <button class="key" type="button" data-dec ${n ? '' : 'disabled'}>Remove one</button>
-            <button class="key quiet" type="button" data-partners>Show partners</button>
-            <span class="meta-line">${n ? `${n} in deck` : ''}${why ? ` ${esc(why)}` : ''}</span></div>` : ''}
+          ${c.model?.n ? `<p class="note">${esc(c.model.n)}</p>` : ''}
+          ${costed ? `<div class="actions">
+            <button class="btn primary" type="button" data-add ${why ? 'disabled' : ''}>Add to main</button>
+            <button class="btn" type="button" data-dec ${n ? '' : 'disabled'}>Remove one</button>
+            <button class="btn quiet" type="button" data-partners>Show partners</button>
+            <span class="note">${n ? `${n} in deck` : ''}${why ? ` ${esc(why)}` : ''}</span></div>` : ''}
         </div></div>
       ${costed ? `<section class="rsec"><h3>Value, three ways</h3><div class="ledger">
         <div class="lr"><span>Ledger: Riot's price per cost ${status ? `(${esc(status)})` : ''}</span><b>${f2(b.ledger)}</b></div>
@@ -63,7 +63,7 @@ export function createSheet({ el, idx, store, ui }) {
       </div></section>` : ''}
       ${row && row.links.length ? `<section class="rsec"><h3>What feeds it here</h3><div class="ledger">${row.links.filter((l) => Math.abs(l.value) > 0.02).slice(0, 10).map((l) =>
         `<div class="lr"><span>${l.from ? esc(idx.byId.get(l.from)?.name || l.from) : 'Missing'} · ${esc(tagLabel(l.tag))}${l.note ? ` · ${esc(l.note)}` : ''}</span><b>${l.value >= 0 ? '+' : ''}${l.value.toFixed(2)} C</b></div>`).join('')}</div></section>` : ''}
-      ${wants.length || prov.length ? `<section class="rsec"><h3>Synergy tags</h3><p class="meta-line">${prov.length ? `Gives: ${esc(prov.map(tagLabel).join(', '))}. ` : ''}${wants.length ? `Wants: ${esc(wants.map((w) => `${tagLabel(w.tag)} (${w.kind.replace('_', ' ')}, ${w.value.toFixed(2)} C)`).join(', '))}.` : ''}</p></section>` : ''}
+      ${wants.length || prov.length ? `<section class="rsec"><h3>Synergy tags</h3><p class="note">${prov.length ? `Gives: ${esc(prov.map(tagLabel).join(', '))}. ` : ''}${wants.length ? `Wants: ${esc(wants.map((w) => `${tagLabel(w.tag)} (${w.kind.replace('_', ' ')}, ${w.value.toFixed(2)} C)`).join(', '))}.` : ''}</p></section>` : ''}
       ${costed ? `<section class="rsec"><h3>Ledger calculation</h3><div class="calc-note" data-calc>Loading the ledger…</div></section>` : ''}`);
     el.querySelector('[data-add]')?.addEventListener('click', () => { ui.addCard(id, 'main'); card(id); });
     el.querySelector('[data-dec]')?.addEventListener('click', () => { ui.removeCard(id, 'main'); card(id); });
@@ -83,12 +83,12 @@ export function createSheet({ el, idx, store, ui }) {
     const text = exportText(store.getDeck(), idx);
     const { code, error } = deckCode();
     open(`<h2>Export</h2>
-      <section class="rsec"><h3>Deck code</h3><p class="meta-line">Opens in Piltover Archive and other Riftbound tools that read deck codes.</p>
+      <section class="rsec"><h3>Deck code</h3><p class="note">Opens in Piltover Archive and other Riftbound tools that read deck codes.</p>
         ${code ? `<textarea readonly class="code" data-code>${esc(code)}</textarea>
-        <div class="agent-actions"><button class="key amber" type="button" data-copy-code>Copy code</button></div>` : `<p class="meta-line">${esc(error)}</p>`}</section>
-      <section class="rsec"><h3>Decklist</h3><p class="meta-line">The text format the Riftcount app and most builders read.</p>
+        <div class="actions"><button class="btn primary" type="button" data-copy-code>Copy code</button></div>` : `<p class="note">${esc(error)}</p>`}</section>
+      <section class="rsec"><h3>Decklist</h3><p class="note">The text format the Riftcount app and most builders read.</p>
       <textarea readonly data-text>${esc(text)}</textarea>
-      <div class="agent-actions"><button class="key" type="button" data-copy>Copy list</button><button class="key" type="button" data-dl>Download .txt</button></div></section>`);
+      <div class="actions"><button class="btn" type="button" data-copy>Copy list</button><button class="btn" type="button" data-dl>Download .txt</button></div></section>`);
     el.querySelector('[data-copy-code]')?.addEventListener('click', () => ui.copy(code, 'Deck code copied.'));
     el.querySelector('[data-copy]').addEventListener('click', () => ui.copy(text, 'Decklist copied.'));
     el.querySelector('[data-dl]').addEventListener('click', () => {
@@ -100,9 +100,9 @@ export function createSheet({ el, idx, store, ui }) {
   }
 
   function importSheet() {
-    open(`<h2>Import</h2><p class="meta-line">Paste a deck code or a deck link from Piltover Archive and other Riftbound tools, or a decklist from the Riftcount app or any builder that writes "3 Card Name" lines under Legend / Champion / MainDeck / Battlefields / Runes / Sideboard.</p>
+    open(`<h2>Import</h2><p class="note">Paste a deck code or a deck link from Piltover Archive and other Riftbound tools, or a decklist from the Riftcount app or any builder that writes "3 Card Name" lines under Legend / Champion / MainDeck / Battlefields / Runes / Sideboard.</p>
       <textarea data-text placeholder="Legend:&#10;1 Jinx, Loose Cannon&#10;&#10;Champion:&#10;1 Jinx, Rebel&#10;&#10;MainDeck:&#10;3 …"></textarea>
-      <div class="agent-actions"><button class="key amber" type="button" data-go>Import as new deck</button><span class="meta-line" data-msg></span></div>`);
+      <div class="actions"><button class="btn primary" type="button" data-go>Import as new deck</button><span class="note" data-msg></span></div>`);
     el.querySelector('[data-go]').addEventListener('click', () => {
       const text = el.querySelector('[data-text]').value;
       const code = findCode(text);
@@ -123,15 +123,15 @@ export function createSheet({ el, idx, store, ui }) {
   function decksSheet() {
     const list = store.savedDecks();
     const cur = store.getDeck().id;
-    open(`<h2>Your decks</h2><p class="meta-line">Saved in this browser. Use Share to move a deck to another device.</p>
-      <div class="agent-actions"><button class="key amber" type="button" data-new>New deck</button><button class="key" type="button" data-import>Import</button>
-        <button class="key" type="button" data-export>Export current</button><button class="key" type="button" data-share>Share current</button></div>
+    open(`<h2>Your decks</h2><p class="note">Saved in this browser. Use Share to move a deck to another device.</p>
+      <div class="actions"><button class="btn primary" type="button" data-new>New deck</button><button class="btn" type="button" data-import>Import</button>
+        <button class="btn" type="button" data-export>Export current</button><button class="btn" type="button" data-share>Share current</button></div>
       <div class="deck-list">${list.map((d) => {
         const legend = d.legend ? idx.byId.get(d.legend) : null;
         const n = Object.values(d.main).reduce((a, b) => a + b, 0) + (d.champion ? 1 : 0);
         return `<div class="dl ${d.id === cur ? 'cur' : ''}"><button class="t" type="button" data-open="${esc(d.id)}">${esc(d.name)}<small>${esc(legend?.name || 'No legend')} · ${n} cards · ${new Date(d.updated).toLocaleDateString()}</small></button>
-          <span><button class="key small quiet" type="button" data-dup="${esc(d.id)}">Copy</button> <button class="key small quiet" type="button" data-del="${esc(d.id)}">Delete</button></span></div>`;
-      }).join('') || '<div class="dl"><span class="meta-line">No saved decks yet.</span></div>'}</div>`);
+          <span><button class="btn small quiet" type="button" data-dup="${esc(d.id)}">Copy</button> <button class="btn small quiet" type="button" data-del="${esc(d.id)}">Delete</button></span></div>`;
+      }).join('') || '<div class="dl"><span class="note">No saved decks yet.</span></div>'}</div>`);
     el.querySelector('[data-new]').addEventListener('click', () => { ui.newDeck(); el.close(); });
     el.querySelector('[data-import]').addEventListener('click', importSheet);
     el.querySelector('[data-export]').addEventListener('click', exportSheet);
@@ -146,9 +146,9 @@ export function createSheet({ el, idx, store, ui }) {
 
   function shareSheet(url) {
     const { code } = deckCode();
-    open(`<h2>Share</h2><p class="meta-line">The whole deck lives in this link. Nothing is uploaded.</p>
+    open(`<h2>Share</h2><p class="note">The whole deck lives in this link. Nothing is uploaded.</p>
       <textarea readonly style="min-height:120px">${esc(url)}</textarea>
-      <div class="agent-actions"><button class="key amber" type="button" data-copy>Copy link</button>${navigator.share ? '<button class="key" type="button" data-native>Share…</button>' : ''}${code ? '<button class="key" type="button" data-copy-code>Copy deck code</button>' : ''}</div>`);
+      <div class="actions"><button class="btn primary" type="button" data-copy>Copy link</button>${navigator.share ? '<button class="btn" type="button" data-native>Share…</button>' : ''}${code ? '<button class="btn" type="button" data-copy-code>Copy deck code</button>' : ''}</div>`);
     el.querySelector('[data-copy]').addEventListener('click', () => ui.copy(url, 'Link copied.'));
     el.querySelector('[data-copy-code]')?.addEventListener('click', () => ui.copy(code, 'Deck code copied. It opens in Piltover Archive too.'));
     el.querySelector('[data-native]')?.addEventListener('click', () => navigator.share({ title: store.getDeck().name, url }).catch(() => {}));
