@@ -319,8 +319,16 @@ Tactile and mechanical, like a recessed switch on a trading desk.
 ### Row menu
 - A fixed bezel panel of uppercase key-type items divided by rule lines; the hovered or focused item fills amber with amber-ink; move items carry the copy count (×3). Opens with a top-down clip wipe (200ms expo-out); Escape, outside press, scroll or Tab closes it. Arrow keys move focus.
 
+### Gallery tile strip and menu
+- Cards in the deck carry a bottom-centre strip on the art: a black plate with two 24px switch keys (− / +, amber on hover) around a flap count. Legend and battlefield tiles show only −. The strip is a pointer affordance; keyboard users use Enter, Shift+Enter and Backspace.
+- Right click or long press opens the shared menu (see Row menu); dividers are a black rule over a rule-coloured hairline.
+- **Flying card (phones):** an added card's art flies to the Deck dock tab (translate + scale .16 + -8deg, 480ms ease-in), then the tab settles 4px (260ms expo-out).
+
+### Add target headings
+- The Main deck, Sideboard and Bench headings are buttons that choose where gallery clicks add. The active one shows a lit 7px amber lamp and an amber "Adding here" label; the rest keep an unlit lamp.
+
 ### Drag and drop
-- Gallery tiles and board rows drag natively. The section under the pointer takes a 5% amber wash and its heading turns amber with a muted "drop to add" suffix; no outlines or stripes.
+- Gallery tiles and board rows drag natively; a drag moves one copy, Shift moves all. Dropping a board card on the gallery takes it out, under a vermilion "Drop to take it out of the deck" bar. The section under the pointer takes a 5% amber wash and its heading turns amber with a muted "drop to add" suffix; no outlines or stripes.
 
 ### Tape (agent buys and cuts)
 - A bezel panel of rows: a 42px side tag (Buy on up, Sell on down, Pair on amber, Hold on #2e3035), the card name in row-name type, flap values, and a muted reason line underneath.

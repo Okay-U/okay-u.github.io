@@ -153,6 +153,12 @@ const ui = {
   analysis: () => analysis,
   openCard: (id) => sheet.card(id),
   addCard, removeCard, moveCard, shiftRune,
+  getTarget: () => gallery?.target || 'main',
+  setTarget(z) {
+    gallery.setTarget(z);
+    board.render(analysis);
+    toast(`Gallery clicks now add to the ${z === 'main' ? 'main deck' : z === 'side' ? 'sideboard' : 'bench'}.`);
+  },
   refresh,
   runAgent() { if (mobile.matches) setMobileView('analyze'); else setRoom('analyze'); agent.run(); },
   newDeck(seed) { store.newDeck(seed); gallery.autoZone(store.getDeck()); agent.clear(); },

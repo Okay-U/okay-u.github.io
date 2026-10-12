@@ -140,6 +140,8 @@ export function createBoard({ root, idx, store, ui }) {
       }
       return;
     }
+    const tgt = e.target.closest('[data-target]');
+    if (tgt) { ui.setTarget(tgt.dataset.target); return; }
     const pick = e.target.closest('[data-pick]');
     if (pick) { ui.goBuild(pick.dataset.pick); return; }
     const view = e.target.closest('[data-view]');
@@ -163,10 +165,14 @@ export function createBoard({ root, idx, store, ui }) {
     if (e.target.closest('.nm')) ui.openCard(id);
   });
 
-  function section(title, count, inner) {
+  function section(title, count, inner, target) {
     const s = document.createElement('section');
     s.className = 'bsec';
-    s.innerHTML = `<h3><span>${title}</span></h3>`;
+    // main deck, sideboard and bench headings pick where gallery clicks add cards (Piltover-style)
+    const on = target && ui.getTarget() === target;
+    s.innerHTML = target
+      ? `<h3><button class="tgt${on ? ' on' : ''}" type="button" data-target="${target}" aria-pressed="${on}" title="${on ? 'Gallery clicks add here' : 'Click to add gallery cards here'}"><i class="lamp"></i><span>${title}</span>${on ? '<small>Adding here</small>' : ''}</button></h3>`
+      : `<h3><span>${title}</span></h3>`;
     if (count !== undefined) s.querySelector('h3').appendChild(makeFlap(count, 'dim'));
     if (typeof inner === 'string') s.insertAdjacentHTML('beforeend', inner); else if (inner) s.appendChild(inner);
     return s;
@@ -276,7 +282,7 @@ export function createBoard({ root, idx, store, ui }) {
   function focusKey() {
     const a = document.activeElement;
     if (!a || !body.contains(a)) return null;
-    for (const k of ['pref', 'view', 'gkey']) if (a.dataset[k] !== undefined) return `[data-${k}="${CSS.escape(a.dataset[k])}"]`;
+    for (const k of ['pref', 'view', 'gkey', 'target']) if (a.dataset[k] !== undefined) return `[data-${k}="${CSS.escape(a.dataset[k])}"]`;
     const holder = a.closest('.row, .sc');
     if (!holder) return null;
     const own = `${holder.classList.contains('sc') ? '.sc' : '.row'}[data-zone="${holder.dataset.zone}"][data-id="${CSS.escape(holder.dataset.id)}"]`;
@@ -328,7 +334,7 @@ export function createBoard({ root, idx, store, ui }) {
     if (champ) champSec.appendChild(row(champ, 1 + (deck.main[champ.id] || 0), 'champion', an, 'champ'));
     frag.appendChild(champSec);
 
-    const mainSec = section('Main deck', `${pad(n.main)}/${LIMITS.main}`);
+    const mainSec = section('Main deck', `${pad(n.main)}/${LIMITS.main}`, null, legend ? 'main' : null);
     mainSec.dataset.zone = 'main';
     const entries = Object.entries(deck.main).map(([id, k]) => [idx.byId.get(id), k]).filter(([c]) => c && (!champ || c.id !== champ.id));
     if (!entries.length) mainSec.insertAdjacentHTML('beforeend', `<p class="hint">${legend ? '<button type="button" data-pick="main">Add cards</button> from the gallery or type a name above. Click adds a copy.' : 'Pick a legend first.'}</p>`);
@@ -372,7 +378,7 @@ export function createBoard({ root, idx, store, ui }) {
 
     const zoneRows = (zone, title, count, hint) => {
       const list = Object.entries(deck[zone]).map(([id, k]) => [idx.byId.get(id), k]).filter(([c]) => c);
-      const sec = section(title, count);
+      const sec = section(title, count, null, zone);
       sec.dataset.zone = zone;
       if (!list.length) sec.insertAdjacentHTML('beforeend', `<p class="hint">${hint}</p>`);
       for (const [c, k] of list.sort(([a], [b]) => a.C - b.C || a.name.localeCompare(b.name))) sec.appendChild(row(c, k, zone, an));

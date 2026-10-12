@@ -62,6 +62,7 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
   });
   filtersEl.addEventListener('change', (e) => {
     const f = e.target.dataset.f;
+    if (f === 'target') { ui.setTarget(e.target.value); return; }
     if (f) { st[f] = e.target.value; render(); }
   });
 
@@ -407,6 +408,15 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
       paintChrome(deck, root.querySelectorAll('.tile').length);
     },
     get zone() { return st.zone; },
+    get target() { return st.target; },
+    /** Where clicks in the gallery add cards: main, side or bench. */
+    setTarget(z) {
+      if (!['main', 'side', 'bench'].includes(z)) return;
+      st.target = z;
+      const sel = filtersEl.querySelector('[data-f="target"]');
+      if (sel) sel.value = z;
+      if (st.zone !== 'main') setZone('main'); else render();
+    },
     autoZone(deck) {
       if (!deck.legend) setZone('legend');
       else if (!deck.champion) setZone('champion');

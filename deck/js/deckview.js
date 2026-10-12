@@ -4,7 +4,7 @@ const KEY = 'riftcount.deckboard.view';
 const TYPE_ORDER = ['Unit', 'Spell', 'Gear'];
 
 export const GROUPS = [['type', 'Type'], ['energy', 'Energy'], ['domain', 'Domain'], ['none', 'No groups']];
-export const SORTS = [['cost', 'Cost'], ['name', 'Name'], ['ledger', 'Ledger'], ['deck', 'In deck']];
+export const SORTS = [['cost', 'Energy'], ['power', 'Power'], ['name', 'Name'], ['ledger', 'Ledger'], ['deck', 'In deck']];
 
 const DEFAULTS = { view: 'list', group: 'type', sort: 'cost', collapsed: [] };
 
@@ -41,11 +41,13 @@ export function groupEntries(entries, { group, sort }, valueOf) {
   }
   const v = (c) => valueOf(c) ?? -1;
   const cmp = {
-    cost: ([a], [b]) => a.C - b.C || a.E - b.E || a.name.localeCompare(b.name),
+    // Energy > Power > Name, Piltover's default deck order
+    cost: ([a], [b]) => a.E - b.E || a.P - b.P || a.name.localeCompare(b.name),
+    power: ([a], [b]) => a.P - b.P || a.E - b.E || a.name.localeCompare(b.name),
     name: ([a], [b]) => a.name.localeCompare(b.name),
     ledger: ([a], [b]) => (b.model?.L ?? -1) - (a.model?.L ?? -1) || a.name.localeCompare(b.name),
     deck: ([a], [b]) => v(b) - v(a) || a.name.localeCompare(b.name),
-  }[sort] || ((x, y) => x[0].C - y[0].C);
+  }[sort] || ((x, y) => x[0].E - y[0].E);
   return [...by.values()].sort((a, b) => a.rank - b.rank || a.label.localeCompare(b.label))
     .map((g) => ({ ...g, list: g.list.sort(cmp), count: g.list.reduce((s, [, n]) => s + n, 0) }));
 }

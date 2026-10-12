@@ -318,6 +318,15 @@ select.sel {
   font-size: 10.5px; font-weight: 680; letter-spacing: .14em; text-transform: uppercase; color: var(--paint-dim); font-stretch: 80%;
 }
 .bsec > h3 .flap { font-size: 12px; }
+.bsec > h3 .tgt {
+  display: inline-flex; align-items: center; gap: 8px; padding: 0; border: 0; background: none;
+  font: inherit; letter-spacing: inherit; text-transform: inherit; color: inherit; cursor: pointer;
+}
+.bsec > h3 .tgt:hover { color: var(--paint); }
+.bsec > h3 .tgt .lamp { width: 7px; height: 7px; }
+.bsec > h3 .tgt.on { color: var(--paint); }
+.bsec > h3 .tgt.on .lamp { background: var(--amber); box-shadow: 0 0 0 2px rgba(243,167,42,.18); }
+.bsec > h3 .tgt small { font-size: 9.5px; letter-spacing: .1em; color: var(--amber); font-weight: 700; }
 .bsec .hint { padding: 2px 18px 14px; font-size: 12.5px; color: var(--paint-mute); font-stretch: 90%; }
 .bsec .hint button { background: none; border: 0; padding: 0; color: var(--amber); text-decoration: underline; text-underline-offset: 3px; }
 .grp {
