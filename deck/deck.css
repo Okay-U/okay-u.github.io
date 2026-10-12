@@ -267,8 +267,6 @@ select.sel {
 .tile:active .art { transform: translateY(-1px) scale(.985); transition-duration: .08s; }
 .tile.off .art { filter: grayscale(.85) brightness(.45); }
 .tile.off .cap { opacity: .5; }
-.tile .count { position: absolute; left: 6px; top: 6px; font-size: 18px; z-index: 2; }
-.tile .count:empty { display: none; }
 .tile .tag-preview {
   position: absolute; right: 0; bottom: 0; padding: 2px 6px; z-index: 2;
   background: var(--paint); color: #111; font-size: 9.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
@@ -553,6 +551,30 @@ select.sel {
 .qlist .qv { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-size: 13px; font-weight: 680; font-stretch: 75%; color: var(--amber); font-variant-numeric: tabular-nums; }
 .qlist li[aria-selected="true"], .qlist li:hover { background: var(--amber); color: var(--amber-ink); }
 .qlist li[aria-selected="true"] .qm, .qlist li[aria-selected="true"] .qv, .qlist li:hover .qm, .qlist li:hover .qv { color: var(--amber-ink); }
+
+/* ---------- gallery tile strip, flying card, drop-out ---------- */
+.tile .qty {
+  position: absolute; left: 50%; bottom: 6px; z-index: 2; translate: -50% 0;
+  display: none; align-items: center; gap: 3px; padding: 2px;
+  background: rgba(9,9,10,.92); box-shadow: 0 0 0 1px #000, 0 6px 12px -6px #000;
+}
+.tile .qty.on { display: flex; }
+.tile .qty.single [data-q="1"] { display: none; }
+.tile .qty button {
+  width: 24px; height: 24px; padding: 0; border: 1px solid var(--rule-hi); background: linear-gradient(180deg, #2a2c30, #202226);
+  color: var(--paint); font-size: 14px; line-height: 1;
+}
+.tile .qty button:hover { background: var(--amber); color: var(--amber-ink); border-color: #a86c10; }
+.tile .qty .flap { font-size: 15px; }
+@media (hover: hover) { .tile:not(:hover) .qty.on { opacity: .9; } }
+.flyer { position: fixed; z-index: 90; pointer-events: none; object-fit: cover; box-shadow: 0 14px 24px -12px #000; }
+.gallery.dropout { background: rgba(236,99,71,.05); }
+.gallery.dropout::before {
+  content: "Drop to take it out of the deck · Shift takes every copy"; grid-column: 1 / -1; position: sticky; top: 0; z-index: 3;
+  padding: 8px 12px; background: var(--down); color: #1d0702; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+}
+.rmenu hr { margin: 0; border: 0; border-top: 1px solid #000; box-shadow: 0 1px 0 var(--rule); }
+.rune .key.icon { width: 24px; min-height: 24px; font-size: 13px; }
 
 /* ---------- row menu ---------- */
 .rmenu {

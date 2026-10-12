@@ -1,7 +1,7 @@
 // Boot and wiring. The deck (board) is the carried object; rooms change around it.
 import { loadData, isMainCard } from './data.js';
 import * as store from './store.js';
-import { validate, counts, addRoom, LIMITS } from './rules.js';
+import { validate, counts, addRoom, shiftRunes, LIMITS } from './rules.js';
 import { hydrateFlaps } from './flap.js';
 import { analyze, setPool } from './agent/engine.js';
 import { createGallery } from './gallery.js';
@@ -105,14 +105,15 @@ function addCard(id, zone = 'main', { playset = false, n: want = playset ? LIMIT
   const n = fits(deck, c, zone, Math.max(1, Math.min(LIMITS.copies, Math.trunc(want) || 1)));
   if (n > 0) store.update((d) => { d[zone][c.id] = (d[zone][c.id] || 0) + n; }, 'add');
   if (n > 1 && !quiet) toast(`${n} × ${c.name} to ${ZONE_NAME[zone]}.`);
+  return Math.max(0, n);
 }
 
-/** Move every copy of a card between main, sideboard and bench, as many as the rules allow. */
-function moveCard(id, from, to) {
+/** Move copies of a card (all by default) between main, sideboard and bench, as many as the rules allow. */
+function moveCard(id, from, to, { n: want = Infinity } = {}) {
   const deck = store.getDeck();
   const c = idx.byId.get(id);
   if (!c || from === to || !CARD_ZONES.includes(from) || !CARD_ZONES.includes(to)) return;
-  const have = deck[from][c.id] || 0;
+  const have = Math.min(deck[from][c.id] || 0, want);
   if (!have) return;
   const n = fits(deck, c, to, have, from === 'bench' ? 0 : have);
   if (n <= 0) return;
@@ -120,8 +121,22 @@ function moveCard(id, from, to) {
   toast(`${n} × ${c.name} to ${ZONE_NAME[to]}.`);
 }
 
-function removeCard(id, zone = 'main') {
+/** Add (+1) or take out (-1) a rune; at twelve it trades with the other domain (rules.js shiftRunes). */
+function shiftRune(dm, delta) {
   const deck = store.getDeck();
+  const legend = deck.legend ? idx.byId.get(deck.legend) : null;
+  const next = shiftRunes(deck.runes, legend?.domains || Object.keys(deck.runes), dm, delta);
+  if (!next) { if (delta > 0) toast(`All twelve runes are ${dm} already.`); return; }
+  store.update((d) => { d.runes = next; }, 'runes');
+}
+
+/** Take one copy out of a zone, or every copy with `all`. */
+function removeCard(id, zone = 'main', { all = false } = {}) {
+  const deck = store.getDeck();
+  if (all && CARD_ZONES.includes(zone)) {
+    if (deck[zone]?.[id] > 0) board.exitRow(id, zone).then(() => store.update((d) => { delete d[zone][id]; }, 'remove'));
+    return;
+  }
   if (zone === 'champion') {
     if (deck.main[id]) store.update((d) => { d.main[id] -= 1; }, 'remove');
     else store.update((d) => { d.champion = null; }, 'remove');
@@ -137,7 +152,7 @@ const ui = {
   toast, copy,
   analysis: () => analysis,
   openCard: (id) => sheet.card(id),
-  addCard, removeCard, moveCard,
+  addCard, removeCard, moveCard, shiftRune,
   refresh,
   runAgent() { if (mobile.matches) setMobileView('analyze'); else setRoom('analyze'); agent.run(); },
   newDeck(seed) { store.newDeck(seed); gallery.autoZone(store.getDeck()); agent.clear(); },

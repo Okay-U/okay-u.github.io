@@ -4,7 +4,7 @@ import { img, esc, DOMAIN_CLASS } from './data.js';
 import { counts, LIMITS, autoRunes } from './rules.js';
 import { flap, makeFlap, fmtRatio, pad, hydrateFlaps } from './flap.js';
 import { baseValue, marginal } from './agent/engine.js';
-import { createRowMenu } from './rowmenu.js';
+import { createMenu } from './menu.js';
 import { createQuickAdd } from './quickadd.js';
 import { GROUPS, SORTS, loadPrefs, savePrefs, groupEntries } from './deckview.js';
 
@@ -52,7 +52,24 @@ export function createBoard({ root, idx, store, ui }) {
     cascade = k === 'view' && v === 'stacks';
     render(lastAn);
   };
-  const menu = createRowMenu({ ui, store });
+  const menu = createMenu();
+  /** Row menu items for a card in a board zone; moves carry every copy. */
+  function rowItems(id, zone) {
+    const n = zone === 'champion' ? 1 : store.getDeck()[zone]?.[id] || 0;
+    const badge = n > 1 ? `×${n}` : '';
+    const add = { label: zone === 'champion' ? 'Add a copy' : 'Add one', run: () => ui.addCard(id, zone === 'champion' ? 'main' : zone) };
+    const dec = { label: zone === 'champion' ? 'Remove a copy' : zone === 'bf' ? 'Remove' : 'Remove one', run: () => ui.removeCard(id, zone) };
+    const to = (z, label) => ({ label, badge, run: () => ui.moveCard(id, zone, z) });
+    const info = { label: 'Card details', run: () => ui.openCard(id) };
+    const partners = { label: 'Show partners', run: () => ui.showPartners(id) };
+    return {
+      main: [add, dec, null, to('side', 'Move to sideboard'), to('bench', 'Move to bench'), null, info, partners],
+      champion: [add, dec, null, info, partners],
+      side: [add, dec, null, to('main', 'Move to main deck'), to('bench', 'Move to bench'), null, info],
+      bench: [add, dec, null, to('main', 'Move to main deck'), to('side', 'Move to sideboard'), null, info, partners],
+      bf: [dec, info],
+    }[zone] || [];
+  }
   root.addEventListener('change', (e) => {
     const f = e.target.dataset.pref;
     if (f) setPref(f, e.target.value);
@@ -85,13 +102,13 @@ export function createBoard({ root, idx, store, ui }) {
     const zone = dropZone(e);
     light(null);
     if (card) ui.addCard(card, zone, { playset: e.shiftKey });
-    else { const [from, id] = move.split(':'); if (from !== zone) ui.moveCard(id, from, zone); }
+    else { const [from, id] = move.split(':'); if (from !== zone) ui.moveCard(id, from, zone, { n: e.shiftKey ? Infinity : 1 }); } // one copy, Shift moves all
   });
   addEventListener('dragend', () => light(null));
   /** Open the row menu at the pointer, or under the element when opened from the keyboard (and focus it). */
   const openMenu = (el, e, keyboard) => {
     const b = el.getBoundingClientRect();
-    menu.open(el.dataset.id, el.dataset.zone, keyboard ? b.left + 24 : e.clientX, keyboard ? b.top + 26 : e.clientY, { focus: keyboard });
+    menu.open(rowItems(el.dataset.id, el.dataset.zone), keyboard ? b.left + 24 : e.clientX, keyboard ? b.top + 26 : e.clientY, { focus: keyboard });
   };
   root.addEventListener('contextmenu', (e) => {
     const r = e.target.closest('.row, .sc');
@@ -108,6 +125,8 @@ export function createBoard({ root, idx, store, ui }) {
     if (e.target.closest('[data-run]')) { ui.runAgent(); return; }
     if (e.target.closest('[data-undo]')) { if (!store.undo()) ui.toast('Nothing to undo.'); return; }
     if (e.target.closest('[data-new]')) { ui.newDeck(); return; }
+    const rune = e.target.closest('[data-rune]');
+    if (rune) { ui.shiftRune(rune.dataset.rune, Number(rune.dataset.d)); return; }
     if (e.target.closest('[data-runes-auto]')) {
       const r = autoRunes(store.getDeck(), idx);
       if (r) { store.update((d) => { d.runes = r; }, 'runes'); ui.toast(`Runes split by power costs: ${Object.entries(r).map(([k, v]) => `${v} ${k}`).join(', ')}.`); }
@@ -140,7 +159,7 @@ export function createBoard({ root, idx, store, ui }) {
     if (e.target.closest('[data-inc]')) { ui.addCard(id, zone === 'champion' ? 'main' : zone); return; }
     if (e.target.closest('[data-dec]')) { ui.removeCard(id, zone); return; }
     const more = e.target.closest('[data-menu]');
-    if (more) { const b = more.getBoundingClientRect(); menu.open(id, zone, b.right, b.bottom, { focus: e.detail === 0 }); return; }
+    if (more) { const b = more.getBoundingClientRect(); menu.open(rowItems(id, zone), b.right, b.bottom, { focus: e.detail === 0 }); return; }
     if (e.target.closest('.nm')) ui.openCard(id);
   });
 
@@ -342,7 +361,9 @@ export function createBoard({ root, idx, store, ui }) {
       if (!DOMAIN_CLASS[d]) continue;
       r.innerHTML = `<i class="dot" style="background:var(--${DOMAIN_CLASS[d]})"></i><span></span>`;
       r.querySelector('span').textContent = d;
+      if (legend) r.insertAdjacentHTML('beforeend', `<button class="key icon small" type="button" data-rune="${d}" data-d="-1" aria-label="One ${d} rune fewer">−</button>`);
       r.appendChild(makeFlap(pad(deck.runes[d] || 0), ''));
+      if (legend) r.insertAdjacentHTML('beforeend', `<button class="key icon small" type="button" data-rune="${d}" data-d="1" aria-label="One ${d} rune more">+</button>`);
       runes.appendChild(r);
     }
     if (legend) runes.insertAdjacentHTML('beforeend', `<span class="rkeys"><button class="key small quiet" type="button" data-runes-auto title="Split the twelve runes by the power costs in the main deck">Auto</button><button class="key small quiet" type="button" data-pick="runes">Adjust</button></span>`);

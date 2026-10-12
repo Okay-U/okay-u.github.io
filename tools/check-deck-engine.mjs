@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { buildIndex } from '../deck/js/data.js';
 import { analyze, marginal, candidatePool, setPool } from '../deck/js/agent/engine.js';
 import { STYLES } from '../deck/js/agent/styles.js';
-import { blockReason, counts, validate, LIMITS, autoRunes, addRoom } from '../deck/js/rules.js';
+import { blockReason, counts, validate, LIMITS, autoRunes, addRoom, shiftRunes } from '../deck/js/rules.js';
 import { importText, exportText, exportCode, importCode, findCode } from '../deck/js/text.js';
 import { getDeckFromCode } from '../deck/js/deckcode.js';
 
@@ -60,6 +60,13 @@ for (const legend of legends) {
     checked++;
   }
 }
+// Rune seesaw: at twelve, adding or taking out trades with the other domain; below twelve it just counts.
+const sw = (r, d, k) => JSON.stringify(shiftRunes(r, ['Calm', 'Body'], d, k));
+if (sw({ Calm: 6, Body: 6 }, 'Calm', 1) !== JSON.stringify({ Calm: 7, Body: 5 })) throw new Error('rune add at 12');
+if (sw({ Calm: 6, Body: 6 }, 'Calm', -1) !== JSON.stringify({ Calm: 5, Body: 7 })) throw new Error('rune take at 12');
+if (sw({ Calm: 5, Body: 6 }, 'Calm', 1) !== JSON.stringify({ Calm: 6, Body: 6 })) throw new Error('rune add below 12');
+if (sw({ Calm: 12 }, 'Calm', 1) !== 'null' || sw({ Body: 12 }, 'Calm', -1) !== 'null') throw new Error('rune no-op');
+
 // Deck codes: the reference vector from RiftboundDeckCodes (Apache 2.0) and link detection.
 const ref = getDeckFromCode('CIAAAAAAAAAQCAAAA4AACAIAABMQAAILAAAAICIMDMOVOX3AM5UHIAIDAAACO6XYAEAQKAAABX3QDGACUABKIAQAAEBQAAAWDBOQCAQAABMHE');
 if (ref.mainDeck.length !== 21 || ref.sideboard.reduce((a, c) => a + c.count, 0) !== 8) throw new Error('deck code reference vector');

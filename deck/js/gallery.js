@@ -3,6 +3,7 @@ import { DOMAINS, DOMAIN_CLASS, SETS, img, esc, isChampionFor, isSignatureFor, n
 import { blockReason, copiesOf, inDomains, LIMITS, counts } from './rules.js';
 import { makeFlap, flap, fmtRatio } from './flap.js';
 import { baseValue, marginal, wantsOf, providesOf } from './agent/engine.js';
+import { createMenu } from './menu.js';
 
 const ZONES = [
   ['legend', 'Legend'], ['champion', 'Champion'], ['main', 'Main deck'], ['bf', 'Battlefields'], ['runes', 'Runes'],
@@ -11,6 +12,9 @@ const SORTS = [['num', 'Set order'], ['cost', 'Energy cost'], ['name', 'Name'], 
 const LENS = [['ledger', 'Ledger'], ['practical', 'Practical'], ['deck', 'In deck']];
 
 const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
+const phone = matchMedia('(max-width: 900px)');
+const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+const SINGLE = ['Legend', 'Battlefield'];
 
 export function createGallery({ root, filtersEl, idx, store, ui }) {
   const st = { zone: 'legend', q: '', doms: new Set(), cost: null, type: '', set: '', rarity: '', mine: false, sort: 'num', lens: 'deck', target: 'main', partner: null, legalOnly: true };
@@ -131,12 +135,17 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     t.querySelector('.nm').textContent = c.name;
     t.querySelector('.sub').textContent = c.type === 'Legend' || c.type === 'Battlefield' || c.type === 'Rune'
       ? c.domains.join(' / ') || c.type : `${c.E}E${c.P ? ` ${c.P}P` : ''} · ${c.type}${c.might !== null && c.type === 'Unit' ? ` · ${c.might} might` : ''}`;
-    const count = makeFlap('', 'count');
-    count.classList.add('count');
-    t.querySelector('.art').appendChild(count);
+    // in-deck strip (Piltover-style): − count +, pointer only; keyboard uses Enter, Shift+Enter and Backspace
+    const strip = document.createElement('div');
+    strip.className = `qty${SINGLE.includes(c.type) ? ' single' : ''}`;
+    strip.setAttribute('aria-hidden', 'true');
+    strip.innerHTML = '<button type="button" tabindex="-1" data-q="-1">−</button><button type="button" tabindex="-1" data-q="1">+</button>';
+    const count = makeFlap('', '');
+    strip.insertBefore(count, strip.lastChild);
+    t.querySelector('.art').appendChild(strip);
     const val = makeFlap(' -- ', 'amber');
     t.querySelector('.val').appendChild(val);
-    t._count = count; t._val = val;
+    t._count = count; t._strip = strip; t._val = val;
     return t;
   }
 
@@ -156,6 +165,7 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
   function paintTile(t, c, deck, animate) {
     const n = countIn(deck, c);
     flap(t._count, n ? String(n) : '', { animate });
+    t._strip.classList.toggle('on', n > 0);
     const costed = !['Legend', 'Battlefield', 'Rune'].includes(c.type);
     const v = costed ? lensValue(c) : null;
     t._val.hidden = !costed;
@@ -186,8 +196,8 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     filtersEl.querySelectorAll('[data-cost]').forEach((b) => b.setAttribute('aria-pressed', String(st.cost === +b.dataset.cost)));
     const meta = filtersEl.querySelector('#meta-line');
     const partner = st.partner ? idx.byId.get(st.partner) : null;
-    const zoneHelp = { legend: 'Pick the legend that leads the deck.', champion: 'Pick the chosen champion.', main: `Tap the art to add a copy${st.target === 'main' ? '' : ` to the ${st.target === 'side' ? 'sideboard' : 'bench'}`}, Shift adds three, the name opens details. Right click or long press removes one.`,
-      bf: 'Pick three different battlefields.', runes: 'Click adds a rune, right click removes one.' }[st.zone];
+    const zoneHelp = { legend: 'Pick the legend that leads the deck.', champion: 'Pick the chosen champion.', main: `Tap the art to add a copy${st.target === 'main' ? '' : ` to the ${st.target === 'side' ? 'sideboard' : 'bench'}`}, Shift adds three, − takes one out. Right click or long press for more.`,
+      bf: 'Pick three different battlefields.', runes: 'Click adds a rune; at twelve it swaps one over from the other domain.' }[st.zone];
     meta.innerHTML = `<span><b>${shown}</b> cards · ${zoneHelp}</span>${partner ? ` <button class="key small quiet" data-clear-partner type="button">Partners of ${esc(partner.name)} ✕</button>` : ''}`;
   }
 
@@ -197,7 +207,7 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     el.innerHTML = `<div class="intro-head"><h2>Build a deck. Watch it re-price.</h2>
         <p>Every card carries Riot's own price for what it does. Put cards together and the board shows what they are worth in this deck.</p></div>
       <ol class="intro-steps"><li><b>Pick a legend</b><span>It sets your two domains.</span></li>
-        <li><b>Choose the champion, add cards</b><span>Tap the art to add a copy, Shift adds three, the name opens details. Right click or long press removes one.</span></li>
+        <li><b>Choose the champion, add cards</b><span>Tap the art to add a copy, Shift adds three, − takes one out. Right click or long press for more.</span></li>
         <li><b>Run the agent</b><span>Five work styles read the list and propose buys, cuts and combos.</span></li></ol>
       <dl class="intro-values"><div><dt>Ledger</dt><dd>Riot's price per cost, 1.00 is par.</dd></div>
         <div><dt>Practical</dt><dd>Adds what the ledger books at a discount or ignores.</dd></div>
@@ -209,75 +219,128 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
 
   function setZone(z) { st.zone = z; st.partner = null; render(); root.scrollTo?.({ top: 0 }); root.parentElement?.scrollTo({ top: 0 }); }
 
+  /** Make `c` the chosen champion (or clear it when it already is). */
+  function chooseChampion(c) {
+    const deck = store.getDeck();
+    if (deck.champion === c.id) { store.update((d) => { d.champion = null; }, 'champion'); return; }
+    const legend = legendOf(deck);
+    if (legend && !isChampionFor(c, legend)) { ui.toast(`${c.name} is not a ${legend.champ} champion.`, true); return; }
+    if (c.banned) { ui.toast(`${c.name} is banned in Standard.`, true); return; }
+    if (legend && !inDomains(c, legend)) { ui.toast(`${c.name} is outside ${legend.domains.join(' / ')}.`, true); return; }
+    if (copiesOf(deck, c.id) >= 3) { ui.toast('Already three copies counting the champion.', true); return; }
+    store.update((d) => { d.champion = c.id; }, 'champion');
+    ui.toast(`${c.name} is the chosen champion.`);
+    if (counts(store.getDeck()).main < 2 && st.zone === 'champion') setZone('main');
+  }
+
+  /** Apply a gallery action; returns how many copies went into a card zone. */
   function act(c, mode = 'add') {
     const deck = store.getDeck();
     const remove = mode === 'remove';
     if (c.type === 'Legend') {
-      if (remove) { store.update((d) => { d.legend = null; }, 'legend'); return; }
+      if (remove) { store.update((d) => { d.legend = null; }, 'legend'); return 0; }
       store.update((d) => {
         d.legend = c.id;
         const champ = d.champion ? idx.byId.get(d.champion) : null;
         if (champ && !isChampionFor(champ, c)) d.champion = null;
         const runeTotal = Object.values(d.runes).reduce((a, b) => a + b, 0);
         if (!runeTotal || Object.keys(d.runes).some((k) => !c.domains.includes(k))) {
-          d.runes = {}; c.domains.forEach((dm, i) => { d.runes[dm] = c.domains.length === 1 ? 12 : 6 + (i === 0 ? 0 : 0); });
+          d.runes = {}; c.domains.forEach((dm) => { d.runes[dm] = Math.floor(12 / c.domains.length); });
         }
       }, 'legend');
       ui.toast(`${c.name} leads the deck.`);
       if (!store.getDeck().champion) setZone('champion');
-      return;
+      return 0;
     }
     if (st.zone === 'champion' && c.supertype === 'Champion') {
-      if (remove || deck.champion === c.id) { store.update((d) => { d.champion = null; }, 'champion'); return; }
-      const legend = legendOf(deck);
-      if (legend && !isChampionFor(c, legend)) { ui.toast(`${c.name} is not a ${legend.champ} champion.`, true); return; }
-      if (c.banned) { ui.toast(`${c.name} is banned in Standard.`, true); return; }
-      if (legend && !inDomains(c, legend)) { ui.toast(`${c.name} is outside ${legend.domains.join(' / ')}.`, true); return; }
-      if (copiesOf(deck, c.id) >= 3) { ui.toast('Already three copies counting the champion.', true); return; }
-      store.update((d) => { d.champion = c.id; }, 'champion');
-      ui.toast(`${c.name} is the chosen champion.`);
-      if (counts(store.getDeck()).main < 2) setZone('main');
-      return;
+      if (remove && deck.champion !== c.id) return 0;
+      chooseChampion(c);
+      return 0;
     }
     if (c.type === 'Battlefield') {
-      if (deck.bf.includes(c.id)) { store.update((d) => { d.bf = d.bf.filter((x) => x !== c.id); }, 'bf'); return; }
-      if (remove) return;
-      if (deck.bf.length >= 3) { ui.toast('Three battlefields already. Remove one first.', true); return; }
-      if (c.banned) { ui.toast(`${c.name} is banned in Standard.`, true); return; }
+      if (deck.bf.includes(c.id)) { store.update((d) => { d.bf = d.bf.filter((x) => x !== c.id); }, 'bf'); return 0; }
+      if (remove) return 0;
+      if (deck.bf.length >= 3) { ui.toast('Three battlefields already. Remove one first.', true); return 0; }
+      if (c.banned) { ui.toast(`${c.name} is banned in Standard.`, true); return 0; }
       store.update((d) => { d.bf.push(c.id); }, 'bf');
-      return;
+      return 0;
     }
     if (c.type === 'Rune') {
-      const dm = c.domains[0];
-      if (remove) { store.update((d) => { d.runes[dm] = (d.runes[dm] || 0) - 1; }, 'runes'); return; }
       const legend = legendOf(deck);
-      if (legend && !legend.domains.includes(dm)) { ui.toast(`${dm} runes do not match the legend.`, true); return; }
-      if (counts(deck).runes >= 12) { ui.toast('Twelve runes already. Remove one first.', true); return; }
-      store.update((d) => { d.runes[dm] = (d.runes[dm] || 0) + 1; }, 'runes');
-      return;
+      if (legend && !legend.domains.includes(c.domains[0])) { ui.toast(`${c.domains[0]} runes do not match the legend.`, true); return 0; }
+      ui.shiftRune(c.domains[0], remove ? -1 : 1);
+      return 0;
     }
     const zone = ['side', 'bench'].includes(st.target) ? st.target : 'main';
     if (remove) {
       if (deck[zone][c.id]) store.update((d) => { d[zone][c.id] -= 1; }, 'remove');
       else if (zone === 'main' && deck.champion === c.id) store.update((d) => { d.champion = null; }, 'remove');
-      return;
+      return 0;
     }
-    ui.addCard(c.id, zone, { playset: mode === 'playset' });
+    return ui.addCard(c.id, zone, { playset: mode === 'playset' }) || 0;
   }
 
-  // pointer: click adds, right click removes, long press on touch removes; the caption opens details
+  /** On phones, a copy of the art flies to the Deck tab so the add is visible from the gallery. */
+  function fly(t) {
+    if (!phone.matches || reduced()) return;
+    const im = t.querySelector('img');
+    const dock = document.querySelector('.dock [data-dock="board"]');
+    if (!im || !dock) return;
+    const a = im.getBoundingClientRect(), b = dock.getBoundingClientRect();
+    const g = im.cloneNode();
+    g.className = 'flyer';
+    Object.assign(g.style, { left: `${a.left}px`, top: `${a.top}px`, width: `${a.width}px`, height: `${a.height}px` });
+    document.body.appendChild(g);
+    const dx = b.left + b.width / 2 - (a.left + a.width / 2), dy = b.top + b.height / 2 - (a.top + a.height / 2);
+    g.animate([{ transform: 'none', opacity: 1 }, { transform: `translate(${dx}px, ${dy}px) scale(.16) rotate(-8deg)`, opacity: 0.5 }],
+      { duration: 480, easing: 'cubic-bezier(.55,0,.75,.2)' }).finished.finally(() => {
+      g.remove();
+      dock.animate([{ transform: 'translateY(-4px)' }, { transform: 'none' }], { duration: 260, easing: 'cubic-bezier(.16,1,.3,1)' });
+    });
+  }
+
+  function addTo(c, zone, three, t) {
+    const n = ui.addCard(c.id, zone, { playset: three });
+    if (n > 0 && zone === 'main' && t) fly(t);
+  }
+
+  /** Gallery tile menu (Piltover-style): add one or three to a zone, choose the champion, details. */
+  function tileItems(c, t) {
+    const deck = store.getDeck();
+    const legend = legendOf(deck);
+    const info = { label: 'Card details', run: () => ui.openCard(c.id) };
+    if (c.type === 'Legend') return [{ label: deck.legend === c.id ? 'Remove the legend' : 'Lead the deck', run: () => act(c, deck.legend === c.id ? 'remove' : 'add') }, null, info];
+    if (c.type === 'Battlefield') return [{ label: deck.bf.includes(c.id) ? 'Remove battlefield' : 'Add battlefield', run: () => act(c) }, null, info];
+    if (c.type === 'Rune') return [{ label: `Add a ${c.domains[0]} rune`, run: () => act(c) }, { label: `Take a ${c.domains[0]} rune out`, run: () => act(c, 'remove') }, null, info];
+    const n = copiesOf(deck, c.id);
+    const zoneName = { main: 'main deck', side: 'sideboard', bench: 'bench' };
+    const add = (zone, three) => ({ label: `Add ${three ? 'three' : 'one'} to ${zoneName[zone]}`, run: () => addTo(c, zone, three, t) });
+    return [add('main'), add('main', true),
+      legend && isChampionFor(c, legend) && deck.champion !== c.id && { label: 'Set as chosen champion', run: () => chooseChampion(c) },
+      null, add('side'), add('side', true), null, add('bench'), add('bench', true),
+      n > 0 && null, n > 0 && { label: 'Remove one', run: () => act(c, 'remove') },
+      null, info, { label: 'Show partners', run: () => ui.showPartners(c.id) }];
+  }
+  const menu = createMenu();
+  const openMenu = (t, x, y, focus) => menu.open(tileItems(idx.byId.get(t.dataset.id), t), x, y, { focus });
+
+  // pointer: click adds (Shift three), the − / + strip adjusts, right click or long press opens the menu, the caption opens details
   let pressTimer = null; let longPressed = false;
   root.addEventListener('pointerdown', (e) => {
-    const t = e.target.closest('.tile'); if (!t || e.button !== 0 || e.pointerType !== 'touch') return;
+    const t = e.target.closest('.tile'); if (!t || e.button !== 0 || e.pointerType !== 'touch' || e.target.closest('[data-q]')) return;
     longPressed = false;
-    pressTimer = setTimeout(() => { longPressed = true; act(idx.byId.get(t.dataset.id), 'remove'); navigator.vibrate?.(12); }, 480);
+    const { clientX: x, clientY: y } = e;
+    pressTimer = setTimeout(() => { longPressed = true; navigator.vibrate?.(12); openMenu(t, x, y, false); }, 480);
   });
   ['pointerup', 'pointerleave', 'pointercancel'].forEach((ev) => root.addEventListener(ev, () => clearTimeout(pressTimer)));
   root.addEventListener('click', (e) => {
     const t = e.target.closest('.tile'); if (!t) return;
     if (longPressed) { longPressed = false; return; }
+    const c = idx.byId.get(t.dataset.id);
+    const q = e.target.closest('[data-q]');
+    if (q) { if (act(c, q.dataset.q === '1' ? (e.shiftKey ? 'playset' : 'add') : 'remove') > 0 && st.target === 'main') fly(t); return; }
     if (e.target.closest('.cap')) { ui.openCard(t.dataset.id); return; }
-    act(idx.byId.get(t.dataset.id), e.altKey ? 'remove' : e.shiftKey ? 'playset' : 'add');
+    if (act(c, e.altKey ? 'remove' : e.shiftKey ? 'playset' : 'add') > 0 && st.target === 'main') fly(t);
   });
   // drag a tile onto the deck board (main deck, sideboard or bench); Shift on drop adds three
   root.addEventListener('dragstart', (e) => {
@@ -289,12 +352,32 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     const im = t.querySelector('img');
     if (im) e.dataTransfer.setDragImage(im, im.width / 2, im.height / 3);
   });
+  // drag a board card back onto the gallery to take a copy out (Shift: every copy)
+  const MOVE = 'application/x-riftcount-move';
+  root.addEventListener('dragover', (e) => {
+    if (![...e.dataTransfer.types].includes(MOVE)) return;
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    root.classList.add('dropout');
+  });
+  root.addEventListener('dragleave', (e) => { if (!root.contains(e.relatedTarget)) root.classList.remove('dropout'); });
+  addEventListener('dragend', () => root.classList.remove('dropout'));
+  root.addEventListener('drop', (e) => {
+    const move = e.dataTransfer.getData(MOVE);
+    root.classList.remove('dropout');
+    if (!move) return;
+    e.preventDefault();
+    const [zone, id] = move.split(':');
+    ui.removeCard(id, zone, { all: e.shiftKey });
+  });
   root.addEventListener('contextmenu', (e) => {
     const t = e.target.closest('.tile'); if (!t) return;
     e.preventDefault();
-    if (longPressed) return; // touch long-press already removed a copy
-    clearTimeout(pressTimer); longPressed = e.pointerType === 'touch';
-    act(idx.byId.get(t.dataset.id), 'remove');
+    if (longPressed) return; // the touch long press already opened it
+    clearTimeout(pressTimer);
+    const keyboard = e.button !== 2 && e.pointerType !== 'touch';
+    const r = t.getBoundingClientRect();
+    openMenu(t, keyboard ? r.left + 20 : e.clientX, keyboard ? r.top + 30 : e.clientY, keyboard);
   });
   root.addEventListener('keydown', (e) => {
     const t = e.target.closest('.tile'); if (!t) return;

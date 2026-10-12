@@ -137,3 +137,30 @@ export function autoRunes(deck, idx) {
   for (const [d] of raw.sort((a, b) => (b[1] % 1) - (a[1] % 1))) { if (left-- <= 0) break; out[d] += 1; }
   return out;
 }
+
+/**
+ * Runes after adding (+1) or taking out (-1) one of domain `dm`. At twelve the change trades with another domain so
+ * the total stays twelve: adding takes one from the fullest other domain, taking out gives one to the emptiest.
+ * Returns null when nothing can change (all twelve are `dm` already, or there is none to take out).
+ */
+export function shiftRunes(runes, domains, dm, delta) {
+  const have = (d) => runes[d] || 0;
+  const total = Object.values(runes).reduce((a, b) => a + b, 0);
+  const others = domains.filter((d) => d !== dm);
+  const next = { ...runes };
+  if (delta > 0) {
+    if (total >= LIMITS.runes) {
+      const from = others.filter((d) => have(d) > 0).sort((x, y) => have(y) - have(x))[0];
+      if (!from) return null;
+      next[from] = have(from) - 1;
+    }
+    next[dm] = have(dm) + 1;
+  } else {
+    if (!(have(dm) > 0)) return null;
+    next[dm] = have(dm) - 1;
+    const to = total === LIMITS.runes ? [...others].sort((x, y) => have(x) - have(y))[0] : null;
+    if (to) next[to] = have(to) + 1;
+  }
+  for (const d of Object.keys(next)) if (!(next[d] > 0)) delete next[d];
+  return next;
+}
