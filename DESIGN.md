@@ -262,7 +262,8 @@ Monochrome black and grey in the iOS dark-mode grouped style, with one green, a 
 
 ### Tertiary
 - **System Gold** (gold): The Pair tag in the Coach tape, on a 14% gold wash. Rare by design.
-- **Domain colours** (fury, calm, mind, body, chaos, order): Riftbound's six domains as small round dots (filter chips, identity row, runes, cost pips) and as stack fills in the Stats charts. Never a fill behind text or a panel.
+- **Domain colours** (fury, calm, mind, body, chaos, order): Riftbound's six domains as stack fills in the Stats charts; everywhere else a domain is shown by its rune symbol (below). Never a fill behind text or a panel.
+- **Card symbols** (deck/glyphs, js/glyphs.js): Riot's own glyphs from the card gallery, the set the Riftcount app bundles. Domain runes and energy discs (0-12, white with the number) keep their colours as images; might, exhaust, colorless, champion and the card types are white masks tinted with the surrounding text colour. They stand in wherever a game concept would otherwise be a word or a dot: domain filter chips, energy cost buttons, type toggles, gallery captions, deck rows, group headings, the legend's domains, rune counters, Stats axes, quick add and the card detail (stat chips and inline in the ability text, with [Keywords] in bold). Sizes: 15-16px beside 12-13px labels, 18-20px on their own, 1.2em inline in text.
 
 ### Neutral
 - **True Black** (bg): Page ground, top bar, deck panel, sticky bars at 90-92% with blur.
@@ -333,7 +334,7 @@ Flat and tonal, like iOS grouped lists. Depth comes from stepping greys over tru
 
 ## Shapes
 
-Gentle iOS corners. Controls, fields, buttons and segments are 6px; grouped panels, menus and the value band are 10px; segmented tracks are 8px so the 6px selected segment sits concentric inside 2px padding. Card art keeps its native proportions (744/1039, battlefields rotated 1039/744) at 6px in the gallery and 5px in the denser deck views. Pills, chips, toggles, tags, the legality pill and toasts are full capsules, as the app's own pills are. Dots (legality, domains, log) are circles; value and gauge bars are 4px tall with 2px ends.
+Gentle iOS corners. Controls, fields, buttons and segments are 6px; grouped panels, menus and the value band are 10px; segmented tracks are 8px so the 6px selected segment sits concentric inside 2px padding. Card art keeps its native proportions (744/1039, battlefields rotated 1039/744) at 6px in the gallery and 5px in the denser deck views. Pills, chips, toggles, tags, the legality pill and toasts are full capsules, as the app's own pills are. Dots (legality, log) are circles; value and gauge bars are 4px tall with 2px ends.
 
 ## Components
 
@@ -353,7 +354,7 @@ Quiet and native; the panel does the work, buttons just sit in it.
 ### Chips and toggles
 - **Count chips:** card-grey capsules, 26px, 12px secondary label with a bold white count; the count turns green when complete, red when over.
 - **Toggles:** 30px capsules with a 10% hairline outline; on = green-soft fill, green text, no outline.
-- **Domain filter chips:** outlined capsules with an 8px domain dot; pressed = card fill, white text.
+- **Domain and type filter chips:** outlined capsules with a 16px rune or type symbol; pressed = card fill, white text. Energy cost buttons are the 20px energy symbols in 30px squares; while one is pressed the others dim to 45%.
 - **Active filter chips:** card-grey capsules with a tertiary ×.
 
 ### Legality pill
@@ -378,7 +379,7 @@ A 28px capsule with a 7px dot and 13px/600 label: green-soft/green when legal, o
 
 ### Deck views
 - **Cards (default):** 84px thumbnails at 5px, a dark capsule copy count (×3) bottom-right, a hover stepper bottom-left on fine pointers, readout and bar below.
-- **Rows:** 44px rows in a 10px grouped list: quantity (15px/650), a 22px seg cost badge with domain dots, the name over its value bar, the readout; hover fills raise and reveals − / + / ⋯ in place.
+- **Rows:** 44px rows in a 10px grouped list: quantity (15px/650), the energy symbol with the power cost as rune symbols, the name over its value bar, the readout; hover fills raise and reveals − / + / ⋯ in place.
 - **Stacks:** overlapping art showing a 30px strip (quantity, name, readout on a left-to-right dark gradient); hover or focus lifts a card 8px out of the stack.
 - Group headers are 12px/600 secondary text buttons with a chevron that turns -90° when folded.
 
