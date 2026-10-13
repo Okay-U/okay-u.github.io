@@ -4,6 +4,7 @@ import { norm, esc, isSignatureFor } from './data.js';
 import { inDomains, copiesOf } from './rules.js';
 import { baseValue } from './agent/engine.js';
 import { fmtRatio } from './num.js';
+import { costGlyphs, typeGlyph } from './glyphs.js';
 
 const MAX = 8;
 
@@ -49,7 +50,7 @@ export function createQuickAdd({ mount, idx, store, ui }) {
     list.innerHTML = hits.map((c, i) => {
       const have = copiesOf(deck, c.id);
       return `<li role="option" id="qadd-${i}" data-i="${i}" aria-selected="${i === sel}"><span class="qn">${esc(c.name)}</span>
-        <span class="qm">${c.E}E${c.P ? ` ${c.P}P` : ''} · ${esc(c.type)}${have ? ` · ${have} in deck` : ''}${c.banned ? ' · banned' : ''}</span><span class="qv">${fmtRatio(baseValue(c).ledger)}</span></li>`;
+        <span class="qm">${costGlyphs(c)} ${typeGlyph(c.type)}${esc(c.type)}${have ? ` · ${have} in deck` : ''}${c.banned ? ' · banned' : ''}</span><span class="qv">${fmtRatio(baseValue(c).ledger)}</span></li>`;
     }).join('');
     if (hits.length) input.setAttribute('aria-activedescendant', `qadd-${sel}`); else input.removeAttribute('aria-activedescendant');
   }

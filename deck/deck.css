@@ -53,6 +53,16 @@ a:hover { text-decoration-color: currentColor; }
 :focus-visible { outline: 2px solid rgba(255,255,255,.85); outline-offset: 2px; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 [hidden] { display: none !important; }
+
+/* Riot's card symbols (js/glyphs.js): colour ones are images, white ones masks in the text colour */
+.g { display: inline-block; flex: none; width: 1.2em; height: 1.2em; vertical-align: -0.25em; object-fit: contain; }
+.g.m { background: currentColor; -webkit-mask: var(--g) center / contain no-repeat; mask: var(--g) center / contain no-repeat; }
+.gnum { font-weight: 600; font-variant-numeric: tabular-nums; }
+.gcost { display: inline-flex; align-items: center; gap: 2px; }
+.gchips { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 10px; }
+.gchip { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 9px; border-radius: 999px; background: var(--card); font-size: 13px; font-weight: 600; color: var(--text); }
+.gchip .g { width: 18px; height: 18px; vertical-align: 0; }
+.gchip .gcost .g + .g { width: 16px; height: 16px; }
 .grow { flex: 1; }
 svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
@@ -182,19 +192,22 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 .zones { max-width: 100%; overflow-x: auto; scrollbar-width: none; }
 .zones::-webkit-scrollbar { display: none; }
 .tray-toggle { display: none; }
-.tools .doms { display: flex; flex-wrap: wrap; gap: 6px; }
+.tools .doms, .tools .types { display: flex; flex-wrap: wrap; gap: 6px; }
 .dom {
   display: inline-flex; align-items: center; gap: 7px; height: 30px; padding: 0 11px 0 10px;
   border: 1px solid var(--line-2); border-radius: 999px; background: none; color: var(--text-2); font-size: 13px;
 }
-.dom i { width: 8px; height: 8px; border-radius: 50%; }
+.dom .g { width: 16px; height: 16px; vertical-align: 0; }
 .dom:hover { color: var(--text); }
 .dom[aria-pressed="true"] { background: var(--card); border-color: transparent; color: var(--text); }
 .costs { display: inline-flex; gap: 2px; }
-.costs button { width: 30px; height: 30px; padding: 0; border: 0; border-radius: var(--r); background: none; color: var(--text-2); font-size: 13px; }
+.costs button { display: inline-grid; grid-auto-flow: column; place-items: center; place-content: center; width: 30px; height: 30px; padding: 0; border: 0; border-radius: var(--r); background: none; color: var(--text-2); font-size: 11px; font-weight: 700; }
+.costs button .g { width: 20px; height: 20px; vertical-align: 0; }
+.costs:has([aria-pressed="true"]) button:not([aria-pressed="true"]) .g { opacity: .45; }
 .costs button:hover { background: var(--card); color: var(--text); }
 .costs button[aria-pressed="true"] { background: var(--seg); color: var(--text); }
-.tslot { margin-left: auto; display: inline-flex; }
+.tslot { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; }
+.tslot .tlabel { font-size: 13px; color: var(--text-2); }
 .tsize { display: inline-flex; gap: 2px; }
 .trow.active { gap: 6px; min-height: 26px; font-size: 13px; color: var(--text-2); }
 .fchip {
@@ -232,7 +245,9 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 .cap { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: 1px 8px; }
 .cap .nm { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .cap .val .num { font-size: 13px; font-weight: 600; }
-.cap .sub { grid-column: 1 / -1; font-size: 12px; color: var(--text-2); }
+.cap .sub { grid-column: 1 / -1; display: flex; align-items: center; gap: 5px; min-width: 0; font-size: 12px; color: var(--text-2); white-space: nowrap; overflow: hidden; }
+.cap .sub .g { width: 15px; height: 15px; vertical-align: 0; }
+.cap .sub .gcost .g + .g { width: 12px; height: 12px; }
 .empty-note { grid-column: 1 / -1; padding: 60px 0; color: var(--text-2); text-align: center; }
 .intro { grid-column: 1 / -1; padding: 20px 22px; border-radius: var(--r-lg); background: var(--card); }
 .intro h2 { margin: 0 0 6px; font-size: 20px; font-weight: 650; letter-spacing: -.015em; max-width: 34ch; text-wrap: balance; }
@@ -268,7 +283,7 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 .idtext .sub { margin: 2px 0 0; font-size: 13px; color: var(--text-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ident .doms { display: flex; gap: 10px; margin-top: 6px; font-size: 12px; color: var(--text-2); }
 .ident .doms span { display: inline-flex; align-items: center; gap: 5px; }
-.ident .doms i { width: 7px; height: 7px; border-radius: 50%; }
+.ident .doms .g { width: 15px; height: 15px; vertical-align: 0; }
 .emptyid { grid-column: 1 / -1; padding: 16px; border-radius: var(--r-lg); background: var(--card); }
 .emptyid p { margin: 0 0 12px; color: var(--text-2); }
 .emptyid b { color: var(--text); font-weight: 600; }
@@ -322,6 +337,7 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 .grp svg { width: 12px; height: 12px; transition: transform .18s var(--ease); }
 .grp[aria-expanded="false"] svg { transform: rotate(-90deg); }
 .grp .cnt { color: var(--text-3); font-weight: 500; }
+.grp .g { width: 15px; height: 15px; vertical-align: 0; }
 .grp:hover { color: var(--text); }
 
 /* main deck as card thumbnails */
@@ -346,8 +362,8 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 .row[draggable="true"] { cursor: grab; }
 .row .q .num { display: block; text-align: right; font-size: 15px; font-weight: 650; }
 .cost { display: inline-flex; align-items: center; gap: 3px; }
-.cost b { display: grid; place-items: center; width: 22px; height: 22px; border-radius: var(--r); background: var(--seg); font-size: 12px; font-weight: 700; }
-.cost i { width: 5px; height: 5px; border-radius: 50%; }
+.cost .g { width: 20px; height: 20px; vertical-align: 0; }
+.cost .gcost .g + .g { width: 14px; height: 14px; }
 .nmw { display: grid; gap: 5px; min-width: 0; }
 .nm { padding: 0; border: 0; background: none; color: var(--text); font-size: 15px; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; }
 .nm:hover { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--line-3); }
@@ -374,7 +390,7 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 /* runes and battlefields */
 .runes { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 16px; }
 .rune { flex: 1 1 150px; display: flex; align-items: center; gap: 8px; height: 42px; padding: 0 6px 0 12px; border-radius: var(--r-lg); background: var(--card); }
-.rune > i { width: 8px; height: 8px; border-radius: 50%; }
+.rune > .g { width: 20px; height: 20px; vertical-align: 0; }
 .rune .rn { flex: 1; font-size: 14px; }
 .rune .rc { min-width: 20px; text-align: center; font-size: 15px; font-weight: 650; }
 .fields { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding: 0 16px; }
@@ -402,7 +418,8 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 .bars .col b { font-size: 12px; font-weight: 600; }
 .bars .stack { display: flex; flex-direction: column-reverse; height: 100%; gap: 1px; transition: opacity .2s; }
 .bars .stack i { display: block; flex: none; width: 100%; border-radius: 2px; transform-origin: bottom; animation: rise .3s var(--ease) both; }
-.bars .col span { font-size: 11px; color: var(--text-2); white-space: nowrap; }
+.bars .col span { display: inline-flex; align-items: center; justify-content: center; gap: 3px; font-size: 11px; color: var(--text-2); white-space: nowrap; }
+.bars .col span .g { width: 15px; height: 15px; vertical-align: 0; }
 .bars .col[data-e] { cursor: pointer; border-radius: 4px; }
 .bars .col[data-e]:hover span, .bars .col.picked span { color: var(--text); }
 .bars:has(.picked) .col:not(.picked) .stack { opacity: .3; }
@@ -501,8 +518,12 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 }
 .sheet textarea.code { min-height: 84px; word-break: break-all; }
 .sheet .detail { display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 18px; align-items: start; }
-.sheet .detail img { width: 100%; border-radius: var(--r-lg); }
-.sheet .rules { margin: 0; white-space: pre-line; font-size: 14px; color: var(--text-2); }
+.sheet .detail > img { width: 100%; border-radius: var(--r-lg); }
+.sheet .rules { font-size: 14px; line-height: 1.5; color: var(--text-2); }
+.sheet .rules p, .sheet .rules ul { margin: 0 0 8px; }
+.sheet .rules ul { padding-left: 18px; }
+.sheet .rules .g { margin: 0 1px; }
+.sheet .rules .kw { font-weight: 650; color: var(--text); }
 .sheet .rsec h3 { margin: 8px 0; }
 .ledger { border-radius: var(--r-lg); background: var(--card); overflow: hidden; }
 .ledger .lr { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; padding: 9px 12px; border-top: 1px solid var(--line); font-size: 13px; }
@@ -565,8 +586,8 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
   /* open filters stay one row each and swipe sideways, so the grid keeps the screen */
   .tools .tray { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
   .tools .tray::-webkit-scrollbar { display: none; }
-  .tools .tray > *, .tools .doms > * { flex: none; }
-  .tools .doms { flex-wrap: nowrap; }
+  .tools .tray > *, .tools .doms > *, .tools .types > * { flex: none; }
+  .tools .doms, .tools .types { flex-wrap: nowrap; }
   .grid { grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 14px 10px; padding: 12px; }
   .cap .sub { display: none; }
   .cap .nm { font-size: 12px; }
@@ -598,7 +619,7 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
   .vband { grid-template-columns: 1fr; }
   .sheet { width: 100vw; border-left: 0; }
   .sheet .detail { grid-template-columns: 1fr; }
-  .sheet .detail img { max-width: 240px; }
+  .sheet .detail > img { max-width: 240px; }
   .toast { bottom: calc(16px + var(--peek-h)); }
 }
 @media (max-width: 900px) and (hover: hover) { .row .ctl [data-dec], .row .ctl [data-inc] { display: grid; } }

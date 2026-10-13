@@ -6,6 +6,7 @@ import { setNum, makeNum, fmtRatio, band, valueBar } from './num.js';
 import { baseValue, marginal } from './agent/engine.js';
 import { createMenu } from './menu.js';
 import { createQuickAdd } from './quickadd.js';
+import { energyGlyph, runeGlyph, typeGlyph, costGlyphs } from './glyphs.js';
 import { GROUPS, SORTS, VIEWS, loadPrefs, savePrefs, groupEntries } from './deckview.js';
 
 const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -176,9 +177,15 @@ export function createBoard({ root, idx, store, ui }) {
     return s;
   }
 
-  function costHTML(card) {
-    const pipColor = DOMAIN_CLASS[card.domains[0]] ? `var(--${DOMAIN_CLASS[card.domains[0]]})` : 'var(--text-3)';
-    return `<b>${Number(card.E) || 0}</b>${`<i style="background:${pipColor}"></i>`.repeat(Math.min(Number(card.P) || 0, 3))}`;
+  /** Symbol for a group heading: the type, the energy or the domain the group stands for. */
+  function groupGlyph(g) {
+    const c = g.list[0]?.[0];
+    if (!c) return '';
+    const kind = g.key.split(':')[0];
+    if (kind === 'type') return typeGlyph(c.type);
+    if (kind === 'energy') return energyGlyph(Math.min(c.E, 7));
+    if (kind === 'domain') return (c.domains.length ? c.domains : ['Colorless']).map((d) => runeGlyph(d)).join('');
+    return '';
   }
 
   /** Values for a card in a zone: main reads the analysis; sideboard and bench show what it would be worth in the main deck. */
@@ -206,7 +213,7 @@ export function createBoard({ root, idx, store, ui }) {
     }
     r.getAnimations().forEach((x) => x.cancel());
     r.querySelector('.nm').textContent = card.name;
-    r.querySelector('.cost').innerHTML = costHTML(card);
+    r.querySelector('.cost').innerHTML = costGlyphs(card);
     const { a, inDeck } = valuesOf(card, zone, an);
     setNum(r.querySelector('.q .num'), `${n}`, { animate: !fresh });
     setNum(r.querySelector('.val .num'), fmtRatio(inDeck), { animate: !fresh, cls: band(inDeck) });
@@ -268,8 +275,8 @@ export function createBoard({ root, idx, store, ui }) {
     b.className = 'grp';
     b.dataset.gkey = g.key;
     b.setAttribute('aria-expanded', String(!shut));
-    b.innerHTML = `<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg><span></span><span class="cnt"></span>`;
-    b.querySelector('span').textContent = g.label;
+    b.innerHTML = `<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>${groupGlyph(g)}<span></span><span class="cnt"></span>`;
+    b.querySelector('span:not(.cnt)').textContent = g.label;
     b.querySelector('.cnt').textContent = g.count;
     return b;
   }
@@ -313,7 +320,7 @@ export function createBoard({ root, idx, store, ui }) {
       identEl.querySelector('[data-import-hint]').addEventListener('click', () => ui.importList());
       return;
     }
-    const dots = legend.domains.map((d) => `<span><i style="background:var(--${DOMAIN_CLASS[d]})"></i>${esc(d)}</span>`).join('');
+    const dots = legend.domains.map((d) => `<span>${runeGlyph(d)}${esc(d)}</span>`).join('');
     identEl.innerHTML = `
       <button class="thumb" type="button" data-pick="legend" title="Change the legend"><img alt="" src="${esc(img(legend, 200))}"><span class="sr">Change the legend</span></button>
       ${champ ? `<button class="thumb" type="button" data-pick="champion" title="Change the chosen champion"><img alt="" src="${esc(img(champ, 200))}"><span class="sr">Change the chosen champion</span></button>`
@@ -416,7 +423,7 @@ export function createBoard({ root, idx, store, ui }) {
         if (!DOMAIN_CLASS[d]) continue;
         const r = document.createElement('div');
         r.className = 'rune';
-        r.innerHTML = `<i style="background:var(--${DOMAIN_CLASS[d]})"></i><span class="rn"></span>
+        r.innerHTML = `${runeGlyph(d)}<span class="rn"></span>
           <button class="ib" type="button" data-rune="${d}" data-d="-1" aria-label="One ${d} rune fewer">−</button><span class="rc num"></span>
           <button class="ib" type="button" data-rune="${d}" data-d="1" aria-label="One ${d} rune more">+</button>`;
         r.querySelector('.rn').textContent = d;

@@ -65,7 +65,7 @@ export function createLayout({ floor, sizeMount }) {
   });
 
   let size = SIZES.includes(prefs.tile) ? prefs.tile : 148;
-  sizeMount.innerHTML = `<div class="tsize" role="group" aria-label="Card size"><button type="button" class="iconbtn" data-size="-1" aria-label="Smaller cards">−</button><button type="button" class="iconbtn" data-size="1" aria-label="Larger cards">+</button></div>`;
+  sizeMount.insertAdjacentHTML('beforeend', `<div class="tsize" role="group" aria-label="Card size"><button type="button" class="iconbtn" data-size="-1" aria-label="Smaller cards">−</button><button type="button" class="iconbtn" data-size="1" aria-label="Larger cards">+</button></div>`);
   const applySize = () => {
     rootStyle.setProperty('--tile', `${size}px`);
     sizeMount.querySelector('[data-size="-1"]').disabled = size === SIZES[0];

@@ -56,7 +56,7 @@ export function buildIndex(feed, model) {
       id, name, display: name.replace(' - ', ', '), type, supertype: cls.supertype || null,
       domains: cls.domain || [], rarity: cls.rarity, set: i.set?.set_id, setLabel: i.set?.label,
       E, P, C: E + 2 * P, might: at.might ?? null, mightBonus: at.might_bonus ?? null,
-      text: i.text?.plain || '', tags: i.tags || [], champ,
+      text: i.text?.plain || '', rich: i.text?.rich || '', tags: i.tags || [], champ,
       image: i.media?.image_url || '', preview: !!i.unreleased,
       codes: prints.map((p) => code(p.i)),
       banned: BANNED_N.has(norm(name)),

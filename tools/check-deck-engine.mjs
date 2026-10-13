@@ -7,6 +7,7 @@ import { STYLES } from '../deck/js/agent/styles.js';
 import { blockReason, counts, validate, LIMITS, autoRunes, addRoom, shiftRunes } from '../deck/js/rules.js';
 import { importText, exportText, exportCode, importCode, findCode } from '../deck/js/text.js';
 import { getDeckFromCode } from '../deck/js/deckcode.js';
+import { richText } from '../deck/js/glyphs.js';
 
 const feed = JSON.parse(readFileSync(new URL('../cards.json', import.meta.url)));
 const model = JSON.parse(readFileSync(new URL('../deck/data/model.json', import.meta.url)));
@@ -82,4 +83,10 @@ if (sigLegend) {
   if (addRoom({ ...deck, bench: { [s1.id]: 2 } }, s1, 'bench', 3, idx).n !== 1) throw new Error('bench cap');
   if (addRoom(deck, s1, 'side', 2, idx, 2).n !== 2) throw new Error('main to side move must keep counted copies');
 }
+// Card text: feed HTML keeps only p/br/ul/li, text is escaped, tokens become glyphs, [Keywords] bold.
+const rt = richText('<p>Pay :rb_rune_fury: and :rb_energy_2:. [Accelerate] &gt; <script>x</script><img src=x onerror=1>&lt;b&gt;</p>');
+if (!rt.startsWith('<p>Pay <img class="g"') || !rt.includes('alt="Fury rune"') || !rt.includes('energy_2.svg') || !rt.includes('<b class="kw">Accelerate</b>')
+  || rt.includes('<script') || rt.includes('<img src=x') || !rt.includes('&lt;b&gt;') || !rt.includes('&gt; x')) throw new Error(`richText: ${rt}`);
+if (!richText('', 'Plain [Tank] :rb_might:').includes('aria-label="might"') || richText(':rb_nope:') !== ':rb_nope:') throw new Error('richText fallback');
+for (const c of feed.items) richText(c.text?.rich, c.text?.plain); // every card renders without throwing
 console.log(`ok: ${checked} filled decks across ${legends.length} legends and ${STYLES.length} styles in ${Date.now() - t0} ms`);

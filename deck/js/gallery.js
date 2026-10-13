@@ -1,9 +1,10 @@
 // The card gallery: toolbar, filters and the card grid. Clicking a card adds it to the zone being built.
-import { DOMAINS, DOMAIN_CLASS, SETS, img, esc, isChampionFor, isSignatureFor, norm } from './data.js';
+import { DOMAINS, SETS, img, esc, isChampionFor, isSignatureFor, norm } from './data.js';
 import { blockReason, copiesOf, inDomains, LIMITS, counts } from './rules.js';
 import { setNum, makeNum, fmtRatio, band } from './num.js';
 import { baseValue, marginal, wantsOf, providesOf } from './agent/engine.js';
 import { createMenu } from './menu.js';
+import { energyGlyph, runeGlyph, typeGlyph, costGlyphs } from './glyphs.js';
 
 const ZONES = [
   ['legend', 'Legend'], ['champion', 'Champion'], ['main', 'Main deck'], ['bf', 'Battlefields'], ['runes', 'Runes'],
@@ -32,12 +33,11 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
       <button class="btn tray-toggle" type="button" data-tray aria-expanded="false" aria-controls="filters-row">Filters</button>
     </div>
     <div class="trow tray" id="filters-row">
-      <div class="doms" role="group" aria-label="Domains">${DOMAINS.map((d) => `<button type="button" class="dom" data-dom="${d}" aria-pressed="false"><i style="background:var(--${DOMAIN_CLASS[d]})"></i>${d}</button>`).join('')}</div>
-      <div class="costs" role="group" aria-label="Energy cost">${[0, 1, 2, 3, 4, 5, 6, 7].map((n) => `<button type="button" data-cost="${n}" aria-pressed="false">${n === 7 ? '7+' : n}</button>`).join('')}</div>
-      <select class="sel" data-f="type" aria-label="Type"><option value="">All types</option><option>Unit</option><option>Spell</option><option>Gear</option></select>
+      <div class="doms" role="group" aria-label="Domains">${DOMAINS.map((d) => `<button type="button" class="dom" data-dom="${d}" aria-pressed="false">${runeGlyph(d)}${d}</button>`).join('')}</div>
+      <div class="costs" role="group" aria-label="Energy cost">${[0, 1, 2, 3, 4, 5, 6, 7].map((n) => `<button type="button" data-cost="${n}" aria-pressed="false" aria-label="${n === 7 ? '7 or more' : n} energy" title="${n === 7 ? '7 or more' : n} energy">${energyGlyph(n)}${n === 7 ? '+' : ''}</button>`).join('')}</div>
+      <div class="types" role="group" aria-label="Card type">${['Unit', 'Spell', 'Gear'].map((t) => `<button type="button" class="dom" data-ctype="${t}" aria-pressed="false">${typeGlyph(t)}${t}</button>`).join('')}</div>
       <select class="sel" data-f="sort" aria-label="Sort">${opts(SORTS, st.sort, (l) => `Sort: ${l}`)}</select>
       <button class="btn" type="button" data-more aria-expanded="false" aria-controls="filters-more">More</button>
-      <span class="tslot"></span>
     </div>
     <div class="trow tray more" id="filters-more" hidden>
       <select class="sel" data-f="set" aria-label="Set"><option value="">All sets</option>${Object.entries(SETS).map(([k, l]) => `<option value="${k}">${l}</option>`).join('')}</select>
@@ -45,6 +45,7 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
       <button class="toggle" type="button" data-mine aria-pressed="false">In deck only</button>
       <select class="sel" data-f="lens" aria-label="Value shown on cards">${opts(LENS, st.lens, (l) => `Value: ${l}`)}</select>
       <select class="sel" data-f="target" aria-label="Clicks add to">${opts(TARGETS, st.target, (l) => `Add to: ${l}`)}</select>
+      <span class="tslot"><span class="tlabel" aria-hidden="true">Card size</span></span>
     </div>
     <div class="trow active" id="active-line" hidden></div>`;
   const $ = (s) => filtersEl.querySelector(s);
@@ -58,6 +59,8 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     if (d) { st.doms.has(d.dataset.dom) ? st.doms.delete(d.dataset.dom) : st.doms.add(d.dataset.dom); render(); return; }
     const c = e.target.closest('[data-cost]');
     if (c) { const v = +c.dataset.cost; st.cost = st.cost === v ? null : v; render(); return; }
+    const ty = e.target.closest('[data-ctype]');
+    if (ty) { st.type = st.type === ty.dataset.ctype ? '' : ty.dataset.ctype; render(); return; }
     const clr = e.target.closest('[data-clear]');
     if (clr) { clearFilter(clr.dataset.clear); render(); return; }
     const mine = e.target.closest('[data-mine]');
@@ -156,8 +159,9 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
       ${c.preview || c.banned ? `<span class="tags">${c.preview ? '<span class="tag">Preview</span>' : ''}${c.banned ? '<span class="tag ban">Banned</span>' : ''}</span>` : ''}</div>
       <div class="cap"><span class="nm"></span><span class="val"></span><span class="sub"></span></div>`;
     t.querySelector('.nm').textContent = c.name;
-    t.querySelector('.sub').textContent = c.type === 'Legend' || c.type === 'Battlefield' || c.type === 'Rune'
-      ? c.domains.join(' · ') || c.type : `${c.E} energy${c.P ? ` · ${c.P} power` : ''} · ${c.type}`;
+    t.querySelector('.sub').innerHTML = c.type === 'Legend' || c.type === 'Rune'
+      ? c.domains.map((d) => `${runeGlyph(d)}${esc(d)}`).join(' ') || esc(c.type)
+      : c.type === 'Battlefield' ? `${typeGlyph(c.type)}${esc(c.type)}` : `${costGlyphs(c)}${typeGlyph(c.type)}${esc(c.type)}`;
     // in-deck strip (Piltover-style): − count +, pointer only; keyboard uses Enter, Shift+Enter and Backspace
     const strip = document.createElement('div');
     strip.className = `qty${SINGLE.includes(c.type) ? ' single' : ''}`;
@@ -225,7 +229,8 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     });
     filtersEl.querySelectorAll('[data-cost]').forEach((b) => b.setAttribute('aria-pressed', String(st.cost === +b.dataset.cost)));
     $('.costs').hidden = !['main', 'champion'].includes(st.zone);
-    $('[data-f="type"]').hidden = st.zone !== 'main';
+    filtersEl.querySelectorAll('[data-ctype]').forEach((b) => b.setAttribute('aria-pressed', String(st.type === b.dataset.ctype)));
+    $('.types').hidden = st.zone !== 'main';
     $('[data-mine]').setAttribute('aria-pressed', String(st.mine));
     const chips = [
       ...[...st.doms].map((d) => [`dom:${d}`, d]),
@@ -241,7 +246,7 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     line.innerHTML = `${chips.map(([k, l]) => `<button class="fchip" type="button" data-clear="${esc(k)}" aria-label="Remove filter ${esc(l)}">${esc(l)}<span aria-hidden="true">×</span></button>`).join('')}
       ${chips.length > 1 ? '<button class="link" type="button" data-clear="all">Clear all</button>' : ''}
       ${help ? `<span class="help">${esc(help)}</span>` : ''}`;
-    $('.search .count').innerHTML = `<b>${shown}</b> cards`;
+    $('.search .count').innerHTML = `<b>${shown}</b> card${shown === 1 ? '' : 's'}`;
   }
 
   function intro() {

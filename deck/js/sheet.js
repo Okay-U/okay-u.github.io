@@ -1,5 +1,6 @@
 // Side sheet (native <dialog>): card detail with the three value layers, import, export, share, saved decks.
 import { img, esc } from './data.js';
+import { glyph, energyGlyph, runeGlyph, typeGlyph, powerGlyphs, richText } from './glyphs.js';
 import { baseValue, wantsOf, providesOf } from './agent/engine.js';
 import { tagLabel } from './agent.js';
 import { exportText, importText, exportCode, importCode, findCode } from './text.js';
@@ -29,6 +30,19 @@ export function createSheet({ el, idx, store, ui }) {
     if (e.target === el || e.target.closest('[data-close]')) el.close();
   });
 
+  /** Type, domains, energy, power and might as symbol chips, as on the printed card. */
+  function statChips(c, costed) {
+    const chip = (inner, label = '') => `<span class="gchip"${label ? ` role="img" aria-label="${esc(label)}"` : ''}>${inner}</span>`;
+    const might = c.might ?? (c.mightBonus ? `+${c.mightBonus}` : null);
+    return [
+      chip(`${typeGlyph(c.type)}${esc(c.type)}`),
+      ...(c.domains.length ? c.domains : ['Colorless']).map((d) => chip(`${runeGlyph(d)}${esc(d)}`)),
+      costed ? chip(energyGlyph(c.E), `${c.E} energy`) : '',
+      costed && c.P ? chip(powerGlyphs(c), `${c.P} power`) : '',
+      might !== null ? chip(`${glyph('might')}${esc(might)}`, `${might} might`) : '',
+    ].join('');
+  }
+
   async function card(id) {
     const c = idx.byId.get(id);
     if (!c) return;
@@ -45,8 +59,9 @@ export function createSheet({ el, idx, store, ui }) {
       <div class="detail"><img alt="" src="${esc(img(c, c.landscape ? 744 : 520))}">
         <div>
           <h2>${esc(c.name)}</h2>
-          <p class="note">${esc(c.id)} · ${esc(c.type)}${c.supertype ? ` · ${esc(c.supertype)}` : ''} · ${esc(c.domains.join(' / ') || 'Colorless')}${costed ? ` · ${c.E} energy${c.P ? ` + ${c.P} power` : ''} = ${c.C} C` : ''}${c.preview ? ' · Preview' : ''}${c.banned ? ' · Banned in Standard' : ''}</p>
-          <p class="rules">${esc(c.text)}</p>
+          <div class="gchips">${statChips(c, costed)}</div>
+          <p class="note">${esc(c.id)}${c.supertype ? ` · ${esc(c.supertype)}` : ''}${costed ? ` · ledger cost ${c.C} C` : ''}${c.preview ? ' · Preview' : ''}${c.banned ? ' · Banned in Standard' : ''}</p>
+          <div class="rules">${richText(c.rich, c.text)}</div>
           ${c.model?.n ? `<p class="note">${esc(c.model.n)}</p>` : ''}
           ${costed ? `<div class="actions">
             <button class="btn primary" type="button" data-add ${why ? 'disabled' : ''}>Add to main</button>

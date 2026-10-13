@@ -2,6 +2,7 @@
 // sample opening hands with mulligan.
 import { img, esc, DOMAIN_CLASS } from './data.js';
 import { makeNum } from './num.js';
+import { energyGlyph, typeGlyph } from './glyphs.js';
 
 const HAND = 4;           // opening hand in Riftbound
 const MULLIGAN_MAX = 2;   // cards you may recycle and redraw once
@@ -121,14 +122,14 @@ export function createTest({ statsRoot, handRoot, idx, store, ui }) {
     }
   });
 
-  function bars(title, groups, keys, colorOf, labelOf) {
+  function bars(title, groups, keys, colorOf, labelOf, axisOf = (k) => esc(labelOf(k))) {
     const total = (k) => Object.values(groups[k] || {}).reduce((a, b) => a + b, 0);
     const max = Math.max(4, ...keys.map(total));
     const cols = keys.map((k, i) => {
       // one solid segment per domain (or band), sized by its share of the tallest column
       const parts = Object.entries(groups[k] || {}).map(([part, n]) =>
         `<i style="height:${(n / max * 100).toFixed(2)}%;background:${colorOf(part)};animation-delay:${i * 40}ms" title="${esc(title)} ${esc(labelOf(k))}: ${n}${part === String(k) ? '' : ` ${esc(part)}`}"></i>`);
-      return `<div class="col"${title === 'Energy curve' ? ` data-e="${k}" role="button" tabindex="0" aria-label="Show the ${total(k)} cards at ${esc(labelOf(k))} energy"` : ''}><b>${total(k) || ''}</b><div class="stack">${parts.join('')}</div><span>${esc(labelOf(k))}</span></div>`;
+      return `<div class="col"${title === 'Energy curve' ? ` data-e="${k}" role="button" tabindex="0" aria-label="Show the ${total(k)} cards at ${esc(labelOf(k))} energy"` : ''}><b>${total(k) || ''}</b><div class="stack">${parts.join('')}</div><span>${axisOf(k)}</span></div>`;
     }).join('');
     // the energy curve's bars are buttons, so it is a group rather than an image
     return `<div class="chart"><h4>${title}</h4><div class="bars" role="${title === 'Energy curve' ? 'group' : 'img'}" aria-label="${esc(title)}">${cols}</div></div>`;
@@ -154,9 +155,9 @@ export function createTest({ statsRoot, handRoot, idx, store, ui }) {
     const domColor = (dname) => (DOMAIN_CLASS[dname] ? `var(--${DOMAIN_CLASS[dname]})` : 'var(--text-3)');
     const bandColor = { under: 'var(--red)', on: 'var(--text-2)', above: 'var(--green)', far: 'var(--green)' };
     $('[data-charts]').innerHTML = [
-      bars('Energy curve', energy, [0, 1, 2, 3, 4, 5, 6, 7], domColor, (k) => (k === 7 ? '7+' : String(k))),
+      bars('Energy curve', energy, [0, 1, 2, 3, 4, 5, 6, 7], domColor, (k) => (k === 7 ? '7+' : String(k)), (k) => `${energyGlyph(k)}${k === 7 ? '+' : ''}`),
       bars('Power', power, [0, 1, 2, 3], domColor, (k) => (k === 3 ? '3+' : String(k))),
-      bars('Types', type, ['Unit', 'Spell', 'Gear'], domColor, (k) => k),
+      bars('Types', type, ['Unit', 'Spell', 'Gear'], domColor, (k) => k, (k) => `${typeGlyph(k)}${esc(k)}`),
       bars('Value in this deck', Object.fromEntries(Object.entries(value).map(([k, v]) => [k, { [k]: v.cards }])), ['under', 'on', 'above', 'far'], (p) => bandColor[p], (k) => ({ under: '<0.86', on: 'par', above: '>1.17', far: '1.5+' }[k])),
     ].join('');
 
