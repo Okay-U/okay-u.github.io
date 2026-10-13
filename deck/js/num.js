@@ -29,11 +29,12 @@ export const band = (v) => (v === null || v === undefined || !isFinite(v) ? 'non
 
 /**
  * Value bar HTML: a track with a centre par line at 1.00. Above par the fill grows right from the centre, below par it
- * grows left; a full half is a 1.00 swing. Values inside the normal band (0.86-1.17) draw softer.
+ * grows left, on a ratio scale: a full half is three times par (3.00) or a third of it (0.33). Values inside the
+ * normal band (0.86-1.17) draw softer.
  */
 export function valueBar(v) {
   if (v === null || v === undefined || !isFinite(v)) return '<span class="vbar none" aria-hidden="true"><i></i></span>';
-  const d = Math.max(-1, Math.min(1, v - 1));
+  const d = v > 0 ? Math.max(-1, Math.min(1, Math.log(v) / Math.log(3))) : -1;
   const w = Math.max(Math.abs(d) * 50, Math.abs(d) > 0.005 ? 2 : 0);
   const side = d >= 0 ? 'up' : 'down';
   const soft = v >= 0.86 && v <= 1.17 ? ' soft' : '';

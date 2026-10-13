@@ -52,7 +52,7 @@ export function createMenu() {
     if (e.key === 'ArrowUp') { e.preventDefault(); items[(i - 1 + items.length) % items.length]?.focus(); }
     if (e.key === 'Tab') close(true);
   });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(true); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !el.hidden) { e.preventDefault(); close(true); } });
   document.addEventListener('pointerdown', (e) => { if (!el.contains(e.target)) close(); });
   addEventListener('scroll', () => close(), true);
   addEventListener('resize', () => close());

@@ -124,14 +124,11 @@ export function createTest({ statsRoot, handRoot, idx, store, ui }) {
   function bars(title, groups, keys, colorOf, labelOf) {
     const total = (k) => Object.values(groups[k] || {}).reduce((a, b) => a + b, 0);
     const max = Math.max(4, ...keys.map(total));
-    let delay = 0;
-    const cols = keys.map((k) => {
-      const cells = [];
-      for (const [part, n] of Object.entries(groups[k] || {})) for (let i = 0; i < n; i++) {
-        cells.push(`<i style="background:${colorOf(part)};animation-delay:${Math.min(delay, 520)}ms" title="${esc(labelOf(k))}: ${esc(part)}"></i>`);
-        delay += 14;
-      }
-      return `<div class="col"${title === 'Energy curve' ? ` data-e="${k}" role="button" tabindex="0" aria-label="Show the ${total(k)} cards at ${esc(labelOf(k))} energy"` : ''}><b>${total(k) || ''}</b><div class="stack" style="--max:${max}">${cells.join('')}</div><span>${esc(labelOf(k))}</span></div>`;
+    const cols = keys.map((k, i) => {
+      // one solid segment per domain (or band), sized by its share of the tallest column
+      const parts = Object.entries(groups[k] || {}).map(([part, n]) =>
+        `<i style="height:${(n / max * 100).toFixed(2)}%;background:${colorOf(part)};animation-delay:${i * 40}ms" title="${esc(title)} ${esc(labelOf(k))}: ${n}${part === String(k) ? '' : ` ${esc(part)}`}"></i>`);
+      return `<div class="col"${title === 'Energy curve' ? ` data-e="${k}" role="button" tabindex="0" aria-label="Show the ${total(k)} cards at ${esc(labelOf(k))} energy"` : ''}><b>${total(k) || ''}</b><div class="stack">${parts.join('')}</div><span>${esc(labelOf(k))}</span></div>`;
     }).join('');
     // the energy curve's bars are buttons, so it is a group rather than an image
     return `<div class="chart"><h4>${title}</h4><div class="bars" role="${title === 'Energy curve' ? 'group' : 'img'}" aria-label="${esc(title)}">${cols}</div></div>`;

@@ -41,7 +41,7 @@ export function createLayout({ floor, sizeMount }) {
   bar.tabIndex = 0;
   floor.appendChild(bar);
 
-  const boardWidth = () => floor.querySelector('.board').getBoundingClientRect().width;
+  const boardWidth = () => floor.querySelector('.deck').getBoundingClientRect().width;
   bar.addEventListener('pointerdown', (e) => {
     if (e.button !== 0) return;
     e.preventDefault();

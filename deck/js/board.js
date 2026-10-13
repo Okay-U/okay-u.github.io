@@ -44,16 +44,15 @@ export function createBoard({ root, idx, store, ui }) {
   const menu = createMenu();
   /** Menu items for a card in a zone; moves carry every copy. */
   function rowItems(id, zone) {
-    const n = zone === 'champion' ? 1 : store.getDeck()[zone]?.[id] || 0;
+    const n = store.getDeck()[zone]?.[id] || 0;
     const badge = n > 1 ? `×${n}` : '';
-    const add = { label: zone === 'champion' ? 'Add a copy' : 'Add one', run: () => ui.addCard(id, zone === 'champion' ? 'main' : zone) };
-    const dec = { label: zone === 'champion' ? 'Remove a copy' : zone === 'bf' ? 'Remove' : 'Remove one', run: () => ui.removeCard(id, zone) };
+    const add = { label: 'Add one', run: () => ui.addCard(id, zone) };
+    const dec = { label: zone === 'bf' ? 'Remove' : 'Remove one', run: () => ui.removeCard(id, zone) };
     const to = (z, label) => ({ label, badge, run: () => ui.moveCard(id, zone, z) });
     const info = { label: 'Card details', run: () => ui.openCard(id) };
     const partners = { label: 'Show partners', run: () => ui.showPartners(id) };
     return {
       main: [add, dec, null, to('side', 'Move to sideboard'), to('bench', 'Move to bench'), null, info, partners],
-      champion: [add, dec, null, info, partners],
       side: [add, dec, null, to('main', 'Move to main deck'), to('bench', 'Move to bench'), null, info],
       bench: [add, dec, null, to('main', 'Move to main deck'), to('side', 'Move to sideboard'), null, info, partners],
       bf: [dec, info],
@@ -65,13 +64,13 @@ export function createBoard({ root, idx, store, ui }) {
     menu.open(rowItems(el.dataset.id, el.dataset.zone), keyboard ? b.left + 24 : e.clientX, keyboard ? b.top + 26 : e.clientY, { focus: keyboard });
   };
   root.addEventListener('contextmenu', (e) => {
-    const r = e.target.closest('.row, .sc, .cc, .bf');
+    const r = e.target.closest('.row, .sc, .cc, .bf:not(.empty)');
     if (!r) return;
     e.preventDefault();
     openMenu(r, e, e.button !== 2);
   });
   root.addEventListener('keydown', (e) => {
-    const el = e.target.closest?.('.sc, .cc, .bf');
+    const el = e.target.closest?.('.sc, .cc, .bf:not(.empty)');
     if (el && e.target === el && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); openMenu(el, e, true); }
   });
   root.addEventListener('change', (e) => {
@@ -156,7 +155,7 @@ export function createBoard({ root, idx, store, ui }) {
     if (!row) return;
     const id = row.dataset.id;
     const zone = row.dataset.zone;
-    if (e.target.closest('[data-inc]')) { ui.addCard(id, zone === 'champion' ? 'main' : zone); return; }
+    if (e.target.closest('[data-inc]')) { ui.addCard(id, zone); return; }
     if (e.target.closest('[data-dec]')) { ui.removeCard(id, zone); return; }
     const more = e.target.closest('[data-menu]');
     if (more) { const b = more.getBoundingClientRect(); menu.open(rowItems(id, zone), b.right, b.bottom, { focus: e.detail === 0 }); return; }
@@ -184,7 +183,7 @@ export function createBoard({ root, idx, store, ui }) {
 
   /** Values for a card in a zone: main reads the analysis; sideboard and bench show what it would be worth in the main deck. */
   function valuesOf(card, zone, an) {
-    const a = ['main', 'champion'].includes(zone) ? an?.rows.find((x) => x.card.id === card.id) : (an && marginal(card, an, store.getDeck()));
+    const a = zone === 'main' ? an?.rows.find((x) => x.card.id === card.id) : (an && marginal(card, an, store.getDeck()));
     const ledger = a ? a.ledger : ['side', 'bench'].includes(zone) ? baseValue(card).ledger : null;
     return { a, ledger, inDeck: a ? a.deckAmber : null };
   }
@@ -374,12 +373,12 @@ export function createBoard({ root, idx, store, ui }) {
     root.querySelector('.qslot').hidden = !legend;
     const frag = document.createDocumentFragment();
 
-    const entries = Object.entries(deck.main).map(([id, k]) => [idx.byId.get(id), k]).filter(([c]) => c && (!champ || c.id !== champ.id));
+    const entries = Object.entries(deck.main).map(([id, k]) => [idx.byId.get(id), k]).filter(([c]) => c);
     if (legend && an && entries.length && prefs.values) frag.appendChild(valueBand(deck, an));
 
     const mainSec = section('main', ZONE_TITLE.main, legend ? `${n.main}/${LIMITS.main}` : '', { target: legend ? 'main' : null });
     if (!legend) mainSec.insertAdjacentHTML('beforeend', '<p class="hint">Pick a legend first; the gallery then shows the cards it can play.</p>');
-    else if (!entries.length) mainSec.insertAdjacentHTML('beforeend', `<p class="hint">${champ ? 'Add' : '<button class="link" type="button" data-pick="champion">Choose the chosen champion</button>, then add'} cards from the gallery or type a name above. A click adds a copy, Shift adds three.</p>`);
+    else if (!entries.length) mainSec.insertAdjacentHTML('beforeend', `<p class="hint">${champ ? 'Add' : '<button class="link" type="button" data-pick="champion">Choose the chosen champion</button>, then add'} cards from the gallery or type a name above. A click adds a copy, Shift adds three, right click or long press shows more.</p>`);
     else {
       mainSec.appendChild(viewBar());
       const groups = groupEntries(entries, prefs, (c) => an?.rows.find((r) => r.card.id === c.id)?.deckAmber ?? null);

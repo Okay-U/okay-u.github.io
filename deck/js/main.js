@@ -61,6 +61,9 @@ function setTab(next, { focus = false } = {}) {
 function setSheet(open) {
   document.body.classList.toggle('sheet-open', open);
   $('#peek').setAttribute('aria-expanded', String(open));
+  // a closed sheet sits off screen: keep its controls out of the tab and screen reader order
+  const shut = mobile.matches && !open;
+  document.querySelectorAll('#deckpanel > .tabbar, #deckpanel > .pane').forEach((el) => { el.inert = shut; });
   if (open) $('#deckpanel').scrollTo({ top: 0 });
 }
 const sheetOpen = () => document.body.classList.contains('sheet-open');
@@ -225,19 +228,28 @@ async function boot() {
   });
   // phone bottom sheet: tap the peek bar, or drag it up or down
   const peek = $('#peek');
-  let drag = null;
-  peek.addEventListener('pointerdown', (e) => { if (mobile.matches) drag = { y: e.clientY, moved: false }; });
+  let drag = null, dragged = false;
+  peek.addEventListener('pointerdown', (e) => { dragged = false; if (mobile.matches) drag = { y: e.clientY, moved: false }; });
   peek.addEventListener('pointermove', (e) => { if (drag && Math.abs(e.clientY - drag.y) > 8) drag.moved = true; });
   peek.addEventListener('pointerup', (e) => {
     if (!drag) return;
     const dy = e.clientY - drag.y;
-    const moved = drag.moved;
+    dragged = drag.moved;
     drag = null;
-    if (moved && Math.abs(dy) > 30) setSheet(dy < 0);
+    if (dragged && Math.abs(dy) > 30) setSheet(dy < 0);
   });
-  peek.addEventListener('click', () => { if (mobile.matches) setSheet(!sheetOpen()); });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && sheetOpen() && !$('#sheet').open) setSheet(false); });
-  mobile.addEventListener('change', () => { if (!mobile.matches) setSheet(false); });
+  // a mouse drag ends in a click on the bar, which must not toggle the sheet straight back
+  peek.addEventListener('click', (e) => {
+    const skip = dragged && e.detail !== 0;
+    dragged = false;
+    if (!skip && mobile.matches) setSheet(!sheetOpen());
+  });
+  // Escape closes an open menu first (menu.js), the sheet only after that
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && sheetOpen() && !$('#sheet').open && !e.defaultPrevented && !document.querySelector('.rmenu:not([hidden])')) setSheet(false);
+  });
+  mobile.addEventListener('change', () => setSheet(false));
+  setSheet(false);
 
   let tName;
   $('#deck-name').addEventListener('input', (e) => {

@@ -27,7 +27,7 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
   filtersEl.innerHTML = `
     <div class="trow">
       <label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input type="search" placeholder="Search name, text, keyword" aria-label="Search cards" autocomplete="off"><kbd aria-hidden="true">/</kbd></label>
+        <input type="search" placeholder="Search name, text, keyword" aria-label="Search cards" autocomplete="off"><span class="count"></span><kbd aria-hidden="true">/</kbd></label>
       <div class="segc zones" role="group" aria-label="Card types">${ZONES.map(([k, l]) => `<button type="button" data-zone="${k}" aria-pressed="false">${l}<b></b></button>`).join('')}</div>
       <button class="btn tray-toggle" type="button" data-tray aria-expanded="false" aria-controls="filters-row">Filters</button>
     </div>
@@ -46,7 +46,7 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
       <select class="sel" data-f="lens" aria-label="Value shown on cards">${opts(LENS, st.lens, (l) => `Value: ${l}`)}</select>
       <select class="sel" data-f="target" aria-label="Clicks add to">${opts(TARGETS, st.target, (l) => `Add to: ${l}`)}</select>
     </div>
-    <div class="trow active" id="active-line"></div>`;
+    <div class="trow active" id="active-line" hidden></div>`;
   const $ = (s) => filtersEl.querySelector(s);
   const search = $('.search input');
   let tSearch;
@@ -102,10 +102,13 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     });
   }
 
+  // energy filters champions and main deck cards, type only main deck cards; elsewhere both sit out
+  const costOn = () => st.cost !== null && ['main', 'champion'].includes(st.zone);
+  const typeOn = () => !!st.type && st.zone === 'main';
   function matches(c) {
     if (st.doms.size && !c.domains.some((d) => st.doms.has(d))) return false;
-    if (st.cost !== null && (st.cost === 7 ? c.E < 7 : c.E !== st.cost)) return false;
-    if (st.type && c.type !== st.type) return false;
+    if (costOn() && (st.cost === 7 ? c.E < 7 : c.E !== st.cost)) return false;
+    if (typeOn() && c.type !== st.type) return false;
     if (st.set && c.set !== st.set) return false;
     if (st.rarity && c.rarity !== st.rarity) return false;
     if (st.mine && !countIn(store.getDeck(), c)) return false;
@@ -221,20 +224,24 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
       b.hidden = !!narrow && !legend.domains.includes(b.dataset.dom);
     });
     filtersEl.querySelectorAll('[data-cost]').forEach((b) => b.setAttribute('aria-pressed', String(st.cost === +b.dataset.cost)));
+    $('.costs').hidden = !['main', 'champion'].includes(st.zone);
+    $('[data-f="type"]').hidden = st.zone !== 'main';
     $('[data-mine]').setAttribute('aria-pressed', String(st.mine));
     const chips = [
       ...[...st.doms].map((d) => [`dom:${d}`, d]),
-      st.cost !== null ? ['cost', `${st.cost === 7 ? '7+' : st.cost} energy`] : null,
-      st.type ? ['type', st.type] : null, st.set ? ['set', SETS[st.set] || st.set] : null, st.rarity ? ['rarity', st.rarity] : null,
+      costOn() ? ['cost', `${st.cost === 7 ? '7+' : st.cost} energy`] : null,
+      typeOn() ? ['type', st.type] : null, st.set ? ['set', SETS[st.set] || st.set] : null, st.rarity ? ['rarity', st.rarity] : null,
       st.mine ? ['mine', 'In deck only'] : null, st.q ? ['q', `“${st.q}”`] : null,
       st.partner ? ['partner', `Partners of ${idx.byId.get(st.partner)?.name || ''}`] : null,
     ].filter(Boolean);
-    const help = { legend: 'Pick the legend that leads the deck.', champion: 'Pick the chosen champion.',
-      main: `Click adds a copy${st.target === 'main' ? '' : ` to the ${st.target === 'side' ? 'sideboard' : 'bench'}`}, Shift adds three. Right click or long press for more.`,
-      bf: 'Pick three different battlefields.', runes: 'Click adds a rune; at twelve it trades one from the other domain.' }[st.zone];
-    $('#active-line').innerHTML = `${chips.map(([k, l]) => `<button class="fchip" type="button" data-clear="${esc(k)}" aria-label="Remove filter ${esc(l)}">${esc(l)}<span aria-hidden="true">×</span></button>`).join('')}
+    // the deck panel and the intro already explain the other zones; the rune trade needs a word here
+    const help = st.zone === 'runes' ? 'Click adds a rune; at twelve it trades one from the other domain.' : '';
+    const line = $('#active-line');
+    line.hidden = !chips.length && !help;
+    line.innerHTML = `${chips.map(([k, l]) => `<button class="fchip" type="button" data-clear="${esc(k)}" aria-label="Remove filter ${esc(l)}">${esc(l)}<span aria-hidden="true">×</span></button>`).join('')}
       ${chips.length > 1 ? '<button class="link" type="button" data-clear="all">Clear all</button>' : ''}
-      <span class="count"><b>${shown}</b> cards</span><span class="help">${esc(help)}</span>`;
+      ${help ? `<span class="help">${esc(help)}</span>` : ''}`;
+    $('.search .count').innerHTML = `<b>${shown}</b> cards`;
   }
 
   function intro() {
@@ -242,7 +249,7 @@ export function createGallery({ root, filtersEl, idx, store, ui }) {
     el.className = 'intro';
     el.innerHTML = `<h2>Build a Riftbound deck and see what every card is worth in it.</h2>
       <p>Each card carries Riot's own price for what it does, 1.00 is par. Put cards together and the deck panel shows what they are worth in this list.</p>
-      <ol><li><b>Pick a legend</b> below; it sets your two domains.</li><li><b>Choose the champion and add cards.</b> Click adds a copy, Shift adds three, or type names in the deck panel.</li><li><b>Run the coach</b> for buys, cuts and combos.</li></ol>
+      <ol><li><b>Pick a legend</b> below; it sets your two domains.</li><li><b>Choose the champion and add cards.</b> Click adds a copy, Shift adds three, right click shows more, or type names in the deck panel.</li><li><b>Run the coach</b> for buys, cuts and combos.</li></ol>
       <p class="intro-cta"><button class="btn" type="button" data-intro-import>Import a deck code or list</button> <a href="/amber/">How the ledger prices cards</a></p>`;
     el.querySelector('[data-intro-import]').addEventListener('click', () => ui.importList());
     return el;
