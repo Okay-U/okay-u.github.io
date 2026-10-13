@@ -2,9 +2,9 @@
 "version":1,
 "source":"https://playriftbound.com/en-us/card-gallery/",
 "disclaimer":"Card data and images (c) Riot Games, used under the Riftbound Digital Tools Policy. Not affiliated with Riot Games.",
-"total":1380,
+"total":1381,
 "page":1,
-"size":1380,
+"size":1381,
 "sets":[
 {
 "set_id":"OGN",
@@ -33220,6 +33220,55 @@
 "unreleased":false
 },
 {
+"id":"unl-022-219",
+"name":"Jhin - Murderous Artist",
+"riftbound_id":"unl-022-219",
+"public_code":"UNL-022/219",
+"collector_number":22,
+"attributes":{
+"energy":4,
+"might":4,
+"power":1,
+"might_bonus":null
+},
+"classification":{
+"type":"Unit",
+"supertype":"Champion",
+"rarity":"Rare",
+"domain":[
+"Fury"
+]
+},
+"text":{
+"rich":"<p>[Deflect] (Opponents must pay :rb_rune_rainbow: to choose me with a spell or ability.)<br />[Ganking] (I can move from battlefield to battlefield.)<br />When I move, [Add] :rb_energy_1::rb_rune_rainbow:. (Abilities that add resources can't be reacted to.)</p>",
+"plain":"[Deflect] (Opponents must pay Any Rune to choose me with a spell or ability.)\n[Ganking] (I can move from battlefield to battlefield.)\nWhen I move, [Add] 1 Energy + Any Rune. (Abilities that add resources can't be reacted to.)",
+"flavour":"“And now, the curtain rises.”"
+},
+"set":{
+"set_id":"UNL",
+"label":"Unleashed"
+},
+"media":{
+"image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/8da724a842cf61cb24c3c02dd99adc93a9222e06-744x1039.png?accountingTag=RB",
+"artist":"Alessandro Poli",
+"accessibility_text":"Riftbound Unit: Jhin, Murderous Artist. [Deflect] (Opponents must pay [A] to choose me with a spell or ability.)\n[Ganking] (I can move from battlefield to battlefield.)\nWhen I move, [Add] [1][A]. (Abilities that add resources can't be reacted to.)"
+},
+"tags":[
+"Jhin",
+"Ionia"
+],
+"orientation":"portrait",
+"metadata":{
+"clean_name":"Jhin Murderous Artist",
+"updated_on":"2026-10-13T12:45:09Z",
+"alternate_art":false,
+"overnumbered":false,
+"signature":false
+},
+"new":false,
+"unreleased":false
+},
+{
 "id":"unl-022a-219",
 "name":"Jhin - Murderous Artist (Alternate Art)",
 "riftbound_id":"unl-022a-219",
@@ -58120,12 +58169,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Rally for War",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-13T12:45:09Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -58537,12 +58586,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Drakehound Packmaster",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-13T12:45:09Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -58730,12 +58779,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ekko Revolutionary",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-13T12:45:09Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -58779,12 +58828,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ekko Revolutionary Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-13T12:45:09Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -59107,12 +59156,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ki Burst",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-13T12:45:09Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -59524,12 +59573,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ephemeral Ward",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-13T12:45:09Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -59662,12 +59711,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Riven Broken Blade",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-13T12:45:09Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -59710,12 +59759,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Riven Broken Blade Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-13T12:45:09Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -60034,12 +60083,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Mysterious Chronomancer",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-13T12:45:09Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -60406,12 +60455,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"The Empyrean",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-13T12:45:09Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -61117,12 +61166,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Skystrike Squadron",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-13T12:45:09Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -61680,12 +61729,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Staunch Survivor",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-13T12:45:09Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -62244,12 +62293,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"The Waters Wage",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-13T12:45:09Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -63192,12 +63241,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Meticulous Restorationist",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-13T12:45:09Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -63606,12 +63655,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Demacian Illuminators",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-13T12:45:09Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -64392,12 +64441,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"The Ball",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-13T12:45:09Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
