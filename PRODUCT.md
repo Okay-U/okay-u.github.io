@@ -24,13 +24,17 @@ Other Riftbound builders (Piltover Archive is the reference) show cards, curves 
 
 ## Capabilities and Constraints
 - Static GitHub Pages site: no server, no accounts, no build step required. Decks live in the visitor's browser and in shareable URLs.
-- The agent runs in the browser, deterministic, with several work styles. (inferred: no paid API dependency)
+- The agent runs in the browser, deterministic, with several work styles. An optional Claude coaching read uses the visitor's own API key, sent only to api.anthropic.com.
 - Must work on phones.
 - Must not copy Piltover Archive's code, assets or data (their terms forbid scraping); only the workflow is a reference.
 - Riot "Legal Jibber Jabber" statement and Digital Tools Policy attribution on every page; previews labelled.
 
 ## Brand Commitments
-- Name: Riftcount. Owner brief for the deckbuilder: fancy, modern, smooth animations; must not look AI-made; no rounded-rectangle cards and no neon border highlighting.
+- Name: Riftcount. Must not look AI-made.
+- Deckbuilder look (owner, 2026-10-12, replacing the split-flap board): parity with the Riftcount iOS app. Dark, true black ground, the app's system green as the one accent, red only below par and for errors, subtle 6px corners, no neon borders or glows.
+- Legibility first: normal-case system UI type, 14-15px body, tabular numbers; no split-flap cells, no condensed all-caps.
+- Roomy, not cramped: two panes (gallery, deck panel with tabs), cleaner and easier than Piltover Archive's builder without copying it.
+- No enlarged card image on hover.
 
 ## Evidence on Hand
 - Real card data and art (Riot), ledger values for 931 cards with calculations, synergy tags generated for this project.
