@@ -20825,55 +20825,6 @@
 "unreleased":false
 },
 {
-"id":"sfd-054-221",
-"name":"Jax - Unmatched",
-"riftbound_id":"sfd-054-221",
-"public_code":"SFD-054/221",
-"collector_number":54,
-"attributes":{
-"energy":5,
-"might":5,
-"power":1,
-"might_bonus":null
-},
-"classification":{
-"type":"Unit",
-"supertype":"Champion",
-"rarity":"Rare",
-"domain":[
-"Calm"
-]
-},
-"text":{
-"rich":"<p>[Deflect] (Opponents must pay :rb_rune_rainbow: to choose me with a spell or ability.)<br />Each Equipment in your hand has [Quick-Draw]. (It gains [Reaction]. When you play it, attach it to a unit you control.)</p>",
-"plain":"[Deflect] (Opponents must pay Any Rune to choose me with a spell or ability.)\nEach Equipment in your hand has [Quick-Draw]. (It gains [Reaction]. When you play it, attach it to a unit you control.)",
-"flavour":"“Fighting words! My favorite kind.”"
-},
-"set":{
-"set_id":"SFD",
-"label":"Spiritforged"
-},
-"media":{
-"image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/3d425589c74dbff818fa09db134fdd8bb7136420-744x1039.png?accountingTag=RB",
-"artist":"Envar Studio",
-"accessibility_text":"Riftbound Unit: Jax, Unmatched. [Deflect] (Opponents must pay [A] to choose me with a spell or ability.)\nEach Equipment in your hand has [Quick-Draw]. (It gains [Reaction]. When you play it, attach it to a unit you control.)"
-},
-"tags":[
-"Jax",
-"Icathia"
-],
-"orientation":"portrait",
-"metadata":{
-"clean_name":"Jax Unmatched",
-"updated_on":"2026-10-09T10:08:11Z",
-"alternate_art":false,
-"overnumbered":false,
-"signature":false
-},
-"new":false,
-"unreleased":false
-},
-{
 "id":"sfd-054a-221",
 "name":"Jax - Unmatched (Alternate Art)",
 "riftbound_id":"sfd-054a-221",
@@ -24435,6 +24386,55 @@
 "clean_name":"Jax Unrelenting",
 "updated_on":"2026-10-09T10:04:12Z",
 "alternate_art":false,
+"overnumbered":false,
+"signature":false
+},
+"new":false,
+"unreleased":false
+},
+{
+"id":"sfd-119a-221",
+"name":"Jax - Unrelenting (Alternate Art)",
+"riftbound_id":"sfd-119a-221",
+"public_code":"SFD-119a/221",
+"collector_number":119,
+"attributes":{
+"energy":4,
+"might":3,
+"power":1,
+"might_bonus":null
+},
+"classification":{
+"type":"Unit",
+"supertype":"Champion",
+"rarity":"Showcase",
+"domain":[
+"Body"
+]
+},
+"text":{
+"rich":"<p>[Weaponmaster] (When you play me, you may [Equip] one of your Equipment to me for :rb_rune_rainbow: less, even if it's already attached.)<br />When you attach an Equipment to me, you may pay :rb_energy_1: to draw 1.</p>",
+"plain":"[Weaponmaster] (When you play me, you may [Equip] one of your Equipment to me for Any Rune less, even if it's already attached.)\nWhen you attach an Equipment to me, you may pay 1 Energy to draw 1.",
+"flavour":null
+},
+"set":{
+"set_id":"SFD",
+"label":"Spiritforged"
+},
+"media":{
+"image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/a5796125bdb0af8ceb60cd0c5c273c6417e0f7da-744x1039.png?accountingTag=RB",
+"artist":"League Splash Team",
+"accessibility_text":"Riftbound Unit: Jax, Unrelenting. [Weaponmaster] (When you play me, you may [Equip] one of your Equipment to me for [A] less, even if it's already attached.)\nWhen you attach an Equipment to me, you may pay [1] to draw 1."
+},
+"tags":[
+"Jax",
+"Icathia"
+],
+"orientation":"portrait",
+"metadata":{
+"clean_name":"Jax Unrelenting Alternate Art",
+"updated_on":"2026-10-15T09:59:47Z",
+"alternate_art":true,
 "overnumbered":false,
 "signature":false
 },
@@ -58210,12 +58210,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Antagonistic Apparatus",
-"updated_on":"2026-10-10T11:12:44Z",
+"updated_on":"2026-10-15T09:59:47Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -58724,12 +58724,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Mordekaiser Twice Slain",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-15T09:59:47Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -58773,12 +58773,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Mordekaiser Twice Slain Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-15T09:59:47Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -59335,12 +59335,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Sanctum Conservator",
-"updated_on":"2026-10-10T11:12:44Z",
+"updated_on":"2026-10-15T09:59:47Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -59842,12 +59842,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Hush",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-15T09:59:47Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -60502,12 +60502,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Resource Extractor",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-15T09:59:47Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -61113,12 +61113,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Scrutinizing Scope",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-15T09:59:47Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -61819,12 +61819,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Wrath of the Freljord",
-"updated_on":"2026-10-10T11:12:44Z",
+"updated_on":"2026-10-15T09:59:47Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -63132,12 +63132,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Demon Shade",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-15T09:59:47Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -63410,12 +63410,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Bushwhack Trap",
-"updated_on":"2026-10-10T11:12:44Z",
+"updated_on":"2026-10-15T09:59:47Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -63653,12 +63653,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ziggs Explosive",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-15T09:59:47Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -63702,12 +63702,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ziggs Explosive Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-15T09:59:47Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -64214,12 +64214,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Party Crasher",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-15T09:59:47Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -64727,12 +64727,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Jarvan IV Royal Heir",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-15T09:59:47Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -64776,12 +64776,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Jarvan IV Royal Heir Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-15T09:59:47Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
