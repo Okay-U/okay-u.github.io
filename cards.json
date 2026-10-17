@@ -2,9 +2,9 @@
 "version":1,
 "source":"https://playriftbound.com/en-us/card-gallery/",
 "disclaimer":"Card data and images (c) Riot Games, used under the Riftbound Digital Tools Policy. Not affiliated with Riot Games.",
-"total":1407,
+"total":1408,
 "page":1,
-"size":1407,
+"size":1408,
 "sets":[
 {
 "set_id":"OGN",
@@ -9115,6 +9115,54 @@
 "metadata":{
 "clean_name":"Morbid Return",
 "updated_on":"2026-10-09T10:08:11Z",
+"alternate_art":false,
+"overnumbered":false,
+"signature":false
+},
+"new":false,
+"unreleased":false
+},
+{
+"id":"ogn-171-298",
+"name":"Mystic Poro",
+"riftbound_id":"ogn-171-298",
+"public_code":"OGN-171/298",
+"collector_number":171,
+"attributes":{
+"energy":2,
+"might":2,
+"power":null,
+"might_bonus":null
+},
+"classification":{
+"type":"Unit",
+"supertype":null,
+"rarity":"Common",
+"domain":[
+"Chaos"
+]
+},
+"text":{
+"rich":"<p>[Vision] (When you play me, look at the top card of your Main Deck. You may recycle it.)</p>",
+"plain":"[Vision] (When you play me, look at the top card of your Main Deck. You may recycle it.)",
+"flavour":"Forecast: Sunny, with a chance of snax."
+},
+"set":{
+"set_id":"OGN",
+"label":"Origins"
+},
+"media":{
+"image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/11af57d045768e886d05e1c0933b0d57cb1e459d-744x1039.png?accountingTag=RB",
+"artist":"Kudos Productions",
+"accessibility_text":"Riftbound Unit: Mystic Poro. [Vision] (When you play me, look at the top card of your Main Deck. You may recycle it.)"
+},
+"tags":[
+"Poro"
+],
+"orientation":"portrait",
+"metadata":{
+"clean_name":"Mystic Poro",
+"updated_on":"2026-10-17T09:26:12Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -58303,12 +58351,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Incorrigible Construct",
-"updated_on":"2026-10-16T09:53:37Z",
+"updated_on":"2026-10-17T09:26:12Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -58916,12 +58964,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Whirling Twirligig",
-"updated_on":"2026-10-14T10:17:06Z",
+"updated_on":"2026-10-17T09:26:12Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -59428,12 +59476,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Battle Preparations",
-"updated_on":"2026-10-14T10:17:06Z",
+"updated_on":"2026-10-17T09:26:12Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -60595,12 +60643,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Trinket Peddler",
-"updated_on":"2026-10-14T10:17:06Z",
+"updated_on":"2026-10-17T09:26:12Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -61258,12 +61306,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Spirit of the Forge",
-"updated_on":"2026-10-14T10:17:06Z",
+"updated_on":"2026-10-17T09:26:12Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -61958,12 +62006,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Bloodscent Swarm",
-"updated_on":"2026-10-14T10:17:06Z",
+"updated_on":"2026-10-17T09:26:12Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -62765,12 +62813,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Explosimian",
-"updated_on":"2026-10-16T09:53:37Z",
+"updated_on":"2026-10-17T09:26:12Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -63223,12 +63271,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Pitiless Stalker",
-"updated_on":"2026-10-16T09:53:37Z",
+"updated_on":"2026-10-17T09:26:12Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -64305,12 +64353,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Burn Away",
-"updated_on":"2026-10-14T10:17:06Z",
+"updated_on":"2026-10-17T09:26:12Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -64867,12 +64915,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Remember the Fallen",
-"updated_on":"2026-10-14T10:17:06Z",
+"updated_on":"2026-10-17T09:26:12Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
@@ -66997,12 +67045,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ekko Revolutionary Overnumbered",
-"updated_on":"2026-10-14T10:17:06Z",
+"updated_on":"2026-10-17T09:26:12Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
