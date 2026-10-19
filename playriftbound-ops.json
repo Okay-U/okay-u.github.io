@@ -1,7 +1,7 @@
 {
  "version": 1,
- "updated": "2026-10-18",
- "build": "2026-10-18",
+ "updated": "2026-10-19",
+ "build": "2026-10-19",
  "endpoint": "https://playriftbound.com/api/gql",
  "operations": {
   "GetCompeteTournamentForRiftboundPlayer": {
