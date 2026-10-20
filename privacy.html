@@ -51,29 +51,37 @@
 
   <h2>4. Events (tournaments), optional</h2>
   <p>
-    The Events features connect to the Riftbound Locator, the organized play platform operated by UVS Games. To use them
-    you sign in with your existing Riftbound Locator account:
+    The Events features connect to PlayRiftbound.com, the organized play platform operated by Riot Games. Signing in
+    happens on Riot's own pages inside an in-app browser that is limited to playriftbound.com and Riot's sign-in domains:
   </p>
   <ul>
-    <li>Your email and password are sent once, over an encrypted (HTTPS) connection, directly to the Riftbound Locator to log you in.</li>
-    <li>We never store your password. It is not saved to disk, not logged, and not retained after the login request.</li>
-    <li>When login succeeds, only an opaque session token is kept in secure storage on your device (the Keychain on iOS,
-        encrypted storage on Android) so you stay signed in. Signing out, or deleting the app, removes this token.</li>
-    <li>While signed in, the app fetches your events, pairings, standings and registrations from the Riftbound Locator to
-        display them, and sends the results you report. This information is shown live and is not stored by us.</li>
-    <li>Your Riftbound Locator account is managed by UVS Games, not by us. Their handling of your data is governed by their own privacy policy.</li>
+    <li>Your Riot ID and password are entered on Riot's pages only. Riftcount never sees, stores or logs them.</li>
+    <li>Riot's session cookies stay in the in-app browser's own storage on your device. Signing out on PlayRiftbound,
+        or deleting the app, removes them.</li>
+    <li>To show your events natively (your registrations, pairings, standings, the round clock) and to send the results
+        you report, the app sends requests to playriftbound.com on your behalf, carrying that session the same way the
+        website does. These requests go to Riot only; nothing is sent to us or to any other party. The app identifies
+        itself to Riot with its name and version.</li>
+    <li>Depending on the version, the app can also search events and stores, manage favourite stores and register for or
+        drop from events through the same mechanism, with your own session.</li>
+    <li>The data Riot returns is shown live and cached briefly on your device for display. A small diagnostic log on
+        your device records which operations the app called, when, and whether they succeeded, including Riot's error
+        messages and tournament, game and participant identifiers. It holds no cookies, headers or personal details and
+        can be viewed, shared or cleared under Settings. It never leaves the device unless you share it.</li>
+    <li>Your Riot account is managed by Riot Games, not by us. Riot's handling of your data is governed by Riot's own
+        privacy notice. Pages loaded in the in-app browser are Riot's pages and may load the third-party services Riot uses.</li>
   </ul>
   <p>
-    <strong>Upcoming change.</strong> On September 14, 2026, Riftbound organized play moves from the Riftbound Locator to
-    PlayRiftbound.com, operated by Riot Games, with Riot ID sign-in. Riftcount will update its Events features for this.
-    The intended approach is to open PlayRiftbound.com in an in-app browser, so that your Riot sign-in happens on Riot's
-    own pages and no credentials or session data pass through Riftcount. This section will be updated with that release.
+    <strong>Riftbound Locator (legacy).</strong> Until the Locator (operated by UVS Games) stops serving Riftbound
+    events, the "Old" section still offers the previous integration: your email and password are sent once over HTTPS
+    directly to the Locator, only an opaque session token is kept in secure storage, and your Locator events are shown
+    live. That section and this paragraph go away when the Locator does.
   </p>
 
   <h2>5. Player ratings (eloshowdown)</h2>
   <p>
     If you open the player profile or an opponent's rating inside the Events features, the app sends that player's public
-    Riftbound Locator player ID to eloshowdown.com to fetch publicly available community rating data, and may send a
+    Riftbound Locator player ID (legacy "Old" section only) to eloshowdown.com to fetch publicly available community rating data, and may send a
     store's coordinates to a geocoding service (see section 6) to match the store's community. No credentials or account
     data are shared. eloshowdown's handling of data is governed by its own privacy policy.
   </p>
@@ -82,7 +90,7 @@
   <p>
     When you search for stores by city, the text you type is converted into coordinates by a geocoding service: Apple's
     geocoding service on iOS, Photon by komoot (photon.komoot.io, OpenStreetMap data) on Android. Those coordinates are
-    then used to find nearby stores via the Riftbound Locator. Store coordinates may be reverse-geocoded to display a
+    then used to find nearby events and stores via PlayRiftbound (or, in the legacy section, the Riftbound Locator). Store coordinates may be reverse-geocoded to display a
     city name. Riftcount does not request access to your device's location and holds no location permission.
   </p>
 
