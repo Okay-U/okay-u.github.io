@@ -115,12 +115,15 @@ def convert(card, now):
 
     # Riftcodex-style display name: "Champion - Subtitle (Variant)". Riot names a
     # legend by its subtitle only and keeps the champion in the last tag.
+    # "Starter" is a printing label (Proving Grounds legends), not a card subtitle.
+    subtitle = card.get("subtitle")
+    starter = subtitle == "Starter"
     name = card["name"]
-    if card.get("subtitle"):
-        name += " - " + card["subtitle"]
+    if subtitle and not starter:
+        name += " - " + subtitle
     elif types == ["Legend"] and tags:
         name = tags[-1] + " - " + name
-    for flag, suffix in ((alt_art, "Alternate Art"), (signature, "Signature"), (overnumbered, "Overnumbered")):
+    for flag, suffix in ((alt_art, "Alternate Art"), (signature, "Signature"), (overnumbered, "Overnumbered"), (starter, "Starter")):
         if flag:
             name += " (" + suffix + ")"
             break
@@ -226,13 +229,21 @@ def main():
             previous = {c["id"]: c for c in json.load(f)["items"]}
     except (OSError, ValueError, KeyError):
         previous = {}
-    flavour = fetch_flavour()
+    # Refuse a gallery that lost cards: a partial page (a set missing, a truncated
+    # payload) must not replace the published catalogue.
+    if previous:
+        old_sets = {c["set"]["set_id"] for c in previous.values()}
+        new_sets = {c["set"]["set_id"] for c in cards}
+        if old_sets - new_sets:
+            sys.exit("sets disappeared from the gallery: %s" % sorted(old_sets - new_sets))
+        if len(cards) < len(previous) * 0.97:
+            sys.exit("gallery shrank from %d to %d cards" % (len(previous), len(cards)))
+
+    flavour = fetch_flavour() or {}
     for c in cards:
         old = previous.get(c["id"])
-        if flavour is not None:
-            c["text"]["flavour"] = flavour.get(base_code(c["public_code"]))
-        elif old:
-            c["text"]["flavour"] = old["text"].get("flavour")
+        # DotGG is a best-effort source: a missing entry keeps the text we had.
+        c["text"]["flavour"] = flavour.get(base_code(c["public_code"])) or (old["text"].get("flavour") if old else None)
         if old:
             probe = dict(c, metadata=dict(c["metadata"], updated_on=old["metadata"]["updated_on"]))
             if probe == old:

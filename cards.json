@@ -17599,7 +17599,7 @@
 },
 {
 "id":"ogs-017-024",
-"name":"Dark Child - Starter",
+"name":"Annie - Dark Child (Starter)",
 "riftbound_id":"ogs-017-024",
 "public_code":"OGS-017/024",
 "collector_number":17,
@@ -17637,8 +17637,8 @@
 ],
 "orientation":"portrait",
 "metadata":{
-"clean_name":"Dark Child Starter",
-"updated_on":"2026-10-09T10:04:12Z",
+"clean_name":"Annie Dark Child Starter",
+"updated_on":"2026-10-20T15:53:37Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -17697,7 +17697,7 @@
 },
 {
 "id":"ogs-019-024",
-"name":"Wuju Bladesman - Starter",
+"name":"Master Yi - Wuju Bladesman (Starter)",
 "riftbound_id":"ogs-019-024",
 "public_code":"OGS-019/024",
 "collector_number":19,
@@ -17735,8 +17735,8 @@
 ],
 "orientation":"portrait",
 "metadata":{
-"clean_name":"Wuju Bladesman Starter",
-"updated_on":"2026-10-09T10:04:12Z",
+"clean_name":"Master Yi Wuju Bladesman Starter",
+"updated_on":"2026-10-20T15:53:37Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -17795,7 +17795,7 @@
 },
 {
 "id":"ogs-021-024",
-"name":"Lady of Luminosity - Starter",
+"name":"Lux - Lady of Luminosity (Starter)",
 "riftbound_id":"ogs-021-024",
 "public_code":"OGS-021/024",
 "collector_number":21,
@@ -17833,8 +17833,8 @@
 ],
 "orientation":"portrait",
 "metadata":{
-"clean_name":"Lady of Luminosity Starter",
-"updated_on":"2026-10-09T10:04:12Z",
+"clean_name":"Lux Lady of Luminosity Starter",
+"updated_on":"2026-10-20T15:53:37Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -17893,7 +17893,7 @@
 },
 {
 "id":"ogs-023-024",
-"name":"Might of Demacia - Starter",
+"name":"Garen - Might of Demacia (Starter)",
 "riftbound_id":"ogs-023-024",
 "public_code":"OGS-023/024",
 "collector_number":23,
@@ -17931,8 +17931,8 @@
 ],
 "orientation":"portrait",
 "metadata":{
-"clean_name":"Might of Demacia Starter",
-"updated_on":"2026-10-09T10:04:12Z",
+"clean_name":"Garen Might of Demacia Starter",
+"updated_on":"2026-10-20T15:53:37Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
