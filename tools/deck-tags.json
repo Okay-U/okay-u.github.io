@@ -8082,6 +8082,57 @@
 "note": "Two ready bodies at once: 6 might of immediate pressure."
 },
 {
+"id": "RAD-010",
+"provides": [
+{
+"tag": "ready_unit",
+"n": 1.0
+},
+{
+"tag": "play_from_trash",
+"n": 0.5
+}
+],
+"wants": [
+{
+"tag": "show_off",
+"kind": "per_event",
+"value": 1.0,
+"note": "replay from trash for 1 E + 2 Fury when you play a 7+ E card: ready that big unit"
+}
+],
+"roles": [
+"combat_trick"
+],
+"practical": [],
+"staple": 0.0,
+"note": "Cheap main-phase ready; in 7+ Energy decks it returns from the trash to ready the big unit just played."
+},
+{
+"id": "RAD-011",
+"provides": [
+{
+"tag": "conquer",
+"n": 0.5
+}
+],
+"wants": [
+{
+"tag": "tribe:Mech",
+"kind": "if_any",
+"value": 2.0,
+"note": "show off a Mech to enter ready"
+}
+],
+"roles": [
+"payoff",
+"early_body"
+],
+"practical": [],
+"staple": 0.0,
+"note": "Plain 4/4 that attacks the turn it lands in a Mech deck."
+},
+{
 "id": "RAD-012",
 "provides": [
 {
@@ -8375,6 +8426,62 @@
 "note": "Resilient ready attacker; the self-blink also feeds discard payoffs."
 },
 {
+"id": "RAD-022",
+"provides": [
+{
+"tag": "gold",
+"n": 1.5
+},
+{
+"tag": "token_gear",
+"n": 1.5
+},
+{
+"tag": "token_unit",
+"n": 1.0
+},
+{
+"tag": "tribe:Mech",
+"n": 0.5
+},
+{
+"tag": "tribe:Recruit",
+"n": 0.5
+},
+{
+"tag": "sacrifice_outlet",
+"n": 1.0
+},
+{
+"tag": "friendly_death",
+"n": 1.0
+}
+],
+"wants": [
+{
+"tag": "token_unit",
+"kind": "per_event",
+"value": 1.0,
+"cap": 2,
+"note": "a 1-Might token becomes a 3 Might Mech (+2 net)"
+},
+{
+"tag": "deathknell",
+"kind": "if_any",
+"value": 1.0,
+"note": "sacrifice Deathknell units into Mechs"
+}
+],
+"roles": [
+"engine",
+"token_maker",
+"ramp"
+],
+"practical": [],
+"staple": 0.0,
+"note": "Slow colourless gear factory: Gold each turn, or converts spare gear/units into Recruits and Mechs."
+},
+{
 "id": "RAD-023",
 "provides": [
 {
@@ -8560,6 +8667,58 @@
 "practical": [],
 "staple": 0,
 "note": "Midrange body for ramp decks that re-attacks when big cards land."
+},
+{
+"id": "RAD-031",
+"provides": [
+{
+"tag": "hold",
+"n": 1.0
+},
+{
+"tag": "move_friendly",
+"n": 0.3
+},
+{
+"tag": "protection",
+"n": 0.3
+}
+],
+"wants": [],
+"roles": [
+"tank"
+],
+"practical": [],
+"staple": 0.0,
+"note": "5-Might defender for 4; the move-to-base clause needs a play-to-battlefield effect."
+},
+{
+"id": "RAD-032",
+"provides": [
+{
+"tag": "might_up",
+"n": 2.0
+},
+{
+"tag": "ready_rune",
+"n": 0.5
+}
+],
+"wants": [
+{
+"tag": "gear",
+"kind": "if_any",
+"value": 2.0,
+"note": "show off a gear to ready 2 runes (refunds the spell)"
+}
+],
+"roles": [
+"combat_trick",
+"ramp"
+],
+"practical": [],
+"staple": 0.0,
+"note": "Reaction +2 that is free in gear decks by readying two runes."
 },
 {
 "id": "RAD-033",
@@ -8808,6 +8967,35 @@
 "note": "Counter for big spells; dead against cheap spells."
 },
 {
+"id": "RAD-042",
+"provides": [
+{
+"tag": "hold",
+"n": 1.0
+}
+],
+"wants": [
+{
+"tag": "gear",
+"kind": "if_any",
+"value": 1.5,
+"note": "deals combat damage only with a friendly gear here (equipment on her counts)"
+}
+],
+"roles": [
+"tank",
+"payoff"
+],
+"practical": [
+{
+"label": "deals no combat damage without a friendly gear here (drawback unpriced): a wall that kills nothing",
+"value": -1.5
+}
+],
+"staple": 0.0,
+"note": "Cheap 4/5 defender; needs equipment or a Deploy gear beside her to actually kill anything."
+},
+{
 "id": "RAD-043",
 "provides": [
 {
@@ -8849,6 +9037,31 @@
 ],
 "staple": 0,
 "note": "Strong 4-drop that buffs, stuns or readies itself every time it exhausts."
+},
+{
+"id": "RAD-044",
+"provides": [
+{
+"tag": "move_enemy",
+"n": 1.0
+},
+{
+"tag": "hold",
+"n": 1.0
+},
+{
+"tag": "protection",
+"n": 0.5
+}
+],
+"wants": [],
+"roles": [
+"interaction",
+"protection"
+],
+"practical": [],
+"staple": 0.0,
+"note": "Deploy gear that pulls an enemy into a Shield 2 fortress; lost when the opponent holds there."
 },
 {
 "id": "RAD-045",
@@ -9061,6 +9274,66 @@
 "practical": [],
 "staple": 0,
 "note": "Cheap Deploy gear for a battlefield you already hold; turns each held turn into a Gold token."
+},
+{
+"id": "RAD-053",
+"provides": [
+{
+"tag": "vision",
+"n": 1.0
+},
+{
+"tag": "recycle",
+"n": 0.5
+}
+],
+"wants": [
+{
+"tag": "exhaust_friendly",
+"kind": "per_event",
+"value": 0.4,
+"note": "each extra exhaust is another Predict"
+},
+{
+"tag": "ready_unit",
+"kind": "per_event",
+"value": 0.4,
+"note": "readying it enables another exhaust and Predict"
+}
+],
+"roles": [
+"early_body",
+"tutor/selection"
+],
+"practical": [
+{
+"label": "Predict on its natural moves and attacks (~1.5 triggers per game, ledger books 0)",
+"value": 0.6
+}
+],
+"staple": 0.0,
+"note": "2-drop that filters the top card each time it moves or attacks."
+},
+{
+"id": "RAD-054",
+"provides": [
+{
+"tag": "conquer",
+"n": 1.0
+}
+],
+"wants": [],
+"roles": [
+"early_body"
+],
+"practical": [
+{
+"label": "Disarm on its natural attacks (~0.9 triggers with a target, ledger books 0)",
+"value": 0.9
+}
+],
+"staple": 0.0,
+"note": "Vanilla-rate 3-drop that shrinks a defender when it attacks."
 },
 {
 "id": "RAD-055",
@@ -9303,6 +9576,58 @@
 ],
 "staple": 0,
 "note": "Preview labelled spell but is a reusable gear; slow card-advantage engine for balanced decks."
+},
+{
+"id": "RAD-065",
+"provides": [
+{
+"tag": "conquer",
+"n": 1.0
+},
+{
+"tag": "draw",
+"n": 0.5
+}
+],
+"wants": [
+{
+"tag": "wide",
+"kind": "if_any",
+"value": 1.0,
+"note": "draw once per turn when 3+ friendly units exhaust together (group move or attack)"
+}
+],
+"roles": [
+"payoff",
+"draw"
+],
+"practical": [],
+"staple": 0.0,
+"note": "Disarm 2 attacker that draws in go-wide decks moving three units at once."
+},
+{
+"id": "RAD-066",
+"provides": [
+{
+"tag": "conquer",
+"n": 0.5
+}
+],
+"wants": [
+{
+"tag": "gear",
+"kind": "if_any",
+"value": 2.5,
+"note": "return a gear (re-buy its on-play) to enter ready with +Might equal to its Energy cost"
+}
+],
+"roles": [
+"finisher",
+"payoff"
+],
+"practical": [],
+"staple": 0.0,
+"note": "Overcosted 4/4 unless a gear is bounced; then it attacks at once and the gear is replayed."
 },
 {
 "id": "RAD-067",
@@ -9567,6 +9892,43 @@
 "note": "Ready 7-might top-end that attacks immediately and holds with Shield 3."
 },
 {
+"id": "RAD-078",
+"provides": [
+{
+"tag": "hold",
+"n": 1.0
+},
+{
+"tag": "removal",
+"n": 0.7
+},
+{
+"tag": "enemy_death",
+"n": 0.7
+}
+],
+"wants": [
+{
+"tag": "move_friendly",
+"kind": "per_event",
+"value": 2.0,
+"note": "each extra move deals 3 (its Shield) to a unit at a battlefield"
+}
+],
+"roles": [
+"tank",
+"removal"
+],
+"practical": [
+{
+"label": "deals 3 on its natural moves (~1 trigger per game, ledger books 0)",
+"value": 3.0
+}
+],
+"staple": 0.0,
+"note": "7-Might Tank defender that shoots a unit for 3 whenever it moves."
+},
+{
 "id": "RAD-079",
 "provides": [
 {
@@ -9594,6 +9956,36 @@
 ],
 "staple": 0,
 "note": "Pricey base sweeper; caster controls timing so it is less symmetric than it reads."
+},
+{
+"id": "RAD-080",
+"provides": [
+{
+"tag": "conquer",
+"n": 1.0
+}
+],
+"wants": [
+{
+"tag": "conquer",
+"kind": "cost_reduction",
+"value": 2.0,
+"cap": 4,
+"note": "2 E less per battlefield conquered this turn"
+}
+],
+"roles": [
+"finisher",
+"payoff"
+],
+"practical": [
+{
+"label": "cast after one conquer in an attacking turn (~50% x 2 E off), ledger counts full 12 C",
+"value": 1.0
+}
+],
+"staple": 0.0,
+"note": "8/8 top-end that aggro decks cast cheaply after conquering."
 },
 {
 "id": "RAD-081",
@@ -9910,6 +10302,35 @@
 "note": "Deploy-deck champion: instant-speed Deploy gear and ramp on conquer."
 },
 {
+"id": "RAD-092",
+"provides": [
+{
+"tag": "channel_rune",
+"n": 1.5
+}
+],
+"wants": [
+{
+"tag": "channel_rune",
+"kind": "per_event",
+"value": 2.0,
+"note": "each extra channel effect adds another exhausted rune"
+}
+],
+"roles": [
+"finisher",
+"ramp"
+],
+"practical": [
+{
+"label": "+1 exhausted rune in each Channel Phase it survives (~1.5 triggers per game, ledger books 0.5)",
+"value": 3.0
+}
+],
+"staple": 0.0,
+"note": "7/7 that ramps every turn through the normal Channel Phase."
+},
+{
 "id": "RAD-093",
 "provides": [
 {
@@ -9929,6 +10350,38 @@
 ],
 "staple": 0,
 "note": "Aggressive attacker whose Disarm 2 wins most early fights."
+},
+{
+"id": "RAD-094",
+"provides": [
+{
+"tag": "token_gear",
+"n": 1.5
+},
+{
+"tag": "tribe:Bomb",
+"n": 1.5
+},
+{
+"tag": "enemy_death",
+"n": 0.7
+}
+],
+"wants": [
+{
+"tag": "hold",
+"kind": "per_event",
+"value": 3.0,
+"note": "three Bombs per hold"
+}
+],
+"roles": [
+"finisher",
+"token_maker"
+],
+"practical": [],
+"staple": 0.0,
+"note": "6/6 that seeds a battlefield with three Bombs every time it holds."
 },
 {
 "id": "RAD-095",
@@ -10120,6 +10573,58 @@
 ],
 "staple": 0,
 "note": "Face-down repositioning trick; low raw value."
+},
+{
+"id": "RAD-103",
+"provides": [
+{
+"tag": "energy_gain",
+"n": 0.5
+}
+],
+"wants": [
+{
+"tag": "hidden",
+"kind": "if_any",
+"value": 2.0,
+"note": "show off another Hidden card to add a rune on play"
+}
+],
+"roles": [
+"early_body",
+"ramp"
+],
+"practical": [],
+"staple": 0.0,
+"note": "Hidden 3-drop that ramps a rune in Hidden decks."
+},
+{
+"id": "RAD-104",
+"provides": [
+{
+"tag": "stun",
+"n": 1.5
+},
+{
+"tag": "hold",
+"n": 0.5
+}
+],
+"wants": [
+{
+"tag": "ready_unit",
+"kind": "per_event",
+"value": 2.0,
+"note": "each extra ready = another stun"
+}
+],
+"roles": [
+"interaction",
+"finisher"
+],
+"practical": [],
+"staple": 0.0,
+"note": "Colourless 5/5 that stuns an enemy unit each turn instead of attacking."
 },
 {
 "id": "RAD-105",
@@ -10346,6 +10851,36 @@
 ],
 "staple": 0,
 "note": "Self-contained Bomb engine that defends well."
+},
+{
+"id": "RAD-113",
+"provides": [
+{
+"tag": "move_enemy",
+"n": 0.5
+},
+{
+"tag": "hold",
+"n": 1.0
+}
+],
+"wants": [],
+"roles": [
+"finisher",
+"interaction"
+],
+"practical": [
+{
+"label": "Deflect taxes enemy targeting by a rune (priced 0)",
+"value": 0.5
+},
+{
+"label": "exhaust: opponent moves a unit of their choice into the 8/8 (~1.5 uses x ~0.7, unpriced)",
+"value": 1.0
+}
+],
+"staple": 0.0,
+"note": "8/8 Deflect top-end that drags enemy units into its battlefield."
 },
 {
 "id": "RAD-114",
@@ -10590,6 +11125,65 @@
 "practical": [],
 "staple": 0,
 "note": "Tank that is playable only after attacking with several units."
+},
+{
+"id": "RAD-123",
+"provides": [
+{
+"tag": "might_up",
+"n": 1.0
+},
+{
+"tag": "hold",
+"n": 0.5
+},
+{
+"tag": "protection",
+"n": 0.5
+}
+],
+"wants": [],
+"roles": [
+"combat_trick",
+"tank"
+],
+"practical": [
+{
+"label": "Tank on the carrier soaks combat damage first and shields key allies (Tank priced 0)",
+"value": 0.5
+}
+],
+"staple": 0.0,
+"note": "Reaction +1 equipment that turns its carrier into a Tank."
+},
+{
+"id": "RAD-124",
+"provides": [
+{
+"tag": "removal",
+"n": 1.0
+},
+{
+"tag": "enemy_death",
+"n": 0.5
+},
+{
+"tag": "gear_removal",
+"n": 0.6
+},
+{
+"tag": "trash_fill",
+"n": 1.0
+}
+],
+"wants": [],
+"roles": [
+"removal",
+"interaction"
+],
+"practical": [],
+"staple": 0.0,
+"note": "Flexible answer to a small unit or any gear; Burn 2 feeds trash decks."
 },
 {
 "id": "RAD-125",
@@ -10842,6 +11436,83 @@
 "practical": [],
 "staple": 0,
 "note": "Top-end Tank that drags an ally into each attack."
+},
+{
+"id": "RAD-134",
+"provides": [
+{
+"tag": "ready_unit",
+"n": 2.0
+},
+{
+"tag": "might_up",
+"n": 3.0
+},
+{
+"tag": "conquer",
+"n": 1.0
+}
+],
+"wants": [
+{
+"tag": "wide",
+"kind": "per_count",
+"value": 1.5,
+"cap": 3,
+"note": "each extra friendly unit gets a ready and +3 Might"
+}
+],
+"roles": [
+"finisher",
+"combat_trick"
+],
+"practical": [
+{
+"label": "ready all units (~2 exhausted x 2) and +3 Might to ~3 units (x0.5/pt), unpriced",
+"value": 8.5
+}
+],
+"staple": 0.0,
+"note": "Wide-board finisher: a second attack with every unit, each 3 bigger."
+},
+{
+"id": "RAD-135",
+"provides": [
+{
+"tag": "play_from_trash",
+"n": 2.0
+},
+{
+"tag": "wide",
+"n": 1.0
+}
+],
+"wants": [
+{
+"tag": "friendly_death",
+"kind": "if_any",
+"value": 2.0,
+"note": "cheap units/gear already in the trash are the free targets"
+},
+{
+"tag": "trash_fill",
+"kind": "if_any",
+"value": 1.0,
+"note": "self-mill and discard put cheap targets in the trash"
+}
+],
+"roles": [
+"finisher",
+"payoff"
+],
+"practical": [
+{
+"label": "play ~2.5 cheap units/gear (~2.5 C each) from the trash free (unpriced)",
+"value": 6.0
+}
+],
+"staple": 0.0,
+"note": "Late-game reload of up to three cheap permanents; poor without a stocked trash."
 },
 {
 "id": "RAD-136",
