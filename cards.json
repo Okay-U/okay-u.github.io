@@ -2,9 +2,9 @@
 "version":1,
 "source":"https://playriftbound.com/en-us/card-gallery/",
 "disclaimer":"Card data and images (c) Riot Games, used under the Riftbound Digital Tools Policy. Not affiliated with Riot Games.",
-"total":1407,
+"total":1408,
 "page":1,
-"size":1407,
+"size":1408,
 "sets":[
 {
 "set_id":"OGN",
@@ -44368,6 +44368,54 @@
 "unreleased":false
 },
 {
+"id":"unl-224-219",
+"name":"Mystic Poro (Overnumbered)",
+"riftbound_id":"unl-224-219",
+"public_code":"UNL-224/219",
+"collector_number":224,
+"attributes":{
+"energy":2,
+"might":2,
+"power":null,
+"might_bonus":null
+},
+"classification":{
+"type":"Unit",
+"supertype":null,
+"rarity":"Common",
+"domain":[
+"Chaos"
+]
+},
+"text":{
+"rich":"<p>[Vision]</p>",
+"plain":"[Vision]",
+"flavour":"Now let us find the strength in song  \nAnd let it raise our hearts aloft"
+},
+"set":{
+"set_id":"UNL",
+"label":"Unleashed"
+},
+"media":{
+"image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/2fdb5e1ff9aae4137910fa59065b69ef17144752-744x1039.png?accountingTag=RB",
+"artist":"FOREDAWN",
+"accessibility_text":"Riftbound Unit: Mystic Poro. [Vision]"
+},
+"tags":[
+"Poro"
+],
+"orientation":"portrait",
+"metadata":{
+"clean_name":"Mystic Poro Overnumbered",
+"updated_on":"2026-10-20T09:43:15Z",
+"alternate_art":false,
+"overnumbered":true,
+"signature":false
+},
+"new":false,
+"unreleased":false
+},
+{
 "id":"unl-225-219",
 "name":"Daring Poro (Overnumbered)",
 "riftbound_id":"unl-225-219",
@@ -60085,12 +60133,12 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Hunting Blind",
-"updated_on":"2026-10-16T09:53:37Z",
+"updated_on":"2026-10-20T09:43:15Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
-"new":true,
+"new":false,
 "unreleased":true
 },
 {
