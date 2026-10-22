@@ -1,11 +1,11 @@
 {
  "version": 1,
- "updated": "2026-10-21",
- "build": "2026-10-21",
+ "updated": "2026-10-22",
+ "build": "2026-10-22",
  "endpoint": "https://playriftbound.com/api/gql",
  "operations": {
   "GetCompeteTournamentForRiftboundPlayer": {
-   "id": "e56d6d93e4f8fa287557521535544350e5cc9baafd78ba69f9f592873b090e57",
+   "id": "ea2892974d4bb22ac2049b9c8fd901a9a7b5131d21e44fd0c0f16003039c1c06",
    "kind": "query"
   },
   "SubmitGameResults": {
@@ -13,7 +13,7 @@
    "kind": "mutation"
   },
   "PlayerTournaments": {
-   "id": "325210614006360e6f6bda3de390704e7f974f16f4d20361a1a3f29fb2101fd7",
+   "id": "4528c496f4a4b8054d31ceb25c443d1af4110ecb26a9c672061032392e63d789",
    "kind": "query"
   },
   "PlayerRegisteredTournamentIds": {
@@ -25,7 +25,7 @@
    "kind": "query"
   },
   "CompeteTournamentSearch": {
-   "id": "7791f530b0e27f81a3ef1c8571099cb6a96e0bfb9fadd4ff66bfd4929a323e86",
+   "id": "868030f676276bec926c740aada7129713d4097f6e2dd7c3a0451c4fb43852eb",
    "kind": "query"
   },
   "RegisterCompetePlayer": {
@@ -57,7 +57,7 @@
    "kind": "mutation"
   },
   "OrganizerSummary": {
-   "id": "9142e18241bb86a3b4c2692d899b31aaf61d11065ca8a259191aa9cc0a06ed57",
+   "id": "3c1b5c84a25e8c304922e4130a99a196e6eac6c90d740690ba1afd0f040010cf",
    "kind": "query"
   },
   "GetCompeteRbRegistrant": {
