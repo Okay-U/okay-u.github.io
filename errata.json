@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-09-01",
+ "updated": "2026-10-22",
  "disclaimer": "Card errata published by Riot Games. Each entry links to its official article.",
  "entries": [
   {
@@ -76,8 +76,8 @@
    "source": "https://playriftbound.com/en-us/news/rules-and-releases/riftbound-origins-card-errata/"
   },
   {
-   "card": "Dragon's Rage",
-   "key": "dragonsrage",
+   "card": "Dragon's Rage - Lee Sin",
+   "key": "dragonsrageleesin",
    "set": "Origins",
    "newText": "Move an enemy unit. Then do this: Choose another enemy unit at its destination. They deal damage equal to their Mights to each other.",
    "oldText": "Move an enemy unit. Then choose another enemy unit at its destination. They deal damage equal to their Mights to each other.",
@@ -103,8 +103,8 @@
    "source": "https://playriftbound.com/en-us/news/rules-and-releases/riftbound-spiritforged-errata/"
   },
   {
-   "card": "Highlander",
-   "key": "highlander",
+   "card": "Highlander - Yi",
+   "key": "highlanderyi",
    "set": "Origins",
    "newText": "[Reaction] (Play any time, even before spells and abilities resolve.)\nChoose a friendly unit. The next time it would die this turn, heal it, exhaust it, and recall it instead. (Send it to base. This isn't a move.)",
    "oldText": "[Reaction] (Play any time, even before spells and abilities resolve.)\nChoose a friendly unit. The next time it dies this turn, recall it exhausted instead. (Send it to base. This isn't a move.)",
@@ -112,8 +112,8 @@
    "source": "https://playriftbound.com/en-us/news/rules-and-releases/riftbound-origins-card-errata/"
   },
   {
-   "card": "Icathian Rain",
-   "key": "icathianrain",
+   "card": "Icathian Rain - Kai'Sa",
+   "key": "icathianrainkaisa",
    "set": "Origins",
    "newText": "Deal 2 to a unit.\nDeal 2 to a unit.\nDeal 2 to a unit.\nDeal 2 to a unit.\nDeal 2 to a unit.\nDeal 2 to a unit.",
    "oldText": "Do this 6 times:\nDeal 2 to a unit. (You can choose different units.)",
@@ -569,6 +569,42 @@
    "oldText": "[Hidden] (Hide now for [A] to react with later for [0].)\n[Reaction] (Play on your turn or in showdowns.)\nChoose a battlefield you control and a unit you control at a different location. Move that unit to that battlefield and give it +2 [S] this turn.",
    "note": null,
    "source": "https://playriftbound.com/en-us/news/announcements/vendetta-errata-updates/"
+  },
+  {
+   "card": "Elnuk Herd",
+   "key": "elnukherd",
+   "set": "Radiance",
+   "newText": "[Hidden] (Hide now for [A] to react with later for [0].)\nWhen you play me, give a friendly unit +3 [M] this turn, then recycle me if I was played from face down.",
+   "oldText": "[Hidden] (Hide now for [A] to react with later for [0].)\nWhen you play me, give another friendly unit +3 [M] this turn, then recycle me if I was played from face down.",
+   "note": null,
+   "source": "https://playriftbound.com/en-us/news/announcements/radiance-errata-updates/"
+  },
+  {
+   "card": "Last Caress",
+   "key": "lastcaress",
+   "set": "Radiance",
+   "newText": "[Reaction] (Play any time, even before spells and abilities resolve.)\nThe next unit you play this turn, even from face down, can be played to any battlefield. When you play it, [Buff] it. (Give it a +1 [M] buff if it doesn't have one.)",
+   "oldText": "[Reaction] (Play any time, even before spells and abilities resolve.)\nThe next unit you play this turn (even from face down) can be played to any battlefield. When you play it, [Buff] it. (Give it a +1 [M] buff if it doesn't have one.)",
+   "note": null,
+   "source": "https://playriftbound.com/en-us/news/announcements/radiance-errata-updates/"
+  },
+  {
+   "card": "Forbidden Technique",
+   "key": "forbiddentechnique",
+   "set": "Radiance",
+   "newText": "Ready a unit.\nWhen you play a card with Energy cost [7] or more, you may play this from your trash for [1][C][C]. Then banish this.",
+   "oldText": "Ready a unit.\nWhen you play a card with Energy cost [7] or more, you may play this from your trash for [1][C][C]. Banish this.",
+   "note": null,
+   "source": "https://playriftbound.com/en-us/news/announcements/radiance-errata-updates/"
+  },
+  {
+   "card": "Neeko - Blending In",
+   "key": "neekoblendingin",
+   "set": "Radiance",
+   "newText": "(Neutral cards can go in decks of any Domain.)\nIf Neeko is in your deck, choose up to 3 different legends in addition to your starting legend. (Different means none match names.)\nWhen you play me, choose one of those Legends and add it to your Legend Zone while I'm on the board.",
+   "oldText": "(Neutral cards can go in decks of any Domain.)\nIf Neeko is in your deck, choose 3 different legends in addition to your starting legend. (Different means none match names.)\nWhen you play me, choose one of those Legends and add it to your Legend Zone while I'm on the board.",
+   "note": null,
+   "source": "https://playriftbound.com/en-us/news/announcements/radiance-errata-updates/"
   }
  ]
 }
