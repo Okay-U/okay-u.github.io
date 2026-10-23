@@ -57097,13 +57097,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Amateur Demolitionist",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-r01",
@@ -57143,13 +57143,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Fury Rune",
-"updated_on":"2026-10-10T11:12:44Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-r01a",
@@ -57189,13 +57189,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Fury Rune",
-"updated_on":"2026-10-10T11:12:44Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-sp1-005",
@@ -57238,13 +57238,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ahri Confident",
-"updated_on":"2026-10-10T11:12:44Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-002-167",
@@ -57286,13 +57286,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Banner of Conquest",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-r02",
@@ -57332,13 +57332,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Calm Rune",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-r02a",
@@ -57378,13 +57378,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Calm Rune",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-sp2-005",
@@ -57427,13 +57427,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Akali Brash",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-003-167",
@@ -57473,13 +57473,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Bilgewater Tracker",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-r03",
@@ -57519,13 +57519,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Mind Rune",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-r03a",
@@ -57565,13 +57565,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Mind Rune",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-sp3-005",
@@ -57613,13 +57613,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Evelynn In Control",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-004-167",
@@ -57659,13 +57659,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Brawl",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-r04",
@@ -57705,13 +57705,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Body Rune",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-r04a",
@@ -57751,13 +57751,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Body Rune",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-sp4-005",
@@ -57800,13 +57800,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"KaiSa Rebel",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-005-167",
@@ -57846,13 +57846,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Lingering Animus",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-r05",
@@ -57892,13 +57892,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Chaos Rune",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-r05a",
@@ -57938,13 +57938,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Chaos Rune",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-sp5-005",
@@ -57987,13 +57987,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Seraphine Not Alone",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-006-167",
@@ -58031,13 +58031,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Scorched Earth",
-"updated_on":"2026-10-10T11:12:44Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-r06",
@@ -58077,13 +58077,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Order Rune",
-"updated_on":"2026-10-10T11:12:44Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-r06a",
@@ -58123,13 +58123,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Order Rune",
-"updated_on":"2026-10-10T11:12:44Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-007-167",
@@ -58169,13 +58169,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Rally for War",
-"updated_on":"2026-10-13T12:45:09Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-008-167",
@@ -58215,13 +58215,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"War Scout",
-"updated_on":"2026-10-14T10:17:06Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-009-167",
@@ -58259,13 +58259,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Antagonistic Apparatus",
-"updated_on":"2026-10-15T09:59:47Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-010-167",
@@ -58305,13 +58305,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Forbidden Technique",
-"updated_on":"2026-10-16T09:53:37Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-011-167",
@@ -58351,13 +58351,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Incorrigible Construct",
-"updated_on":"2026-10-17T09:26:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-012-167",
@@ -58397,13 +58397,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Runeblade Anvil",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-013-167",
@@ -58443,13 +58443,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Lost to the Sands",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-014-167",
@@ -58489,13 +58489,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Shimmering Swimmer",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-015-167",
@@ -58538,13 +58538,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Akali Brash",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-016-167",
@@ -58584,13 +58584,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Coalesced Energy",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-017-167",
@@ -58632,13 +58632,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Detonation Amplifier",
-"updated_on":"2026-10-10T11:12:44Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-018-167",
@@ -58678,13 +58678,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Drakehound Packmaster",
-"updated_on":"2026-10-13T12:45:09Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-019-167",
@@ -58724,13 +58724,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Firebrand Raider",
-"updated_on":"2026-10-14T10:17:06Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-020-167",
@@ -58773,13 +58773,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Mordekaiser Twice Slain",
-"updated_on":"2026-10-15T09:59:47Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-020a-167",
@@ -58822,13 +58822,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Mordekaiser Twice Slain Alternate Art",
-"updated_on":"2026-10-15T09:59:47Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-021-167",
@@ -58871,13 +58871,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ekko Revolutionary",
-"updated_on":"2026-10-13T12:45:09Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-021a-167",
@@ -58920,13 +58920,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ekko Revolutionary Alternate Art",
-"updated_on":"2026-10-13T12:45:09Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-022-167",
@@ -58964,13 +58964,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Whirling Twirligig",
-"updated_on":"2026-10-17T09:26:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-023-167",
@@ -59013,13 +59013,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ziggs ShortFused",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-023a-167",
@@ -59062,13 +59062,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ziggs ShortFused Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-024-167",
@@ -59110,13 +59110,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Blossoming Dreamroot",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-025-167",
@@ -59156,13 +59156,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Consult the Heavens",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-026-167",
@@ -59200,13 +59200,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Entrenched Boar",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-027-167",
@@ -59246,13 +59246,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Iridescent Avian",
-"updated_on":"2026-10-10T11:12:44Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-028-167",
@@ -59292,13 +59292,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ki Burst",
-"updated_on":"2026-10-13T12:45:09Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-029-167",
@@ -59338,13 +59338,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Life from Stone",
-"updated_on":"2026-10-14T10:17:06Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-030-167",
@@ -59384,13 +59384,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Sanctum Conservator",
-"updated_on":"2026-10-15T09:59:47Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-031-167",
@@ -59430,13 +59430,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Stoic Ferryman",
-"updated_on":"2026-10-16T09:53:37Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-032-167",
@@ -59476,13 +59476,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Battle Preparations",
-"updated_on":"2026-10-17T09:26:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-033-167",
@@ -59522,13 +59522,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Command Attack",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-034-167",
@@ -59568,13 +59568,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Hunker Down",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-035-167",
@@ -59614,13 +59614,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Invigorating Bloom",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-036-167",
@@ -59660,13 +59660,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Storm Raptor",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-037-167",
@@ -59706,13 +59706,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Watchful Curator",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-038-167",
@@ -59755,13 +59755,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ahri Confident",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-039-167",
@@ -59801,13 +59801,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ephemeral Ward",
-"updated_on":"2026-10-13T12:45:09Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-040-167",
@@ -59847,13 +59847,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Heartening Soul",
-"updated_on":"2026-10-14T10:17:06Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-041-167",
@@ -59891,13 +59891,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Hush",
-"updated_on":"2026-10-15T09:59:47Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-042-167",
@@ -59940,13 +59940,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Orianna Exquisite",
-"updated_on":"2026-10-16T09:53:37Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-042a-167",
@@ -59989,13 +59989,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Orianna Exquisite Alternate Art",
-"updated_on":"2026-10-16T09:53:37Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-043-167",
@@ -60037,13 +60037,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Riven Broken Blade",
-"updated_on":"2026-10-13T12:45:09Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-043a-167",
@@ -60085,13 +60085,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Riven Broken Blade Alternate Art",
-"updated_on":"2026-10-13T12:45:09Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-044-167",
@@ -60133,13 +60133,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Hunting Blind",
-"updated_on":"2026-10-20T09:43:15Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-045-167",
@@ -60182,13 +60182,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"KSante Dauntless",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-045a-167",
@@ -60231,13 +60231,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"KSante Dauntless Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-046-167",
@@ -60277,13 +60277,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Resplendent Rostrum",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-047-167",
@@ -60321,13 +60321,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Fanfare",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-048-167",
@@ -60367,13 +60367,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"High Note",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-049-167",
@@ -60411,13 +60411,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Industrious Mechsmith",
-"updated_on":"2026-10-10T11:12:44Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-050-167",
@@ -60457,13 +60457,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Mysterious Chronomancer",
-"updated_on":"2026-10-13T12:45:09Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-051-167",
@@ -60503,13 +60503,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Parallel Convergence",
-"updated_on":"2026-10-14T10:17:06Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-052-167",
@@ -60551,13 +60551,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Resource Extractor",
-"updated_on":"2026-10-15T09:59:47Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-053-167",
@@ -60597,13 +60597,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Strigian Oracle",
-"updated_on":"2026-10-16T09:53:37Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-054-167",
@@ -60643,13 +60643,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Trinket Peddler",
-"updated_on":"2026-10-17T09:26:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-055-167",
@@ -60689,13 +60689,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Clanging Sentry",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-056-167",
@@ -60735,13 +60735,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Improvised Projectile",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-057-167",
@@ -60781,13 +60781,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Piltovan Guidebot",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-058-167",
@@ -60827,13 +60827,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Riptide Mage",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-059-167",
@@ -60873,13 +60873,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Supernova",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-060-167",
@@ -60921,13 +60921,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"The Empyrean",
-"updated_on":"2026-10-13T12:45:09Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-061-167",
@@ -60970,13 +60970,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ekko Ingenious",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-061a-167",
@@ -61019,13 +61019,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ekko Ingenious Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-062-167",
@@ -61067,13 +61067,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Gravity Field",
-"updated_on":"2026-10-14T10:17:06Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-063-167",
@@ -61116,13 +61116,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"KaiSa Rebel",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-064-167",
@@ -61162,13 +61162,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Scrutinizing Scope",
-"updated_on":"2026-10-15T09:59:47Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-065-167",
@@ -61211,13 +61211,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Seraphine Inspiring",
-"updated_on":"2026-10-16T09:53:37Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-065a-167",
@@ -61260,13 +61260,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Seraphine Inspiring Alternate Art",
-"updated_on":"2026-10-16T09:53:37Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-066-167",
@@ -61306,13 +61306,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Spirit of the Forge",
-"updated_on":"2026-10-17T09:26:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-067-167",
@@ -61354,13 +61354,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Clocktower Guardian",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-068-167",
@@ -61403,13 +61403,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Orianna Mechanical Marvel",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-068a-167",
@@ -61452,13 +61452,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Orianna Mechanical Marvel Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-069-167",
@@ -61498,13 +61498,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Zero Point Inflection",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-070-167",
@@ -61544,13 +61544,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Hold Em",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-071-167",
@@ -61590,13 +61590,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Nazuman Ntofo",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-072-167",
@@ -61636,13 +61636,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Overloaded Traveler",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-073-167",
@@ -61684,13 +61684,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Pillaged Armory",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-074-167",
@@ -61730,13 +61730,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Raving Witness",
-"updated_on":"2026-10-16T09:53:37Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-075-167",
@@ -61776,13 +61776,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Skystrike Squadron",
-"updated_on":"2026-10-16T09:53:37Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-076-167",
@@ -61822,13 +61822,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Sneaky Zeebles",
-"updated_on":"2026-10-14T10:17:06Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-077-167",
@@ -61868,13 +61868,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Wrath of the Freljord",
-"updated_on":"2026-10-15T09:59:47Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-078-167",
@@ -61914,13 +61914,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Armored Tusker",
-"updated_on":"2026-10-16T09:53:37Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-079-167",
@@ -61960,13 +61960,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Avalanche",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-080-167",
@@ -62006,13 +62006,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Bloodscent Swarm",
-"updated_on":"2026-10-17T09:26:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-081-167",
@@ -62052,13 +62052,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Elnuk Herd",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-082-167",
@@ -62098,13 +62098,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Primordial Roar",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-083-167",
@@ -62144,13 +62144,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Stalwart Goatherd",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-084-167",
@@ -62190,13 +62190,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Cataclysm",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-085-167",
@@ -62239,13 +62239,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Graves Blasting Through",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-086-167",
@@ -62288,13 +62288,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"KSante Courageous",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-086a-167",
@@ -62337,13 +62337,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"KSante Courageous Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-087-167",
@@ -62385,13 +62385,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Portable Portal",
-"updated_on":"2026-10-10T11:12:44Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-088-167",
@@ -62431,13 +62431,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Staunch Survivor",
-"updated_on":"2026-10-13T12:45:09Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-089-167",
@@ -62479,13 +62479,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Titanic Shrine",
-"updated_on":"2026-10-14T10:17:06Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-090-167",
@@ -62527,13 +62527,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Evelynn Consuming",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-090a-167",
@@ -62575,13 +62575,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Evelynn Consuming Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-091-167",
@@ -62624,13 +62624,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Jarvan IV Martial Paragon",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-091a-167",
@@ -62673,13 +62673,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Jarvan IV Martial Paragon Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-092-167",
@@ -62721,13 +62721,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Seraphic Wyvern",
-"updated_on":"2026-10-16T09:53:37Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-093-167",
@@ -62767,13 +62767,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Disposal Expert",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-094-167",
@@ -62813,13 +62813,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Explosimian",
-"updated_on":"2026-10-17T09:26:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-095-167",
@@ -62859,13 +62859,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Momentary Companion",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-096-167",
@@ -62905,13 +62905,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Satchel Charge",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-097-167",
@@ -62951,13 +62951,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Siren of the Shallows",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-098-167",
@@ -62997,13 +62997,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Sirens Song",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-099-167",
@@ -63043,13 +63043,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Suave Negotiator",
-"updated_on":"2026-10-10T11:12:44Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-100-167",
@@ -63089,13 +63089,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"The Waters Wage",
-"updated_on":"2026-10-13T12:45:09Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-101-167",
@@ -63135,13 +63135,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"An Offer You Cant Refuse",
-"updated_on":"2026-10-14T10:17:06Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-102-167",
@@ -63181,13 +63181,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Demon Shade",
-"updated_on":"2026-10-15T09:59:47Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-103-167",
@@ -63227,13 +63227,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Gutter Guardian",
-"updated_on":"2026-10-16T09:53:37Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-104-167",
@@ -63271,13 +63271,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Pitiless Stalker",
-"updated_on":"2026-10-17T09:26:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-105-167",
@@ -63317,13 +63317,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Reckless Innovator",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-106-167",
@@ -63365,13 +63365,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"The Good Stuff",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-107-167",
@@ -63411,13 +63411,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Bedeviling Stranger",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-108-167",
@@ -63459,13 +63459,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Bushwhack Trap",
-"updated_on":"2026-10-15T09:59:47Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-109-167",
@@ -63507,13 +63507,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Evelynn In Control",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-109a-167",
@@ -63555,13 +63555,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Evelynn In Control Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-110-167",
@@ -63605,13 +63605,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Lulu Whimsical",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-111-167",
@@ -63653,13 +63653,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Mechanical Bandit",
-"updated_on":"2026-10-14T10:17:06Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-112-167",
@@ -63702,13 +63702,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ziggs Explosive",
-"updated_on":"2026-10-15T09:59:47Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-112a-167",
@@ -63751,13 +63751,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ziggs Explosive Alternate Art",
-"updated_on":"2026-10-15T09:59:47Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-113-167",
@@ -63797,13 +63797,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Angler Wyrm",
-"updated_on":"2026-10-16T09:53:37Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-114-167",
@@ -63845,13 +63845,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Riven Deserter",
-"updated_on":"2026-10-14T10:17:06Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-114a-167",
@@ -63893,13 +63893,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Riven Deserter Alternate Art",
-"updated_on":"2026-10-14T10:17:06Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-115-167",
@@ -63939,13 +63939,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Transpositionist",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-116-167",
@@ -63987,13 +63987,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Concert Poster",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-117-167",
@@ -64033,13 +64033,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"For Demacia",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-118-167",
@@ -64079,13 +64079,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Herald of the Emperor",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-119-167",
@@ -64125,13 +64125,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Hunting Dog",
-"updated_on":"2026-10-10T11:12:44Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-120-167",
@@ -64173,13 +64173,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Meticulous Restorationist",
-"updated_on":"2026-10-13T12:45:09Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-121-167",
@@ -64217,13 +64217,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"OneTwo Punch",
-"updated_on":"2026-10-14T10:17:06Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-122-167",
@@ -64263,13 +64263,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Party Crasher",
-"updated_on":"2026-10-15T09:59:47Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-123-167",
@@ -64307,13 +64307,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Protectors Shield",
-"updated_on":"2026-10-16T09:53:37Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-124-167",
@@ -64353,13 +64353,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Burn Away",
-"updated_on":"2026-10-17T09:26:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-125-167",
@@ -64399,13 +64399,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Dune Devourer",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-126-167",
@@ -64447,13 +64447,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Mournful Spirit",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-127-167",
@@ -64493,13 +64493,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Rousing Display",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-128-167",
@@ -64539,13 +64539,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Steadfast Outrider",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-129-167",
@@ -64585,13 +64585,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Trifarian Captain",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-130-167",
@@ -64631,13 +64631,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Battlefield Armorer",
-"updated_on":"2026-10-10T11:12:44Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-131-167",
@@ -64677,13 +64677,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Demacian Illuminators",
-"updated_on":"2026-10-13T12:45:09Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-132-167",
@@ -64727,13 +64727,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Heimerdinger Academy Instructor",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-133-167",
@@ -64776,13 +64776,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Jarvan IV Royal Heir",
-"updated_on":"2026-10-16T09:53:37Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-133a-167",
@@ -64825,13 +64825,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Jarvan IV Royal Heir Alternate Art",
-"updated_on":"2026-10-16T09:53:37Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-134-167",
@@ -64869,13 +64869,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Raucous Anthem",
-"updated_on":"2026-10-16T09:53:37Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-135-167",
@@ -64915,13 +64915,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Remember the Fallen",
-"updated_on":"2026-10-17T09:26:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-136-167",
@@ -64963,13 +64963,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Dockside LockUp",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-137-167",
@@ -65012,13 +65012,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Mordekaiser Dominating",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-137a-167",
@@ -65061,13 +65061,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Mordekaiser Dominating Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-138-167",
@@ -65110,13 +65110,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Seraphine Not Alone",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-138a-167",
@@ -65159,13 +65159,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Seraphine Not Alone Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-139-167",
@@ -65208,13 +65208,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ekko Boy Who Shattered Time",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-140-167",
@@ -65257,13 +65257,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Chronobreak",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-141-167",
@@ -65307,13 +65307,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ziggs Hexplosives Expert",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-142-167",
@@ -65356,13 +65356,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Hexplosive Minefield",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-143-167",
@@ -65405,13 +65405,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Mordekaiser Iron Revenant",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-144-167",
@@ -65454,13 +65454,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Realm of Death",
-"updated_on":"2026-10-10T11:12:44Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-145-167",
@@ -65503,13 +65503,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Orianna Lady of Clockwork",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-146-167",
@@ -65553,13 +65553,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"The Ball",
-"updated_on":"2026-10-13T12:45:09Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-147-167",
@@ -65602,13 +65602,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"KSante Pride of Nazumah",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-148-167",
@@ -65651,13 +65651,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ntofo Strikes",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-149-167",
@@ -65700,13 +65700,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Riven The Exile",
-"updated_on":"2026-10-16T09:53:37Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-150-167",
@@ -65750,13 +65750,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Blade of the Exile",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-151-167",
@@ -65799,13 +65799,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Seraphine StarryEyed Songstress",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-152-167",
@@ -65848,13 +65848,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Encore",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-153-167",
@@ -65897,13 +65897,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Evelynn Agonys Embrace",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-154-167",
@@ -65946,13 +65946,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Last Caress",
-"updated_on":"2026-10-10T11:12:44Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-155-167",
@@ -65995,13 +65995,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Jarvan IV Exemplar of Demacia",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-156-167",
@@ -66045,13 +66045,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Demacian Standard",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-157-167",
@@ -66091,13 +66091,13 @@
 "orientation":"landscape",
 "metadata":{
 "clean_name":"Bandle Scouts Academy",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-158-167",
@@ -66137,13 +66137,13 @@
 "orientation":"landscape",
 "metadata":{
 "clean_name":"Black Market",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-159-167",
@@ -66183,13 +66183,13 @@
 "orientation":"landscape",
 "metadata":{
 "clean_name":"Black Rose Sanctum",
-"updated_on":"2026-10-10T11:12:44Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-160-167",
@@ -66229,13 +66229,13 @@
 "orientation":"landscape",
 "metadata":{
 "clean_name":"Cosmic Vista",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-161-167",
@@ -66275,13 +66275,13 @@
 "orientation":"landscape",
 "metadata":{
 "clean_name":"Durand Memorial",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-162-167",
@@ -66321,13 +66321,13 @@
 "orientation":"landscape",
 "metadata":{
 "clean_name":"Firelights Hideout",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-163-167",
@@ -66367,13 +66367,13 @@
 "orientation":"landscape",
 "metadata":{
 "clean_name":"Hunters Circle",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-164-167",
@@ -66413,13 +66413,13 @@
 "orientation":"landscape",
 "metadata":{
 "clean_name":"Packed Amphitheater",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-165-167",
@@ -66459,13 +66459,13 @@
 "orientation":"landscape",
 "metadata":{
 "clean_name":"Rakelstake",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-166-167",
@@ -66505,13 +66505,13 @@
 "orientation":"landscape",
 "metadata":{
 "clean_name":"Ruined Monastery",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-167-167",
@@ -66554,13 +66554,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Neeko Blending In",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-168-167",
@@ -66603,13 +66603,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ekko Boy Who Shattered Time Overnumbered",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-169-167",
@@ -66653,13 +66653,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ziggs Hexplosives Expert Overnumbered",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-170-167",
@@ -66702,13 +66702,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Mordekaiser Iron Revenant Overnumbered",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-171-167",
@@ -66751,13 +66751,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Orianna Lady of Clockwork Overnumbered",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-172-167",
@@ -66800,13 +66800,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"KSante Pride of Nazumah Overnumbered",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-173-167",
@@ -66849,13 +66849,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Riven The Exile Overnumbered",
-"updated_on":"2026-10-16T09:53:37Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-174-167",
@@ -66898,13 +66898,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Seraphine StarryEyed Songstress Overnumbered",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-175-167",
@@ -66947,13 +66947,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Evelynn Agonys Embrace Overnumbered",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-176-167",
@@ -66996,13 +66996,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Jarvan IV Exemplar of Demacia Overnumbered",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-177-167",
@@ -67045,13 +67045,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ekko Revolutionary Overnumbered",
-"updated_on":"2026-10-17T09:26:12Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-178-167",
@@ -67094,13 +67094,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"KSante Courageous Overnumbered",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-179-167",
@@ -67143,13 +67143,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Aphelios Exalted Overnumbered",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-180-167",
@@ -67192,13 +67192,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ezreal Dashing Overnumbered",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-181-167",
@@ -67242,13 +67242,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Yone Blademaster Overnumbered",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-182-167",
@@ -67291,13 +67291,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Kayn Unleashed Overnumbered",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-183-167",
@@ -67340,13 +67340,13 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Sett Kingpin Overnumbered",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 },
 {
 "id":"rad-184-167",
@@ -67386,13 +67386,13 @@
 "orientation":"landscape",
 "metadata":{
 "clean_name":"Packed Amphitheater Overnumbered",
-"updated_on":"2026-10-10T11:12:44Z",
+"updated_on":"2026-10-23T10:08:43Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
 },
 "new":false,
-"unreleased":true
+"unreleased":false
 }
 ]
 }
