@@ -102,8 +102,8 @@
 ]
 },
 "text":{
-"rich":"<p>As you play me, you may discard 1 as an additional cost. If you do, reduce my cost by :rb_energy_2:.</p>",
-"plain":"As you play me, you may discard 1 as an additional cost. If you do, reduce my cost by 2 Energy.",
+"rich":"<p>As you play me, you may discard a card as an additional cost. If you do, reduce my cost by :rb_energy_2:.</p>",
+"plain":"As you play me, you may discard a card as an additional cost. If you do, reduce my cost by 2 Energy.",
 "flavour":"“They called my crew ‘scurvy dogs,’ and I took that personally.”"
 },
 "set":{
@@ -113,7 +113,7 @@
 "media":{
 "image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/d481971f7560e7235e7d6934767da18daa019eff-744x1039.png?accountingTag=RB",
 "artist":"Six More Vodka",
-"accessibility_text":"Riftbound Unit: Brazen Buccaneer. As you play me, you may discard 1 as an additional cost. If you do, reduce my cost by [2]."
+"accessibility_text":"Riftbound Unit: Brazen Buccaneer. As you play me, you may discard a card as an additional cost. If you do, reduce my cost by [2]."
 },
 "tags":[
 "Pirate",
@@ -122,7 +122,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Brazen Buccaneer",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -6578,8 +6578,8 @@
 ]
 },
 "text":{
-"rich":"<p>Exhaust all friendly units, then deal 12 to ALL units at battlefields.</p>",
-"plain":"Exhaust all friendly units, then deal 12 to ALL units at battlefields.",
+"rich":"<p>Exhaust all friendly units, then deal 12 to all units at battlefields.</p>",
+"plain":"Exhaust all friendly units, then deal 12 to all units at battlefields.",
 "flavour":"That’s enough."
 },
 "set":{
@@ -6589,13 +6589,13 @@
 "media":{
 "image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/c44cd1f6f41144c770ac79f10e5ae75f0c6d6435-744x1039.png?accountingTag=RB",
 "artist":"Kudos Productions",
-"accessibility_text":"Riftbound Spell: Unchecked Power. Exhaust all friendly units, then deal 12 to ALL units at battlefields."
+"accessibility_text":"Riftbound Spell: Unchecked Power. Exhaust all friendly units, then deal 12 to all units at battlefields."
 },
 "tags":null,
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Unchecked Power",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -8330,8 +8330,8 @@
 ]
 },
 "text":{
-"rich":"<p>[Shield 3] (+3 :rb_might: while I'm a defender.)<br />[Tank] (I must be assigned combat damage first.)<br />When an opponent moves to a battlefield other than mine, draw 1. (Bases are not battlefield.)</p>",
-"plain":"[Shield 3] (+3 Might while I'm a defender.)\n[Tank] (I must be assigned combat damage first.)\nWhen an opponent moves to a battlefield other than mine, draw 1. (Bases are not battlefield.)",
+"rich":"<p>[Shield 3] (+3 :rb_might: while I'm a defender.)<br />[Tank] (I must be assigned combat damage first.)<br />When an opponent moves to a battlefield other than mine, draw 1. (Bases are not battlefields.)</p>",
+"plain":"[Shield 3] (+3 Might while I'm a defender.)\n[Tank] (I must be assigned combat damage first.)\nWhen an opponent moves to a battlefield other than mine, draw 1. (Bases are not battlefields.)",
 "flavour":"“Gods do not beg. We take what is ours!”"
 },
 "set":{
@@ -8341,7 +8341,7 @@
 "media":{
 "image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/bcb15f95f4a72f8b070a3b1cd54e6482fe1a4b3e-744x1039.png?accountingTag=RB",
 "artist":"Envar Studio",
-"accessibility_text":"Riftbound Unit: Volibear, Imposing. [Shield 3] (+3 [S] while I'm a defender.)\n[Tank] (I must be assigned combat damage first.)\nWhen an opponent moves to a battlefield other than mine, draw 1. (Bases are not battlefield.)"
+"accessibility_text":"Riftbound Unit: Volibear, Imposing. [Shield 3] (+3 [S] while I'm a defender.)\n[Tank] (I must be assigned combat damage first.)\nWhen an opponent moves to a battlefield other than mine, draw 1. (Bases are not battlefields.)"
 },
 "tags":[
 "Volibear",
@@ -8350,7 +8350,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Volibear Imposing",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -8379,8 +8379,8 @@
 ]
 },
 "text":{
-"rich":"<p>[Shield 3] (+3 :rb_might: while I'm a defender.)<br />[Tank] (I must be assigned combat damage first.)<br />When an opponent moves to a battlefield other than mine, draw 1. (Bases are not battlefield.)</p>",
-"plain":"[Shield 3] (+3 Might while I'm a defender.)\n[Tank] (I must be assigned combat damage first.)\nWhen an opponent moves to a battlefield other than mine, draw 1. (Bases are not battlefield.)",
+"rich":"<p>[Shield 3] (+3 :rb_might: while I'm a defender.)<br />[Tank] (I must be assigned combat damage first.)<br />When an opponent moves to a battlefield other than mine, draw 1. (Bases are not battlefields.)</p>",
+"plain":"[Shield 3] (+3 Might while I'm a defender.)\n[Tank] (I must be assigned combat damage first.)\nWhen an opponent moves to a battlefield other than mine, draw 1. (Bases are not battlefields.)",
 "flavour":"“Gods do not beg. We take what is ours!”"
 },
 "set":{
@@ -8390,7 +8390,7 @@
 "media":{
 "image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/faceb90b6a46e79eadba43871b8cffe1ec5037a7-744x1039.png?accountingTag=RB",
 "artist":"Wild Rift Splash Team",
-"accessibility_text":"Riftbound Unit: Volibear, Imposing. [Shield 3] (+3 [S] while I'm a defender.)\n[Tank] (I must be assigned combat damage first.)\nWhen an opponent moves to a battlefield other than mine, draw 1. (Bases are not battlefield.)"
+"accessibility_text":"Riftbound Unit: Volibear, Imposing. [Shield 3] (+3 [S] while I'm a defender.)\n[Tank] (I must be assigned combat damage first.)\nWhen an opponent moves to a battlefield other than mine, draw 1. (Bases are not battlefields.)"
 },
 "tags":[
 "Volibear",
@@ -8399,7 +8399,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Volibear Imposing Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -9879,7 +9879,7 @@
 "public_code":"OGN-187/298",
 "collector_number":187,
 "attributes":{
-"energy":3,
+"energy":4,
 "might":null,
 "power":1,
 "might_bonus":null
@@ -9910,7 +9910,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Whirlwind",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -14036,8 +14036,8 @@
 ]
 },
 "text":{
-"rich":"<p>Return up to two cards with [Hidden] from your trash to your hand. You can hide cards ignoring costs this turn.</p>",
-"plain":"Return up to two cards with [Hidden] from your trash to your hand. You can hide cards ignoring costs this turn.",
+"rich":"<p>Return up to two cards with [Hidden] from your trash to your hand. You can hide ignoring costs this turn.</p>",
+"plain":"Return up to two cards with [Hidden] from your trash to your hand. You can hide ignoring costs this turn.",
 "flavour":null
 },
 "set":{
@@ -14047,7 +14047,7 @@
 "media":{
 "image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/3a1f70e49f1fdbac907a3395f517e96717e8afea-744x1039.png?accountingTag=RB",
 "artist":"Kudos Productions",
-"accessibility_text":"Riftbound Spell: Guerilla Warfare. Return up to two cards with [Hidden] from your trash to your hand. You can hide cards ignoring costs this turn."
+"accessibility_text":"Riftbound Spell: Guerilla Warfare. Return up to two cards with [Hidden] from your trash to your hand. You can hide ignoring costs this turn."
 },
 "tags":[
 "Teemo"
@@ -14055,7 +14055,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Guerilla Warfare Teemo",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -16850,8 +16850,8 @@
 ]
 },
 "text":{
-"rich":"<p>Your spells and abilities deal 1 Bonus Damage. (Each instance of damage the spell deals is increased by 1.)</p>",
-"plain":"Your spells and abilities deal 1 Bonus Damage. (Each instance of damage the spell deals is increased by 1.)",
+"rich":"<p>Your spells and abilities deal 1 Bonus Damage. (Each instance of damage they deal is increased by 1.)</p>",
+"plain":"Your spells and abilities deal 1 Bonus Damage. (Each instance of damage they deal is increased by 1.)",
 "flavour":"“I never play with matches.”"
 },
 "set":{
@@ -16861,7 +16861,7 @@
 "media":{
 "image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/532d75dc36a16eb5954253a77366fcceac7aec62-744x1039.png?accountingTag=RB",
 "artist":"Polar Engine Studio",
-"accessibility_text":"Riftbound Unit: Annie, Fiery. Your spells and abilities deal 1 Bonus Damage. (Each instance of damage the spell deals is increased by 1.)"
+"accessibility_text":"Riftbound Unit: Annie, Fiery. Your spells and abilities deal 1 Bonus Damage. (Each instance of damage they deal is increased by 1.)"
 },
 "tags":[
 "Annie",
@@ -16870,7 +16870,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Annie Fiery",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -17002,7 +17002,7 @@
 "media":{
 "image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/5508566c8f05f09492148faa803332a731095eb7-744x1039.png?accountingTag=RB",
 "artist":"Kudos Productions",
-"accessibility_text":"Riftbound Unit: Yi, Meditative. While you have 8+ runes, I have +4 [S]."
+"accessibility_text":"Riftbound Unit: Master Yi, Meditative. While you have 8+ runes, I have +4 [S]."
 },
 "tags":[
 "Master Yi",
@@ -17011,7 +17011,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Master Yi Meditative",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -17245,7 +17245,7 @@
 "media":{
 "image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/0e16976cd6d7ee5a874be9351b428671990fbd25-744x1039.png?accountingTag=RB",
 "artist":"Kudos Productions",
-"accessibility_text":"Riftbound Unit: Yi, Honed. [Ganking] (I can move from battlefield to battlefield.)\nI enter ready."
+"accessibility_text":"Riftbound Unit: Master Yi, Honed. [Ganking] (I can move from battlefield to battlefield.)\nI enter ready."
 },
 "tags":[
 "Master Yi",
@@ -17254,7 +17254,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Master Yi Honed",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -17630,7 +17630,7 @@
 "media":{
 "image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/89963e1d1cffd69c620fb5d6b037f50d5c334463-744x1039.png?accountingTag=RB",
 "artist":"Six More Vodka",
-"accessibility_text":"Riftbound Legend: Dark Child - Starter. At the end of your turn, ready 2 runes."
+"accessibility_text":"Riftbound Legend: Dark Child, Starter. At the end of your turn, ready 2 runes."
 },
 "tags":[
 "Annie"
@@ -17638,7 +17638,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Annie Dark Child Starter",
-"updated_on":"2026-10-20T15:53:37Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -17728,7 +17728,7 @@
 "media":{
 "image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/8231ced23eaf22ca3bf62ec8cb86b83a3e222da6-744x1039.png?accountingTag=RB",
 "artist":"Grafit Studio/Quy Ho",
-"accessibility_text":"Riftbound Legend: Wuju Bladesman - Starter. While a friendly unit defends alone, it gets +2 [S]."
+"accessibility_text":"Riftbound Legend: Wuju Bladesman, Starter. While a friendly unit defends alone, it gets +2 [S]."
 },
 "tags":[
 "Master Yi"
@@ -17736,7 +17736,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Master Yi Wuju Bladesman Starter",
-"updated_on":"2026-10-20T15:53:37Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -17826,7 +17826,7 @@
 "media":{
 "image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/44885d811b70621b188d9813b2b10b5cff1b81e6-744x1039.png?accountingTag=RB",
 "artist":"Grafit Studio/Maki Planas Mata",
-"accessibility_text":"Riftbound Legend: Lady of Luminosity - Starter. When you play a spell that costs [5] or more, draw 1."
+"accessibility_text":"Riftbound Legend: Lady of Luminosity, Starter. When you play a spell that costs [5] or more, draw 1."
 },
 "tags":[
 "Lux"
@@ -17834,7 +17834,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Lux Lady of Luminosity Starter",
-"updated_on":"2026-10-20T15:53:37Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -17924,7 +17924,7 @@
 "media":{
 "image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e7185deb46f17770802d06aeddfe3b929afff880-744x1039.png?accountingTag=RB",
 "artist":"Six More Vodka",
-"accessibility_text":"Riftbound Legend: Might of Demacia - Starter. When you conquer, if you have 4+ units at that battlefield, draw 2."
+"accessibility_text":"Riftbound Legend: Might of Demacia, Starter. When you conquer, if you have 4+ units at that battlefield, draw 2."
 },
 "tags":[
 "Garen"
@@ -17932,7 +17932,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Garen Might of Demacia Starter",
-"updated_on":"2026-10-20T15:53:37Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -25857,8 +25857,8 @@
 ]
 },
 "text":{
-"rich":"<p>[Hidden] (Hide now for :rb_rune_rainbow: to react with later for :rb_energy_0:.)<br />[Action] (Play on your turn or in showdowns.)<br />Swap the Might of two units at the same battlefield this turn.</p>",
-"plain":"[Hidden] (Hide now for Any Rune to react with later for 0 Energy.)\n[Action] (Play on your turn or in showdowns.)\nSwap the Might of two units at the same battlefield this turn.",
+"rich":"<p>[Hidden] (Hide now for :rb_rune_rainbow: to react with later for :rb_energy_0:.)<br />[Action] (Play on your turn or in showdowns.)<br />Swap the Mights of two units at the same battlefield this turn.</p>",
+"plain":"[Hidden] (Hide now for Any Rune to react with later for 0 Energy.)\n[Action] (Play on your turn or in showdowns.)\nSwap the Mights of two units at the same battlefield this turn.",
 "flavour":"Always look out for the little guy."
 },
 "set":{
@@ -25868,13 +25868,13 @@
 "media":{
 "image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/a4338f495feff5eee46d5349b5fded5e35e76176-744x1039.png?accountingTag=RB",
 "artist":"Kudos Productions",
-"accessibility_text":"Riftbound Spell: Switcheroo. [Hidden] (Hide now for [A] to react with later for [0].)\n[Action] (Play on your turn or in showdowns.)\nSwap the Might of two units at the same battlefield this turn."
+"accessibility_text":"Riftbound Spell: Switcheroo. [Hidden] (Hide now for [A] to react with later for [0].)\n[Action] (Play on your turn or in showdowns.)\nSwap the Mights of two units at the same battlefield this turn."
 },
 "tags":null,
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Switcheroo",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -27709,7 +27709,7 @@
 },
 {
 "id":"sfd-179-221",
-"name":"Corinna Veraza",
+"name":"Corina Veraza",
 "riftbound_id":"sfd-179-221",
 "public_code":"SFD-179/221",
 "collector_number":179,
@@ -27746,8 +27746,8 @@
 ],
 "orientation":"portrait",
 "metadata":{
-"clean_name":"Corinna Veraza",
-"updated_on":"2026-10-09T10:08:11Z",
+"clean_name":"Corina Veraza",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -29612,8 +29612,8 @@
 ]
 },
 "text":{
-"rich":"<p>When you conquer here, draw 1 for each other battlefield you or allies control..</p>",
-"plain":"When you conquer here, draw 1 for each other battlefield you or allies control..",
+"rich":"<p>When you conquer here, draw 1 for each other battlefield you or allies control.</p>",
+"plain":"When you conquer here, draw 1 for each other battlefield you or allies control.",
 "flavour":null
 },
 "set":{
@@ -29623,13 +29623,13 @@
 "media":{
 "image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/8b9db30f8eedd5e5463a0fceaeaf90069bce39ae-1039x744.png?accountingTag=RB",
 "artist":"Kudos Productions",
-"accessibility_text":"Riftbound Battlefield: Seat of Power. When you conquer here, draw 1 for each other battlefield you or allies control.."
+"accessibility_text":"Riftbound Battlefield: Seat of Power. When you conquer here, draw 1 for each other battlefield you or allies control."
 },
 "tags":null,
 "orientation":"landscape",
 "metadata":{
 "clean_name":"Seat of Power",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -32196,7 +32196,7 @@
 "collector_number":4,
 "attributes":{
 "energy":null,
-"might":null,
+"might":1,
 "power":null,
 "might_bonus":null
 },
@@ -32226,7 +32226,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Buff",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -33283,7 +33283,7 @@
 "classification":{
 "type":"Unit",
 "supertype":"Champion",
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Fury"
 ]
@@ -33309,7 +33309,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Jhin Murderous Artist Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -33431,7 +33431,7 @@
 "classification":{
 "type":"Unit",
 "supertype":"Champion",
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Fury"
 ]
@@ -33458,7 +33458,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Rengar Unseen Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -33677,7 +33677,7 @@
 "classification":{
 "type":"Unit",
 "supertype":"Champion",
-"rarity":"Epic",
+"rarity":"Showcase",
 "domain":[
 "Fury"
 ]
@@ -33703,7 +33703,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Pyke Dockside Butcher Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -33774,7 +33774,7 @@
 "classification":{
 "type":"Unit",
 "supertype":null,
-"rarity":"Epic",
+"rarity":"Showcase",
 "domain":[
 "Fury"
 ]
@@ -33797,7 +33797,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Red Brambleback Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -33869,7 +33869,7 @@
 "classification":{
 "type":"Unit",
 "supertype":"Champion",
-"rarity":"Epic",
+"rarity":"Showcase",
 "domain":[
 "Fury"
 ]
@@ -33895,7 +33895,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Vi Hotheaded Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -34544,8 +34544,8 @@
 ]
 },
 "text":{
-"rich":"<p>[Reaction]<br />Choose one —</p><ul><li>Counter a spell.</li><li>Play four 1 :rb_might: Bird unit tokens with [Deflect]. (Opponents must pay :rb_rune_rainbow: to choose them with a spell or ability.)</li></ul>",
-"plain":"[Reaction]\nChoose one —\n• Counter a spell.\n• Play four 1 Might Bird unit tokens with [Deflect]. (Opponents must pay Any Rune to choose them with a spell or ability.)",
+"rich":"<p>[Reaction] (Play any time, even before spells and abilities resolve.)<br />Choose one —</p><ul><li>Counter a spell.</li><li>Play four 1 :rb_might: Bird unit tokens with [Deflect]. (Opponents must pay :rb_rune_rainbow: to choose them with a spell or ability.)</li></ul>",
+"plain":"[Reaction] (Play any time, even before spells and abilities resolve.)\nChoose one —\n• Counter a spell.\n• Play four 1 Might Bird unit tokens with [Deflect]. (Opponents must pay Any Rune to choose them with a spell or ability.)",
 "flavour":null
 },
 "set":{
@@ -34555,13 +34555,13 @@
 "media":{
 "image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/77bd864b29f4975868e557e31a39b94d06a4ecb2-744x1039.png?accountingTag=RB",
 "artist":"Polar Engine Studio",
-"accessibility_text":"Riftbound Spell: Flurry of Feathers. [Reaction]\nChoose one —\n- Counter a spell.\n- Play four 1 [S] Bird unit tokens with [Deflect]. (Opponents must pay [A] to choose them with a spell or ability.)"
+"accessibility_text":"Riftbound Spell: Flurry of Feathers. [Reaction] (Play any time, even before spells and abilities resolve.)\nChoose one —\n- Counter a spell.\n- Play four 1 [S] Bird unit tokens with [Deflect]. (Opponents must pay [A] to choose them with a spell or ability.)"
 },
 "tags":null,
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Flurry of Feathers",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -34917,7 +34917,7 @@
 "classification":{
 "type":"Unit",
 "supertype":"Champion",
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Calm"
 ]
@@ -34943,7 +34943,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ivern Nurturer Alternate Art",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -35159,7 +35159,7 @@
 "classification":{
 "type":"Unit",
 "supertype":"Champion",
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Calm"
 ]
@@ -35186,7 +35186,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Vex Mocking Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -35359,7 +35359,7 @@
 "classification":{
 "type":"Unit",
 "supertype":"Champion",
-"rarity":"Epic",
+"rarity":"Showcase",
 "domain":[
 "Calm"
 ]
@@ -35386,7 +35386,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Lillia Protector of Dreams Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -35458,7 +35458,7 @@
 "classification":{
 "type":"Unit",
 "supertype":"Champion",
-"rarity":"Epic",
+"rarity":"Showcase",
 "domain":[
 "Calm"
 ]
@@ -35484,7 +35484,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Master Yi Unstoppable Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -35556,7 +35556,7 @@
 "classification":{
 "type":"Unit",
 "supertype":null,
-"rarity":"Epic",
+"rarity":"Showcase",
 "domain":[
 "Calm"
 ]
@@ -35582,7 +35582,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Vilemaw Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -36503,7 +36503,7 @@
 "classification":{
 "type":"Unit",
 "supertype":"Champion",
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Mind"
 ]
@@ -36529,7 +36529,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Diana Lunari Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -36699,7 +36699,7 @@
 "classification":{
 "type":"Unit",
 "supertype":"Champion",
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Mind"
 ]
@@ -36726,7 +36726,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Lillia Fae Fawn Alternate Art",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -36987,7 +36987,7 @@
 "classification":{
 "type":"Unit",
 "supertype":null,
-"rarity":"Epic",
+"rarity":"Showcase",
 "domain":[
 "Mind"
 ]
@@ -37010,7 +37010,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Blue Sentinel Alternate Art",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -37128,7 +37128,7 @@
 "classification":{
 "type":"Unit",
 "supertype":"Champion",
-"rarity":"Epic",
+"rarity":"Showcase",
 "domain":[
 "Mind"
 ]
@@ -37154,7 +37154,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Jhin Meticulous Killer Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -37226,7 +37226,7 @@
 "classification":{
 "type":"Unit",
 "supertype":"Champion",
-"rarity":"Epic",
+"rarity":"Showcase",
 "domain":[
 "Mind"
 ]
@@ -37252,7 +37252,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"LeBlanc Everywhere at Once Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -38368,7 +38368,7 @@
 "classification":{
 "type":"Unit",
 "supertype":"Champion",
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Body"
 ]
@@ -38394,7 +38394,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Master Yi Tempered Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -38567,7 +38567,7 @@
 "classification":{
 "type":"Unit",
 "supertype":"Champion",
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Body"
 ]
@@ -38594,7 +38594,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Poppy Paragon Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -38715,7 +38715,7 @@
 "classification":{
 "type":"Unit",
 "supertype":null,
-"rarity":"Epic",
+"rarity":"Showcase",
 "domain":[
 "Body"
 ]
@@ -38740,7 +38740,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Elder Dragon Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -38812,7 +38812,7 @@
 "classification":{
 "type":"Unit",
 "supertype":"Champion",
-"rarity":"Epic",
+"rarity":"Showcase",
 "domain":[
 "Body"
 ]
@@ -38838,7 +38838,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"KhaZix Evolving Hunter Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -38911,7 +38911,7 @@
 "classification":{
 "type":"Unit",
 "supertype":"Champion",
-"rarity":"Epic",
+"rarity":"Showcase",
 "domain":[
 "Body"
 ]
@@ -38938,7 +38938,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Rengar Trophy Hunter Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -40048,7 +40048,7 @@
 "classification":{
 "type":"Unit",
 "supertype":"Champion",
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Chaos"
 ]
@@ -40074,7 +40074,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"KhaZix Mutating Horror Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -40194,7 +40194,7 @@
 "classification":{
 "type":"Unit",
 "supertype":"Champion",
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Chaos"
 ]
@@ -40220,7 +40220,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Pyke Returned Alternate Art",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -40340,7 +40340,7 @@
 "classification":{
 "type":"Unit",
 "supertype":null,
-"rarity":"Epic",
+"rarity":"Showcase",
 "domain":[
 "Chaos"
 ]
@@ -40365,7 +40365,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Baron Nashor Alternate Art",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -40483,7 +40483,7 @@
 "classification":{
 "type":"Unit",
 "supertype":"Champion",
-"rarity":"Epic",
+"rarity":"Showcase",
 "domain":[
 "Chaos"
 ]
@@ -40509,7 +40509,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Diana No Longer Human Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -40582,7 +40582,7 @@
 "classification":{
 "type":"Unit",
 "supertype":"Champion",
-"rarity":"Epic",
+"rarity":"Showcase",
 "domain":[
 "Chaos"
 ]
@@ -40609,7 +40609,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Vex Apathetic Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -41071,8 +41071,8 @@
 ]
 },
 "text":{
-"rich":"<p>:rb_exhaust:: Play two :rb_energy_1: :rb_might: Bird unit tokens with [Deflect]. Use this ability only while I'm at a battlefield. (Opponents must pay :rb_rune_rainbow: to choose a [Deflect] unit with a spell or ability.)</p>",
-"plain":"Exhaust: Play two 1 Energy Might Bird unit tokens with [Deflect]. Use this ability only while I'm at a battlefield. (Opponents must pay Any Rune to choose a [Deflect] unit with a spell or ability.)",
+"rich":"<p>:rb_exhaust:: Play two 1 :rb_might: Bird unit tokens with [Deflect]. Use this ability only while I'm at a battlefield. (Opponents must pay :rb_rune_rainbow: to choose a [Deflect] unit with a spell or ability.)</p>",
+"plain":"Exhaust: Play two 1 Might Bird unit tokens with [Deflect]. Use this ability only while I'm at a battlefield. (Opponents must pay Any Rune to choose a [Deflect] unit with a spell or ability.)",
 "flavour":"How? Magic. And conditioner."
 },
 "set":{
@@ -41082,7 +41082,7 @@
 "media":{
 "image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/36900508e2ce61196450a4bf7e27722ae36521d9-744x1039.png?accountingTag=RB",
 "artist":"Caravan Studio",
-"accessibility_text":"Riftbound Unit: Ultrasoft Poro. [T]: Play two [1] [S] Bird unit tokens with [Deflect]. Use this ability only while I'm at a battlefield. (Opponents must pay [A] to choose a [Deflect] unit with a spell or ability.)"
+"accessibility_text":"Riftbound Unit: Ultrasoft Poro. [T]: Play two 1 [S] Bird unit tokens with [Deflect]. Use this ability only while I'm at a battlefield. (Opponents must pay [A] to choose a [Deflect] unit with a spell or ability.)"
 },
 "tags":[
 "Poro",
@@ -41091,7 +41091,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ultrasoft Poro",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -41692,7 +41692,7 @@
 "classification":{
 "type":"Unit",
 "supertype":"Champion",
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Order"
 ]
@@ -41718,7 +41718,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"LeBlanc Fragmented Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -41928,7 +41928,7 @@
 "classification":{
 "type":"Unit",
 "supertype":"Champion",
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Order"
 ]
@@ -41954,7 +41954,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Vi Peacekeeper Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -42026,7 +42026,7 @@
 "classification":{
 "type":"Unit",
 "supertype":"Champion",
-"rarity":"Epic",
+"rarity":"Showcase",
 "domain":[
 "Order"
 ]
@@ -42052,7 +42052,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ivern Friend to All Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -42125,7 +42125,7 @@
 "classification":{
 "type":"Unit",
 "supertype":"Champion",
-"rarity":"Epic",
+"rarity":"Showcase",
 "domain":[
 "Order"
 ]
@@ -42152,7 +42152,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Poppy Defender of the Meek Alternate Art",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -42223,7 +42223,7 @@
 "classification":{
 "type":"Unit",
 "supertype":null,
-"rarity":"Epic",
+"rarity":"Showcase",
 "domain":[
 "Order"
 ]
@@ -42248,7 +42248,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Rift Herald Alternate Art",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":true,
 "overnumbered":false,
 "signature":false
@@ -44186,7 +44186,7 @@
 "classification":{
 "type":"Unit",
 "supertype":null,
-"rarity":"Common",
+"rarity":"Showcase",
 "domain":[
 "Fury"
 ]
@@ -44211,7 +44211,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Pouty Poro Overnumbered",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
@@ -44234,7 +44234,7 @@
 "classification":{
 "type":"Unit",
 "supertype":null,
-"rarity":"Common",
+"rarity":"Showcase",
 "domain":[
 "Calm"
 ]
@@ -44260,7 +44260,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Lonely Poro Overnumbered",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
@@ -44283,7 +44283,7 @@
 "classification":{
 "type":"Unit",
 "supertype":null,
-"rarity":"Common",
+"rarity":"Showcase",
 "domain":[
 "Mind"
 ]
@@ -44310,7 +44310,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Plundering Poro Overnumbered",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
@@ -44333,7 +44333,7 @@
 "classification":{
 "type":"Unit",
 "supertype":null,
-"rarity":"Common",
+"rarity":"Showcase",
 "domain":[
 "Body"
 ]
@@ -44359,7 +44359,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Veteran Poro Overnumbered",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
@@ -44382,7 +44382,7 @@
 "classification":{
 "type":"Unit",
 "supertype":null,
-"rarity":"Common",
+"rarity":"Showcase",
 "domain":[
 "Chaos"
 ]
@@ -44407,7 +44407,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Mystic Poro Overnumbered",
-"updated_on":"2026-10-20T09:43:15Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
@@ -44430,7 +44430,7 @@
 "classification":{
 "type":"Unit",
 "supertype":null,
-"rarity":"Common",
+"rarity":"Showcase",
 "domain":[
 "Order"
 ]
@@ -44455,7 +44455,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Daring Poro Overnumbered",
-"updated_on":"2026-10-09T10:08:11Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
@@ -44478,7 +44478,7 @@
 "classification":{
 "type":"Legend",
 "supertype":null,
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Fury",
 "Mind"
@@ -44504,7 +44504,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Jhin Virtuoso Overnumbered",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
@@ -44527,7 +44527,7 @@
 "classification":{
 "type":"Legend",
 "supertype":null,
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Fury",
 "Mind"
@@ -44553,7 +44553,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Jhin Virtuoso Signature",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":true
@@ -44576,7 +44576,7 @@
 "classification":{
 "type":"Legend",
 "supertype":null,
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Fury",
 "Body"
@@ -44602,7 +44602,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Rengar Pridestalker Overnumbered",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
@@ -44625,7 +44625,7 @@
 "classification":{
 "type":"Legend",
 "supertype":null,
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Fury",
 "Body"
@@ -44651,7 +44651,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Rengar Pridestalker Signature",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":true
@@ -44674,7 +44674,7 @@
 "classification":{
 "type":"Legend",
 "supertype":null,
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Fury",
 "Chaos"
@@ -44700,7 +44700,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Pyke Bloodharbor Ripper Overnumbered",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
@@ -44723,7 +44723,7 @@
 "classification":{
 "type":"Legend",
 "supertype":null,
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Fury",
 "Chaos"
@@ -44749,7 +44749,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Pyke Bloodharbor Ripper Signature",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":true
@@ -44772,7 +44772,7 @@
 "classification":{
 "type":"Legend",
 "supertype":null,
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Fury",
 "Order"
@@ -44798,7 +44798,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Vi Piltover Enforcer Overnumbered",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
@@ -44821,7 +44821,7 @@
 "classification":{
 "type":"Legend",
 "supertype":null,
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Fury",
 "Order"
@@ -44847,7 +44847,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Vi Piltover Enforcer Signature",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":true
@@ -44870,7 +44870,7 @@
 "classification":{
 "type":"Legend",
 "supertype":null,
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Calm",
 "Mind"
@@ -44896,7 +44896,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Lillia Bashful Bloom Overnumbered",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
@@ -44919,7 +44919,7 @@
 "classification":{
 "type":"Legend",
 "supertype":null,
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Calm",
 "Mind"
@@ -44945,7 +44945,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Lillia Bashful Bloom Signature",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":true
@@ -44968,7 +44968,7 @@
 "classification":{
 "type":"Legend",
 "supertype":null,
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Calm",
 "Body"
@@ -44994,7 +44994,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Master Yi Wuju Master Overnumbered",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
@@ -45017,7 +45017,7 @@
 "classification":{
 "type":"Legend",
 "supertype":null,
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Calm",
 "Body"
@@ -45043,7 +45043,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Master Yi Wuju Master Signature",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":true
@@ -45066,7 +45066,7 @@
 "classification":{
 "type":"Legend",
 "supertype":null,
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Calm",
 "Chaos"
@@ -45092,7 +45092,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Vex Gloomist Overnumbered",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
@@ -45115,7 +45115,7 @@
 "classification":{
 "type":"Legend",
 "supertype":null,
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Calm",
 "Chaos"
@@ -45141,7 +45141,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Vex Gloomist Signature",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":true
@@ -45164,7 +45164,7 @@
 "classification":{
 "type":"Legend",
 "supertype":null,
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Calm",
 "Order"
@@ -45190,7 +45190,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ivern Green Father Overnumbered",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
@@ -45213,7 +45213,7 @@
 "classification":{
 "type":"Legend",
 "supertype":null,
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Calm",
 "Order"
@@ -45239,7 +45239,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ivern Green Father Signature",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":true
@@ -45262,7 +45262,7 @@
 "classification":{
 "type":"Legend",
 "supertype":null,
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Mind",
 "Chaos"
@@ -45288,7 +45288,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Diana Scorn of the Moon Overnumbered",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
@@ -45311,7 +45311,7 @@
 "classification":{
 "type":"Legend",
 "supertype":null,
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Mind",
 "Chaos"
@@ -45337,7 +45337,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Diana Scorn of the Moon Signature",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":true
@@ -45360,7 +45360,7 @@
 "classification":{
 "type":"Legend",
 "supertype":null,
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Mind",
 "Order"
@@ -45386,7 +45386,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"LeBlanc Deceiver Overnumbered",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
@@ -45409,7 +45409,7 @@
 "classification":{
 "type":"Legend",
 "supertype":null,
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Mind",
 "Order"
@@ -45435,7 +45435,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"LeBlanc Deceiver Signature",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":true
@@ -45458,7 +45458,7 @@
 "classification":{
 "type":"Legend",
 "supertype":null,
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Body",
 "Chaos"
@@ -45484,7 +45484,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"KhaZix Voidreaver Overnumbered",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
@@ -45507,7 +45507,7 @@
 "classification":{
 "type":"Legend",
 "supertype":null,
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Body",
 "Chaos"
@@ -45533,7 +45533,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"KhaZix Voidreaver Signature",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":true
@@ -45556,7 +45556,7 @@
 "classification":{
 "type":"Legend",
 "supertype":null,
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Body",
 "Order"
@@ -45582,7 +45582,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Poppy Keeper of the Hammer Overnumbered",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
@@ -45605,7 +45605,7 @@
 "classification":{
 "type":"Legend",
 "supertype":null,
-"rarity":"Rare",
+"rarity":"Showcase",
 "domain":[
 "Body",
 "Order"
@@ -45631,7 +45631,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Poppy Keeper of the Hammer Signature",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":true
@@ -46287,7 +46287,7 @@
 "media":{
 "image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/08b9ccf225fc2ae9eb9b5668e5361b09789210ee-744x1039.png?accountingTag=RB",
 "artist":"Six More Vodka",
-"accessibility_text":"Riftbound Unit: Recruit (NX)."
+"accessibility_text":"Riftbound Unit: Recruit."
 },
 "tags":[
 "Recruit"
@@ -46295,7 +46295,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Recruit",
-"updated_on":"2026-10-09T10:04:12Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -49408,7 +49408,7 @@
 },
 {
 "id":"ven-060-166",
-"name":"Sky Crusier",
+"name":"Sky Cruiser",
 "riftbound_id":"ven-060-166",
 "public_code":"VEN-060/166",
 "collector_number":60,
@@ -49445,8 +49445,8 @@
 ],
 "orientation":"portrait",
 "metadata":{
-"clean_name":"Sky Crusier",
-"updated_on":"2026-10-09T10:08:11Z",
+"clean_name":"Sky Cruiser",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -57594,8 +57594,8 @@
 ]
 },
 "text":{
-"rich":"<p>[Disarm] (When I attack, give an enemy unit here -1 :rb_might: this turn.)<br />When I hold, if you control a facedown card here, score 1 point.</p>",
-"plain":"[Disarm] (When I attack, give an enemy unit here -1 Might this turn.)\nWhen I hold, if you control a facedown card here, score 1 point.",
+"rich":"<p>[Disarm]<br />When I hold, if you control a facedown card here, score 1 point.</p>",
+"plain":"[Disarm]\nWhen I hold, if you control a facedown card here, score 1 point.",
 "flavour":null
 },
 "set":{
@@ -57605,7 +57605,7 @@
 "media":{
 "image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/f79b82a0a56c2e4af641beb84762abcd6b058195-744x1039.png?accountingTag=RB",
 "artist":"Yuande Wu",
-"accessibility_text":"Riftbound Unit: Evelynn, In Control. [Disarm] (When I attack, give an enemy unit here -1 [S] this turn.)\nWhen I hold, if you control a facedown card here, score 1 point."
+"accessibility_text":"Riftbound Unit: Evelynn, In Control. [Disarm]\nWhen I hold, if you control a facedown card here, score 1 point."
 },
 "tags":[
 "Evelynn"
@@ -57613,7 +57613,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Evelynn In Control",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -57767,7 +57767,7 @@
 "collector_number":4,
 "attributes":{
 "energy":5,
-"might":4,
+"might":5,
 "power":1,
 "might_bonus":null
 },
@@ -57800,7 +57800,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"KaiSa Rebel",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -59643,8 +59643,8 @@
 ]
 },
 "text":{
-"rich":"<p>[Deflect] (Opponents must pay :rb_rune_rainbow: to choose me with a spell or ability.)<br />When a stunned enemy unit dies here, draw 1.</p>",
-"plain":"[Deflect] (Opponents must pay Any Rune to choose me with a spell or ability.)\nWhen a stunned enemy unit dies here, draw 1.",
+"rich":"<p>[Deflect] (Opponents must pay :rb_rune_rainbow: to choose me with a spell or ability.)<br />When a stunned enemy unit here dies, draw 1.</p>",
+"plain":"[Deflect] (Opponents must pay Any Rune to choose me with a spell or ability.)\nWhen a stunned enemy unit here dies, draw 1.",
 "flavour":"The heart of the storm."
 },
 "set":{
@@ -59654,13 +59654,13 @@
 "media":{
 "image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/fc59661dfc70a1fdb393d795c90779a2b5661609-744x1039.png?accountingTag=RB",
 "artist":"Bubble Cat Studio",
-"accessibility_text":"Riftbound Unit: Storm Raptor. [Deflect] (Opponents must pay [A] to choose me with a spell or ability.)\nWhen a stunned enemy unit dies here, draw 1."
+"accessibility_text":"Riftbound Unit: Storm Raptor. [Deflect] (Opponents must pay [A] to choose me with a spell or ability.)\nWhen a stunned enemy unit here dies, draw 1."
 },
 "tags":null,
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Storm Raptor",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -66683,8 +66683,8 @@
 ]
 },
 "text":{
-"rich":"<p>[Reaction][&gt;] Banish a unit or gear from your trash, :rb_exhaust:: [Add] :rb_rune_rainbow:. Spend this Power to play units or gear.</p>",
-"plain":"[Reaction][>] Banish a unit or gear from your trash, Exhaust: [Add] Any Rune. Spend this Power to play units or gear.",
+"rich":"<p>[Reaction][&gt;] Banish a unit or gear from your trash, :rb_exhaust:: [Add] :rb_rune_rainbow:. Spend this Power only to play units or gear.</p>",
+"plain":"[Reaction][>] Banish a unit or gear from your trash, Exhaust: [Add] Any Rune. Spend this Power only to play units or gear.",
 "flavour":null
 },
 "set":{
@@ -66694,7 +66694,7 @@
 "media":{
 "image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/57ad15a4a09ffc2038e1b8548d861eb74d46d4f7-744x1039.png?accountingTag=RB",
 "artist":null,
-"accessibility_text":"Riftbound Legend: Iron Revenant. [Reaction][>] Banish a unit or gear from your trash, [T]: [Add] [A]. Spend this Power to play units or gear."
+"accessibility_text":"Riftbound Legend: Iron Revenant. [Reaction][>] Banish a unit or gear from your trash, [T]: [Add] [A]. Spend this Power only to play units or gear."
 },
 "tags":[
 "Mordekaiser"
@@ -66702,7 +66702,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Mordekaiser Iron Revenant Overnumbered",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":true,
 "signature":false
