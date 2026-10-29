@@ -21,9 +21,10 @@ import urllib.request
 from datetime import datetime, timezone
 
 GALLERY = "https://playriftbound.com/{locale}/card-gallery/"
-# Riot's gallery has no flavour text; DotGG transcribes it. Best effort: a
-# failed fetch keeps whatever flavour the previous cards.json carried.
-FLAVOUR = "https://api.dotgg.gg/cgfw/getcards?game=riftbound&mode=indexed"
+# Riot's gallery has no flavour text; DotGG transcribes it, and its domain and
+# type fields correct Riot's where they disagree (see fix_from_dotgg). Best
+# effort: a failed fetch keeps whatever flavour the previous cards.json carried.
+DOTGG = "https://api.dotgg.gg/cgfw/getcards?game=riftbound&mode=indexed"
 USER_AGENT = "Riftcount card feed (https://okay-u.github.io)"
 MIN_CARDS = 1000  # fewer than this means the page changed; keep the old file
 
@@ -179,21 +180,37 @@ def base_code(code):
     return m.group(1) + "-" + m.group(2) if m else None
 
 
-def fetch_flavour():
+def fetch_dotgg():
+    """DotGG rows by base code: flavour text plus the domain and type it transcribes."""
     try:
-        doc = json.loads(fetch(FLAVOUR))
+        doc = json.loads(fetch(DOTGG))
         names = doc["names"]
         rows = (dict(zip(names, r)) for r in doc["data"])
     except Exception as e:  # noqa: BLE001 - any failure just keeps the old text
-        print("flavour source unavailable: %s" % e, file=sys.stderr)
+        print("DotGG unavailable: %s" % e, file=sys.stderr)
         return None
     out = {}
     for r in rows:
         key = base_code(r.get("id") or "")
-        text = html.unescape(re.sub(r"<[^>]+>", "", r.get("flavor") or "")).strip()
-        if key and text and key not in out:   # first row = base printing, promos follow
-            out[key] = text
+        if key and key not in out:   # first row = base printing, promos follow
+            out[key] = {
+                "flavour": html.unescape(re.sub(r"<[^>]+>", "", r.get("flavor") or "")).strip() or None,
+                "domain": r.get("color") or [],
+                "type": (r.get("type") or [None])[0],
+            }
     return out
+
+
+def fix_from_dotgg(card, row):
+    """Riot's gallery shipped Radiance with wrong domain and type fields (2026-10:
+    Amateur Demolitionist as Chaos, Rally for War as Gear; the card images and
+    Riot's own alt text say Fury and Spell). DotGG matches the printed cards, so
+    its domain and type win where the two disagree."""
+    cl = card["classification"]
+    for field, theirs in (("domain", row["domain"]), ("type", row["type"])):
+        if theirs and cl[field] != theirs:
+            print("%s %s: %s %s -> %s" % (card["public_code"], card["name"], field, cl[field], theirs), file=sys.stderr)
+            cl[field] = theirs
 
 
 def sort_key(c):
@@ -239,11 +256,14 @@ def main():
         if len(cards) < len(previous) * 0.97:
             sys.exit("gallery shrank from %d to %d cards" % (len(previous), len(cards)))
 
-    flavour = fetch_flavour() or {}
+    dotgg = fetch_dotgg() or {}
     for c in cards:
         old = previous.get(c["id"])
+        row = dotgg.get(base_code(c["public_code"]))
+        if row:
+            fix_from_dotgg(c, row)
         # DotGG is a best-effort source: a missing entry keeps the text we had.
-        c["text"]["flavour"] = flavour.get(base_code(c["public_code"])) or (old["text"].get("flavour") if old else None)
+        c["text"]["flavour"] = (row and row["flavour"]) or (old["text"].get("flavour") if old else None)
         if old:
             probe = dict(c, metadata=dict(c["metadata"], updated_on=old["metadata"]["updated_on"]))
             if probe == old:
