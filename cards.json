@@ -57076,7 +57076,7 @@
 "supertype":null,
 "rarity":"Common",
 "domain":[
-"Chaos"
+"Fury"
 ]
 },
 "text":{
@@ -57097,7 +57097,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Amateur Demolitionist",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -57452,7 +57452,7 @@
 "supertype":null,
 "rarity":"Common",
 "domain":[
-"Body"
+"Fury"
 ]
 },
 "text":{
@@ -57473,7 +57473,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Bilgewater Tracker",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -57638,7 +57638,7 @@
 "supertype":null,
 "rarity":"Common",
 "domain":[
-"Chaos"
+"Fury"
 ]
 },
 "text":{
@@ -57659,7 +57659,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Brawl",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -58008,10 +58008,12 @@
 "might_bonus":null
 },
 "classification":{
-"type":null,
+"type":"Spell",
 "supertype":null,
 "rarity":"Common",
-"domain":[]
+"domain":[
+"Fury"
+]
 },
 "text":{
 "rich":"<p>[Action] (Play on your turn or in showdowns.)<br />Deal 5 damage split among units at a single battlefield.</p>",
@@ -58031,7 +58033,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Scorched Earth",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -58144,7 +58146,7 @@
 "might_bonus":null
 },
 "classification":{
-"type":"Gear",
+"type":"Spell",
 "supertype":null,
 "rarity":"Common",
 "domain":[
@@ -58169,7 +58171,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Rally for War",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -58236,10 +58238,12 @@
 "might_bonus":null
 },
 "classification":{
-"type":null,
+"type":"Unit",
 "supertype":null,
 "rarity":"Uncommon",
-"domain":[]
+"domain":[
+"Fury"
+]
 },
 "text":{
 "rich":"<p>I enter ready.<br />When you play me, play a ready 3 :rb_might: Mech unit token here.</p>",
@@ -58259,7 +58263,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Antagonistic Apparatus",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -58372,11 +58376,11 @@
 "might_bonus":null
 },
 "classification":{
-"type":"Unit",
+"type":"Gear",
 "supertype":null,
 "rarity":"Uncommon",
 "domain":[
-"Chaos"
+"Fury"
 ]
 },
 "text":{
@@ -58397,7 +58401,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Runeblade Anvil",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -58559,11 +58563,11 @@
 "might_bonus":null
 },
 "classification":{
-"type":"Spell",
+"type":"Unit",
 "supertype":null,
 "rarity":"Rare",
 "domain":[
-"Mind"
+"Fury"
 ]
 },
 "text":{
@@ -58584,7 +58588,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Coalesced Energy",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -58609,7 +58613,7 @@
 "supertype":null,
 "rarity":"Rare",
 "domain":[
-"Chaos"
+"Fury"
 ]
 },
 "text":{
@@ -58632,7 +58636,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Detonation Amplifier",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -58941,10 +58945,12 @@
 "might_bonus":null
 },
 "classification":{
-"type":null,
+"type":"Gear",
 "supertype":null,
 "rarity":"Epic",
-"domain":[]
+"domain":[
+"Fury"
+]
 },
 "text":{
 "rich":"<p>:rb_exhaust:: Play a Gold gear token exhausted. (It has &quot;[Reaction][&gt;] Kill this, :rb_exhaust:: [Add] :rb_rune_rainbow:.&quot;)<br />Kill a friendly gear, :rb_exhaust:: Play a 1 :rb_might: Recruit unit token.<br />Kill a friendly unit, :rb_exhaust:: Play a 3 :rb_might: Mech unit token.</p>",
@@ -58964,7 +58970,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Whirling Twirligig",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -59087,7 +59093,7 @@
 "supertype":null,
 "rarity":"Common",
 "domain":[
-"Chaos"
+"Calm"
 ]
 },
 "text":{
@@ -59110,7 +59116,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Blossoming Dreamroot",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -59131,7 +59137,7 @@
 "might_bonus":null
 },
 "classification":{
-"type":"Unit",
+"type":"Spell",
 "supertype":null,
 "rarity":"Common",
 "domain":[
@@ -59156,7 +59162,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Consult the Heavens",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -59177,10 +59183,12 @@
 "might_bonus":null
 },
 "classification":{
-"type":null,
+"type":"Unit",
 "supertype":null,
 "rarity":"Common",
-"domain":[]
+"domain":[
+"Calm"
+]
 },
 "text":{
 "rich":"<p>You may have me enter ready. If you do, I can't move this turn.</p>",
@@ -59200,7 +59208,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Entrenched Boar",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -59497,7 +59505,7 @@
 "might_bonus":null
 },
 "classification":{
-"type":"Gear",
+"type":"Spell",
 "supertype":null,
 "rarity":"Uncommon",
 "domain":[
@@ -59522,7 +59530,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Command Attack",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -59543,7 +59551,7 @@
 "might_bonus":null
 },
 "classification":{
-"type":null,
+"type":"Spell",
 "supertype":null,
 "rarity":"Uncommon",
 "domain":[
@@ -59568,7 +59576,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Hunker Down",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -59589,7 +59597,7 @@
 "might_bonus":null
 },
 "classification":{
-"type":"Unit",
+"type":"Gear",
 "supertype":null,
 "rarity":"Uncommon",
 "domain":[
@@ -59614,7 +59622,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Invigorating Bloom",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -59776,7 +59784,7 @@
 "might_bonus":null
 },
 "classification":{
-"type":"Unit",
+"type":"Gear",
 "supertype":null,
 "rarity":"Rare",
 "domain":[
@@ -59801,7 +59809,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Ephemeral Ward",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -59868,10 +59876,12 @@
 "might_bonus":null
 },
 "classification":{
-"type":null,
+"type":"Spell",
 "supertype":null,
 "rarity":"Rare",
-"domain":[]
+"domain":[
+"Calm"
+]
 },
 "text":{
 "rich":"<p>[Reaction] (Play any time, even before spells and abilities resolve.)<br />Counter a spell with Power cost :rb_rune_rainbow::rb_rune_rainbow: or more.</p>",
@@ -59891,7 +59901,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Hush",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -60106,7 +60116,7 @@
 "might_bonus":null
 },
 "classification":{
-"type":"Unit",
+"type":"Gear",
 "supertype":null,
 "rarity":"Epic",
 "domain":[
@@ -60133,7 +60143,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Hunting Blind",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -60252,7 +60262,7 @@
 "might_bonus":null
 },
 "classification":{
-"type":"Spell",
+"type":"Gear",
 "supertype":null,
 "rarity":"Epic",
 "domain":[
@@ -60277,7 +60287,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Resplendent Rostrum",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -60298,10 +60308,12 @@
 "might_bonus":null
 },
 "classification":{
-"type":null,
+"type":"Spell",
 "supertype":null,
 "rarity":"Common",
-"domain":[]
+"domain":[
+"Mind"
+]
 },
 "text":{
 "rich":"<p>The next three times you play a unit this turn, draw 1.</p>",
@@ -60321,7 +60333,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Fanfare",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -60388,10 +60400,12 @@
 "might_bonus":null
 },
 "classification":{
-"type":null,
+"type":"Unit",
 "supertype":null,
 "rarity":"Common",
-"domain":[]
+"domain":[
+"Mind"
+]
 },
 "text":{
 "rich":"<p>When you play me, play a 3 :rb_might: Mech unit token here.</p>",
@@ -60411,7 +60425,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Industrious Mechsmith",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -60710,7 +60724,7 @@
 "might_bonus":null
 },
 "classification":{
-"type":"Gear",
+"type":"Spell",
 "supertype":null,
 "rarity":"Uncommon",
 "domain":[
@@ -60735,7 +60749,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Improvised Projectile",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -60848,11 +60862,11 @@
 "might_bonus":null
 },
 "classification":{
-"type":"Unit",
+"type":"Spell",
 "supertype":null,
 "rarity":"Uncommon",
 "domain":[
-"Order"
+"Mind"
 ]
 },
 "text":{
@@ -60873,7 +60887,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Supernova",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -61044,7 +61058,7 @@
 "supertype":null,
 "rarity":"Rare",
 "domain":[
-"Calm"
+"Mind"
 ]
 },
 "text":{
@@ -61067,7 +61081,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Gravity Field",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -61137,7 +61151,7 @@
 "might_bonus":null
 },
 "classification":{
-"type":"Spell",
+"type":"Gear",
 "supertype":null,
 "rarity":"Rare",
 "domain":[
@@ -61162,7 +61176,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Scrutinizing Scope",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -61331,7 +61345,7 @@
 "supertype":null,
 "rarity":"Epic",
 "domain":[
-"Fury"
+"Mind"
 ]
 },
 "text":{
@@ -61354,7 +61368,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Clocktower Guardian",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -61473,7 +61487,7 @@
 "might_bonus":null
 },
 "classification":{
-"type":"Spell",
+"type":"Gear",
 "supertype":null,
 "rarity":"Epic",
 "domain":[
@@ -61498,7 +61512,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Zero Point Inflection",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -61569,7 +61583,7 @@
 "supertype":null,
 "rarity":"Common",
 "domain":[
-"Order"
+"Body"
 ]
 },
 "text":{
@@ -61590,7 +61604,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Nazuman Ntofo",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -61611,7 +61625,7 @@
 "might_bonus":null
 },
 "classification":{
-"type":"Spell",
+"type":"Unit",
 "supertype":null,
 "rarity":"Common",
 "domain":[
@@ -61636,7 +61650,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Overloaded Traveler",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -61661,7 +61675,7 @@
 "supertype":null,
 "rarity":"Common",
 "domain":[
-"Calm"
+"Body"
 ]
 },
 "text":{
@@ -61684,7 +61698,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Pillaged Armory",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -62031,7 +62045,7 @@
 "supertype":null,
 "rarity":"Uncommon",
 "domain":[
-"Fury"
+"Body"
 ]
 },
 "text":{
@@ -62052,7 +62066,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Elnuk Herd",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -62358,7 +62372,7 @@
 "might_bonus":null
 },
 "classification":{
-"type":"Unit",
+"type":"Gear",
 "supertype":null,
 "rarity":"Rare",
 "domain":[
@@ -62385,7 +62399,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Portable Portal",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -62746,7 +62760,7 @@
 "supertype":null,
 "rarity":"Common",
 "domain":[
-"Fury"
+"Chaos"
 ]
 },
 "text":{
@@ -62767,7 +62781,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Disposal Expert",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -62926,7 +62940,7 @@
 "might_bonus":null
 },
 "classification":{
-"type":"Spell",
+"type":"Unit",
 "supertype":null,
 "rarity":"Common",
 "domain":[
@@ -62951,7 +62965,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Siren of the Shallows",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -63110,7 +63124,7 @@
 "might_bonus":null
 },
 "classification":{
-"type":"Gear",
+"type":"Spell",
 "supertype":null,
 "rarity":"Uncommon",
 "domain":[
@@ -63135,7 +63149,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"An Offer You Cant Refuse",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -63160,7 +63174,7 @@
 "supertype":null,
 "rarity":"Uncommon",
 "domain":[
-"Fury"
+"Chaos"
 ]
 },
 "text":{
@@ -63181,7 +63195,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Demon Shade",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -63248,10 +63262,12 @@
 "might_bonus":null
 },
 "classification":{
-"type":null,
+"type":"Unit",
 "supertype":null,
 "rarity":"Uncommon",
-"domain":[]
+"domain":[
+"Chaos"
+]
 },
 "text":{
 "rich":"<p>:rb_exhaust:: [Stun] an enemy unit. (It doesn't deal combat damage this turn.)</p>",
@@ -63271,7 +63287,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Pitiless Stalker",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -63342,7 +63358,7 @@
 "supertype":null,
 "rarity":"Uncommon",
 "domain":[
-"Body"
+"Chaos"
 ]
 },
 "text":{
@@ -63365,7 +63381,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"The Good Stuff",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -63432,11 +63448,11 @@
 "might_bonus":null
 },
 "classification":{
-"type":"Unit",
+"type":"Gear",
 "supertype":null,
 "rarity":"Rare",
 "domain":[
-"Fury"
+"Chaos"
 ]
 },
 "text":{
@@ -63459,7 +63475,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Bushwhack Trap",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -63630,7 +63646,7 @@
 "supertype":null,
 "rarity":"Rare",
 "domain":[
-"Fury"
+"Chaos"
 ]
 },
 "text":{
@@ -63653,7 +63669,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Mechanical Bandit",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -64146,7 +64162,7 @@
 "might_bonus":null
 },
 "classification":{
-"type":"Gear",
+"type":"Unit",
 "supertype":null,
 "rarity":"Common",
 "domain":[
@@ -64173,7 +64189,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Meticulous Restorationist",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -64194,10 +64210,12 @@
 "might_bonus":null
 },
 "classification":{
-"type":null,
+"type":"Spell",
 "supertype":null,
 "rarity":"Common",
-"domain":[]
+"domain":[
+"Order"
+]
 },
 "text":{
 "rich":"<p>[Action] (Play on your turn or in showdowns.)<br />[Buff] a friendly unit and [Stun] an enemy unit. (Give the friendly unit a +1 :rb_might: buff if it doesn't have one. The enemy unit doesn't deal combat damage this turn.)</p>",
@@ -64217,7 +64235,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"OneTwo Punch",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -64284,10 +64302,12 @@
 "might_bonus":1
 },
 "classification":{
-"type":null,
+"type":"Gear",
 "supertype":null,
 "rarity":"Common",
-"domain":[]
+"domain":[
+"Order"
+]
 },
 "text":{
 "rich":"<p>[Quick-Draw] (This has [Reaction]. When you play it, attach it to a unit you control.)<br />[Equip] :rb_energy_1: (:rb_energy_1:: Attach this to a unit you control.)</p><p>[Tank] (I must be assigned combat damage first.)</p>",
@@ -64307,7 +64327,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Protectors Shield",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -64328,11 +64348,11 @@
 "might_bonus":null
 },
 "classification":{
-"type":"Gear",
+"type":"Spell",
 "supertype":null,
 "rarity":"Uncommon",
 "domain":[
-"Body"
+"Order"
 ]
 },
 "text":{
@@ -64353,7 +64373,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Burn Away",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -64468,7 +64488,7 @@
 "might_bonus":null
 },
 "classification":{
-"type":null,
+"type":"Spell",
 "supertype":null,
 "rarity":"Uncommon",
 "domain":[
@@ -64493,7 +64513,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Rousing Display",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -64606,7 +64626,7 @@
 "might_bonus":null
 },
 "classification":{
-"type":"Spell",
+"type":"Unit",
 "supertype":null,
 "rarity":"Rare",
 "domain":[
@@ -64631,7 +64651,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Battlefield Armorer",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -64652,7 +64672,7 @@
 "might_bonus":null
 },
 "classification":{
-"type":"Spell",
+"type":"Unit",
 "supertype":null,
 "rarity":"Rare",
 "domain":[
@@ -64677,7 +64697,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Demacian Illuminators",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -64846,10 +64866,12 @@
 "might_bonus":null
 },
 "classification":{
-"type":null,
+"type":"Spell",
 "supertype":null,
 "rarity":"Rare",
-"domain":[]
+"domain":[
+"Order"
+]
 },
 "text":{
 "rich":"<p>Ready your units and give them +3 :rb_might: this turn.</p>",
@@ -64869,7 +64891,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Raucous Anthem",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
@@ -64936,7 +64958,7 @@
 "might_bonus":null
 },
 "classification":{
-"type":"Unit",
+"type":"Gear",
 "supertype":null,
 "rarity":"Epic",
 "domain":[
@@ -64963,7 +64985,7 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Dockside LockUp",
-"updated_on":"2026-10-23T10:08:43Z",
+"updated_on":"2026-10-29T19:46:36Z",
 "alternate_art":false,
 "overnumbered":false,
 "signature":false
