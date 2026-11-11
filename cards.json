@@ -2,9 +2,9 @@
 "version":1,
 "source":"https://playriftbound.com/en-us/card-gallery/",
 "disclaimer":"Card data and images (c) Riot Games, used under the Riftbound Digital Tools Policy. Not affiliated with Riot Games.",
-"total":1408,
+"total":1407,
 "page":1,
-"size":1408,
+"size":1407,
 "sets":[
 {
 "set_id":"OGN",
@@ -24384,55 +24384,6 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Boneshiver",
-"updated_on":"2026-10-09T10:04:12Z",
-"alternate_art":false,
-"overnumbered":false,
-"signature":false
-},
-"new":false,
-"unreleased":false
-},
-{
-"id":"sfd-119-221",
-"name":"Jax - Unrelenting",
-"riftbound_id":"sfd-119-221",
-"public_code":"SFD-119/221",
-"collector_number":119,
-"attributes":{
-"energy":4,
-"might":3,
-"power":1,
-"might_bonus":null
-},
-"classification":{
-"type":"Unit",
-"supertype":"Champion",
-"rarity":"Epic",
-"domain":[
-"Body"
-]
-},
-"text":{
-"rich":"<p>[Weaponmaster] (When you play me, you may [Equip] one of your Equipment to me for :rb_rune_rainbow: less, even if it's already attached.)<br />When you attach an Equipment to me, you may pay :rb_energy_1: to draw 1.</p>",
-"plain":"[Weaponmaster] (When you play me, you may [Equip] one of your Equipment to me for Any Rune less, even if it's already attached.)\nWhen you attach an Equipment to me, you may pay 1 Energy to draw 1.",
-"flavour":null
-},
-"set":{
-"set_id":"SFD",
-"label":"Spiritforged"
-},
-"media":{
-"image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e63ab3370a6e4ce4baddfba12ab92468f6cc9541-744x1039.png?accountingTag=RB",
-"artist":"Envar Studio",
-"accessibility_text":"Riftbound Unit: Jax, Unrelenting. [Weaponmaster] (When you play me, you may [Equip] one of your Equipment to me for [A] less, even if it's already attached.)\nWhen you attach an Equipment to me, you may pay [1] to draw 1."
-},
-"tags":[
-"Jax",
-"Icathia"
-],
-"orientation":"portrait",
-"metadata":{
-"clean_name":"Jax Unrelenting",
 "updated_on":"2026-10-09T10:04:12Z",
 "alternate_art":false,
 "overnumbered":false,
