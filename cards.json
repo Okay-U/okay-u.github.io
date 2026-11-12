@@ -24393,6 +24393,55 @@
 "unreleased":false
 },
 {
+"id":"sfd-119-221",
+"name":"Jax - Unrelenting",
+"riftbound_id":"sfd-119-221",
+"public_code":"SFD-119/221",
+"collector_number":119,
+"attributes":{
+"energy":4,
+"might":3,
+"power":1,
+"might_bonus":null
+},
+"classification":{
+"type":"Unit",
+"supertype":"Champion",
+"rarity":"Epic",
+"domain":[
+"Body"
+]
+},
+"text":{
+"rich":"<p>[Weaponmaster] (When you play me, you may [Equip] one of your Equipment to me for :rb_rune_rainbow: less, even if it's already attached.)<br />When you attach an Equipment to me, you may pay :rb_energy_1: to draw 1.</p>",
+"plain":"[Weaponmaster] (When you play me, you may [Equip] one of your Equipment to me for Any Rune less, even if it's already attached.)\nWhen you attach an Equipment to me, you may pay 1 Energy to draw 1.",
+"flavour":null
+},
+"set":{
+"set_id":"SFD",
+"label":"Spiritforged"
+},
+"media":{
+"image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/e63ab3370a6e4ce4baddfba12ab92468f6cc9541-744x1039.png?accountingTag=RB",
+"artist":"Envar Studio",
+"accessibility_text":"Riftbound Unit: Jax, Unrelenting. [Weaponmaster] (When you play me, you may [Equip] one of your Equipment to me for [A] less, even if it's already attached.)\nWhen you attach an Equipment to me, you may pay [1] to draw 1."
+},
+"tags":[
+"Jax",
+"Icathia"
+],
+"orientation":"portrait",
+"metadata":{
+"clean_name":"Jax Unrelenting",
+"updated_on":"2026-11-12T13:49:12Z",
+"alternate_art":false,
+"overnumbered":false,
+"signature":false
+},
+"new":false,
+"unreleased":false
+},
+{
 "id":"sfd-119a-221",
 "name":"Jax - Unrelenting (Alternate Art)",
 "riftbound_id":"sfd-119a-221",
@@ -44310,54 +44359,6 @@
 "orientation":"portrait",
 "metadata":{
 "clean_name":"Veteran Poro Overnumbered",
-"updated_on":"2026-10-28T11:23:05Z",
-"alternate_art":false,
-"overnumbered":true,
-"signature":false
-},
-"new":false,
-"unreleased":false
-},
-{
-"id":"unl-224-219",
-"name":"Mystic Poro (Overnumbered)",
-"riftbound_id":"unl-224-219",
-"public_code":"UNL-224/219",
-"collector_number":224,
-"attributes":{
-"energy":2,
-"might":2,
-"power":null,
-"might_bonus":null
-},
-"classification":{
-"type":"Unit",
-"supertype":null,
-"rarity":"Showcase",
-"domain":[
-"Chaos"
-]
-},
-"text":{
-"rich":"<p>[Vision]</p>",
-"plain":"[Vision]",
-"flavour":"Now let us find the strength in song  \nAnd let it raise our hearts aloft"
-},
-"set":{
-"set_id":"UNL",
-"label":"Unleashed"
-},
-"media":{
-"image_url":"https://cmsassets.rgpub.io/sanity/images/dsfx7636/game_data_live/2fdb5e1ff9aae4137910fa59065b69ef17144752-744x1039.png?accountingTag=RB",
-"artist":"FOREDAWN",
-"accessibility_text":"Riftbound Unit: Mystic Poro. [Vision]"
-},
-"tags":[
-"Poro"
-],
-"orientation":"portrait",
-"metadata":{
-"clean_name":"Mystic Poro Overnumbered",
 "updated_on":"2026-10-28T11:23:05Z",
 "alternate_art":false,
 "overnumbered":true,

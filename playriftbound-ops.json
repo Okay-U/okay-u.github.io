@@ -1,11 +1,11 @@
 {
  "version": 1,
- "updated": "2026-11-11",
- "build": "2026-11-11",
+ "updated": "2026-11-12",
+ "build": "2026-11-12",
  "endpoint": "https://playriftbound.com/api/gql",
  "operations": {
   "GetCompeteTournamentForRiftboundPlayer": {
-   "id": "0763c51ef2db10a68131920f41a174b482feb1d9d47400df55be7621054e106c",
+   "id": "420b49ecac6d8601e2059ad31f599d4854938e70e69938e47293c22dc0ea0843",
    "kind": "query"
   },
   "SubmitGameResults": {
